@@ -1,0 +1,539 @@
+2021-10-24 17:10:46,539  INFO Stream
+2021-10-24 17:14:58,082  INFO Stream
+2021-10-24 17:14:58,084  INFO started stock data stream
+2021-10-24 17:14:58,084  INFO starting websocket connection
+2021-10-24 17:14:58,534  INFO connected to: wss://stream.data.alpaca.markets/v2/iex
+2021-10-24 17:14:58,623  INFO subscribed to trades: ['AAPL'], quotes: ['AAPL'], bars: [], dailyBars: [], statuses: [], lulds: []
+2021-10-24 17:35:09,791  INFO started stock data stream
+2021-10-24 17:35:09,791  INFO starting websocket connection
+2021-10-24 17:35:10,285  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:10,296  INFO starting websocket connection
+2021-10-24 17:35:10,831  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:10,841  INFO starting websocket connection
+2021-10-24 17:35:11,248  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:11,259  INFO starting websocket connection
+2021-10-24 17:35:11,681  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:11,692  INFO starting websocket connection
+2021-10-24 17:35:12,145  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:12,156  INFO starting websocket connection
+2021-10-24 17:35:12,575  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:12,585  INFO starting websocket connection
+2021-10-24 17:35:13,001  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:13,012  INFO starting websocket connection
+2021-10-24 17:35:13,446  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:13,457  INFO starting websocket connection
+2021-10-24 17:35:13,878  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:13,889  INFO starting websocket connection
+2021-10-24 17:35:14,279  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:14,289  INFO starting websocket connection
+2021-10-24 17:35:14,706  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:14,716  INFO starting websocket connection
+2021-10-24 17:35:15,138  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:15,149  INFO starting websocket connection
+2021-10-24 17:35:15,554  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:15,565  INFO starting websocket connection
+2021-10-24 17:35:15,968  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:15,980  INFO starting websocket connection
+2021-10-24 17:35:16,466  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:16,477  INFO starting websocket connection
+2021-10-24 17:35:16,878  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:16,890  INFO starting websocket connection
+2021-10-24 17:35:17,379  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:17,389  INFO starting websocket connection
+2021-10-24 17:35:17,821  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:17,831  INFO starting websocket connection
+2021-10-24 17:35:18,335  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:18,346  INFO starting websocket connection
+2021-10-24 17:35:18,756  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:18,767  INFO starting websocket connection
+2021-10-24 17:35:19,263  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:19,275  INFO starting websocket connection
+2021-10-24 17:35:19,729  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:19,740  INFO starting websocket connection
+2021-10-24 17:35:20,225  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:20,236  INFO starting websocket connection
+2021-10-24 17:35:20,647  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:20,658  INFO starting websocket connection
+2021-10-24 17:35:21,065  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:21,076  INFO starting websocket connection
+2021-10-24 17:35:21,493  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:21,505  INFO starting websocket connection
+2021-10-24 17:35:21,939  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:21,951  INFO starting websocket connection
+2021-10-24 17:35:22,353  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:22,364  INFO starting websocket connection
+2021-10-24 17:35:23,078  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:23,089  INFO starting websocket connection
+2021-10-24 17:35:23,484  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:23,495  INFO starting websocket connection
+2021-10-24 17:35:23,904  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:23,916  INFO starting websocket connection
+2021-10-24 17:35:24,351  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:24,362  INFO starting websocket connection
+2021-10-24 17:35:24,795  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:24,806  INFO starting websocket connection
+2021-10-24 17:35:25,212  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:25,223  INFO starting websocket connection
+2021-10-24 17:35:25,626  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:25,637  INFO starting websocket connection
+2021-10-24 17:35:26,040  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:26,051  INFO starting websocket connection
+2021-10-24 17:35:26,465  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:26,476  INFO starting websocket connection
+2021-10-24 17:35:26,971  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:26,982  INFO starting websocket connection
+2021-10-24 17:35:27,388  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:27,399  INFO starting websocket connection
+2021-10-24 17:35:27,902  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:27,913  INFO starting websocket connection
+2021-10-24 17:35:28,326  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:28,337  INFO starting websocket connection
+2021-10-24 17:35:28,843  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:28,854  INFO starting websocket connection
+2021-10-24 17:35:29,262  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:29,273  INFO starting websocket connection
+2021-10-24 17:35:29,795  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:29,807  INFO starting websocket connection
+2021-10-24 17:35:30,219  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:30,230  INFO starting websocket connection
+2021-10-24 17:35:30,724  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:30,734  INFO starting websocket connection
+2021-10-24 17:35:31,164  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:31,175  INFO starting websocket connection
+2021-10-24 17:35:31,600  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:31,611  INFO starting websocket connection
+2021-10-24 17:35:32,016  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:32,027  INFO starting websocket connection
+2021-10-24 17:35:32,436  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:32,447  INFO starting websocket connection
+2021-10-24 17:35:32,845  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:32,856  INFO starting websocket connection
+2021-10-24 17:35:33,278  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:33,289  INFO starting websocket connection
+2021-10-24 17:35:33,705  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:33,716  INFO starting websocket connection
+2021-10-24 17:35:34,138  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:34,149  INFO starting websocket connection
+2021-10-24 17:35:34,567  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:34,577  INFO starting websocket connection
+2021-10-24 17:35:35,033  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:35,044  INFO starting websocket connection
+2021-10-24 17:35:35,463  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:35,474  INFO starting websocket connection
+2021-10-24 17:35:35,904  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:35,915  INFO starting websocket connection
+2021-10-24 17:35:36,317  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:36,328  INFO starting websocket connection
+2021-10-24 17:35:36,717  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
+2021-10-24 17:35:36,727  INFO starting websocket connection
+2021-10-24 17:35:37,206  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
+2021-10-24 17:35:37,216  INFO starting websocket connection
+2021-10-24 17:35:37,623  ERROR error during websocket communication: connection limit exceeded
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
+    await self._start_ws()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
+    await self._auth()
+  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
+    raise ValueError(msg[0].get('msg', 'auth failed'))
+ValueError: connection limit exceeded
