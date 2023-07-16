@@ -35,3 +35,34 @@ jobs:
           file: ./docker/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
+      - name: Install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz
+          tar zxvf trivy_$(uname -s)_$(uname -m).tar.gz
+          sudo mv trivy /usr/local/bin/
+  
+  container-scan:
+    needs: build-and-push
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=sha,prefix={{branch}}-{{tag}}
+      
+      - name: Install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz
+          tar zxvf trivy_$(uname -s)_$(uname -m).tar.gz
+          sudo mv trivy /usr/local/bin/        
+      
+      - name: Scan container image
+        run: |
+          trivy --exit-code 1 ${{ steps.meta.outputs.tags }}
