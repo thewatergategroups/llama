@@ -74,6 +74,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CONTAINER_PAT }}
 
       - name: Docker meta
         id: meta
@@ -93,4 +99,4 @@ jobs:
           
       - name: Scan container image
         run: |
-          trivy ${{ steps.meta.outputs.tags }}
+          trivy i --scanners vuln ${{ steps.meta.outputs.tags }}
