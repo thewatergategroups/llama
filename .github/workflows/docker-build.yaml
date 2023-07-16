@@ -19,10 +19,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository }}
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./docker/Dockerfile.python311
           push: true
-          tags: ghcr.io/${{ github.repository }}:python311 # Replace with your desired tag
+          tags: ${{ steps.meta.outputs.tags }}:python311
