@@ -27,12 +27,15 @@ jobs:
 
       - name: Run Pylint
         run: |
-          pylint --rcfile=.pylintrc ./alpaca
+          pylint --fail-under=8 ./**/*.py
 
       - name: Run mypy
         run: |
-          mypy ./alpaca
-
+          mypy ./
+      
+      - name: Run ruff
+        run: |
+          ruff ./
   build-and-push:
     needs: lint
     runs-on: ubuntu-latest
