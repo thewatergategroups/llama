@@ -36,11 +36,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-      - name: Install Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz
-          tar zxvf trivy_$(uname -s)_$(uname -m).tar.gz
-          sudo mv trivy /usr/local/bin/
   
   container-scan:
     needs: build-and-push
@@ -59,9 +54,12 @@ jobs:
       
       - name: Install Trivy
         run: |
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_$(uname -s)_$(uname -m).tar.gz
-          tar zxvf trivy_$(uname -s)_$(uname -m).tar.gz
-          sudo mv trivy /usr/local/bin/        
+          apt-get install wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
+          apt-get update
+          apt-get install trivy
+     
       
       - name: Scan container image
         run: |
