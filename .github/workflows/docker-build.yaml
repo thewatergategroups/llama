@@ -24,7 +24,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}:python311
+          images: ghcr.io/${{ github.repository }}
+        tags: |
+          type=raw,value=python311
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
