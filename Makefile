@@ -1,7 +1,6 @@
 REPOSITORY := alpaca
 
 build:
-	docker build -f docker/Dockerfile.python311 . -t base:py
 	docker build -f docker/Dockerfile . -t $(REPOSITORY)
 
 run: build

@@ -1,8 +1,8 @@
-FROM base:py as requirements
+FROM ghcr.io/1ndistinct/ops:python311 as requirements
 COPY pyproject.toml poetry.lock ./scripts/build.sh ./
 RUN bash ./build.sh 
 
-from base:py
+FROM ghcr.io/1ndistinct/ops:python311
 COPY --from=requirements /usr /usr
 RUN groupadd app && useradd -g app --home-dir /app --create-home app
 WORKDIR /app 
