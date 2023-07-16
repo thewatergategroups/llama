@@ -6,6 +6,33 @@ on:
       - master
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'  # Specify the Python version you require
+
+      - name: Install dependencies
+        run: |
+          curl -sSL https://install.python-poetry.org | python -
+          export PATH="/root/.local/bin:$PATH"
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Run Pylint
+        run: |
+          pylint --rcfile=.pylintrc ./
+
+      - name: Run mypy
+        run: |
+          mypy ./
+
   build-and-push:
     runs-on: ubuntu-latest
 
@@ -54,13 +81,12 @@ jobs:
       
       - name: Install Trivy
         run: |
-          apt-get install wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
-          apt-get update
-          apt-get install trivy
-     
-      
+          sudo apt-get install wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy
+          
       - name: Scan container image
         run: |
           trivy --exit-code 1 ${{ steps.meta.outputs.tags }}
