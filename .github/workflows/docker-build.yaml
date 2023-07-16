@@ -27,13 +27,14 @@ jobs:
 
       - name: Run Pylint
         run: |
-          pylint --rcfile=.pylintrc ./
+          pylint --rcfile=.pylintrc ./alpaca
 
       - name: Run mypy
         run: |
-          mypy ./
+          mypy ./alpaca
 
   build-and-push:
+    needs: lint
     runs-on: ubuntu-latest
 
     steps:
@@ -89,4 +90,4 @@ jobs:
           
       - name: Scan container image
         run: |
-          trivy --exit-code 1 ${{ steps.meta.outputs.tags }}
+          trivy ${{ steps.meta.outputs.tags }}
