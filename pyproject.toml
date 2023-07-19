@@ -6,9 +6,8 @@ authors = ["Ciaran <ciaranmckey@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.11"
-alpaca-trade-api = "^1.4.0"
-pydantic = "^2.0.3"
-pydantic-settings = "^2.0.2"
+pydantic = "^1.10.11"
+alpaca-py = "^0.8.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"

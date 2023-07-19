@@ -7,8 +7,8 @@ COPY --from=requirements /usr /usr
 RUN groupadd app && useradd -g app --home-dir /app --create-home app
 WORKDIR /app 
 COPY  ./scripts/start.sh ./
-COPY ./alpaca ./alpaca
+COPY ./llama ./llama
 RUN chown -R app /app && chmod -R 700 /app
 USER app
 ENTRYPOINT ["bash","start.sh"]
-CMD ["python","-m","alpaca"]
+CMD ["python","-m","llama"]
