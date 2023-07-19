@@ -19,11 +19,11 @@ class LlamaHistory:
         """Get stock news"""
         headers = {
             'content-type': 'application/json',
-            'Apca-Api-Key-Id': self.client._api_key, 
-            'Apca-Api-Secret-Key': self.client._secret_key
+            'Apca-Api-Key-Id': self.client._api_key,  # type: ignore
+            'Apca-Api-Secret-Key': self.client._secret_key # type: ignore
         }
         params = {"start":start_date.date(),"end":end_date.date(),"symbols":symbols}
-        response = requests.get(self.news_api_url, headers=headers,params=params,timeout=20)
+        response = requests.get(self.news_api_url, headers=headers,params=params,timeout=20) # type: ignore
         return response.json()
 
     def get_stock_bars(self,symbols:list[str] = ["TSLA"],time_frame:TimeFrame = TimeFrame.Day,start_date:datetime = (datetime.utcnow() - timedelta(days=1))):
@@ -34,7 +34,7 @@ class LlamaHistory:
                         start=start_date.isoformat()
                  )
         bars = self.client.get_stock_bars(request_params)
-        return bars.df
+        return bars
 
     def get_latest_ask_price(self,symbols:list[str] = ["TSLA"]):
         """get latest stock price"""

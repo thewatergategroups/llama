@@ -4,15 +4,15 @@ from alpaca.trading.enums import OrderSide, TimeInForce
 from alpaca.trading.requests import GetAssetsRequest
 from alpaca.trading.enums import AssetClass
 from ..consts import Settings
-
+from typing import Any
 
 
 class LlamaTrader:
     """Llama is created"""
     def __init__(self,
         client:TradingClient, 
-        account:TradeAccount,
-        assets:list[Asset], positions:list[Position]
+        account:TradeAccount | dict[str, Any],
+        assets:list[Asset] | dict[str, Any], positions:list[Position] | dict[str, Any]
     ):
         self.client = client
         self.account = account
