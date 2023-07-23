@@ -21,11 +21,15 @@ def backtest_moving_average(symbols: list[str] = ["SPY"], hours_to_test: int = 2
         buys = 0
         sells = 0
         for i in range(
-            4, 60 * hours_to_test
+            4, (60 * hours_to_test) - 15
         ):  # Start four minutes in, so that MA can be calculated
             _, close_list = get_times_and_closing_p(symbol, data)
             ma = np.mean(close_list[i - 4 : i + 1])
-            last_price = close_list[i]
+            try:
+                last_price = close_list[i]
+            except IndexError as exc:
+                logging.exception(exc)
+                continue
 
             if ma + 0.1 < last_price and not pos_held[symbol]:
                 logging.info("buying a stock of %s", symbol)
