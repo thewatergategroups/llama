@@ -1,9 +1,20 @@
 import io
 import logging
 
-import numpy as np
 from alpaca.data.models import BarSet
 from matplotlib import pyplot as plt
+
+
+def get_times_and_closing_p(symbol: str, data: BarSet) -> tuple[list, list]:
+    """
+    return useful data from barset
+    """
+    times, closing_prices = [], []
+    data_points = data.data[symbol]
+    for point in data_points:
+        times.append(point.timestamp)
+        closing_prices.append(point.close)
+    return times, closing_prices
 
 
 def plot_stock_data(data: BarSet):
@@ -16,15 +27,7 @@ def plot_stock_data(data: BarSet):
     image_buffs = []
     for key in data.data.keys():
         logging.info("Plotting data for %s..", key)
-        closing_prices = []
-        times = []
-        data_points = data.data[key]
-        for point in data_points:
-            times.append(point.timestamp)
-            closing_prices.append(point.close)
-        np_closing = np.array(closing_prices, dtype=np.float64)
-        moving_average = np.mean(np_closing)
-        logging.info(moving_average)
+        times, closing_prices = get_times_and_closing_p(key, data)
         plt.figure(figsize=(10, 6))
         plt.plot(times, closing_prices, marker="o", linestyle="-", color="b")
         plt.xlabel("Date")
