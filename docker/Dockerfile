@@ -9,6 +9,6 @@ WORKDIR /app
 COPY  ./scripts/start.sh ./
 COPY ./llama ./llama
 RUN chown -R app /app && chmod -R 700 /app
-USER app
-ENTRYPOINT ["bash","start.sh"]
+# USER app ##disable for dev
+# ENTRYPOINT ["bash","start.sh"]
 CMD ["python","-m","llama"]

@@ -8,6 +8,10 @@ authors = ["Ciaran <ciaranmckey@gmail.com>"]
 python = "~3.11"
 pydantic = "^1.10.11"
 alpaca-py = "^0.8.2"
+matplotlib = "^3.7.2"
+numpy = "^1.25.1"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
@@ -25,12 +29,12 @@ build-backend = "poetry.core.masonry.api"
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
-module = ["alpaca.*"]
+module = ["alpaca.*", "matplotlib.*"]
 ignore_missing_imports = true
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/rules/
-select = ["E","PLE","F","W605","S","RUF"]
+select = ["E", "PLE", "F", "W605", "S", "RUF"]
+ignore = ["S104"]
 exclude = ["tests"]
 show-fixes = true
-

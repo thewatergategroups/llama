@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   llama:
+    image: llama
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -10,5 +11,7 @@ services:
       - ./:/app
     env_file:
       - .env
+    ports:
+      - 8000:8000
   redis:
     image: "redis:latest"

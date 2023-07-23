@@ -1,539 +1,618 @@
-2021-10-24 17:10:46,539  INFO Stream
-2021-10-24 17:14:58,082  INFO Stream
-2021-10-24 17:14:58,084  INFO started stock data stream
-2021-10-24 17:14:58,084  INFO starting websocket connection
-2021-10-24 17:14:58,534  INFO connected to: wss://stream.data.alpaca.markets/v2/iex
-2021-10-24 17:14:58,623  INFO subscribed to trades: ['AAPL'], quotes: ['AAPL'], bars: [], dailyBars: [], statuses: [], lulds: []
-2021-10-24 17:35:09,791  INFO started stock data stream
-2021-10-24 17:35:09,791  INFO starting websocket connection
-2021-10-24 17:35:10,285  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:10,296  INFO starting websocket connection
-2021-10-24 17:35:10,831  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:10,841  INFO starting websocket connection
-2021-10-24 17:35:11,248  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:11,259  INFO starting websocket connection
-2021-10-24 17:35:11,681  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:11,692  INFO starting websocket connection
-2021-10-24 17:35:12,145  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:12,156  INFO starting websocket connection
-2021-10-24 17:35:12,575  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:12,585  INFO starting websocket connection
-2021-10-24 17:35:13,001  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:13,012  INFO starting websocket connection
-2021-10-24 17:35:13,446  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:13,457  INFO starting websocket connection
-2021-10-24 17:35:13,878  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:13,889  INFO starting websocket connection
-2021-10-24 17:35:14,279  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:14,289  INFO starting websocket connection
-2021-10-24 17:35:14,706  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:14,716  INFO starting websocket connection
-2021-10-24 17:35:15,138  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:15,149  INFO starting websocket connection
-2021-10-24 17:35:15,554  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:15,565  INFO starting websocket connection
-2021-10-24 17:35:15,968  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:15,980  INFO starting websocket connection
-2021-10-24 17:35:16,466  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:16,477  INFO starting websocket connection
-2021-10-24 17:35:16,878  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:16,890  INFO starting websocket connection
-2021-10-24 17:35:17,379  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:17,389  INFO starting websocket connection
-2021-10-24 17:35:17,821  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:17,831  INFO starting websocket connection
-2021-10-24 17:35:18,335  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:18,346  INFO starting websocket connection
-2021-10-24 17:35:18,756  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:18,767  INFO starting websocket connection
-2021-10-24 17:35:19,263  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:19,275  INFO starting websocket connection
-2021-10-24 17:35:19,729  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:19,740  INFO starting websocket connection
-2021-10-24 17:35:20,225  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:20,236  INFO starting websocket connection
-2021-10-24 17:35:20,647  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:20,658  INFO starting websocket connection
-2021-10-24 17:35:21,065  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:21,076  INFO starting websocket connection
-2021-10-24 17:35:21,493  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:21,505  INFO starting websocket connection
-2021-10-24 17:35:21,939  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:21,951  INFO starting websocket connection
-2021-10-24 17:35:22,353  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:22,364  INFO starting websocket connection
-2021-10-24 17:35:23,078  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:23,089  INFO starting websocket connection
-2021-10-24 17:35:23,484  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:23,495  INFO starting websocket connection
-2021-10-24 17:35:23,904  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:23,916  INFO starting websocket connection
-2021-10-24 17:35:24,351  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:24,362  INFO starting websocket connection
-2021-10-24 17:35:24,795  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:24,806  INFO starting websocket connection
-2021-10-24 17:35:25,212  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:25,223  INFO starting websocket connection
-2021-10-24 17:35:25,626  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:25,637  INFO starting websocket connection
-2021-10-24 17:35:26,040  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:26,051  INFO starting websocket connection
-2021-10-24 17:35:26,465  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:26,476  INFO starting websocket connection
-2021-10-24 17:35:26,971  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:26,982  INFO starting websocket connection
-2021-10-24 17:35:27,388  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:27,399  INFO starting websocket connection
-2021-10-24 17:35:27,902  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:27,913  INFO starting websocket connection
-2021-10-24 17:35:28,326  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:28,337  INFO starting websocket connection
-2021-10-24 17:35:28,843  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:28,854  INFO starting websocket connection
-2021-10-24 17:35:29,262  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:29,273  INFO starting websocket connection
-2021-10-24 17:35:29,795  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:29,807  INFO starting websocket connection
-2021-10-24 17:35:30,219  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:30,230  INFO starting websocket connection
-2021-10-24 17:35:30,724  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:30,734  INFO starting websocket connection
-2021-10-24 17:35:31,164  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:31,175  INFO starting websocket connection
-2021-10-24 17:35:31,600  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:31,611  INFO starting websocket connection
-2021-10-24 17:35:32,016  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:32,027  INFO starting websocket connection
-2021-10-24 17:35:32,436  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:32,447  INFO starting websocket connection
-2021-10-24 17:35:32,845  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:32,856  INFO starting websocket connection
-2021-10-24 17:35:33,278  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:33,289  INFO starting websocket connection
-2021-10-24 17:35:33,705  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:33,716  INFO starting websocket connection
-2021-10-24 17:35:34,138  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:34,149  INFO starting websocket connection
-2021-10-24 17:35:34,567  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:34,577  INFO starting websocket connection
-2021-10-24 17:35:35,033  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:35,044  INFO starting websocket connection
-2021-10-24 17:35:35,463  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:35,474  INFO starting websocket connection
-2021-10-24 17:35:35,904  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:35,915  INFO starting websocket connection
-2021-10-24 17:35:36,317  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:36,328  INFO starting websocket connection
-2021-10-24 17:35:36,717  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
-2021-10-24 17:35:36,727  INFO starting websocket connection
-2021-10-24 17:35:37,206  WARNING data websocket error, restarting connection: server rejected WebSocket connection: HTTP 429
-2021-10-24 17:35:37,216  INFO starting websocket connection
-2021-10-24 17:35:37,623  ERROR error during websocket communication: connection limit exceeded
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 198, in _run_forever
-    await self._start_ws()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 74, in _start_ws
-    await self._auth()
-  File "/usr/local/lib/python3.9/site-packages/alpaca_trade_api/stream.py", line 68, in _auth
-    raise ValueError(msg[0].get('msg', 'auth failed'))
-ValueError: connection limit exceeded
+2023-07-23 18:42:32,327 - INFO - testing 
+2023-07-23 18:42:32,328 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 18:42:32,719 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 18:42:32,872 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 18:42:35,772 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 18:42:35,774 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 18:42:36,308 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A32.283080Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 18:42:36,711 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A32.283080Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDctMTdUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:42:37,160 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A32.283080Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0xMFQxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:42:37,441 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A32.283080Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMzBUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:42:37,526 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 18:42:37,530 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 18:42:37,530 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,530 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,530 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,530 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,531 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,532 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,533 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,534 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,535 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,535 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:42:37,597 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 18:42:37,597 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,597 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,597 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,597 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,598 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,599 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,599 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,599 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,599 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,599 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:42:37,600 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,600 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:42:37,600 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,600 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,600 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,601 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,602 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,602 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:42:37,602 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,602 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,603 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,603 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:37,603 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,603 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:37,603 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,604 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:37,604 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:37,604 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:42:51,812 - INFO - testing 
+2023-07-23 18:42:51,813 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 18:42:52,135 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 18:42:52,287 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 18:42:54,356 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 18:42:54,358 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 18:42:54,860 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A51.766601Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 18:42:55,277 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A51.766601Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDctMTdUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:42:55,689 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A51.766601Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0xMFQxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:42:55,959 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A42%3A51.766601Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMzBUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:42:56,041 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 18:42:56,043 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,044 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,045 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,046 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:42:56,104 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,104 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:42:56,105 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,106 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:42:56,107 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,107 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:42:56,107 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:42:56,107 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:45:13,339 - INFO - testing 
+2023-07-23 18:45:13,341 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 18:45:13,734 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 18:45:13,897 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 18:45:16,546 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 18:45:16,547 - INFO - Getting historic data for ['AAPL', 'TSLA', 'SPY'] since 2023-04-14 18:45:13.288824 with the timeframe of 1Hour...
+2023-07-23 18:45:16,548 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 18:45:17,070 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A45%3A13.288824Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 18:45:17,533 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A45%3A13.288824Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDctMTdUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:45:17,962 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A45%3A13.288824Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0xMFQxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:45:18,627 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A45%3A13.288824Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMzBUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:45:18,708 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 18:45:18,711 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,711 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:45:18,712 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,713 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,713 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:45:18,769 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 18:45:18,769 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,769 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,769 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,770 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:45:18,771 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,772 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:45:18,773 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,773 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:45:18,773 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,773 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:45:18,773 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:45:18,773 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:46:46,193 - INFO - testing 
+2023-07-23 18:46:46,195 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 18:46:46,551 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 18:46:46,707 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 18:46:48,769 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 18:46:48,770 - INFO - Getting historic data for ['AAPL', 'TSLA', 'SPY'] for the last 100 with the timeframe of 1Hour...
+2023-07-23 18:46:48,772 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 18:46:49,284 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A46%3A46.149072Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 18:46:49,753 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A46%3A46.149072Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDctMTdUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:46:50,187 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A46%3A46.149072Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0xMFQxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:46:50,492 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2023-04-14T18%3A46%3A46.149072Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMzBUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:46:50,574 - INFO - Plotting data for AAPL..
+2023-07-23 18:46:50,578 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 18:46:50,581 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,581 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,582 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,583 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,584 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,584 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,584 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,584 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,584 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:46:50,644 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,644 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,645 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,646 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:46:50,647 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:46:50,647 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:46:50,839 - INFO - Plotting data for SPY..
+2023-07-23 18:46:51,060 - INFO - Plotting data for TSLA..
+2023-07-23 18:48:03,420 - INFO - Creating clients...
+2023-07-23 18:48:03,422 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 18:48:03,919 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 18:48:04,068 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 18:48:06,023 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 18:48:06,024 - INFO - Getting historic data for ['AAPL', 'TSLA', 'SPY'] for the last 900 days with the timeframe of 1Hour...
+2023-07-23 18:48:06,025 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 18:48:06,610 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 18:48:07,034 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMDUtMDVUMDk6NTg6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:07,434 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMDgtMDNUMTc6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:07,859 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMTEtMDFUMDk6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:08,268 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDEtMzFUMjI6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:08,656 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDQtMjFUMDg6NTc6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:08,958 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDctMTRUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:09,318 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDktMzBUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:09,657 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMTItMjhUMDk6NTY6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:09,991 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDMtMjlUMTY6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:10,305 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDYtMjlUMDg6NTE6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:10,592 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wNC0xMlQxNDo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:10,901 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wNy0wMVQyMTo1MjowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:11,200 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wOS0yMVQyMTo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:11,529 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0xMi0wOFQxMjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:11,837 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wMi0yNVQwNzo1NDowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:12,181 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wNS0xMFQyMzo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:12,512 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wNy0yNlQyMzo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:12,839 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0xMC0xMFQwNTo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:13,187 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0xMi0zMFQyMTo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:13,499 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNC0wM1QwOTo1MjowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:13,828 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0wM1QxNDo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 18:48:14,143 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMDQtMTVUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:14,486 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMDctMTVUMTA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:14,807 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMTAtMTJUMTk6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:15,271 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDEtMTFUMTc6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:15,679 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDQtMDhUMjA6NTc6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:15,980 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDctMDhUMTA6NTU6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:16,325 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDktMjlUMDU6MDM6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:16,705 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMTItMjJUMDA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:17,121 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDMtMjRUMTU6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:17,414 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T18%3A48%3A03.377471Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMjNUMjM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 18:48:18,319 - INFO - Plotting data for AAPL..
+2023-07-23 18:48:18,324 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 18:48:18,326 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 18:48:18,326 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,326 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,326 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,326 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,327 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,328 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,329 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,330 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,330 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:48:18,435 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 18:48:18,435 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,436 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 18:48:18,437 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 18:48:18,438 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 18:48:18,438 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 18:48:18,662 - INFO - Plotting data for SPY..
+2023-07-23 18:48:19,065 - INFO - Plotting data for TSLA..
+2023-07-23 19:03:17,418 - INFO - Creating clients...
+2023-07-23 19:03:17,421 - DEBUG - Starting new HTTPS connection (1): paper-api.alpaca.markets:443
+2023-07-23 19:03:17,772 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/account HTTP/1.1" 200 956
+2023-07-23 19:03:17,919 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/assets?asset_class=us_equity HTTP/1.1" 200 None
+2023-07-23 19:03:21,355 - DEBUG - https://paper-api.alpaca.markets:443 "GET /v2/positions HTTP/1.1" 200 2
+2023-07-23 19:03:21,356 - INFO - Getting historic data for ['AAPL', 'TSLA', 'SPY'] for the last 900 days with the timeframe of 1Hour...
+2023-07-23 19:03:21,357 - DEBUG - Starting new HTTPS connection (1): data.alpaca.markets:443
+2023-07-23 19:03:21,992 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY HTTP/1.1" 200 None
+2023-07-23 19:03:22,445 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMDUtMDVUMTA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:22,846 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMDgtMDNUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:23,276 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjEtMTEtMDFUMTA6NTc6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:23,665 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDEtMzFUMjM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:24,006 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDQtMjFUMDk6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:24,365 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDctMTRUMTQ6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:24,667 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMDktMzBUMTQ6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:25,086 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjItMTItMjhUMTA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:25,438 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDMtMjlUMTc6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:25,800 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=QUFQTHxNfDIwMjMtMDYtMjlUMDk6NTQ6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:26,130 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wNC0xMlQxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:26,428 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wNy0wMVQyMzo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:26,733 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0wOS0yMVQyMzo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:27,056 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMS0xMi0wOFQxNDo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:27,351 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wMi0yNVQwOTo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:27,699 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wNS0xMVQwNTo1NjowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:28,011 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0wNy0yN1QwNTo1NjowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:28,350 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0xMC0xMFQwNzoyNjowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:28,727 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMi0xMi0zMFQyMzo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:29,071 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNC0wM1QxMTo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:29,488 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=U1BZfE18MjAyMy0wNy0wM1QxNjo1OTowMC4wMDAwMDAwMDBa HTTP/1.1" 200 None
+2023-07-23 19:03:29,781 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMDQtMTVUMjE6NTY6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:30,082 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMDctMTVUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:30,380 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjEtMTAtMTJUMjI6NTg6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:30,703 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDEtMTFUMjA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:31,044 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDQtMDhUMjM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:31,390 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDctMDhUMTM6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:31,730 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMDktMjlUMDg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:32,085 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjItMTItMjJUMTE6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:32,555 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDMtMjRUMTg6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:32,828 - DEBUG - https://data.alpaca.markets:443 "GET /v2/stocks/bars?start=2021-02-03T19%3A03%3A17.366629Z&timeframe=1Hour&symbols=AAPL%2CTSLA%2CSPY&page_token=VFNMQXxNfDIwMjMtMDYtMjZUMTA6NTk6MDAuMDAwMDAwMDAwWg%3D%3D HTTP/1.1" 200 None
+2023-07-23 19:03:33,692 - INFO - Plotting data for AAPL..
+2023-07-23 19:03:33,694 - INFO - 152.1324058238221
+2023-07-23 19:03:33,699 - DEBUG - Loaded backend agg version v2.2.
+2023-07-23 19:03:33,701 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 19:03:33,702 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,703 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,704 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,705 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,705 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,705 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,705 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,705 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 19:03:33,809 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2023-07-23 19:03:33,809 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,809 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,809 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,809 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2023-07-23 19:03:33,810 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2023-07-23 19:03:33,811 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2023-07-23 19:03:33,812 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,812 - DEBUG - findfont: score(FontEntry(fname='/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2023-07-23 19:03:33,812 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.11/dist-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2023-07-23 19:03:34,025 - INFO - Plotting data for SPY..
+2023-07-23 19:03:34,027 - INFO - 418.14771109286625
+2023-07-23 19:03:34,336 - INFO - Plotting data for TSLA..
+2023-07-23 19:03:34,339 - INFO - 587.4142993852256

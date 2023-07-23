@@ -1,17 +1,17 @@
 """
 Entrypoint to the application
 """
-from pprint import pprint
-from .stocks import LlamaHistory,LlamaTrader
-from .consts import Settings
+import uvicorn
 
+from .tools import setup_logging
 
 if __name__ == "__main__":
-    settings = Settings()
-    trader = LlamaTrader.create(settings)
-    history = LlamaHistory.create(settings)
-
-    pprint(history.get_stock_bars())
-    pprint(history.get_latest_ask_price())
-    # pprint(trader.get_all_assets())
-
+    setup_logging()
+    uvicorn.run(
+        "llama.api.app:create_app",
+        workers=1,
+        reload=True,
+        host="0.0.0.0",
+        factory=True,
+        port=8000,
+    )
