@@ -29,5 +29,5 @@ if __name__ == "__main__":
     elif args.entrypoint == "worker":
         run()
     elif args.entrypoint == "backtest":
-        backtest_moving_average()
+        backtest_moving_average
     raise RuntimeError(f"entrypoint {args.entrypoint} not recognised...")
