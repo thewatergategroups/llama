@@ -62,6 +62,9 @@ class LlamaHistory:
             symbol_or_symbols=symbols,
             timeframe=time_frame,
             start=start_date.isoformat(),
+            end=(
+                datetime.utcnow() - timedelta(minutes=15)  ## free api restriction
+            ).isoformat(),
         )
         logging.info(
             "Getting historic data for %s for \

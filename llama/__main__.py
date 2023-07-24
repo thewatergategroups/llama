@@ -30,4 +30,5 @@ if __name__ == "__main__":
         run()
     elif args.entrypoint == "backtest":
         backtest_moving_average()
-    raise RuntimeError(f"entrypoint {args.entrypoint} not recognised...")
+    else:
+        raise RuntimeError(f"entrypoint {args.entrypoint} not recognised...")

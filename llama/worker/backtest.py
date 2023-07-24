@@ -8,7 +8,7 @@ from time import sleep
 from collections import defaultdict
 
 
-def backtest_moving_average(symbols: list[str] = ["SPY"], hours_to_test: int = 2000):
+def backtest_moving_average(symbols: list[str] = ["SPY"], hours_to_test: int = 20):
     data = HISTORY_CLIENT.get_stock_bars(
         symbols,
         time_frame=TimeFrame.Minute,
@@ -20,8 +20,9 @@ def backtest_moving_average(symbols: list[str] = ["SPY"], hours_to_test: int = 2
         balance = startBal
         buys = 0
         sells = 0
+        itterations = (60 * hours_to_test) - 15
         for i in range(
-            4, (60 * hours_to_test) - 15
+            4, itterations
         ):  # Start four minutes in, so that MA can be calculated
             _, close_list = get_times_and_closing_p(symbol, data)
             ma = np.mean(close_list[i - 4 : i + 1])
@@ -32,19 +33,23 @@ def backtest_moving_average(symbols: list[str] = ["SPY"], hours_to_test: int = 2
                 continue
 
             if ma + 0.1 < last_price and not pos_held[symbol]:
-                logging.info("buying a stock of %s", symbol)
+                logging.info(
+                    "buying a stock of %s  on itteration %s/%s", symbol, i, itterations
+                )
                 balance -= last_price
                 pos_held[symbol] = True
                 buys += 1
             elif ma - 0.1 > last_price and pos_held[symbol]:
-                logging.info("selling a share of %s", symbol)
+                logging.info(
+                    "selling a share of %s on itteration %s/%s", symbol, i, itterations
+                )
                 balance += last_price
                 pos_held[symbol] = False
                 sells += 1
             sleep(0.01)
 
-        logging.info("Buys of %s: %s on itteration %s", symbol, buys, i)
-        logging.info("Sells of %s: %s on itteration %s", symbol, sells, i)
+        logging.info("Buys of %s: %s", symbol, buys)
+        logging.info("Sells of %s: %s", symbol, sells)
 
         if buys > sells:
             balance += close_list[
