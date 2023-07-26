@@ -2,8 +2,7 @@
 Consts, Enums and Models
 """
 from pydantic import BaseSettings
-
-from .stocks import LlamaHistory, LlamaTrader
+import logging
 
 
 class Settings(BaseSettings):
@@ -12,8 +11,6 @@ class Settings(BaseSettings):
     api_endpoint: str = ""
     api_key: str = ""
     secret_key: str = ""
-
-settings = Settings()
-TRADER_CLIENT = LlamaTrader.create(settings)
-HISTORY_CLIENT = LlamaHistory.create(settings)
-
+    news_url: str = "https://data.alpaca.markets/v1beta1/news"
+    paper: bool = True
+    log_level: str = "INFO"

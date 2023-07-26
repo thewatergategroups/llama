@@ -7,5 +7,5 @@ run: build
 	docker compose up
 
 debug:
-	docker compose run -it --entrypoint bash $(REPOSITORY)-backtest
+	docker compose run -it --entrypoint bash $(REPOSITORY)-api
 

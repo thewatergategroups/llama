@@ -1,28 +1,26 @@
 import logging
 from datetime import datetime, timedelta
-from typing import TYPE_CHECKING
 
 import requests
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame
 
-if TYPE_CHECKING:
-    from ..consts import Settings
+from ..settings import Settings
 
 
 class LlamaHistory:
     """Historic Trading data"""
 
-    def __init__(self, client: StockHistoricalDataClient):
+    def __init__(self, client: StockHistoricalDataClient, news_url: str):
         self.client = client
-        self.news_api_url = "https://data.alpaca.markets/v1beta1/news"
+        self.news_api_url = news_url
 
     @classmethod
-    def create(cls, settings: "Settings"):
+    def create(cls, settings: Settings):
         """Create a historical data client"""
         client = StockHistoricalDataClient(settings.api_key, settings.secret_key)
-        return cls(client)
+        return cls(client, settings.news_url)
 
     def get_news(
         self,
@@ -54,25 +52,18 @@ class LlamaHistory:
         self,
         symbols: list[str] | None = None,
         time_frame: TimeFrame = TimeFrame.Hour,
-        start_date: datetime = (datetime.utcnow() - timedelta(days=900)),
+        start_time: datetime = (datetime.utcnow() - timedelta(days=900)),
+        end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
     ):
         """get stock bars for stocks"""
         symbols = symbols if symbols is not None else ["TSLA"]  ## Spy is S&P500
         request_params = StockBarsRequest(
             symbol_or_symbols=symbols,
             timeframe=time_frame,
-            start=start_date.isoformat(),
-            end=(
-                datetime.utcnow() - timedelta(minutes=15)  ## free api restriction
-            ).isoformat(),
+            start=start_time.isoformat(),
+            end=end_time.isoformat(),
         )
-        logging.info(
-            "Getting historic data for %s for \
-                the last %s days with the timeframe of %s...",
-            symbols,
-            (datetime.utcnow() - start_date).days,
-            time_frame,
-        )
+        logging.debug("Getting historic data...")
 
         bars = self.client.get_stock_bars(request_params)
         return bars

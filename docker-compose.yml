@@ -1,16 +1,16 @@
 version: "3.9"
 services:
-  # llama-api:
-  #   image: llama
-  #   entrypoint: python -m llama api
-  ##   depends_on:
-  ##     - redis
-  #   volumes:
-  #     - ./:/app
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - 8000:8000
+  llama-api:
+    image: llama
+    entrypoint: python -m llama api
+  #   depends_on:
+  #     - redis
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
 
   # llama-worker:
   #   image: llama
@@ -23,16 +23,16 @@ services:
   #   env_file:
   #     - .env
 
-  llama-backtest:
-    image: llama
-    entrypoint: python -m llama backtest
+  # llama-backtest:
+  #   image: llama
+  #   entrypoint: python -m llama backtest
 
-    # depends_on:
-    #   - redis
-    volumes:
-      - ./:/app
-    env_file:
-      - .env
+  #   # depends_on:
+  #   #   - redis
+  #   volumes:
+  #     - ./:/app
+  #   env_file:
+  #     - .env
 
   # redis:
   #   image: "redis:latest"

@@ -1,11 +1,10 @@
 """
 Entrypoint to the application
 """
-import uvicorn
 import argparse
-
+from .entrypoints import ENTRYPOINTS
 from .tools import setup_logging
-from .worker import run, backtest_moving_average
+from .settings import Settings
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="entrypoint options.")
@@ -15,20 +14,11 @@ if __name__ == "__main__":
 
     # Parse the command-line arguments
     args = parser.parse_args()
-    setup_logging()
 
-    if args.entrypoint == "api":
-        uvicorn.run(
-            "llama.api.app:create_app",
-            workers=1,
-            reload=True,
-            host="0.0.0.0",
-            factory=True,
-            port=8000,
-        )
-    elif args.entrypoint == "worker":
-        run()
-    elif args.entrypoint == "backtest":
-        backtest_moving_average()
+    settings = Settings()
+    setup_logging(settings)
+
+    if (entrypoint := ENTRYPOINTS.get(args.entrypoint)) is not None:
+        entrypoint(settings)
     else:
         raise RuntimeError(f"entrypoint {args.entrypoint} not recognised...")
