@@ -1,0 +1,3449 @@
+{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:19:53.569758+00:00",
+    "exchange": "V",
+    "price": 195.86,
+    "size": 100.0,
+    "id": 1863,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:19:53.715829+00:00",
+    "exchange": "V",
+    "price": 104.28,
+    "size": 100.0,
+    "id": 53241357417571,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:53.791983+00:00",
+    "exchange": "V",
+    "price": 36.47,
+    "size": 100.0,
+    "id": 3579,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:19:54.114471+00:00",
+    "exchange": "V",
+    "price": 263.54,
+    "size": 1.0,
+    "id": 2582,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:19:54.454630+00:00",
+    "exchange": "V",
+    "price": 195.88,
+    "size": 2.0,
+    "id": 1864,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:19:54.855047+00:00",
+    "exchange": "V",
+    "price": 52.125,
+    "size": 700.0,
+    "id": 1008,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:19:55.937285+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 2.0,
+    "id": 1865,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:19:55.969587+00:00",
+    "exchange": "V",
+    "price": 337.13,
+    "size": 33.0,
+    "id": 2628,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:19:56.023561+00:00",
+    "exchange": "V",
+    "price": 52.13,
+    "size": 100.0,
+    "id": 1009,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:56.725945+00:00",
+    "exchange": "V",
+    "price": 36.495,
+    "size": 100.0,
+    "id": 3580,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:19:57.059654+00:00",
+    "exchange": "V",
+    "price": 104.295,
+    "size": 100.0,
+    "id": 53241444846962,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:19:57.143385+00:00",
+    "exchange": "V",
+    "price": 337.13,
+    "size": 125.0,
+    "id": 2629,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:19:57.279139+00:00",
+    "exchange": "V",
+    "price": 337.13,
+    "size": 125.0,
+    "id": 2630,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:57.341976+00:00",
+    "exchange": "V",
+    "price": 36.5,
+    "size": 4.0,
+    "id": 3581,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:57.342293+00:00",
+    "exchange": "V",
+    "price": 36.5,
+    "size": 4.0,
+    "id": 3582,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:19:57.367167+00:00",
+    "exchange": "V",
+    "price": 32.085,
+    "size": 500.0,
+    "id": 53241458737486,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:57.384577+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 100.0,
+    "id": 3583,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:57.384588+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 100.0,
+    "id": 3584,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:57.876659+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 100.0,
+    "id": 3585,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:19:58.065081+00:00",
+    "exchange": "V",
+    "price": 156.91,
+    "size": 1.0,
+    "id": 53241474989149,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:19:58.747163+00:00",
+    "exchange": "V",
+    "price": 36.505,
+    "size": 58.0,
+    "id": 3586,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:19:59.009853+00:00",
+    "exchange": "V",
+    "price": 263.625,
+    "size": 100.0,
+    "id": 2583,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:00.535337+00:00",
+    "exchange": "V",
+    "price": 337.21,
+    "size": 6.0,
+    "id": 2631,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:00.556410+00:00",
+    "exchange": "V",
+    "price": 143.52,
+    "size": 100.0,
+    "id": 53241527155772,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:01.157188+00:00",
+    "exchange": "V",
+    "price": 32.085,
+    "size": 100.0,
+    "id": 53241543619165,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:01.996782+00:00",
+    "exchange": "V",
+    "price": 337.21,
+    "size": 103.0,
+    "id": 2632,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:02.125815+00:00",
+    "exchange": "V",
+    "price": 156.915,
+    "size": 4.0,
+    "id": 53241562022499,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:02.125834+00:00",
+    "exchange": "V",
+    "price": 156.915,
+    "size": 126.0,
+    "id": 53241562022716,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:02.374281+00:00",
+    "exchange": "V",
+    "price": 195.91,
+    "size": 100.0,
+    "id": 1866,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:02.738279+00:00",
+    "exchange": "V",
+    "price": 36.485,
+    "size": 100.0,
+    "id": 3587,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:02.899824+00:00",
+    "exchange": "V",
+    "price": 32.085,
+    "size": 138.0,
+    "id": 53241592893262,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:02.903255+00:00",
+    "exchange": "V",
+    "price": 32.085,
+    "size": 100.0,
+    "id": 53241592956208,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:02.907267+00:00",
+    "exchange": "V",
+    "price": 32.085,
+    "size": 300.0,
+    "id": 53241593027653,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:03.638468+00:00",
+    "exchange": "V",
+    "price": 36.48,
+    "size": 100.0,
+    "id": 3588,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:04.545845+00:00",
+    "exchange": "V",
+    "price": 156.93,
+    "size": 10.0,
+    "id": 53241626908277,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:05.159910+00:00",
+    "exchange": "V",
+    "price": 156.925,
+    "size": 13.0,
+    "id": 53241643219552,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:05.159916+00:00",
+    "exchange": "V",
+    "price": 156.925,
+    "size": 23.0,
+    "id": 53241643219567,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:05.159934+00:00",
+    "exchange": "V",
+    "price": 156.925,
+    "size": 3.0,
+    "id": 53241643219763,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:06.103590+00:00",
+    "exchange": "V",
+    "price": 52.15,
+    "size": 700.0,
+    "id": 1010,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:06.111645+00:00",
+    "exchange": "V",
+    "price": 52.145,
+    "size": 1200.0,
+    "id": 1011,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:06.447848+00:00",
+    "exchange": "V",
+    "price": 263.53,
+    "size": 100.0,
+    "id": 2584,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:06.448871+00:00",
+    "exchange": "V",
+    "price": 263.53,
+    "size": 100.0,
+    "id": 2585,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:06.706281+00:00",
+    "exchange": "V",
+    "price": 156.93,
+    "size": 100.0,
+    "id": 53241676317298,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:08.714527+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1012,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:08.714550+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1013,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:08.714565+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1014,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:08.713352+00:00",
+    "exchange": "V",
+    "price": 156.92,
+    "size": 100.0,
+    "id": 53241710199892,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:08.721429+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1015,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:08.722023+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1016,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:08.714592+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 49.0,
+    "id": 53241710342264,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:08.714703+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 22.0,
+    "id": 53241710393148,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:08.714725+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 16.0,
+    "id": 53241710393958,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:08.714881+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 13.0,
+    "id": 53241710399861,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:10.643969+00:00",
+    "exchange": "V",
+    "price": 156.92,
+    "size": 9.0,
+    "id": 53241744220497,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:10.715691+00:00",
+    "exchange": "V",
+    "price": 52.14,
+    "size": 100.0,
+    "id": 1017,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:12.465204+00:00",
+    "exchange": "V",
+    "price": 337.27,
+    "size": 5.0,
+    "id": 2633,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:12.926180+00:00",
+    "exchange": "V",
+    "price": 263.38,
+    "size": 50.0,
+    "id": 2586,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:14.275018+00:00",
+    "exchange": "V",
+    "price": 104.36,
+    "size": 23.0,
+    "id": 53241797687103,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:14.584986+00:00",
+    "exchange": "V",
+    "price": 52.13,
+    "size": 7.0,
+    "id": 1018,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:14.697786+00:00",
+    "exchange": "V",
+    "price": 263.41,
+    "size": 15.0,
+    "id": 2587,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:15.313155+00:00",
+    "exchange": "V",
+    "price": 337.3,
+    "size": 125.0,
+    "id": 2634,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:17.511601+00:00",
+    "exchange": "V",
+    "price": 337.29,
+    "size": 5.0,
+    "id": 2635,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:18.674567+00:00",
+    "exchange": "V",
+    "price": 337.285,
+    "size": 5.0,
+    "id": 2636,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:18.697049+00:00",
+    "exchange": "V",
+    "price": 52.115,
+    "size": 600.0,
+    "id": 1019,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:19.247055+00:00",
+    "exchange": "V",
+    "price": 263.38,
+    "size": 23.0,
+    "id": 2588,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:19.247081+00:00",
+    "exchange": "V",
+    "price": 263.38,
+    "size": 7.0,
+    "id": 2589,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:19.469119+00:00",
+    "exchange": "V",
+    "price": 156.94,
+    "size": 100.0,
+    "id": 53241895279685,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:19.739275+00:00",
+    "exchange": "V",
+    "price": 36.485,
+    "size": 10.0,
+    "id": 3589,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:19.739750+00:00",
+    "exchange": "V",
+    "price": 36.485,
+    "size": 90.0,
+    "id": 3590,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:19.858674+00:00",
+    "exchange": "V",
+    "price": 337.27,
+    "size": 17.0,
+    "id": 2637,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:19.869931+00:00",
+    "exchange": "V",
+    "price": 337.28,
+    "size": 10.0,
+    "id": 2638,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:20.351341+00:00",
+    "exchange": "V",
+    "price": 156.93,
+    "size": 3.0,
+    "id": 53241911136111,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:20.441901+00:00",
+    "exchange": "V",
+    "price": 36.49,
+    "size": 4.0,
+    "id": 3591,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:20.446025+00:00",
+    "exchange": "V",
+    "price": 36.495,
+    "size": 100.0,
+    "id": 3592,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:20.731069+00:00",
+    "exchange": "V",
+    "price": 337.33,
+    "size": 10.0,
+    "id": 2639,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:21.050535+00:00",
+    "exchange": "V",
+    "price": 156.92,
+    "size": 38.0,
+    "id": 53241928038508,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:21.068345+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 5.0,
+    "id": 3593,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:21.787640+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53241946399316,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:21.787950+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53241946400078,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:21.790220+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53241946453365,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:21.790457+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 68.0,
+    "id": 53241946453862,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:21.791417+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 300.0,
+    "id": 53241946455645,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:22.677999+00:00",
+    "exchange": "V",
+    "price": 143.59,
+    "size": 59.0,
+    "id": 53241963443555,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:22.678023+00:00",
+    "exchange": "V",
+    "price": 143.59,
+    "size": 16.0,
+    "id": 53241963443576,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:22.706392+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3594,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:20:23.111589+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 50.0,
+    "id": 53241965985388,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:23.601353+00:00",
+    "exchange": "V",
+    "price": 36.53,
+    "size": 100.0,
+    "id": 3595,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:23.611052+00:00",
+    "exchange": "V",
+    "price": 36.53,
+    "size": 100.0,
+    "id": 3596,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:23.611078+00:00",
+    "exchange": "V",
+    "price": 36.53,
+    "size": 20.0,
+    "id": 3597,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:23.905418+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 300.0,
+    "id": 53241981457519,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:20:23.963320+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 100.0,
+    "id": 53241981715034,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:23.967275+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 300.0,
+    "id": 53241981787473,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:20:24.651017+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 30.0,
+    "id": 53241995939421,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:25.286572+00:00",
+    "exchange": "V",
+    "price": 156.93,
+    "size": 2.0,
+    "id": 53241998425720,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:25.969872+00:00",
+    "exchange": "V",
+    "price": 337.3,
+    "size": 3.0,
+    "id": 2640,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:26.773711+00:00",
+    "exchange": "V",
+    "price": 36.32,
+    "size": 100.0,
+    "id": 53242030408767,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:27.413388+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 100.0,
+    "id": 3598,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:27.413521+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 42.0,
+    "id": 3599,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:27.413543+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 58.0,
+    "id": 3600,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:28.501364+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 500.0,
+    "id": 53242049870664,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:28.580567+00:00",
+    "exchange": "V",
+    "price": 337.295,
+    "size": 5.0,
+    "id": 2641,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:28.580592+00:00",
+    "exchange": "V",
+    "price": 337.295,
+    "size": 95.0,
+    "id": 2642,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:28.884785+00:00",
+    "exchange": "V",
+    "price": 337.28,
+    "size": 5.0,
+    "id": 2643,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:28.912093+00:00",
+    "exchange": "V",
+    "price": 104.3,
+    "size": 50.0,
+    "id": 53242064497492,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:28.912099+00:00",
+    "exchange": "V",
+    "price": 104.3,
+    "size": 50.0,
+    "id": 53242064497712,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:29.775180+00:00",
+    "exchange": "V",
+    "price": 263.37,
+    "size": 1.0,
+    "id": 2590,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:31.247717+00:00",
+    "exchange": "V",
+    "price": 104.305,
+    "size": 100.0,
+    "id": 53242099481702,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:32.039994+00:00",
+    "exchange": "V",
+    "price": 104.305,
+    "size": 100.0,
+    "id": 53242115015005,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:32.820424+00:00",
+    "exchange": "V",
+    "price": 337.26,
+    "size": 100.0,
+    "id": 2644,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:33.339640+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 2.0,
+    "id": 1867,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:34.074987+00:00",
+    "exchange": "V",
+    "price": 52.135,
+    "size": 623.0,
+    "id": 1020,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:34.128438+00:00",
+    "exchange": "V",
+    "price": 337.255,
+    "size": 5.0,
+    "id": 2645,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:34.128460+00:00",
+    "exchange": "V",
+    "price": 337.24,
+    "size": 2.0,
+    "id": 2646,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:34.129047+00:00",
+    "exchange": "V",
+    "price": 337.24,
+    "size": 5.0,
+    "id": 2647,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:35.444244+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 48.0,
+    "id": 53242181530169,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:35.444358+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 6.0,
+    "id": 53242181530482,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:35.487208+00:00",
+    "exchange": "V",
+    "price": 36.315,
+    "size": 1900.0,
+    "id": 53242181730864,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:35.872744+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53242183906150,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:35.872769+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 600.0,
+    "id": 53242183906352,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:36.058362+00:00",
+    "exchange": "V",
+    "price": 104.315,
+    "size": 10.0,
+    "id": 53242197080121,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:36.109994+00:00",
+    "exchange": "V",
+    "price": 337.24,
+    "size": 36.0,
+    "id": 2648,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:36.110471+00:00",
+    "exchange": "V",
+    "price": 337.24,
+    "size": 21.0,
+    "id": 2649,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:36.111091+00:00",
+    "exchange": "V",
+    "price": 337.24,
+    "size": 36.0,
+    "id": 2650,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:36.492740+00:00",
+    "exchange": "V",
+    "price": 337.225,
+    "size": 10.0,
+    "id": 2651,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:36.492754+00:00",
+    "exchange": "V",
+    "price": 337.225,
+    "size": 5.0,
+    "id": 2652,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:37.254231+00:00",
+    "exchange": "V",
+    "price": 52.12,
+    "size": 100.0,
+    "id": 1021,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:37.259767+00:00",
+    "exchange": "V",
+    "price": 52.12,
+    "size": 100.0,
+    "id": 1022,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:37.534969+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 100.0,
+    "id": 3601,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:37.540661+00:00",
+    "exchange": "V",
+    "price": 36.5,
+    "size": 100.0,
+    "id": 3602,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:38.090878+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 44.0,
+    "id": 53242246606902,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:38.185879+00:00",
+    "exchange": "V",
+    "price": 195.905,
+    "size": 100.0,
+    "id": 1868,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:38.348731+00:00",
+    "exchange": "V",
+    "price": 195.905,
+    "size": 100.0,
+    "id": 1869,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:38.583952+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 96.0,
+    "id": 53242249894204,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:40.061027+00:00",
+    "exchange": "V",
+    "price": 104.34,
+    "size": 24.0,
+    "id": 53242267775310,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:40.377347+00:00",
+    "exchange": "V",
+    "price": 104.34,
+    "size": 100.0,
+    "id": 53242280890714,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:40.482769+00:00",
+    "exchange": "V",
+    "price": 104.33,
+    "size": 100.0,
+    "id": 53242281358968,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:40.674541+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 10.0,
+    "id": 3603,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:41.322547+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 200.0,
+    "id": 53242284364384,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:42.181368+00:00",
+    "exchange": "V",
+    "price": 143.61,
+    "size": 19.0,
+    "id": 53242300297065,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:43.129753+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 25.0,
+    "id": 3604,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:43.404483+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 500.0,
+    "id": 53242318248020,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:43.458841+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 100.0,
+    "id": 3605,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:43.620037+00:00",
+    "exchange": "V",
+    "price": 36.305,
+    "size": 97.0,
+    "id": 53242330960185,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:43.620043+00:00",
+    "exchange": "V",
+    "price": 36.305,
+    "size": 3.0,
+    "id": 53242330960200,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:43.620061+00:00",
+    "exchange": "V",
+    "price": 36.305,
+    "size": 100.0,
+    "id": 53242330960215,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:44.014962+00:00",
+    "exchange": "V",
+    "price": 36.52,
+    "size": 100.0,
+    "id": 3606,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:44.038545+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 10.0,
+    "id": 53242332788835,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:44.430092+00:00",
+    "exchange": "V",
+    "price": 104.31,
+    "size": 56.0,
+    "id": 53242334701631,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:44.696504+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 4.0,
+    "id": 53242347682424,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:46.948879+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3607,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:46.949472+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3608,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:20:46.949867+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3609,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:20:47.271036+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 10.0,
+    "id": 53242383193907,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:50.476140+00:00",
+    "exchange": "V",
+    "price": 337.185,
+    "size": 5.0,
+    "id": 2653,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:50.502985+00:00",
+    "exchange": "V",
+    "price": 143.62,
+    "size": 8.0,
+    "id": 53242449120066,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:20:50.593527+00:00",
+    "exchange": "V",
+    "price": 143.61,
+    "size": 23.0,
+    "id": 53242450180671,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919680+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 89.0,
+    "id": 53242466030387,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919713+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 11.0,
+    "id": 53242466030697,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919722+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 54.0,
+    "id": 53242466030920,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919756+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 46.0,
+    "id": 53242466031212,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:50.919823+00:00",
+    "exchange": "V",
+    "price": 156.955,
+    "size": 2.0,
+    "id": 53242466032233,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919765+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 1.0,
+    "id": 53242466031444,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919792+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 34.0,
+    "id": 53242466031932,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919816+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 25.0,
+    "id": 53242466032227,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919837+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 18.0,
+    "id": 53242466032700,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919858+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 13.0,
+    "id": 53242466033218,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:50.919882+00:00",
+    "exchange": "V",
+    "price": 32.08,
+    "size": 9.0,
+    "id": 53242466033718,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:50.923050+00:00",
+    "exchange": "V",
+    "price": 156.95,
+    "size": 100.0,
+    "id": 53242466102612,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:51.301546+00:00",
+    "exchange": "V",
+    "price": 195.88,
+    "size": 3.0,
+    "id": 1870,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:51.301573+00:00",
+    "exchange": "V",
+    "price": 195.88,
+    "size": 2.0,
+    "id": 1871,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:51.421683+00:00",
+    "exchange": "V",
+    "price": 337.135,
+    "size": 5.0,
+    "id": 2654,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:53.370629+00:00",
+    "exchange": "V",
+    "price": 195.87,
+    "size": 100.0,
+    "id": 1872,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:20:54.339533+00:00",
+    "exchange": "V",
+    "price": 156.94,
+    "size": 100.0,
+    "id": 53245554872675,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:20:54.834458+00:00",
+    "exchange": "V",
+    "price": 263.45,
+    "size": 17.0,
+    "id": 2591,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:55.083422+00:00",
+    "exchange": "V",
+    "price": 195.87,
+    "size": 3.0,
+    "id": 1873,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:55.400185+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 100.0,
+    "id": 53245571248501,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:55.418045+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 100.0,
+    "id": 53245571328373,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:55.440992+00:00",
+    "exchange": "V",
+    "price": 104.255,
+    "size": 10.0,
+    "id": 53245571394903,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:56.642109+00:00",
+    "exchange": "V",
+    "price": 52.115,
+    "size": 100.0,
+    "id": 1023,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:20:56.642119+00:00",
+    "exchange": "V",
+    "price": 52.115,
+    "size": 900.0,
+    "id": 1024,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:57.306774+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53245603370559,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:20:57.307252+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 300.0,
+    "id": 53245603372152,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:58.049139+00:00",
+    "exchange": "V",
+    "price": 337.185,
+    "size": 5.0,
+    "id": 2655,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:20:58.049148+00:00",
+    "exchange": "V",
+    "price": 337.185,
+    "size": 5.0,
+    "id": 2656,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:20:58.105747+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 13.0,
+    "id": 53245619291196,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:58.110219+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 12.0,
+    "id": 53245619295057,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:20:58.110243+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 23.0,
+    "id": 53245619295072,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:20:58.231867+00:00",
+    "exchange": "V",
+    "price": 104.255,
+    "size": 10.0,
+    "id": 53245619754041,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:58.602720+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 100.0,
+    "id": 1874,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:20:58.602741+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 100.0,
+    "id": 1875,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:00.330013+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 3.0,
+    "id": 1876,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:00.610010+00:00",
+    "exchange": "V",
+    "price": 195.88,
+    "size": 300.0,
+    "id": 1877,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:01.331619+00:00",
+    "exchange": "V",
+    "price": 337.16,
+    "size": 5.0,
+    "id": 2657,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:01.424064+00:00",
+    "exchange": "V",
+    "price": 263.55,
+    "size": 10.0,
+    "id": 2592,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:02.966499+00:00",
+    "exchange": "V",
+    "price": 156.935,
+    "size": 3.0,
+    "id": 53245704881016,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:04.211349+00:00",
+    "exchange": "V",
+    "price": 36.53,
+    "size": 100.0,
+    "id": 3610,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:04.300826+00:00",
+    "exchange": "V",
+    "price": 156.935,
+    "size": 100.0,
+    "id": 53245723170096,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:04.500583+00:00",
+    "exchange": "V",
+    "price": 263.59,
+    "size": 4.0,
+    "id": 2593,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:04.603665+00:00",
+    "exchange": "V",
+    "price": 156.935,
+    "size": 100.0,
+    "id": 53245736143167,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:04.707378+00:00",
+    "exchange": "V",
+    "price": 104.245,
+    "size": 10.0,
+    "id": 53245736731768,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:06.351220+00:00",
+    "exchange": "V",
+    "price": 143.64,
+    "size": 100.0,
+    "id": 53245755412070,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:06.351810+00:00",
+    "exchange": "V",
+    "price": 143.64,
+    "size": 1.0,
+    "id": 53245755416163,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:06.351821+00:00",
+    "exchange": "V",
+    "price": 143.64,
+    "size": 4.0,
+    "id": 53245755416398,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:06.528744+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53245756000617,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:07.318858+00:00",
+    "exchange": "V",
+    "price": 263.55,
+    "size": 1.0,
+    "id": 2594,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:08.175536+00:00",
+    "exchange": "V",
+    "price": 263.59,
+    "size": 17.0,
+    "id": 2595,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:08.346537+00:00",
+    "exchange": "V",
+    "price": 36.525,
+    "size": 100.0,
+    "id": 3611,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:21:08.533765+00:00",
+    "exchange": "V",
+    "price": 52.115,
+    "size": 100.0,
+    "id": 1025,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:08.845856+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 100.0,
+    "id": 53245803260482,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:08.846328+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 75.0,
+    "id": 53245803261268,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:09.023129+00:00",
+    "exchange": "V",
+    "price": 263.585,
+    "size": 60.0,
+    "id": 2596,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:09.461065+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 20.0,
+    "id": 53245805746483,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:09.461580+00:00",
+    "exchange": "V",
+    "price": 104.25,
+    "size": 5.0,
+    "id": 53245805746772,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:09.764421+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 200.0,
+    "id": 53245806860399,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:09.794286+00:00",
+    "exchange": "V",
+    "price": 156.935,
+    "size": 100.0,
+    "id": 53245806987640,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:21:09.891947+00:00",
+    "exchange": "V",
+    "price": 52.115,
+    "size": 600.0,
+    "id": 1026,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:09.916651+00:00",
+    "exchange": "V",
+    "price": 337.22,
+    "size": 2.0,
+    "id": 2658,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:10.102151+00:00",
+    "exchange": "V",
+    "price": 104.245,
+    "size": 10.0,
+    "id": 53245820631115,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:10.102160+00:00",
+    "exchange": "V",
+    "price": 104.245,
+    "size": 80.0,
+    "id": 53245820631130,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:10.905133+00:00",
+    "exchange": "V",
+    "price": 337.2,
+    "size": 100.0,
+    "id": 2659,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:11.923331+00:00",
+    "exchange": "V",
+    "price": 156.93,
+    "size": 200.0,
+    "id": 53245840618848,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:13.050595+00:00",
+    "exchange": "V",
+    "price": 104.27,
+    "size": 100.0,
+    "id": 53245857645658,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:14.029906+00:00",
+    "exchange": "V",
+    "price": 104.28,
+    "size": 100.0,
+    "id": 53245874227287,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:14.109222+00:00",
+    "exchange": "V",
+    "price": 263.66,
+    "size": 100.0,
+    "id": 2597,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:14.715557+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3612,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:14.715581+00:00",
+    "exchange": "V",
+    "price": 36.515,
+    "size": 100.0,
+    "id": 3613,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:14.879746+00:00",
+    "exchange": "V",
+    "price": 36.51,
+    "size": 100.0,
+    "id": 3614,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:15.876287+00:00",
+    "exchange": "V",
+    "price": 263.62,
+    "size": 100.0,
+    "id": 2598,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:15.960753+00:00",
+    "exchange": "V",
+    "price": 337.15,
+    "size": 3.0,
+    "id": 2660,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:15.961229+00:00",
+    "exchange": "V",
+    "price": 337.15,
+    "size": 10.0,
+    "id": 2661,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:17.358889+00:00",
+    "exchange": "V",
+    "price": 36.49,
+    "size": 5.0,
+    "id": 3615,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:17.358913+00:00",
+    "exchange": "V",
+    "price": 36.49,
+    "size": 100.0,
+    "id": 3616,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:17.358929+00:00",
+    "exchange": "V",
+    "price": 36.49,
+    "size": 100.0,
+    "id": 3617,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:17.543530+00:00",
+    "exchange": "V",
+    "price": 337.1,
+    "size": 2.0,
+    "id": 2662,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:17.544850+00:00",
+    "exchange": "V",
+    "price": 337.1,
+    "size": 2.0,
+    "id": 2663,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:21:17.616895+00:00",
+    "exchange": "V",
+    "price": 52.11,
+    "size": 34.0,
+    "id": 1027,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:21:17.616917+00:00",
+    "exchange": "V",
+    "price": 52.11,
+    "size": 66.0,
+    "id": 1028,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:18.084086+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 100.0,
+    "id": 53245940820335,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:18.084092+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 12.0,
+    "id": 53245940820534,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:18.950387+00:00",
+    "exchange": "V",
+    "price": 263.68,
+    "size": 17.0,
+    "id": 2599,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:19.081502+00:00",
+    "exchange": "V",
+    "price": 36.3,
+    "size": 100.0,
+    "id": 53245956484677,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:19.400837+00:00",
+    "exchange": "V",
+    "price": 156.925,
+    "size": 100.0,
+    "id": 53245957856370,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:19.727514+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 100.0,
+    "id": 53245958909265,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:20.111065+00:00",
+    "exchange": "V",
+    "price": 337.08,
+    "size": 1.0,
+    "id": 2664,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:20.198924+00:00",
+    "exchange": "V",
+    "price": 195.885,
+    "size": 100.0,
+    "id": 1878,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:20.198948+00:00",
+    "exchange": "V",
+    "price": 195.89,
+    "size": 100.0,
+    "id": 1879,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:20.281517+00:00",
+    "exchange": "V",
+    "price": 337.07,
+    "size": 10.0,
+    "id": 2665,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:20.281542+00:00",
+    "exchange": "V",
+    "price": 337.07,
+    "size": 5.0,
+    "id": 2666,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:20.289684+00:00",
+    "exchange": "V",
+    "price": 156.915,
+    "size": 100.0,
+    "id": 53245988980278,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:21.346362+00:00",
+    "exchange": "V",
+    "price": 32.075,
+    "size": 10.0,
+    "id": 53246006683961,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:21.415306+00:00",
+    "exchange": "V",
+    "price": 195.865,
+    "size": 100.0,
+    "id": 1880,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.986405+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 6.0,
+    "id": 53246021825623,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.986423+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 5.0,
+    "id": 53246021825638,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.986529+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 20.0,
+    "id": 53246021825849,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.986603+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 24.0,
+    "id": 53246021825885,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.986631+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 24.0,
+    "id": 53246021825912,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:21.987500+00:00",
+    "exchange": "V",
+    "price": 36.29,
+    "size": 100.0,
+    "id": 53246021875269,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.026020+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246038723927,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.031520+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246038729547,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.032184+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246038730815,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.523346+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246040624730,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.523397+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 500.0,
+    "id": 53246040625516,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.523989+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246040630853,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:23.537067+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246040751727,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:23.588186+00:00",
+    "exchange": "V",
+    "price": 263.65,
+    "size": 100.0,
+    "id": 2600,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:23.744075+00:00",
+    "exchange": "V",
+    "price": 104.28,
+    "size": 10.0,
+    "id": 53246041666406,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:23.744099+00:00",
+    "exchange": "V",
+    "price": 104.28,
+    "size": 10.0,
+    "id": 53246041666620,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:24.289638+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246056027955,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:24.290284+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246056028756,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:24.290919+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 100.0,
+    "id": 53246056030298,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:25.289364+00:00",
+    "exchange": "V",
+    "price": 143.62,
+    "size": 1.0,
+    "id": 53246072732720,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:26.844967+00:00",
+    "exchange": "V",
+    "price": 36.48,
+    "size": 100.0,
+    "id": 3618,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "XOM",
+    "timestamp": "2023-07-28T14:21:27.520602+00:00",
+    "exchange": "V",
+    "price": 104.265,
+    "size": 10.0,
+    "id": 53246093248099,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:21:28.127788+00:00",
+    "exchange": "V",
+    "price": 33.09,
+    "size": 7.0,
+    "id": 53246107333475,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:21:28.274204+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 180.0,
+    "id": 53246107729980,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "HPQ",
+    "timestamp": "2023-07-28T14:21:28.274228+00:00",
+    "exchange": "V",
+    "price": 33.095,
+    "size": 20.0,
+    "id": 53246107729998,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:28.640100+00:00",
+    "exchange": "V",
+    "price": 195.88,
+    "size": 100.0,
+    "id": 1881,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "BAC",
+    "timestamp": "2023-07-28T14:21:29.133547+00:00",
+    "exchange": "V",
+    "price": 32.065,
+    "size": 120.0,
+    "id": 53246122878292,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:30.184581+00:00",
+    "exchange": "V",
+    "price": 263.68,
+    "size": 20.0,
+    "id": 2601,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:30.197727+00:00",
+    "exchange": "V",
+    "price": 263.68,
+    "size": 10.0,
+    "id": 2602,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:30.321140+00:00",
+    "exchange": "V",
+    "price": 263.685,
+    "size": 70.0,
+    "id": 2603,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:30.321151+00:00",
+    "exchange": "V",
+    "price": 263.685,
+    "size": 30.0,
+    "id": 2604,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:30.497700+00:00",
+    "exchange": "V",
+    "price": 36.465,
+    "size": 100.0,
+    "id": 3619,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:30.497724+00:00",
+    "exchange": "V",
+    "price": 36.465,
+    "size": 100.0,
+    "id": 3620,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "JPM",
+    "timestamp": "2023-07-28T14:21:31.305834+00:00",
+    "exchange": "V",
+    "price": 156.855,
+    "size": 100.0,
+    "id": 53246160228406,
+    "conditions": [
+        " "
+    ],
+    "tape": "A"
+}{
+    "symbol": "MSFT",
+    "timestamp": "2023-07-28T14:21:31.311222+00:00",
+    "exchange": "V",
+    "price": 337.17,
+    "size": 100.0,
+    "id": 2667,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "AAPL",
+    "timestamp": "2023-07-28T14:21:31.316796+00:00",
+    "exchange": "V",
+    "price": 195.91,
+    "size": 2.0,
+    "id": 1882,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:31.339324+00:00",
+    "exchange": "V",
+    "price": 36.28,
+    "size": 2.0,
+    "id": 53246173659235,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:31.339384+00:00",
+    "exchange": "V",
+    "price": 36.28,
+    "size": 98.0,
+    "id": 53246173659756,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "PFE",
+    "timestamp": "2023-07-28T14:21:31.339396+00:00",
+    "exchange": "V",
+    "price": 36.28,
+    "size": 2.0,
+    "id": 53246173659961,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:32.076682+00:00",
+    "exchange": "V",
+    "price": 143.57,
+    "size": 4.0,
+    "id": 53246190633824,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:32.787525+00:00",
+    "exchange": "V",
+    "price": 36.465,
+    "size": 10.0,
+    "id": 3621,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:32.788515+00:00",
+    "exchange": "V",
+    "price": 36.46,
+    "size": 26.0,
+    "id": 3622,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:32.788540+00:00",
+    "exchange": "V",
+    "price": 36.46,
+    "size": 74.0,
+    "id": 3623,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:32.890274+00:00",
+    "exchange": "V",
+    "price": 36.46,
+    "size": 89.0,
+    "id": 3624,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}{
+    "symbol": "INTC",
+    "timestamp": "2023-07-28T14:21:34.331932+00:00",
+    "exchange": "V",
+    "price": 36.455,
+    "size": 100.0,
+    "id": 3625,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "CSCO",
+    "timestamp": "2023-07-28T14:21:34.581277+00:00",
+    "exchange": "V",
+    "price": 52.09,
+    "size": 100.0,
+    "id": 1029,
+    "conditions": [
+        "@"
+    ],
+    "tape": "C"
+}{
+    "symbol": "IBM",
+    "timestamp": "2023-07-28T14:21:35.523468+00:00",
+    "exchange": "V",
+    "price": 143.58,
+    "size": 1.0,
+    "id": 53246240575804,
+    "conditions": [
+        " ",
+        "I"
+    ],
+    "tape": "A"
+}{
+    "symbol": "TSLA",
+    "timestamp": "2023-07-28T14:21:36.325963+00:00",
+    "exchange": "V",
+    "price": 263.7,
+    "size": 10.0,
+    "id": 2605,
+    "conditions": [
+        "@",
+        "I"
+    ],
+    "tape": "C"
+}

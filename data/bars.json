@@ -1,0 +1,1667 @@
+{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 36.53,
+            "high": 36.59,
+            "low": 36.5,
+            "close": 36.5,
+            "volume": 4893.0,
+            "trade_count": 43.0,
+            "vwap": 36.527395
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 32.05,
+            "high": 32.08,
+            "low": 32.05,
+            "close": 32.08,
+            "volume": 4757.0,
+            "trade_count": 35.0,
+            "vwap": 32.063651
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 103.41,
+            "high": 103.41,
+            "low": 103.41,
+            "close": 103.41,
+            "volume": 221.0,
+            "trade_count": 5.0,
+            "vwap": 103.408733
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 382.6,
+            "high": 382.6,
+            "low": 382.565,
+            "close": 382.57,
+            "volume": 464.0,
+            "trade_count": 6.0,
+            "vwap": 382.580603
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 143.63,
+            "high": 143.67,
+            "low": 143.63,
+            "close": 143.67,
+            "volume": 412.0,
+            "trade_count": 6.0,
+            "vwap": 143.63932
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 157.15,
+            "high": 157.23,
+            "low": 157.15,
+            "close": 157.23,
+            "volume": 5468.0,
+            "trade_count": 55.0,
+            "vwap": 157.205792
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 456.49,
+            "high": 456.49,
+            "low": 456.435,
+            "close": 456.47,
+            "volume": 710.0,
+            "trade_count": 12.0,
+            "vwap": 456.464282
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 51.965,
+            "high": 52.005,
+            "low": 51.965,
+            "close": 51.99,
+            "volume": 1669.0,
+            "trade_count": 27.0,
+            "vwap": 51.985641
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 336.71,
+            "high": 336.71,
+            "low": 336.71,
+            "close": 336.71,
+            "volume": 521.0,
+            "trade_count": 24.0,
+            "vwap": 336.696641
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 32.975,
+            "high": 32.975,
+            "low": 32.975,
+            "close": 32.975,
+            "volume": 318.0,
+            "trade_count": 5.0,
+            "vwap": 32.97544
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 195.95,
+            "high": 195.99,
+            "low": 195.95,
+            "close": 195.95,
+            "volume": 666.0,
+            "trade_count": 15.0,
+            "vwap": 195.965308
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 262.43,
+            "high": 262.43,
+            "low": 262.26,
+            "close": 262.26,
+            "volume": 461.0,
+            "trade_count": 8.0,
+            "vwap": 262.380217
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:37:00+00:00",
+            "open": 36.21,
+            "high": 36.23,
+            "low": 36.21,
+            "close": 36.23,
+            "volume": 996.0,
+            "trade_count": 11.0,
+            "vwap": 36.218996
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 382.555,
+            "high": 382.555,
+            "low": 382.33,
+            "close": 382.34,
+            "volume": 1776.0,
+            "trade_count": 20.0,
+            "vwap": 382.369108
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 36.51,
+            "high": 36.53,
+            "low": 36.485,
+            "close": 36.505,
+            "volume": 20730.0,
+            "trade_count": 42.0,
+            "vwap": 36.488522
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 458.84,
+            "high": 458.85,
+            "low": 458.84,
+            "close": 458.85,
+            "volume": 230.0,
+            "trade_count": 3.0,
+            "vwap": 458.837826
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 456.345,
+            "high": 456.42,
+            "low": 456.345,
+            "close": 456.42,
+            "volume": 797.0,
+            "trade_count": 14.0,
+            "vwap": 456.384925
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 36.23,
+            "high": 36.255,
+            "low": 36.23,
+            "close": 36.255,
+            "volume": 797.0,
+            "trade_count": 9.0,
+            "vwap": 36.237528
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 262.26,
+            "high": 262.26,
+            "low": 261.75,
+            "close": 261.76,
+            "volume": 1648.0,
+            "trade_count": 33.0,
+            "vwap": 261.896717
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 336.62,
+            "high": 336.62,
+            "low": 336.53,
+            "close": 336.53,
+            "volume": 589.0,
+            "trade_count": 40.0,
+            "vwap": 336.538277
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 143.55,
+            "high": 143.56,
+            "low": 143.55,
+            "close": 143.56,
+            "volume": 326.0,
+            "trade_count": 5.0,
+            "vwap": 143.552239
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 51.985,
+            "high": 52.0,
+            "low": 51.98,
+            "close": 51.995,
+            "volume": 1726.0,
+            "trade_count": 17.0,
+            "vwap": 51.987071
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 195.94,
+            "high": 195.95,
+            "low": 195.79,
+            "close": 195.79,
+            "volume": 1612.0,
+            "trade_count": 28.0,
+            "vwap": 195.851393
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 157.22,
+            "high": 157.28,
+            "low": 157.22,
+            "close": 157.28,
+            "volume": 444.0,
+            "trade_count": 6.0,
+            "vwap": 157.244516
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:38:00+00:00",
+            "open": 32.07,
+            "high": 32.085,
+            "low": 32.07,
+            "close": 32.085,
+            "volume": 3690.0,
+            "trade_count": 20.0,
+            "vwap": 32.074431
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 157.27,
+            "high": 157.27,
+            "low": 157.245,
+            "close": 157.245,
+            "volume": 500.0,
+            "trade_count": 7.0,
+            "vwap": 157.262
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 52.01,
+            "high": 52.02,
+            "low": 51.995,
+            "close": 51.995,
+            "volume": 1289.0,
+            "trade_count": 18.0,
+            "vwap": 52.005105
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 261.67,
+            "high": 261.68,
+            "low": 261.15,
+            "close": 261.22,
+            "volume": 3343.0,
+            "trade_count": 48.0,
+            "vwap": 261.416084
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 32.085,
+            "high": 32.085,
+            "low": 32.065,
+            "close": 32.065,
+            "volume": 3366.0,
+            "trade_count": 17.0,
+            "vwap": 32.078819
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 36.505,
+            "high": 36.57,
+            "low": 36.5,
+            "close": 36.57,
+            "volume": 5119.0,
+            "trade_count": 56.0,
+            "vwap": 36.53973
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 195.82,
+            "high": 195.83,
+            "low": 195.72,
+            "close": 195.72,
+            "volume": 1981.0,
+            "trade_count": 35.0,
+            "vwap": 195.786774
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 458.8,
+            "high": 458.8,
+            "low": 458.8,
+            "close": 458.8,
+            "volume": 150.0,
+            "trade_count": 4.0,
+            "vwap": 458.764433
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 382.37,
+            "high": 382.39,
+            "low": 382.17,
+            "close": 382.17,
+            "volume": 889.0,
+            "trade_count": 18.0,
+            "vwap": 382.259904
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 456.44,
+            "high": 456.445,
+            "low": 456.25,
+            "close": 456.25,
+            "volume": 2346.0,
+            "trade_count": 29.0,
+            "vwap": 456.348674
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 36.26,
+            "high": 36.26,
+            "low": 36.25,
+            "close": 36.25,
+            "volume": 431.0,
+            "trade_count": 6.0,
+            "vwap": 36.252193
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 336.24,
+            "high": 336.24,
+            "low": 335.915,
+            "close": 335.915,
+            "volume": 516.0,
+            "trade_count": 50.0,
+            "vwap": 336.093314
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 103.395,
+            "high": 103.45,
+            "low": 103.395,
+            "close": 103.435,
+            "volume": 1922.0,
+            "trade_count": 16.0,
+            "vwap": 103.415525
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:39:00+00:00",
+            "open": 143.55,
+            "high": 143.55,
+            "low": 143.54,
+            "close": 143.54,
+            "volume": 236.0,
+            "trade_count": 6.0,
+            "vwap": 143.546271
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 143.54,
+            "high": 143.54,
+            "low": 143.52,
+            "close": 143.52,
+            "volume": 498.0,
+            "trade_count": 15.0,
+            "vwap": 143.535823
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 51.99,
+            "high": 51.995,
+            "low": 51.975,
+            "close": 51.975,
+            "volume": 2063.0,
+            "trade_count": 21.0,
+            "vwap": 51.979881
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 36.24,
+            "high": 36.24,
+            "low": 36.24,
+            "close": 36.24,
+            "volume": 265.0,
+            "trade_count": 6.0,
+            "vwap": 36.244528
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 458.68,
+            "high": 458.68,
+            "low": 458.68,
+            "close": 458.68,
+            "volume": 117.0,
+            "trade_count": 5.0,
+            "vwap": 458.678205
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 32.05,
+            "high": 32.055,
+            "low": 32.035,
+            "close": 32.035,
+            "volume": 5011.0,
+            "trade_count": 34.0,
+            "vwap": 32.048769
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 195.73,
+            "high": 195.77,
+            "low": 195.705,
+            "close": 195.705,
+            "volume": 657.0,
+            "trade_count": 15.0,
+            "vwap": 195.741218
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 32.955,
+            "high": 32.955,
+            "low": 32.955,
+            "close": 32.955,
+            "volume": 384.0,
+            "trade_count": 7.0,
+            "vwap": 32.957591
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 456.225,
+            "high": 456.31,
+            "low": 456.195,
+            "close": 456.235,
+            "volume": 4216.0,
+            "trade_count": 48.0,
+            "vwap": 456.249899
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 36.58,
+            "high": 36.59,
+            "low": 36.5,
+            "close": 36.5,
+            "volume": 5240.0,
+            "trade_count": 46.0,
+            "vwap": 36.521538
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 382.23,
+            "high": 382.315,
+            "low": 382.22,
+            "close": 382.22,
+            "volume": 1312.0,
+            "trade_count": 11.0,
+            "vwap": 382.245187
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 335.945,
+            "high": 336.08,
+            "low": 335.9,
+            "close": 336.08,
+            "volume": 3435.0,
+            "trade_count": 61.0,
+            "vwap": 336.02615
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 157.21,
+            "high": 157.275,
+            "low": 157.21,
+            "close": 157.245,
+            "volume": 1310.0,
+            "trade_count": 14.0,
+            "vwap": 157.258183
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 103.38,
+            "high": 103.38,
+            "low": 103.38,
+            "close": 103.38,
+            "volume": 286.0,
+            "trade_count": 5.0,
+            "vwap": 103.380367
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:40:00+00:00",
+            "open": 261.18,
+            "high": 261.45,
+            "low": 261.175,
+            "close": 261.45,
+            "volume": 1864.0,
+            "trade_count": 32.0,
+            "vwap": 261.344842
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 456.27,
+            "high": 456.495,
+            "low": 456.27,
+            "close": 456.495,
+            "volume": 1442.0,
+            "trade_count": 23.0,
+            "vwap": 456.401675
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 157.23,
+            "high": 157.26,
+            "low": 157.23,
+            "close": 157.26,
+            "volume": 604.0,
+            "trade_count": 13.0,
+            "vwap": 157.236722
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 336.055,
+            "high": 336.08,
+            "low": 336.055,
+            "close": 336.08,
+            "volume": 987.0,
+            "trade_count": 35.0,
+            "vwap": 336.082893
+        }
+    ]
+}{
+    "DIA": [
+        {
+            "symbol": "DIA",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 354.72,
+            "high": 354.72,
+            "low": 354.72,
+            "close": 354.72,
+            "volume": 147.0,
+            "trade_count": 4.0,
+            "vwap": 354.701769
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 32.965,
+            "high": 32.975,
+            "low": 32.965,
+            "close": 32.975,
+            "volume": 529.0,
+            "trade_count": 8.0,
+            "vwap": 32.972977
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 458.72,
+            "high": 458.78,
+            "low": 458.72,
+            "close": 458.78,
+            "volume": 200.0,
+            "trade_count": 2.0,
+            "vwap": 458.75
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 36.5,
+            "high": 36.53,
+            "low": 36.495,
+            "close": 36.5,
+            "volume": 1323.0,
+            "trade_count": 14.0,
+            "vwap": 36.507528
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 32.035,
+            "high": 32.035,
+            "low": 32.01,
+            "close": 32.02,
+            "volume": 5098.0,
+            "trade_count": 34.0,
+            "vwap": 32.020955
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 195.765,
+            "high": 195.775,
+            "low": 195.765,
+            "close": 195.775,
+            "volume": 250.0,
+            "trade_count": 4.0,
+            "vwap": 195.7756
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 36.25,
+            "high": 36.25,
+            "low": 36.24,
+            "close": 36.24,
+            "volume": 231.0,
+            "trade_count": 4.0,
+            "vwap": 36.244545
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 382.365,
+            "high": 382.565,
+            "low": 382.34,
+            "close": 382.535,
+            "volume": 984.0,
+            "trade_count": 14.0,
+            "vwap": 382.455473
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 51.97,
+            "high": 52.0,
+            "low": 51.965,
+            "close": 52.0,
+            "volume": 2353.0,
+            "trade_count": 34.0,
+            "vwap": 51.982182
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 103.36,
+            "high": 103.36,
+            "low": 103.36,
+            "close": 103.36,
+            "volume": 244.0,
+            "trade_count": 10.0,
+            "vwap": 103.346721
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 143.46,
+            "high": 143.46,
+            "low": 143.46,
+            "close": 143.46,
+            "volume": 542.0,
+            "trade_count": 11.0,
+            "vwap": 143.465683
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:41:00+00:00",
+            "open": 261.41,
+            "high": 261.605,
+            "low": 261.41,
+            "close": 261.56,
+            "volume": 1140.0,
+            "trade_count": 23.0,
+            "vwap": 261.508417
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 36.455,
+            "high": 36.505,
+            "low": 36.455,
+            "close": 36.505,
+            "volume": 2115.0,
+            "trade_count": 21.0,
+            "vwap": 36.484054
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 195.8,
+            "high": 195.8,
+            "low": 195.715,
+            "close": 195.75,
+            "volume": 450.0,
+            "trade_count": 5.0,
+            "vwap": 195.753889
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 51.99,
+            "high": 51.99,
+            "low": 51.975,
+            "close": 51.98,
+            "volume": 1454.0,
+            "trade_count": 16.0,
+            "vwap": 51.985028
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 32.005,
+            "high": 32.005,
+            "low": 31.985,
+            "close": 31.985,
+            "volume": 4502.0,
+            "trade_count": 25.0,
+            "vwap": 31.9894
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 157.205,
+            "high": 157.205,
+            "low": 157.175,
+            "close": 157.175,
+            "volume": 613.0,
+            "trade_count": 5.0,
+            "vwap": 157.19553
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 382.385,
+            "high": 382.385,
+            "low": 382.13,
+            "close": 382.13,
+            "volume": 1342.0,
+            "trade_count": 14.0,
+            "vwap": 382.268636
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 261.59,
+            "high": 261.59,
+            "low": 260.81,
+            "close": 260.92,
+            "volume": 2264.0,
+            "trade_count": 36.0,
+            "vwap": 261.082747
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 456.495,
+            "high": 456.495,
+            "low": 456.2,
+            "close": 456.2,
+            "volume": 926.0,
+            "trade_count": 16.0,
+            "vwap": 456.313305
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 143.49,
+            "high": 143.49,
+            "low": 143.49,
+            "close": 143.49,
+            "volume": 159.0,
+            "trade_count": 2.0,
+            "vwap": 143.486289
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 336.02,
+            "high": 336.02,
+            "low": 335.82,
+            "close": 335.82,
+            "volume": 608.0,
+            "trade_count": 31.0,
+            "vwap": 335.878314
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:42:00+00:00",
+            "open": 32.985,
+            "high": 32.985,
+            "low": 32.985,
+            "close": 32.985,
+            "volume": 164.0,
+            "trade_count": 7.0,
+            "vwap": 32.982012
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 103.395,
+            "high": 103.4,
+            "low": 103.395,
+            "close": 103.4,
+            "volume": 280.0,
+            "trade_count": 10.0,
+            "vwap": 103.394821
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 143.49,
+            "high": 143.5,
+            "low": 143.49,
+            "close": 143.49,
+            "volume": 447.0,
+            "trade_count": 10.0,
+            "vwap": 143.490022
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 157.14,
+            "high": 157.14,
+            "low": 157.075,
+            "close": 157.11,
+            "volume": 2833.0,
+            "trade_count": 9.0,
+            "vwap": 157.096608
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 456.215,
+            "high": 456.32,
+            "low": 456.215,
+            "close": 456.285,
+            "volume": 1540.0,
+            "trade_count": 25.0,
+            "vwap": 456.282825
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 51.97,
+            "high": 51.97,
+            "low": 51.965,
+            "close": 51.97,
+            "volume": 4911.0,
+            "trade_count": 16.0,
+            "vwap": 51.965603
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 458.715,
+            "high": 458.715,
+            "low": 458.715,
+            "close": 458.715,
+            "volume": 200.0,
+            "trade_count": 3.0,
+            "vwap": 458.6925
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 36.25,
+            "high": 36.26,
+            "low": 36.25,
+            "close": 36.25,
+            "volume": 2300.0,
+            "trade_count": 29.0,
+            "vwap": 36.253052
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 32.985,
+            "high": 32.985,
+            "low": 32.985,
+            "close": 32.985,
+            "volume": 111.0,
+            "trade_count": 5.0,
+            "vwap": 32.985901
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 195.695,
+            "high": 195.71,
+            "low": 195.66,
+            "close": 195.66,
+            "volume": 837.0,
+            "trade_count": 16.0,
+            "vwap": 195.680812
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 36.51,
+            "high": 36.59,
+            "low": 36.51,
+            "close": 36.58,
+            "volume": 1100.0,
+            "trade_count": 11.0,
+            "vwap": 36.573091
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 335.71,
+            "high": 335.725,
+            "low": 335.71,
+            "close": 335.725,
+            "volume": 257.0,
+            "trade_count": 13.0,
+            "vwap": 335.723988
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 382.26,
+            "high": 382.29,
+            "low": 382.19,
+            "close": 382.19,
+            "volume": 424.0,
+            "trade_count": 8.0,
+            "vwap": 382.248231
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 261.13,
+            "high": 261.13,
+            "low": 260.91,
+            "close": 260.92,
+            "volume": 1288.0,
+            "trade_count": 31.0,
+            "vwap": 260.977112
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:43:00+00:00",
+            "open": 31.975,
+            "high": 32.0,
+            "low": 31.97,
+            "close": 32.0,
+            "volume": 6415.0,
+            "trade_count": 27.0,
+            "vwap": 31.988687
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 157.13,
+            "high": 157.13,
+            "low": 157.06,
+            "close": 157.06,
+            "volume": 675.0,
+            "trade_count": 12.0,
+            "vwap": 157.10637
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 335.6,
+            "high": 335.68,
+            "low": 335.6,
+            "close": 335.68,
+            "volume": 893.0,
+            "trade_count": 27.0,
+            "vwap": 335.652223
+        }
+    ]
+}{
+    "XOM": [
+        {
+            "symbol": "XOM",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 103.37,
+            "high": 103.38,
+            "low": 103.34,
+            "close": 103.37,
+            "volume": 594.0,
+            "trade_count": 15.0,
+            "vwap": 103.365
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 456.29,
+            "high": 456.29,
+            "low": 456.215,
+            "close": 456.215,
+            "volume": 4423.0,
+            "trade_count": 32.0,
+            "vwap": 456.259339
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 260.94,
+            "high": 260.97,
+            "low": 260.725,
+            "close": 260.97,
+            "volume": 2543.0,
+            "trade_count": 36.0,
+            "vwap": 260.887802
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 382.21,
+            "high": 382.22,
+            "low": 382.11,
+            "close": 382.22,
+            "volume": 577.0,
+            "trade_count": 11.0,
+            "vwap": 382.169593
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 51.975,
+            "high": 51.99,
+            "low": 51.955,
+            "close": 51.96,
+            "volume": 3795.0,
+            "trade_count": 41.0,
+            "vwap": 51.965643
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 36.255,
+            "high": 36.27,
+            "low": 36.25,
+            "close": 36.26,
+            "volume": 1813.0,
+            "trade_count": 26.0,
+            "vwap": 36.261991
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 143.64,
+            "high": 143.64,
+            "low": 143.62,
+            "close": 143.62,
+            "volume": 338.0,
+            "trade_count": 4.0,
+            "vwap": 143.627648
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 33.005,
+            "high": 33.005,
+            "low": 33.005,
+            "close": 33.005,
+            "volume": 447.0,
+            "trade_count": 11.0,
+            "vwap": 33.003736
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 36.55,
+            "high": 36.605,
+            "low": 36.55,
+            "close": 36.605,
+            "volume": 2183.0,
+            "trade_count": 24.0,
+            "vwap": 36.581484
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 195.65,
+            "high": 195.65,
+            "low": 195.635,
+            "close": 195.635,
+            "volume": 370.0,
+            "trade_count": 8.0,
+            "vwap": 195.64373
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:44:00+00:00",
+            "open": 32.005,
+            "high": 32.03,
+            "low": 32.005,
+            "close": 32.015,
+            "volume": 5941.0,
+            "trade_count": 30.0,
+            "vwap": 32.020067
+        }
+    ]
+}{
+    "VTI": [
+        {
+            "symbol": "VTI",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 227.27,
+            "high": 227.27,
+            "low": 227.26,
+            "close": 227.26,
+            "volume": 200.0,
+            "trade_count": 2.0,
+            "vwap": 227.265
+        }
+    ]
+}{
+    "JPM": [
+        {
+            "symbol": "JPM",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 157.04,
+            "high": 157.11,
+            "low": 157.04,
+            "close": 157.05,
+            "volume": 2580.0,
+            "trade_count": 20.0,
+            "vwap": 157.090078
+        }
+    ]
+}{
+    "INTC": [
+        {
+            "symbol": "INTC",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 36.605,
+            "high": 36.605,
+            "low": 36.53,
+            "close": 36.59,
+            "volume": 4933.0,
+            "trade_count": 43.0,
+            "vwap": 36.589138
+        }
+    ]
+}{
+    "MSFT": [
+        {
+            "symbol": "MSFT",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 335.74,
+            "high": 335.74,
+            "low": 335.74,
+            "close": 335.74,
+            "volume": 382.0,
+            "trade_count": 19.0,
+            "vwap": 335.719948
+        }
+    ]
+}{
+    "PFE": [
+        {
+            "symbol": "PFE",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 36.25,
+            "high": 36.255,
+            "low": 36.25,
+            "close": 36.25,
+            "volume": 324.0,
+            "trade_count": 7.0,
+            "vwap": 36.251914
+        }
+    ]
+}{
+    "CSCO": [
+        {
+            "symbol": "CSCO",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 51.965,
+            "high": 51.965,
+            "low": 51.955,
+            "close": 51.965,
+            "volume": 3001.0,
+            "trade_count": 18.0,
+            "vwap": 51.963687
+        }
+    ]
+}{
+    "IVV": [
+        {
+            "symbol": "IVV",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 458.64,
+            "high": 458.64,
+            "low": 458.53,
+            "close": 458.53,
+            "volume": 700.0,
+            "trade_count": 7.0,
+            "vwap": 458.579286
+        }
+    ]
+}{
+    "BAC": [
+        {
+            "symbol": "BAC",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 32.0,
+            "high": 32.01,
+            "low": 31.99,
+            "close": 31.99,
+            "volume": 6254.0,
+            "trade_count": 37.0,
+            "vwap": 32.003879
+        }
+    ]
+}{
+    "AAPL": [
+        {
+            "symbol": "AAPL",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 195.66,
+            "high": 195.705,
+            "low": 195.66,
+            "close": 195.69,
+            "volume": 515.0,
+            "trade_count": 18.0,
+            "vwap": 195.683777
+        }
+    ]
+}{
+    "SPY": [
+        {
+            "symbol": "SPY",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 456.225,
+            "high": 456.225,
+            "low": 456.14,
+            "close": 456.18,
+            "volume": 1001.0,
+            "trade_count": 15.0,
+            "vwap": 456.187198
+        }
+    ]
+}{
+    "TSLA": [
+        {
+            "symbol": "TSLA",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 260.95,
+            "high": 261.045,
+            "low": 260.59,
+            "close": 261.045,
+            "volume": 579.0,
+            "trade_count": 12.0,
+            "vwap": 260.887962
+        }
+    ]
+}{
+    "QQQ": [
+        {
+            "symbol": "QQQ",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 382.18,
+            "high": 382.19,
+            "low": 382.08,
+            "close": 382.19,
+            "volume": 1137.0,
+            "trade_count": 13.0,
+            "vwap": 382.163522
+        }
+    ]
+}{
+    "HPQ": [
+        {
+            "symbol": "HPQ",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 32.995,
+            "high": 32.995,
+            "low": 32.995,
+            "close": 32.995,
+            "volume": 472.0,
+            "trade_count": 19.0,
+            "vwap": 32.9959
+        }
+    ]
+}{
+    "IBM": [
+        {
+            "symbol": "IBM",
+            "timestamp": "2023-07-28T14:45:00+00:00",
+            "open": 143.685,
+            "high": 143.74,
+            "low": 143.685,
+            "close": 143.71,
+            "volume": 819.0,
+            "trade_count": 14.0,
+            "vwap": 143.708193
+        }
+    ]
+}

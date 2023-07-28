@@ -2,6 +2,9 @@ import logging
 import os
 import sys
 from .settings import Settings
+from datetime import datetime
+from pydantic import BaseModel
+from enum import Enum
 
 
 def setup_logging(settings: Settings):
@@ -27,3 +30,16 @@ def setup_logging(settings: Settings):
     # Add the StreamHandler to the logger
     logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
+
+
+def custom_json_encoder(data):
+    if isinstance(data, datetime):
+        return data.isoformat()
+    elif isinstance(data, Enum):
+        return data.value
+    elif isinstance(data, set):
+        return list(data)
+    elif isinstance(data, BaseModel):
+        return data.dict()
+    else:
+        raise TypeError("Can't serialize item %s of type %s", data, type(data))

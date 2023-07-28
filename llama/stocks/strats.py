@@ -1,5 +1,6 @@
 import logging
 from alpaca.data.models import BarSet
+from .models import CustomBarSet
 from .tools import get_times_and_closing_p
 import numpy as np
 from alpaca.trading.enums import OrderSide, TimeInForce
@@ -9,7 +10,7 @@ from .trader import LlamaTrader, MockLlamaTrader
 
 def moving_average_strategy(
     trader: LlamaTrader | MockLlamaTrader,
-    data: BarSet,
+    data: CustomBarSet | BarSet,
 ):
     for key in data.data.keys():
         _, closing_prices = get_times_and_closing_p(key, data)

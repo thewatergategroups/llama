@@ -22,9 +22,36 @@ def api(settings: Settings):
 
 def live(settings: Settings):
     """Websocket Stream data"""
-    ls_object = liveStockDataStream.create(settings)
-    stocks = ("AAPL", "SPY", "TSLA")
-    ls_object.subscribe(bars=stocks, qoutes=stocks, trades=stocks)
+    trader = MockLlamaTrader()
+    ls_object = liveStockDataStream.create(settings, trader)
+    stocks = (
+        "AAPL",
+        "TSLA",
+        "MSFT",
+        "PFE",
+        "XOM",
+        "BAC",
+        "INTC",
+        "IBM",
+        "CSCO",
+        "HPQ",
+        "JPM",
+        "WML",
+    )
+    etfs = (
+        "SPY",
+        "VOO",
+        "IVV",
+        "QQQ",
+        "VTWO",
+        "DIA",
+        "VTI",
+        "ONEQ",
+        "QQQE",
+        "QQQJ",
+    )
+    all_ = stocks + etfs
+    ls_object.subscribe(bars=all_)
 
 
 def rest(settings: Settings):
