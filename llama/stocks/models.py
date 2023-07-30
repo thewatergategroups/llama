@@ -1,5 +1,5 @@
 from alpaca.data.models.base import TimeSeriesMixin, BaseDataSet
-from alpaca.data.models import Quote, Bar, Trade
+from alpaca.data.models import Bar
 from collections import defaultdict
 
 
@@ -8,10 +8,17 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
     def __init__(
         self,
-        bars: list[Bar],
+        bars: list[Bar] = [],
     ):
         parsed_bars = defaultdict(lambda: [])
         for item in bars:
             parsed_bars[item.symbol].append(item)
 
         super().__init__(data=dict(parsed_bars))
+
+    def append(self, bar: Bar):
+        """Keeps the last 15 bars in memory"""
+        symbol_list = self.data[bar.symbol]
+        symbol_list.append(bar)
+        if (len_list := len(symbol_list)) > 15:
+            symbol_list = symbol_list[len_list - 15 :]

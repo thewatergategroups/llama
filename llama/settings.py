@@ -14,3 +14,32 @@ class Settings(BaseSettings):
     news_url: str = "https://data.alpaca.markets/v1beta1/news"
     paper: bool = True
     log_level: str = "INFO"
+
+
+STOCKS_TO_TRADE = (
+    "AAPL",
+    "TSLA",
+    "MSFT",
+    "PFE",
+    "XOM",
+    "BAC",
+    "INTC",
+    "IBM",
+    "CSCO",
+    "HPQ",
+    "JPM",
+    "WML",
+)
+
+ETFS_TO_TRADE = (
+    "SPY",
+    "VOO",
+    "IVV",
+    "QQQ",
+    "VTWO",
+    "DIA",
+    "VTI",
+    "ONEQ",
+    "QQQE",
+    "QQQJ",
+)

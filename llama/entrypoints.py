@@ -3,8 +3,9 @@ from alpaca.data.timeframe import TimeFrame
 from datetime import datetime, timedelta
 from time import sleep
 import logging
+from concurrent.futures import ProcessPoolExecutor
 from .worker.websocket import liveStockDataStream
-from .settings import Settings
+from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
 from .stocks import LlamaHistory, LlamaTrader, moving_average_strategy, MockLlamaTrader
 
 
@@ -24,33 +25,7 @@ def live(settings: Settings):
     """Websocket Stream data"""
     trader = MockLlamaTrader()
     ls_object = liveStockDataStream.create(settings, trader)
-    stocks = (
-        "AAPL",
-        "TSLA",
-        "MSFT",
-        "PFE",
-        "XOM",
-        "BAC",
-        "INTC",
-        "IBM",
-        "CSCO",
-        "HPQ",
-        "JPM",
-        "WML",
-    )
-    etfs = (
-        "SPY",
-        "VOO",
-        "IVV",
-        "QQQ",
-        "VTWO",
-        "DIA",
-        "VTI",
-        "ONEQ",
-        "QQQE",
-        "QQQJ",
-    )
-    all_ = stocks + etfs
+    all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
     ls_object.subscribe(bars=all_)
 
 
@@ -58,7 +33,7 @@ def rest(settings: Settings):
     """REST api trading stratedgy"""
     trader = LlamaTrader.create(settings)
     history = LlamaHistory.create(settings)
-    symbols = ["TSLA", "AAPL", "SPY"]
+    symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
     while True:
         data = history.get_stock_bars(
             symbols,
@@ -73,10 +48,11 @@ def backtest_moving_average(settings: Settings):
     history = LlamaHistory.create(settings)
     mock_trader = MockLlamaTrader()
 
-    symbols = ["TSLA", "AAPL", "SPY"]
+    symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
     minutes_to_test = 300
     start_time = datetime.utcnow() - timedelta(minutes=minutes_to_test)
     end_time = start_time + timedelta(minutes=5)
+    logging.info("back testing data...")
     while end_time < (datetime.utcnow() - timedelta(minutes=15)):
         data = history.get_stock_bars(
             symbols,

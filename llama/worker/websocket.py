@@ -14,6 +14,7 @@ class liveStockDataStream:
     ):
         self.wss_client = wss_client
         self.trader = trader
+        self.barset = CustomBarSet()
 
     @classmethod
     def create(cls, settings: Settings, trader: LlamaTrader | MockLlamaTrader):
@@ -25,10 +26,8 @@ class liveStockDataStream:
 
     async def handle_bars(self, data: Bar):
         """Perform trades based on data"""
-        raw_bars = CustomBarSet([data])
-        moving_average_strategy(self.trader, raw_bars)
-        with open("./data/bars.json", "a") as f:
-            f.write(json.dumps(raw_bars.dict(), default=custom_json_encoder))
+        self.barset.append(data)
+        moving_average_strategy(self.trader, self.barset)
 
     @staticmethod
     async def handle_qoutes(data: Quote):
