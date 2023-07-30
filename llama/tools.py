@@ -5,6 +5,7 @@ from .settings import Settings
 from datetime import datetime
 from pydantic import BaseModel
 from enum import Enum
+from dataclasses import is_dataclass, asdict
 
 
 def setup_logging(settings: Settings):
@@ -41,5 +42,7 @@ def custom_json_encoder(data):
         return list(data)
     elif isinstance(data, BaseModel):
         return data.dict()
+    elif is_dataclass(data):
+        return asdict(data)
     else:
         raise TypeError("Can't serialize item %s of type %s", data, type(data))

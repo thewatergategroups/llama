@@ -30,8 +30,8 @@ class MockLlamaTrader:
         **kwargs,
     ):
         if side == OrderSide.BUY:
-            self.buys += 1
-            self.balance -= last_price
+            self.buys += quantity
+            self.balance -= quantity * last_price
             self.highest_price[symbol] = (
                 last_price
                 if self.highest_price[symbol] < last_price
@@ -44,8 +44,8 @@ class MockLlamaTrader:
             )
             self.positions_held[symbol] += quantity
         elif side == OrderSide.SELL:
-            self.sells += 1
-            self.balance += last_price
+            self.sells += quantity
+            self.balance += quantity * last_price
             self.positions_held[symbol] -= quantity
 
     def aggregate(self):

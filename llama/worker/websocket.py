@@ -1,24 +1,30 @@
 from alpaca.data.live import StockDataStream
 from alpaca.data.models import Quote, Bar, Trade
-import logging
-import json
 from ..settings import Settings
-from ..stocks import moving_average_strategy, LlamaTrader, MockLlamaTrader
-from ..tools import custom_json_encoder
+from ..stocks import LlamaTrader, MockLlamaTrader
 from ..stocks.models import CustomBarSet
+from ..stocks.strats import Strategy
 
 
 class liveStockDataStream:
     def __init__(
-        self, wss_client: StockDataStream, trader: LlamaTrader | MockLlamaTrader
+        self,
+        wss_client: StockDataStream,
+        trader: LlamaTrader | MockLlamaTrader,
     ):
         self.wss_client = wss_client
         self.trader = trader
         self.barset = CustomBarSet()
+        self.strategies: list[Strategy] = []
 
     @classmethod
-    def create(cls, settings: Settings, trader: LlamaTrader | MockLlamaTrader):
+    def create(
+        cls,
+        settings: Settings,
+        trader: LlamaTrader | MockLlamaTrader,
+    ):
         """Create an instance of this object"""
+
         return cls(
             StockDataStream(settings.api_key, settings.secret_key),
             trader,
@@ -27,7 +33,8 @@ class liveStockDataStream:
     async def handle_bars(self, data: Bar):
         """Perform trades based on data"""
         self.barset.append(data)
-        moving_average_strategy(self.trader, self.barset)
+        for strategy in self.strategies:
+            strategy.run(self.trader, self.barset)
 
     @staticmethod
     async def handle_qoutes(data: Quote):

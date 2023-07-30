@@ -1,12 +1,11 @@
 import uvicorn
 from alpaca.data.timeframe import TimeFrame
 from datetime import datetime, timedelta
-from time import sleep
 import logging
-from concurrent.futures import ProcessPoolExecutor
 from .worker.websocket import liveStockDataStream
 from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
-from .stocks import LlamaHistory, LlamaTrader, moving_average_strategy, MockLlamaTrader
+from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, CustomBarSet
+from alpaca.data.models import Bar
 
 
 def api(settings: Settings):
@@ -24,51 +23,45 @@ def api(settings: Settings):
 def live(settings: Settings):
     """Websocket Stream data"""
     trader = MockLlamaTrader()
-    ls_object = liveStockDataStream.create(settings, trader)
+    history = LlamaHistory.create(settings)
     all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
+
+    strats = [strat.create(history, all_) for strat in STRATEGIES]
+    ls_object = liveStockDataStream.create(settings, trader)
+    ls_object.strategies = strats
     ls_object.subscribe(bars=all_)
 
 
-def rest(settings: Settings):
-    """REST api trading stratedgy"""
-    trader = LlamaTrader.create(settings)
-    history = LlamaHistory.create(settings)
-    symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
-    while True:
-        data = history.get_stock_bars(
-            symbols,
-            time_frame=TimeFrame.Minute,
-            start_time=(datetime.utcnow() - timedelta(minutes=5)),
-        )
-        moving_average_strategy(trader, data)
-        sleep(60)
-
-
-def backtest_moving_average(settings: Settings):
+def backtest_strats(settings: Settings):
     history = LlamaHistory.create(settings)
     mock_trader = MockLlamaTrader()
 
     symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
-    minutes_to_test = 300
+    strats = [strat.create(history, symbols) for strat in STRATEGIES]
+    minutes_to_test = 14679
     start_time = datetime.utcnow() - timedelta(minutes=minutes_to_test)
-    end_time = start_time + timedelta(minutes=5)
+    overall_end_time = datetime.utcnow() - timedelta(minutes=2698)
+    logging.info("getting data...")
+    data = history.get_stock_bars(
+        symbols,
+        time_frame=TimeFrame.Minute,
+        start_time=start_time,
+        end_time=overall_end_time,
+    )
+    bar_lists: dict[str, list[list[Bar]]] = {}
+    for key, item in data.data.items():
+        bar_lists[key] = [item[i : i + 15] for i in range(0, len(item), 15)]
     logging.info("back testing data...")
-    while end_time < (datetime.utcnow() - timedelta(minutes=15)):
-        data = history.get_stock_bars(
-            symbols,
-            time_frame=TimeFrame.Minute,
-            start_time=start_time,
-            end_time=end_time,
-        )
-        start_time += timedelta(minutes=1)
-        end_time += timedelta(minutes=1)
-        moving_average_strategy(mock_trader, data)
+    for key in bar_lists.keys():
+        for item in bar_lists[key]:
+            for strategy in strats:
+                strategy.run(mock_trader, CustomBarSet(item))
+
     logging.info(mock_trader.aggregate())
 
 
 ENTRYPOINTS = {
     "api": api,
     "live": live,
-    "backtest": backtest_moving_average,
-    "rest": rest,
+    "backtest": backtest_strats,
 }
