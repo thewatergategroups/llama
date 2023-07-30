@@ -37,7 +37,9 @@ def backtest_strats(settings: Settings):
     mock_trader = MockLlamaTrader()
 
     symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
-    strats = [strat.create(history, symbols) for strat in STRATEGIES]
+    strats = [
+        strat.create(history, symbols, days=10, force=True) for strat in STRATEGIES
+    ]
     minutes_to_test = 14679
     start_time = datetime.utcnow() - timedelta(minutes=minutes_to_test)
     overall_end_time = datetime.utcnow() - timedelta(minutes=2698)

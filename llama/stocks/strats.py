@@ -36,6 +36,7 @@ class Strategy:
         symbols: list[str],
         timeframe: TimeFrame = TimeFrame.Day,
         days: int = 50,
+        force: bool = False,
     ):
         data = history.get_stock_bars(
             symbols,
