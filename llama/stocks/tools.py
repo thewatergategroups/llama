@@ -1,17 +1,16 @@
 import io
 import logging
 
-from alpaca.data.models import BarSet
+from alpaca.data.models import Bar, BarSet
 from matplotlib import pyplot as plt
 
 
-def get_times_and_closing_p(symbol: str, data: BarSet) -> tuple[list, list]:
+def get_times_and_closing_p(data: list[Bar]) -> tuple[list, list]:
     """
     return useful data from barset
     """
     times, closing_prices = [], []
-    data_points = data.data[symbol]
-    for point in data_points:
+    for point in data:
         times.append(point.timestamp)
         closing_prices.append(point.close)
     return times, closing_prices

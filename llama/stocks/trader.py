@@ -10,15 +10,22 @@ from ..settings import Settings
 from collections import defaultdict
 
 
+def get_0():
+    return 0
+
+def get_inf():
+    return 100000000
+
 class MockLlamaTrader:
     def __init__(self, starting_balance: float = 2000):
-        self.positions_held: dict[str, int] = defaultdict(lambda: 0)
+        self.positions_held: dict[str, int] = defaultdict(get_0)
         self.buys = 0
         self.sells = 0
         self.starting_balance = starting_balance
         self.balance = starting_balance
-        self.highest_price: dict[str, float] = defaultdict(lambda: 0)
-        self.lowest_price: dict[str, float] = defaultdict(lambda: 100000000)
+        self.highest_price: dict[str, float] = defaultdict(get_0)
+        self.lowest_price: dict[str, float] = defaultdict(get_inf)
+
 
     def place_order(
         self,
@@ -48,15 +55,20 @@ class MockLlamaTrader:
             self.balance += quantity * last_price
             self.positions_held[symbol] -= quantity
 
-    def aggregate(self):
-        return {
+    def aggregate(self, verbose: bool = False):
+        response = {
             "profit": self.balance - self.starting_balance,
             "buys": self.buys,
             "sells": self.sells,
-            "lowest_price": dict(self.lowest_price),
-            "highest_price": dict(self.highest_price),
-            "positions_held": dict(self.positions_held),
+            "total_positions_held": sum(self.positions_held.values()),
         }
+        if verbose:
+            response["extra"] = {
+                "lowest_price": dict(self.lowest_price),
+                "highest_price": dict(self.highest_price),
+                "positions_held": dict(self.positions_held),
+            }
+        return response
 
 
 class LlamaTrader:

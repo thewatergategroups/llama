@@ -14,7 +14,6 @@ class liveStockDataStream:
     ):
         self.wss_client = wss_client
         self.trader = trader
-        self.barset = CustomBarSet()
         self.strategies: list[Strategy] = []
 
     @classmethod
@@ -32,9 +31,8 @@ class liveStockDataStream:
 
     async def handle_bars(self, data: Bar):
         """Perform trades based on data"""
-        self.barset.append(data)
         for strategy in self.strategies:
-            strategy.run(self.trader, self.barset)
+            strategy.run(self.trader, data)
 
     @staticmethod
     async def handle_qoutes(data: Quote):

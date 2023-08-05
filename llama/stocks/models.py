@@ -21,10 +21,10 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
     def append(self, bar: Bar):
         """Keeps the last 15 bars in memory"""
+        if bar.symbol not in self.data:
+            self.data[bar.symbol] = []
         symbol_list = self.data[bar.symbol]
         symbol_list.append(bar)
-        if (len_list := len(symbol_list)) > 15:
-            symbol_list = symbol_list[len_list - 15 :]
 
 
 @dataclass

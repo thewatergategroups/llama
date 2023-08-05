@@ -5,7 +5,7 @@ import requests
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame
-
+from functools import lru_cache
 from ..settings import Settings
 
 
