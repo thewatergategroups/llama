@@ -3,14 +3,24 @@ services:
   llama-api:
     image: llama
     entrypoint: python -m llama api
-  #   depends_on:
-  #     - redis
+    depends_on:
+      - db
     volumes:
       - ./:/app
     env_file:
       - .env
     ports:
       - 8000:8000
+    network_mode: host
+    
+  db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
 
   # llama-worker:
   #   image: llama

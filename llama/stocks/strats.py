@@ -100,15 +100,18 @@ class Strategy:
             return None
 
     def get_last_x_bars_today(
-        self, symbol: str, number_of_bars: int | None = None
+        self, symbol: str, number_of_bars: int | None = None, ignore_x_bars: int = 0
     ) -> list[Bar]:
         last_x = []
         bars = self.current_data.data.get(symbol)
         if not bars:
             return last_x
-
+        num_bars = 0
         initial_day = bars[-1].timestamp.day
         for bar in reversed(bars):
+            num_bars += 1
+            if ignore_x_bars >= num_bars:
+                continue
             if bar.timestamp.day != initial_day:
                 break
             if isinstance(number_of_bars, int) and len(last_x) >= number_of_bars:
@@ -200,29 +203,54 @@ class MovingAverage(Strategy):
 class Vwap(Strategy):
     def trade(self, trader: TRADER_TYPE, most_recent_bar: Bar):
         symbol = most_recent_bar.symbol
-        last_closing_price = most_recent_bar.close
-        if (current_bars := self.current_data.data.get(symbol)) is not None:
-            last_closing_price = current_bars[-1].close
-        vwap = self.vwap(self.get_last_x_bars_today(symbol))
-        logging.debug("vwap: %s", vwap)
-        logging.debug("last closing price %s", last_closing_price)
-        buy_condition = vwap > last_closing_price and trader.positions_held[symbol] < 10
-        sell_condition = vwap < last_closing_price and trader.positions_held[symbol] > 0
-        if buy_condition:
+        # vwap slope
+        previous_bars = self.get_last_x_bars_today(symbol)
+        previous_vwap = self.vwap(previous_bars)
+        current_vwap = self.vwap(previous_bars + [most_recent_bar])
+        vwap_slope = 0
+        if previous_vwap > 0:
+            vwap_slope = (current_vwap - previous_vwap) / previous_vwap
+        vwap_slope_threshold = 0.005
+        # VWAP Reversion
+        deviation_threshold = 0.01
+        # vwap resistance
+        # Define the tolerance level around the VWAP (e.g., ±2%)
+        vwap_tolerance = current_vwap * 0.02
+
+        buy_conditions: list = [
+            current_vwap < most_recent_bar.close,  # vwap crossover
+            trader.positions_held[symbol] < 10,
+            # most_recent_bar.close
+            # < current_vwap * (1 - deviation_threshold),  # vwap reversion
+            # (most_recent_bar.close > current_vwap)
+            # and (most_recent_bar.close < (current_vwap + vwap_tolerance)),  # resistance
+            vwap_slope > vwap_slope_threshold,  # slope
+        ]
+
+        sell_conditions: list = [
+            current_vwap > most_recent_bar.close,  # crossover
+            trader.positions_held[symbol] > 0,
+            # most_recent_bar.close
+            # > current_vwap * (1 + deviation_threshold),  # reversion
+            # most_recent_bar.close < (current_vwap - vwap_tolerance),  # resistance
+            vwap_slope < -vwap_slope_threshold,  # slope
+        ]
+
+        if all(buy_conditions):
             logging.debug("buying a stock of %s", symbol)
             trader.place_order(
-                symbol, time_in_force=TimeInForce.GTC, last_price=last_closing_price
+                symbol, time_in_force=TimeInForce.GTC, last_price=most_recent_bar.close
             )
-        elif sell_condition:
+        elif all(sell_conditions):
             logging.debug("selling a share of %s", symbol)
             trader.place_order(
                 symbol,
                 time_in_force=TimeInForce.GTC,
                 side=OrderSide.SELL,
-                last_price=last_closing_price,
+                last_price=most_recent_bar.close,
                 quantity=trader.positions_held[symbol],
             )
-        return symbol, buy_condition, sell_condition
+        return symbol, buy_conditions, sell_conditions
 
     @staticmethod
     def vwap(data: list[Bar]):
