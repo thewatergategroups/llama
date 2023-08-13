@@ -8,13 +8,17 @@ from alpaca.trading.requests import (
 )
 from ..settings import Settings
 from collections import defaultdict
+from ..database.config import get_sync_sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
 
 def get_0():
     return 0
 
+
 def get_inf():
     return 100000000
+
 
 class MockLlamaTrader:
     def __init__(self, starting_balance: float = 2000):
@@ -25,7 +29,6 @@ class MockLlamaTrader:
         self.balance = starting_balance
         self.highest_price: dict[str, float] = defaultdict(get_0)
         self.lowest_price: dict[str, float] = defaultdict(get_inf)
-
 
     def place_order(
         self,
@@ -74,9 +77,14 @@ class MockLlamaTrader:
 class LlamaTrader:
     """Llama is created"""
 
-    def __init__(self, client: TradingClient):
+    def __init__(
+        self,
+        client: TradingClient,
+        pg_sessionmaker: sessionmaker[Session],
+    ):
         self.client = client
         self.positions_held: dict[str, bool] = defaultdict(lambda: False)
+        self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
     def create(cls, settings: Settings):
@@ -84,7 +92,8 @@ class LlamaTrader:
         client = TradingClient(
             settings.api_key, settings.secret_key, paper=settings.paper
         )
-        return cls(client)
+        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
+        return cls(client, pg_sessionmaker)
 
     def get_all_orders(self, side: OrderSide = OrderSide.SELL):
         """get all orders I have placed"""

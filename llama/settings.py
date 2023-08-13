@@ -2,11 +2,7 @@
 Consts, Enums and Models
 """
 from pydantic import BaseSettings
-from .database.config import DbSettings, DbConfig, set_db_config
-
-
-DB_SETTINGS = DbSettings()
-set_db_config(DbConfig(url=DB_SETTINGS.url))
+from .database.config import DbSettings
 
 
 class Settings(BaseSettings):
@@ -18,6 +14,7 @@ class Settings(BaseSettings):
     news_url: str = "https://data.alpaca.markets/v1beta1/news"
     paper: bool = True
     log_level: str = "INFO"
+    db_settings: DbSettings = DbSettings()
 
 
 STOCKS_TO_TRADE = (

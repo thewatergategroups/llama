@@ -1,14 +1,17 @@
 import logging
 import os
 import sys
-from .settings import Settings
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .settings import Settings
 from datetime import datetime
 from pydantic import BaseModel
 from enum import Enum
 from dataclasses import is_dataclass, asdict
 
 
-def setup_logging(settings: Settings):
+def setup_logging(settings: "Settings"):
     """
     Setup a stream handler to stdout and a file handler
     to write to ./logs/logfile.log from the root logger for convenience

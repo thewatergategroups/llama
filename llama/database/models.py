@@ -21,6 +21,7 @@ class Bars(BaseSql):
     low: Mapped[float]
     trade_count: Mapped[int]
     vwap: Mapped[float]
+    volume: Mapped[int]
 
 
 class Trades(BaseSql):

@@ -6,26 +6,41 @@ from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame
-from sqlalchemy import insert
-from functools import lru_cache
+from sqlalchemy.dialects.postgresql import insert
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
 from ..database.config import get_sync_sessionmaker
+from ..database.statements import on_conflict_update
+from sqlalchemy.orm import Session, sessionmaker
 
 
 class LlamaHistory:
     """Historic Trading data"""
 
-    def __init__(self, client: StockHistoricalDataClient, news_url: str):
+    def __init__(
+        self,
+        client: StockHistoricalDataClient,
+        news_url: str,
+        pg_sessionmaker: sessionmaker[Session],
+    ):
         self.client = client
         self.news_api_url = news_url
+        self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
     def create(cls, settings: Settings):
         """Create a historical data client"""
         client = StockHistoricalDataClient(settings.api_key, settings.secret_key)
-        return cls(client, settings.news_url)
+        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
+        return cls(client, settings.news_url, pg_sessionmaker)
+
+    def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
+        dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
+        stmt = insert(Bars).values(dict_bars)
+        stmt = on_conflict_update(stmt, Bars)
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(stmt)
 
     def get_news(
         self,
@@ -71,10 +86,7 @@ class LlamaHistory:
         logging.debug("Getting historic data...")
 
         bars: BarSet = self.client.get_stock_bars(request_params)
-        dict_bars = CustomBarSet.from_barset(bars).to_dict()
-        stmt = insert(Bars).values(dict_bars)
-        with get_sync_sessionmaker().begin() as session:
-            session.execute(stmt)
+        self.insert_bars(bars, time_frame)
 
         return bars
 

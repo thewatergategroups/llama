@@ -33,11 +33,16 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         symbol_list = self.data[bar.symbol]
         symbol_list.append(bar)
 
-    def to_dict(self):
+    def to_dict(self, time_frame: str):
         all_bars = []
         for bars in self.data.values():
             all_bars += bars
-        return [bar.dict() for bar in all_bars]
+        response = []
+        for bar in all_bars:
+            dict_bar = bar.dict()
+            dict_bar["timeframe"] = time_frame
+            response.append(dict_bar)
+        return response
 
 
 @dataclass
