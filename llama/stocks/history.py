@@ -2,11 +2,16 @@ import logging
 from datetime import datetime, timedelta
 
 import requests
+from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame
+from sqlalchemy import insert
 from functools import lru_cache
 from ..settings import Settings
+from .models import CustomBarSet
+from ..database.models import Bars
+from ..database.config import get_sync_sessionmaker
 
 
 class LlamaHistory:
@@ -65,7 +70,12 @@ class LlamaHistory:
         )
         logging.debug("Getting historic data...")
 
-        bars = self.client.get_stock_bars(request_params)
+        bars: BarSet = self.client.get_stock_bars(request_params)
+        dict_bars = CustomBarSet.from_barset(bars).to_dict()
+        stmt = insert(Bars).values(dict_bars)
+        with get_sync_sessionmaker().begin() as session:
+            session.execute(stmt)
+
         return bars
 
     def get_latest_ask_price(self, symbols: list[str] | None = None):

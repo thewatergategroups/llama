@@ -2,7 +2,11 @@
 Consts, Enums and Models
 """
 from pydantic import BaseSettings
-import logging
+from .database.config import DbSettings, DbConfig, set_db_config
+
+
+DB_SETTINGS = DbSettings()
+set_db_config(DbConfig(url=DB_SETTINGS.url))
 
 
 class Settings(BaseSettings):

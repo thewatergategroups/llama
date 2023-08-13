@@ -13,6 +13,7 @@ class Bars(BaseSql):
 
     id_: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     symbol: Mapped[str]
+    timeframe: Mapped[str]
     timestamp: Mapped[datetime]
     open: Mapped[float]
     close: Mapped[float]
