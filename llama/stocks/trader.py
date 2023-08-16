@@ -8,7 +8,7 @@ from alpaca.trading.requests import (
 )
 from ..settings import Settings
 from collections import defaultdict
-from ..database.config import get_sync_sessionmaker
+from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
 
 

@@ -1512,6 +1512,28 @@ files = [
 ]
 
 [[package]]
+name = "trekkers"
+version = "0.0.0.post8+0b12f53"
+description = ""
+optional = false
+python-versions = ">=3.11,<3.12"
+files = [
+    {file = "trekkers-0.0.0.post8+0b12f53-py3-none-any.whl", hash = "sha256:cf009d5fb072c0be336a4b6236f9f69c9e334a0771807b6d40042fb04c70d0e3"},
+    {file = "trekkers-0.0.0.post8+0b12f53.tar.gz", hash = "sha256:d7ef915b19e1042c8173f281e85dfbb7c9d89de5260b00888daa40d8a72d6b1b"},
+]
+
+[package.dependencies]
+alembic = ">=1.11.2,<2.0.0"
+psycopg2-binary = ">=2.9.7,<3.0.0"
+pydantic = ">=1.10.11,<2.0.0"
+sqlalchemy = ">=2.0.19,<3.0.0"
+
+[package.source]
+type = "legacy"
+url = "http://10.252.1.0:8081/repository/packages/simple"
+reference = "nexus"
+
+[[package]]
 name = "types-requests"
 version = "2.31.0.2"
 description = "Typing stubs for requests"
@@ -1747,4 +1769,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "86d3d64d5795f9d0ce1be68a29345e7acd1ce48c82b19e6df9dcae062d33d1e2"
+content-hash = "b5c939756d4360e814121d38f41defcbb136bb271ffab5cb015ce8ee3ba969ab"

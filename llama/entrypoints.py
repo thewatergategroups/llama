@@ -1,9 +1,8 @@
 import uvicorn
 from .worker.websocket import liveStockDataStream
 from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
-from .database.config import get_db_config
 from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, BackTester
-from .database.config import run_downgrade, run_upgrade
+from trekkers import database
 from enum import Enum
 from typing import Callable
 
@@ -56,19 +55,14 @@ test_stocks = [
 ]
 
 
+def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
+    database(settings.db_settings, action, revision)
+
+
 def backtest(settings: Settings, *args, **kwargs):
     history = LlamaHistory.create(settings)
     backtester = BackTester()
     backtester.backtest_strats(history, test_stocks)
-
-
-def database(settings: Settings, action: str, revision: str | None):
-    if action == "upgrade":
-        run_upgrade(settings=settings.db_settings, revision=revision)
-    elif action == "downgrade":
-        run_downgrade(settings=settings.db_settings, revision=revision)
-    else:
-        raise KeyError(f"No action {action} found.")
 
 
 class Entrypoints(Enum):
@@ -79,7 +73,7 @@ class Entrypoints(Enum):
 
     API = "api", api
     LIVE = "live", live
-    DATABASE = "db", database
+    DATABASE = "db", db
     BACKTEST = "backtest", backtest
 
     @classmethod

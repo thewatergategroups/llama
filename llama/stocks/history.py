@@ -10,8 +10,8 @@ from sqlalchemy.dialects.postgresql import insert
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
-from ..database.config import get_sync_sessionmaker
-from ..database.statements import on_conflict_update
+from trekkers.config import get_sync_sessionmaker
+from trekkers.statements import on_conflict_update
 from sqlalchemy.orm import Session, sessionmaker
 
 

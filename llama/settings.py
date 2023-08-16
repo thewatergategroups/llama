@@ -2,7 +2,10 @@
 Consts, Enums and Models
 """
 from pydantic import BaseSettings
-from .database.config import DbSettings
+from trekkers.config import DbSettings
+import pathlib
+
+TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
 
 
 class Settings(BaseSettings):
@@ -14,7 +17,9 @@ class Settings(BaseSettings):
     news_url: str = "https://data.alpaca.markets/v1beta1/news"
     paper: bool = True
     log_level: str = "INFO"
-    db_settings: DbSettings = DbSettings()
+    db_settings: DbSettings = DbSettings(
+        env_script_location=f"{TOP_LEVEL_PATH}/database/alembic"
+    )
 
 
 STOCKS_TO_TRADE = (
