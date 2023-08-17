@@ -5,6 +5,7 @@ on:
 
 jobs:
   scan-build-push-workflow:
+    runs-on: self-hosted
     uses: 1ndistinct/ops/.github/workflows/python-docker-workflow.yaml@master
     secrets:
       CONTAINER_PAT: ${{ secrets.CONTAINER_PAT }}
