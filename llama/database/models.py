@@ -11,10 +11,9 @@ class Bars(BaseSql):
     __tablename__ = "bars"
     __table_args__ = {"schema": "llama"}
 
-    id_: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    symbol: Mapped[str]
-    timeframe: Mapped[str]
-    timestamp: Mapped[datetime]
+    symbol: Mapped[str] = mapped_column(primary_key=True)
+    timeframe: Mapped[str] = mapped_column(primary_key=True)
+    timestamp: Mapped[datetime] = mapped_column(primary_key=True)
     open: Mapped[float]
     close: Mapped[float]
     high: Mapped[float]
