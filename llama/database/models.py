@@ -1,10 +1,22 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime
+from copy import deepcopy
 
 
 class BaseSql(DeclarativeBase):
     ...
+
+    def as_dict(self):
+        return {
+            column.name: getattr(self, column.name) for column in self.__table__.columns
+        }
+
+    def duplicate(self, field_overrides: dict):
+        obj = deepcopy(self)
+        for name, value in field_overrides.items():
+            setattr(obj, name, value)
+        return obj
 
 
 class Bars(BaseSql):

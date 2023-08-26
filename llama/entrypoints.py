@@ -31,30 +31,6 @@ def live(settings: Settings, *args, **kwargs):
     ls_object.subscribe(bars=all_)
 
 
-test_stocks = [
-    "PFE",
-    "META",
-    "MSFT",
-    "AMZN",
-    "LMT",
-    "UAL",
-    "CMCSA",
-    "BA",
-    "GOOGL",
-    "GD",
-    "SO",
-    "VZ",
-    "FDX",
-    "MO",
-    "MRK",
-    "ABT",
-    "TMUS",
-    "OXY",
-    "T",
-    "F",
-]
-
-
 def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
     database(settings.db_settings, action, revision)
 
@@ -62,7 +38,7 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
 def backtest(settings: Settings, *args, **kwargs):
     history = LlamaHistory.create(settings)
     backtester = BackTester()
-    backtester.backtest_strats(history, test_stocks)
+    backtester.backtest_strats(history, STOCKS_TO_TRADE + ETFS_TO_TRADE)
 
 
 class Entrypoints(Enum):

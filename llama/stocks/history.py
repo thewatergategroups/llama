@@ -1,14 +1,14 @@
 import logging
 from datetime import datetime, timedelta
-import time
 
 import requests
-from alpaca.data.models import BarSet
+from alpaca.data.models import BarSet, Bar
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import func, select
+
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
@@ -18,6 +18,14 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import func, Values, column
 import pandas as pd
 from datetime import datetime
+
+FRAME_PARAMS = {
+    TimeFrameUnit.Minute: {"delta": timedelta(minutes=30)},
+    TimeFrameUnit.Hour: {"delta": timedelta(hours=1)},
+    TimeFrameUnit.Day: {"delta": timedelta(days=1)},
+    TimeFrameUnit.Month: {"delta": timedelta(weeks=4)},
+    TimeFrameUnit.Week: {"delta": timedelta(weeks=1)},
+}
 
 
 class LlamaHistory:
@@ -67,7 +75,7 @@ class LlamaHistory:
         return response.json()
 
     def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
-        logging.info("inserting bars...")
+        logging.debug("inserting bars...")
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
             return
@@ -83,6 +91,39 @@ class LlamaHistory:
         rounded_timestamp = pandas_timestamp.round("T")
         return rounded_timestamp.to_pydatetime()
 
+    def fill_bars(
+        self,
+        bars: BarSet,
+        symbol: str,
+        timeframe: TimeFrame,
+        start_time: datetime,
+        end_time: datetime,
+    ):
+        """TODO: Fill missing data with most recent previous entry"""
+        new_bars: list[Bar] = []
+        delta = FRAME_PARAMS[timeframe.unit]["delta"]
+        num_intervals = int((end_time - start_time) / delta) + 1
+        datetime_objects = [start_time + i * delta for i in range(num_intervals)]
+        bar_ts = [bar.timestamp for bar in bars.data[symbol]]
+        for ts in datetime_objects:
+            if ts not in bar_ts:
+                new_bars.append(
+                    Bar(  ## what values do we put in here?
+                        symbol,
+                        {
+                            "t": ts,
+                            "o": 1,
+                            "h": 1,
+                            "l": 1,
+                            "c": 1,
+                            "v": 1,
+                            "n": 1,
+                            "vw": 1,
+                        },
+                    )
+                )
+        return CustomBarSet(new_bars)
+
     def identify_missing_bars(
         self,
         symbol: str,
@@ -90,26 +131,24 @@ class LlamaHistory:
         start_time: datetime,
         end_time: datetime,
     ):
+        """
+        Currently geta all data we already have between start and end time,
+        checks what data is missing during trading hours, and turns them into consecutive sequences of data that we need to fetch.
+        TODO: If data is missing after returning from the api, between 2 bounds, set that timeframe as collected but empty in postgres.
+
+        """
         logging.debug("identifying missing bars...")
         start_time = self._round_datetime(start_time)
         end_time = self._round_datetime(end_time)
-        increment = {
-            TimeFrameUnit.Minute: timedelta(minutes=1),
-            TimeFrameUnit.Hour: timedelta(hours=1),
-            TimeFrameUnit.Day: timedelta(days=1),
-            TimeFrameUnit.Month: timedelta(weeks=4),
-            TimeFrameUnit.Week: timedelta(weeks=1),
-        }
+        delta = FRAME_PARAMS[timeframe.unit]["delta"]
         with self.pg_sessionmaker.begin() as session:
-            generator = func.generate_series(
-                start_time, end_time, increment[timeframe.unit]
-            )
+            generator = func.generate_series(start_time, end_time, delta)
             series = select(generator.label("time")).subquery()
             match_query = (
-                select(Bars.timestamp).where(
-                    Bars.symbol == symbol, Bars.timeframe == timeframe.value
-                )
-            ).subquery()
+                select(Bars.timestamp)
+                .where(Bars.symbol == symbol, Bars.timeframe == timeframe.value)
+                .subquery()
+            )
             query = (
                 select(series)
                 .select_from(
@@ -123,30 +162,25 @@ class LlamaHistory:
             )
 
             response: list[datetime] = session.execute(query).scalars().fetchall()
-
-        max_gap_minutes = 30
         consecutive_groups = []
         response = sorted(list(set(response)))
+
         if not response:
             return consecutive_groups
-
         start_datetime = response[0]
-        for i in range(len(response) - 1):
-            diff = (response[i + 1] - response[i]).total_seconds() / 60
-            if diff > max_gap_minutes:
-                end_datetime = response[i]
-                if (
-                    end_datetime - start_datetime
-                ).total_seconds() / 60 > max_gap_minutes:
-                    consecutive_groups.append((start_datetime, end_datetime))
 
-            start_datetime = response[i + 1]
+        for i in range(len(response) - 1):
+            diff = response[i + 1] - response[i]
+            if diff > delta:
+                end_datetime = response[i]
+                if response[i] != start_datetime:
+                    consecutive_groups.append((start_datetime, end_datetime))
+                start_datetime = response[i + 1]
 
         # If there's a consecutive sequence at the end, include it
         if start_datetime < response[-1]:
             end_datetime = response[-1]
             consecutive_groups.append((start_datetime, end_datetime))
-
         return consecutive_groups
 
     def get_stock_bars(
@@ -158,7 +192,8 @@ class LlamaHistory:
     ):
         """get stock bars for stocks"""
         logging.info("Getting stock bars...")
-        symbols = symbols if symbols is not None else ["TSLA"]  ## Spy is S&P500
+        symbols = symbols if symbols is not None else ["AAPL"]  ## Spy is S&P500
+        start_time = start_time.replace(hour=0, minute=0, second=0)
         for symbol in symbols:
             times = self.identify_missing_bars(symbol, time_frame, start_time, end_time)
             for starttime, endtime in times:
@@ -175,7 +210,9 @@ class LlamaHistory:
                     end=endtime.isoformat(),
                 )
                 bars: BarSet = self.client.get_stock_bars(request_params)
-                self.insert_bars(bars, time_frame)
+                # bars = self.fill_bars(bars, start_time, end_time)
+                if bars.data:
+                    self.insert_bars(bars, time_frame)
         with self.pg_sessionmaker.begin() as session:
             logging.info("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(
@@ -188,8 +225,8 @@ class LlamaHistory:
                     .where(
                         Bars.symbol.in_(symbols),
                         Bars.timeframe == time_frame.value,
-                        Bars.timestamp > start_time,
-                        Bars.timestamp < end_time,
+                        Bars.timestamp >= start_time,
+                        Bars.timestamp <= end_time,
                     )
                 )
                 .scalars()

@@ -175,9 +175,10 @@ class Vwap(Strategy):
     def trade(self, trader: TRADER_TYPE, most_recent_bar: Bar):
         symbol = most_recent_bar.symbol
         # vwap slope
-        previous_bars = self.get_last_x_bars_today(symbol)
-        previous_vwap = self.vwap(previous_bars)
-        current_vwap = self.vwap(previous_bars + [most_recent_bar])
+        previous_vwap = 0
+        if (data := self.current_data.data.get(symbol)) is not None:
+            previous_vwap = data[-1].vwap
+        current_vwap = most_recent_bar.vwap
         vwap_slope = 0
         if previous_vwap > 0:
             vwap_slope = (current_vwap - previous_vwap) / previous_vwap

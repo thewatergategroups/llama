@@ -14,14 +14,11 @@ class BackTester:
     def backtest_strats(
         self, history: LlamaHistory, symbols: list[str], days_to_test: int = 30
     ):
-        minutes_to_test = (
-            datetime.utcnow() - (datetime.utcnow() - timedelta(days=days_to_test))
-        ).total_seconds() / 60
-        logging.info("Beginning backtesting over the last %s mins...", minutes_to_test)
+        logging.info("Beginning backtesting over the last %s days...", days_to_test)
 
-        start_time = datetime.utcnow() - timedelta(minutes=minutes_to_test)
+        start_time = datetime.utcnow() - timedelta(days=days_to_test)
         end_time = datetime.utcnow() - timedelta(minutes=15)
-
+        symbols = ["XOM"]
         data = history.get_stock_bars(
             symbols,
             time_frame=TimeFrame.Minute,
@@ -31,12 +28,12 @@ class BackTester:
         strat_data: dict[str, list[Strategy, MockLlamaTrader, list[Bar]]] = defaultdict(
             lambda: []
         )
-        logging.info("running backtest in %s", STRATEGIES)
         for strat in STRATEGIES:
+            logging.info("running backtest on %s ...", strat.__class__.__name__)
             for symbol in symbols:
                 strat_data[symbol].append(
                     (
-                        strat.create(history, symbols, days=30),
+                        strat.create(history, symbols, days=days_to_test),
                         MockLlamaTrader(),
                         data.data[symbol],
                     )
