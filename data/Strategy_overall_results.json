@@ -1,1 +1,17 @@
-{"overall_results": {"Vwap": {"profit": -9629.4015, "buys": 97, "sells": 38, "total_positions_held": 59}, "MovingAverage": {"profit": -22310.516100000008, "buys": 4806, "sells": 4646, "total_positions_held": 160}}, "collected_at": "2023-08-16T20:20:44.136254"}
+{
+    "overall_results": {
+        "Vwap": {
+            "profit": -9611.634200000002,
+            "buys": 296,
+            "sells": 242,
+            "total_positions_held": 54
+        },
+        "MovingAverage": {
+            "profit": -7809.585599999971,
+            "buys": 7083,
+            "sells": 6959,
+            "total_positions_held": 124
+        }
+    },
+    "collected_at": "2023-08-26T15:09:00.235644"
+}

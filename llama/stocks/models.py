@@ -4,6 +4,7 @@ from collections import defaultdict
 from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Any
+from ..database.models import Bars
 
 
 class CustomBarSet(BaseDataSet, TimeSeriesMixin):
@@ -25,6 +26,27 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         for bset in barset.data.values():
             bars += bset
         return cls(bars)
+
+    @classmethod
+    def from_postgres_bars(cls, bars: list[Bars]):
+        return cls(
+            [
+                Bar(
+                    bar.symbol,
+                    {
+                        "t": bar.timestamp,
+                        "o": bar.open,
+                        "h": bar.high,
+                        "l": bar.low,
+                        "c": bar.close,
+                        "v": bar.volume,
+                        "n": bar.trade_count,
+                        "vw": bar.vwap,
+                    },
+                )
+                for bar in bars
+            ]
+        )
 
     def append(self, bar: Bar):
         """Keeps the last 15 bars in memory"""

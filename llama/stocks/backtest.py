@@ -5,7 +5,6 @@ from . import LlamaHistory, MockLlamaTrader, STRATEGIES, Strategy
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
-import json
 
 
 class BackTester:
@@ -18,11 +17,11 @@ class BackTester:
         minutes_to_test = (
             datetime.utcnow() - (datetime.utcnow() - timedelta(days=days_to_test))
         ).total_seconds() / 60
+        logging.info("Beginning backtesting over the last %s mins...", minutes_to_test)
 
         start_time = datetime.utcnow() - timedelta(minutes=minutes_to_test)
         end_time = datetime.utcnow() - timedelta(minutes=15)
 
-        logging.info("getting data...")
         data = history.get_stock_bars(
             symbols,
             time_frame=TimeFrame.Minute,
@@ -32,11 +31,12 @@ class BackTester:
         strat_data: dict[str, list[Strategy, MockLlamaTrader, list[Bar]]] = defaultdict(
             lambda: []
         )
+        logging.info("running backtest in %s", STRATEGIES)
         for strat in STRATEGIES:
             for symbol in symbols:
                 strat_data[symbol].append(
                     (
-                        strat.create(history, symbols, days=10, force=True),
+                        strat.create(history, symbols, days=30),
                         MockLlamaTrader(),
                         data.data[symbol],
                     )
@@ -59,6 +59,7 @@ class BackTester:
             trader, strat = result
             for key, value in trader.aggregate().items():
                 overall[type(strat).__name__][key] += value
+
         Strategy.store("overall_results", overall)
 
     @staticmethod
@@ -73,12 +74,10 @@ class BackTester:
         last_percent = 0
         for i in range(num_bars):
             percent_completed = int(i / num_bars * 100)
-            if percent_completed > last_percent:
+            if percent_completed > last_percent + 20:
                 last_percent = percent_completed
-                logging.info(
+                logging.debug(
                     "Progress of %s on %s: %s", strat_name, symbol, percent_completed
                 )
             strategy.run(trader, bars[i])
-        logging.info("Strategy: %s", strat_name)
-        logging.info(trader.aggregate())
         return trader, strategy

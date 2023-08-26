@@ -49,3 +49,9 @@ def custom_json_encoder(data):
         return asdict(data)
     else:
         raise TypeError("Can't serialize item %s of type %s", data, type(data))
+
+
+def divide_chunks(l, n):
+    # looping till length l
+    for i in range(0, len(l), n):
+        yield l[i : i + n]

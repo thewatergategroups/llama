@@ -47,20 +47,14 @@ class Strategy:
         symbols: list[str],
         timeframe: TimeFrame = TimeFrame.Day,
         days: int = 50,
-        force: bool = False,
     ):
-        data_type = "data"
-        historic_info = cls.get(data_type, force)
-        if historic_info:
-            return cls(data)
-
-        data = history.get_stock_bars(
-            symbols,
-            time_frame=timeframe,
-            start_time=(datetime.utcnow() - timedelta(days=days)),
+        return cls(
+            history.get_stock_bars(
+                symbols,
+                time_frame=timeframe,
+                start_time=(datetime.utcnow() - timedelta(days=days)),
+            )
         )
-        cls.store(data_type, data)
-        return cls(data)
 
     def run(
         self,
@@ -75,29 +69,13 @@ class Strategy:
         logging.info("trading %s", most_recent_bar.symbol)
 
     @classmethod
-    def storage_location(cls, data_type: str):
-        return os.path.join(os.getcwd(), f"data/{cls.__name__}_{data_type}.json")
-
-    @classmethod
     def store(cls, data_type: str, data: dict):
         to_store = {data_type: data, "collected_at": datetime.utcnow()}
-        with open(cls.storage_location(data_type), "w") as f:
+        storage_location = os.path.join(
+            os.getcwd(), f"data/{cls.__name__}_{data_type}.json"
+        )
+        with open(storage_location, "w") as f:
             f.write(json.dumps(to_store, default=custom_json_encoder))
-
-    @classmethod
-    def get(cls, data_type: str, force: bool, max_age_of_data_days: int = 1):
-        try:
-            with open(cls.storage_location(data_type), "r") as f:
-                data = json.loads(f.read())
-                if (
-                    datetime.fromisoformat(data["collected_at"])
-                    < datetime.utcnow() - timedelta(days=max_age_of_data_days)
-                ) or force:
-                    return None
-            return data
-        except Exception as exc:
-            logging.error(str(exc))  # want a shorter version of the exception
-            return None
 
     def get_last_x_bars_today(
         self, symbol: str, number_of_bars: int | None = None, ignore_x_bars: int = 0
@@ -135,15 +113,8 @@ class MovingAverage(Strategy):
         days: int = 50,
         force: bool = False,
     ):
-        obj = super().create(history, symbols, timeframe, days, force)
-        moving_averages_json = cls.get("moving_averages", force)
-        if moving_averages_json:
-            obj.moving_averages = {
-                name: Metric(**value) for name, value in moving_averages_json.items()
-            }
-        else:
-            obj.moving_averages = cls.calculate_moving_averages(obj.historic_data)
-        cls.store("moving_averages", obj.moving_averages)
+        obj: "MovingAverage" = super().create(history, symbols, timeframe, days)
+        obj.moving_averages = cls.calculate_moving_averages(obj.historic_data)
         return obj
 
     def trade(self, trader: TRADER_TYPE, most_recent_bar: Bar):

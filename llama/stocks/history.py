@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, timedelta
+import time
 
 import requests
 from alpaca.data.models import BarSet
@@ -8,15 +9,13 @@ from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import func, select
-from ..tools import custom_json_encoder
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
 from trekkers.config import get_sync_sessionmaker
 from trekkers.statements import on_conflict_update
 from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy import func
-import json
+from sqlalchemy import func, Values, column
 import pandas as pd
 from datetime import datetime
 
@@ -68,7 +67,10 @@ class LlamaHistory:
         return response.json()
 
     def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
+        logging.info("inserting bars...")
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
+        if not dict_bars:
+            return
         stmt = insert(Bars).values(dict_bars)
         stmt = on_conflict_update(stmt, Bars)
         with self.pg_sessionmaker.begin() as session:
@@ -83,12 +85,12 @@ class LlamaHistory:
 
     def identify_missing_bars(
         self,
-        symbols: list[str],
+        symbol: str,
         timeframe: TimeFrame,
         start_time: datetime,
         end_time: datetime,
     ):
-        print("identifying bars")
+        logging.debug("identifying missing bars...")
         start_time = self._round_datetime(start_time)
         end_time = self._round_datetime(end_time)
         increment = {
@@ -105,24 +107,47 @@ class LlamaHistory:
             series = select(generator.label("time")).subquery()
             match_query = (
                 select(Bars.timestamp).where(
-                    Bars.symbol.in_(symbols), Bars.timeframe == timeframe.value
+                    Bars.symbol == symbol, Bars.timeframe == timeframe.value
                 )
             ).subquery()
-            query = select(series, match_query).select_from(
-                series.outerjoin(match_query, series.c.time == match_query.c.timestamp)
+            query = (
+                select(series)
+                .select_from(
+                    series.outerjoin(
+                        match_query, series.c.time == match_query.c.timestamp
+                    )
+                )
+                .where(match_query.c.timestamp.is_(None))
+                .where(func.extract("isodow", series.c.time) < 6)
+                .where(func.extract("hour", series.c.time).between(13, 19))
             )
-            response = session.execute(query).fetchall()
 
-        output = []
+            response: list[datetime] = session.execute(query).scalars().fetchall()
 
-        for row in response:
-            val = row.tuple()
-            output.append({"gen": val[0], "bar": val[1]})
+        max_gap_minutes = 30
+        consecutive_groups = []
+        response = sorted(list(set(response)))
+        if not response:
+            return consecutive_groups
 
-        with open("./data/comparison.json", "w") as f:
-            f.write(json.dumps(output, default=custom_json_encoder))
+        start_datetime = response[0]
+        for i in range(len(response) - 1):
+            diff = (response[i + 1] - response[i]).total_seconds() / 60
+            if diff > max_gap_minutes:
+                end_datetime = response[i]
+                if (
+                    end_datetime - start_datetime
+                ).total_seconds() / 60 > max_gap_minutes:
+                    consecutive_groups.append((start_datetime, end_datetime))
 
-        print("done")
+            start_datetime = response[i + 1]
+
+        # If there's a consecutive sequence at the end, include it
+        if start_datetime < response[-1]:
+            end_datetime = response[-1]
+            consecutive_groups.append((start_datetime, end_datetime))
+
+        return consecutive_groups
 
     def get_stock_bars(
         self,
@@ -132,20 +157,48 @@ class LlamaHistory:
         end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
     ):
         """get stock bars for stocks"""
-        self.identify_missing_bars(symbols, time_frame, start_time, end_time)
+        logging.info("Getting stock bars...")
         symbols = symbols if symbols is not None else ["TSLA"]  ## Spy is S&P500
-        request_params = StockBarsRequest(
-            symbol_or_symbols=symbols,
-            timeframe=time_frame,
-            start=start_time.isoformat(),
-            end=end_time.isoformat(),
-        )
-        logging.debug("Getting historic data...")
-
-        bars: BarSet = self.client.get_stock_bars(request_params)
-        self.insert_bars(bars, time_frame)
-
-        return bars
+        for symbol in symbols:
+            times = self.identify_missing_bars(symbol, time_frame, start_time, end_time)
+            for starttime, endtime in times:
+                logging.info(
+                    "getting bars for %s between %s and %s",
+                    symbol,
+                    starttime,
+                    endtime,
+                )
+                request_params = StockBarsRequest(
+                    symbol_or_symbols=[symbol],
+                    timeframe=time_frame,
+                    start=starttime.isoformat(),
+                    end=endtime.isoformat(),
+                )
+                bars: BarSet = self.client.get_stock_bars(request_params)
+                self.insert_bars(bars, time_frame)
+        with self.pg_sessionmaker.begin() as session:
+            logging.info("fetching bars from postgres...")
+            sym_table = Values(column("symbol"), name="symbol").data(
+                [(symbol,) for symbol in symbols]
+            )
+            bars = (
+                session.execute(
+                    select(Bars)
+                    .join(sym_table, Bars.symbol == sym_table.c.symbol)
+                    .where(
+                        Bars.symbol.in_(symbols),
+                        Bars.timeframe == time_frame.value,
+                        Bars.timestamp > start_time,
+                        Bars.timestamp < end_time,
+                    )
+                )
+                .scalars()
+                .fetchall()
+            )
+            logging.info("converting to barset...")
+            return CustomBarSet.from_postgres_bars(
+                bars
+            )  ## slowest bit - multiprocessing doesn't work
 
     def get_latest_ask_price(self, symbols: list[str] | None = None):
         """get latest stock price"""
