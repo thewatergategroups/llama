@@ -18,12 +18,14 @@ class BackTester:
 
         start_time = datetime.utcnow() - timedelta(days=days_to_test)
         end_time = datetime.utcnow() - timedelta(minutes=15)
-        symbols = ["XOM"]
         data = history.get_stock_bars(
             symbols,
             time_frame=TimeFrame.Minute,
             start_time=start_time,
             end_time=end_time,
+        )
+        history.get_stock_bars(
+            symbols, time_frame=TimeFrame.Day, start_time=start_time, end_time=end_time
         )
         strat_data: dict[str, list[Strategy, MockLlamaTrader, list[Bar]]] = defaultdict(
             lambda: []
@@ -33,7 +35,7 @@ class BackTester:
             for symbol in symbols:
                 strat_data[symbol].append(
                     (
-                        strat.create(history, symbols, days=days_to_test),
+                        strat.create(history, [symbol], days=days_to_test),
                         MockLlamaTrader(),
                         data.data[symbol],
                     )

@@ -111,7 +111,6 @@ class MovingAverage(Strategy):
         symbols: list[str],
         timeframe: TimeFrame = TimeFrame.Day,
         days: int = 50,
-        force: bool = False,
     ):
         obj: "MovingAverage" = super().create(history, symbols, timeframe, days)
         obj.moving_averages = cls.calculate_moving_averages(obj.historic_data)

@@ -34,7 +34,6 @@ STOCKS_TO_TRADE = (
     "CSCO",
     "HPQ",
     "JPM",
-    "WML",
 )
 
 ETFS_TO_TRADE = (

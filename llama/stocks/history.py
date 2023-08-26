@@ -20,9 +20,9 @@ import pandas as pd
 from datetime import datetime
 
 FRAME_PARAMS = {
-    TimeFrameUnit.Minute: {"delta": timedelta(minutes=30)},
+    TimeFrameUnit.Minute: {"delta": timedelta(minutes=240)},
     TimeFrameUnit.Hour: {"delta": timedelta(hours=1)},
-    TimeFrameUnit.Day: {"delta": timedelta(days=1)},
+    TimeFrameUnit.Day: {"delta": timedelta(hours=23)},
     TimeFrameUnit.Month: {"delta": timedelta(weeks=4)},
     TimeFrameUnit.Week: {"delta": timedelta(weeks=1)},
 }
