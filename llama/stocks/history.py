@@ -20,7 +20,7 @@ from datetime import datetime
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
-        "delta": timedelta(minutes=240),
+        "delta": timedelta(minutes=1),
         "allowed_delta": timedelta(minutes=240),
     },
     TimeFrameUnit.Hour: {
