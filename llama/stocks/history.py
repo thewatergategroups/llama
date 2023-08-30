@@ -21,7 +21,7 @@ from datetime import datetime
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
         "delta": timedelta(minutes=1),
-        "allowed_delta": timedelta(minutes=240),
+        "allowed_delta": timedelta(minutes=60),
     },
     TimeFrameUnit.Hour: {
         "delta": timedelta(hours=1),
@@ -192,18 +192,22 @@ class LlamaHistory:
 
         if not response:
             return consecutive_groups
+
         start_datetime = response[0]
         prev_diff = None
         for i in range(len(response) - 1):
             diff = response[i + 1] - response[i]
             prev_diff = response[i] - response[i - 1] if i > 0 else diff
+
             if diff > allowed_delta:
                 if prev_diff > allowed_delta:
                     start_datetime = response[i]
+
                 if response[i] != start_datetime:
                     end_datetime = response[i]
-                    consecutive_groups.append((start_datetime, end_datetime))
-                    start_datetime = response[i + 1]
+                    if (start_datetime - end_datetime) > allowed_delta:
+                        consecutive_groups.append((start_datetime, end_datetime))
+                start_datetime = response[i + 1]
 
         diff = response[-1] - start_datetime
         prev_diff = prev_diff or diff
@@ -211,6 +215,15 @@ class LlamaHistory:
         if diff > allowed_delta and prev_diff <= allowed_delta:
             end_datetime = response[-1]
             consecutive_groups.append((start_datetime, end_datetime))
+
+        if symbol == "QQQE":
+            import json
+            from ..tools import custom_json_encoder
+
+            with open(f"./data/{symbol}-resp.json", "w") as f:
+                f.write(json.dumps(response, default=custom_json_encoder))
+            with open(f"./data/{symbol}.json", "w") as f:
+                f.write(json.dumps(consecutive_groups, default=custom_json_encoder))
         return consecutive_groups
 
     def get_stock_bars(
@@ -228,10 +241,11 @@ class LlamaHistory:
             times = self.identify_missing_bars(symbol, time_frame, start_time, end_time)
             for starttime, endtime in times:
                 logging.info(
-                    "getting bars for %s between %s and %s",
+                    "getting bars for %s between %s and %s with timeframe of %s",
                     symbol,
                     starttime,
                     endtime,
+                    time_frame.unit.value,
                 )
                 request_params = StockBarsRequest(
                     symbol_or_symbols=[symbol],
