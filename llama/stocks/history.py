@@ -194,36 +194,24 @@ class LlamaHistory:
             return consecutive_groups
 
         start_datetime = response[0]
-        prev_diff = None
         for i in range(len(response) - 1):
             diff = response[i + 1] - response[i]
-            prev_diff = response[i] - response[i - 1] if i > 0 else diff
 
-            if diff > allowed_delta:
-                if prev_diff > allowed_delta:
-                    start_datetime = response[i]
+            if diff > delta:
+                end_datetime = response[i]
 
-                if response[i] != start_datetime:
-                    end_datetime = response[i]
-                    if (start_datetime - end_datetime) > allowed_delta:
-                        consecutive_groups.append((start_datetime, end_datetime))
+                if (
+                    start_datetime != end_datetime
+                    and (end_datetime - start_datetime) > allowed_delta
+                ):
+                    consecutive_groups.append((start_datetime, end_datetime))
                 start_datetime = response[i + 1]
 
         diff = response[-1] - start_datetime
-        prev_diff = prev_diff or diff
-        # If there's a consecutive sequence at the end, include it
-        if diff > allowed_delta and prev_diff <= allowed_delta:
+        if diff > allowed_delta:
             end_datetime = response[-1]
             consecutive_groups.append((start_datetime, end_datetime))
 
-        if symbol == "QQQE":
-            import json
-            from ..tools import custom_json_encoder
-
-            with open(f"./data/{symbol}-resp.json", "w") as f:
-                f.write(json.dumps(response, default=custom_json_encoder))
-            with open(f"./data/{symbol}.json", "w") as f:
-                f.write(json.dumps(consecutive_groups, default=custom_json_encoder))
         return consecutive_groups
 
     def get_stock_bars(
@@ -234,7 +222,7 @@ class LlamaHistory:
         end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
     ):
         """get stock bars for stocks"""
-        logging.info("Getting stock bars...")
+        logging.debug("Getting stock bars...")
         symbols = symbols if symbols is not None else ["AAPL"]  ## Spy is S&P500
         start_time = start_time.replace(hour=0, minute=0, second=0)
         for symbol in symbols:
