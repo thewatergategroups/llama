@@ -24,6 +24,7 @@ class BackTester:
             start_time=start_time,
             end_time=end_time,
         )
+        return
         history.get_stock_bars(
             symbols, time_frame=TimeFrame.Day, start_time=start_time, end_time=end_time
         )

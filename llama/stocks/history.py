@@ -8,7 +8,6 @@ from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import func, select
-from functools import lru_cache
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
@@ -20,11 +19,26 @@ import pandas as pd
 from datetime import datetime
 
 FRAME_PARAMS = {
-    TimeFrameUnit.Minute: {"delta": timedelta(minutes=240)},
-    TimeFrameUnit.Hour: {"delta": timedelta(hours=1)},
-    TimeFrameUnit.Day: {"delta": timedelta(hours=24)},
-    TimeFrameUnit.Month: {"delta": timedelta(weeks=4)},
-    TimeFrameUnit.Week: {"delta": timedelta(weeks=1)},
+    TimeFrameUnit.Minute: {
+        "delta": timedelta(minutes=240),
+        "allowed_delta": timedelta(minutes=240),
+    },
+    TimeFrameUnit.Hour: {
+        "delta": timedelta(hours=1),
+        "allowed_delta": timedelta(hours=1),
+    },
+    TimeFrameUnit.Day: {
+        "delta": timedelta(hours=24),
+        "allowed_delta": timedelta(hours=24),
+    },
+    TimeFrameUnit.Month: {
+        "delta": timedelta(weeks=4),
+        "allowed_delta": timedelta(weeks=4),
+    },
+    TimeFrameUnit.Week: {
+        "delta": timedelta(weeks=1),
+        "allowed_delta": timedelta(weeks=1),
+    },
 }
 
 
@@ -147,6 +161,8 @@ class LlamaHistory:
         end_time = self._round_datetime(end_time, timeframe)
 
         delta = FRAME_PARAMS[timeframe.unit]["delta"]
+        allowed_delta = FRAME_PARAMS[timeframe.unit]["allowed_delta"]
+
         with self.pg_sessionmaker.begin() as session:
             generator = func.generate_series(start_time, end_time, delta)
             series = select(generator.label("time")).subquery()
@@ -177,17 +193,22 @@ class LlamaHistory:
         if not response:
             return consecutive_groups
         start_datetime = response[0]
-
+        prev_diff = None
         for i in range(len(response) - 1):
             diff = response[i + 1] - response[i]
-            if diff > delta:
-                end_datetime = response[i]
+            prev_diff = response[i] - response[i - 1] if i > 0 else diff
+            if diff > allowed_delta:
+                if prev_diff > allowed_delta:
+                    start_datetime = response[i]
                 if response[i] != start_datetime:
+                    end_datetime = response[i]
                     consecutive_groups.append((start_datetime, end_datetime))
-                start_datetime = response[i + 1]
+                    start_datetime = response[i + 1]
 
+        diff = response[-1] - start_datetime
+        prev_diff = prev_diff or diff
         # If there's a consecutive sequence at the end, include it
-        if start_datetime < response[-1]:
+        if diff > allowed_delta and prev_diff <= allowed_delta:
             end_datetime = response[-1]
             consecutive_groups.append((start_datetime, end_datetime))
         return consecutive_groups
