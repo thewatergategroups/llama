@@ -233,7 +233,7 @@ class LlamaHistory:
                     symbol,
                     starttime,
                     endtime,
-                    time_frame.unit.value,
+                    time_frame.value,
                 )
                 request_params = StockBarsRequest(
                     symbol_or_symbols=[symbol],

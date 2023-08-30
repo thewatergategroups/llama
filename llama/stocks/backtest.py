@@ -31,7 +31,7 @@ class BackTester:
             lambda: []
         )
         for strat in STRATEGIES:
-            logging.info("running backtest on %s ...", strat.__class__.__name__)
+            logging.info("running backtest on %s...", strat)
             for symbol in symbols:
                 strat_data[symbol].append(
                     (
