@@ -6,10 +6,12 @@ from alpaca.trading.requests import (
     LimitOrderRequest,
     MarketOrderRequest,
 )
+from ..database.models import Orders
 from ..settings import Settings
 from collections import defaultdict
 from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.dialects.postgresql import insert
 
 
 def get_0():
@@ -137,6 +139,9 @@ class LlamaTrader:
             symbol=symbol, qty=quantity, side=side, time_in_force=time_in_force
         )
         response = self.client.submit_order(market_order_data)
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(insert(Orders).values(response.dict()))
+
         if side == OrderSide.BUY:
             self.positions_held[symbol] += quantity
         elif side == OrderSide.SELL:

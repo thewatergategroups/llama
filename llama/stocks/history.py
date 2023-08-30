@@ -8,7 +8,7 @@ from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import func, select
-
+from functools import lru_cache
 from ..settings import Settings
 from .models import CustomBarSet
 from ..database.models import Bars
@@ -22,7 +22,7 @@ from datetime import datetime
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {"delta": timedelta(minutes=240)},
     TimeFrameUnit.Hour: {"delta": timedelta(hours=1)},
-    TimeFrameUnit.Day: {"delta": timedelta(hours=23)},
+    TimeFrameUnit.Day: {"delta": timedelta(hours=24)},
     TimeFrameUnit.Month: {"delta": timedelta(weeks=4)},
     TimeFrameUnit.Week: {"delta": timedelta(weeks=1)},
 }
@@ -85,7 +85,12 @@ class LlamaHistory:
             session.execute(stmt)
 
     @staticmethod
-    def _round_datetime(dt: datetime):
+    def _round_datetime(dt: datetime, timeframe: TimeFrame):
+        if timeframe.unit == TimeFrameUnit.Day:
+            dt = dt.replace(hour=4, minute=0, second=0)
+        if timeframe.unit == TimeFrameUnit.Minute:
+            dt = dt.replace(hour=0, minute=0, second=0)
+
         pandas_timestamp = pd.Timestamp(dt)
         # Round to the nearest minute
         rounded_timestamp = pandas_timestamp.round("T")
@@ -138,8 +143,9 @@ class LlamaHistory:
 
         """
         logging.debug("identifying missing bars...")
-        start_time = self._round_datetime(start_time)
-        end_time = self._round_datetime(end_time)
+        start_time = self._round_datetime(start_time, timeframe)
+        end_time = self._round_datetime(end_time, timeframe)
+
         delta = FRAME_PARAMS[timeframe.unit]["delta"]
         with self.pg_sessionmaker.begin() as session:
             generator = func.generate_series(start_time, end_time, delta)
@@ -157,11 +163,14 @@ class LlamaHistory:
                     )
                 )
                 .where(match_query.c.timestamp.is_(None))
-                .where(func.extract("isodow", series.c.time) < 6)
-                .where(func.extract("hour", series.c.time).between(13, 19))
             )
+            if timeframe.unit in {TimeFrameUnit.Minute, TimeFrameUnit.Day}:
+                query = query.where(func.extract("isodow", series.c.time) < 6)
+            if timeframe.unit == TimeFrameUnit.Minute:
+                query = query.where(func.extract("hour", series.c.time).between(13, 19))
 
             response: list[datetime] = session.execute(query).scalars().fetchall()
+
         consecutive_groups = []
         response = sorted(list(set(response)))
 
@@ -214,7 +223,7 @@ class LlamaHistory:
                 if bars.data:
                     self.insert_bars(bars, time_frame)
         with self.pg_sessionmaker.begin() as session:
-            logging.info("fetching bars from postgres...")
+            logging.debug("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(
                 [(symbol,) for symbol in symbols]
             )
@@ -232,7 +241,7 @@ class LlamaHistory:
                 .scalars()
                 .fetchall()
             )
-            logging.info("converting to barset...")
+            logging.debug("converting to barset...")
             return CustomBarSet.from_postgres_bars(
                 bars
             )  ## slowest bit - multiprocessing doesn't work

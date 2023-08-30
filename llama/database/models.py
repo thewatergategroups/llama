@@ -1,7 +1,10 @@
+from typing import Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import ForeignKey, ARRAY
 from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime
 from copy import deepcopy
+from uuid import UUID
 
 
 class BaseSql(DeclarativeBase):
@@ -64,3 +67,55 @@ class Qoutes(BaseSql):
     bid_size: Mapped[int]
     conditions: Mapped[list] = mapped_column(type_=JSONB)
     tape: Mapped[str]
+
+
+class Orders(BaseSql):
+    __tablename__ = "orders"
+    __table_args__ = {"schema": "llama"}
+    id_: Mapped[UUID] = mapped_column(primary_key=True)
+    client_order_id: Mapped[str]
+    created_at: Mapped[datetime]
+    updated_at: Mapped[datetime]
+    submitted_at: Mapped[datetime]
+    filled_at: Mapped[Optional[datetime]]
+    expired_at: Mapped[Optional[datetime]]
+    canceled_at: Mapped[Optional[datetime]]
+    failed_at: Mapped[Optional[datetime]]
+    replaced_at: Mapped[Optional[datetime]]
+    replaced_by: Mapped[Optional[UUID]]
+    replaces: Mapped[Optional[UUID]]
+    asset_id: Mapped[UUID]
+    symbol: Mapped[str]
+    asset_class: Mapped[str]
+    notional: Mapped[Optional[str]]
+    qty: Mapped[Optional[str]]
+    filled_qty: Mapped[Optional[str]]
+    filled_avg_price: Mapped[Optional[str]]
+    order_class: Mapped[str]
+    order_type: Mapped[str]
+    type: Mapped[str]
+    side: Mapped[str]
+    time_in_force: Mapped[str]
+    limit_price: Mapped[Optional[str]]
+    stop_price: Mapped[Optional[str]]
+    status: Mapped[str]
+    extended_hours: Mapped[bool]
+    legs: Mapped[Optional[list]] = mapped_column(type_=JSONB)
+    trail_percent: Mapped[Optional[str]]
+    trail_price: Mapped[Optional[str]]
+    hwm: Mapped[Optional[str]]
+
+
+class TradeUpdates(BaseSql):
+    __tablename__ = "trade_updates"
+    __table_args__ = {"schema": "llama"}
+
+    execution_id: Mapped[UUID] = mapped_column(primary_key=True)
+    event: Mapped[str]
+    order_id: Mapped[Optional[str]] = mapped_column(
+        ForeignKey("llama.orders.id_"), nullable=True
+    )
+    timestamp: Mapped[datetime]
+    position_qty: Mapped[Optional[float]]
+    price: Mapped[Optional[float]]
+    qty: Mapped[Optional[float]]

@@ -181,20 +181,20 @@ class Vwap(Strategy):
         vwap_slope = 0
         if previous_vwap > 0:
             vwap_slope = (current_vwap - previous_vwap) / previous_vwap
-        vwap_slope_threshold = 0.005
+        vwap_slope_threshold = 0.05
         # VWAP Reversion
-        deviation_threshold = 0.01
+        deviation_threshold = 0.001
         # vwap resistance
         # Define the tolerance level around the VWAP (e.g., ±2%)
-        vwap_tolerance = current_vwap * 0.02
+        vwap_tolerance = current_vwap * 0.2
 
         buy_conditions: list = [
             current_vwap < most_recent_bar.close,  # vwap crossover
-            trader.positions_held[symbol] < 10,
+            trader.positions_held[symbol] < 20,
             # most_recent_bar.close
             # < current_vwap * (1 - deviation_threshold),  # vwap reversion
-            # (most_recent_bar.close > current_vwap)
-            # and (most_recent_bar.close < (current_vwap + vwap_tolerance)),  # resistance
+            (most_recent_bar.close > current_vwap)
+            and (most_recent_bar.close < (current_vwap + vwap_tolerance)),  # resistance
             vwap_slope > vwap_slope_threshold,  # slope
         ]
 
@@ -203,8 +203,8 @@ class Vwap(Strategy):
             trader.positions_held[symbol] > 0,
             # most_recent_bar.close
             # > current_vwap * (1 + deviation_threshold),  # reversion
-            # most_recent_bar.close < (current_vwap - vwap_tolerance),  # resistance
-            vwap_slope < -vwap_slope_threshold,  # slope
+            # most_recent_bar.close < (current_vwap - vwap_tolerance / 2),  # resistance
+            # vwap_slope < -vwap_slope_threshold,  # slope
         ]
 
         if all(buy_conditions):
