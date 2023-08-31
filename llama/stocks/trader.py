@@ -30,6 +30,7 @@ class MockLlamaTrader:
         self.balance = starting_balance
         self.highest_price: dict[str, float] = defaultdict(get_0)
         self.lowest_price: dict[str, float] = defaultdict(get_inf)
+        self.positions_held: dict[str, int] = defaultdict(get_0)
 
     def place_order(
         self,
@@ -37,36 +38,39 @@ class MockLlamaTrader:
         time_in_force: TimeInForce = TimeInForce.FOK,
         side: OrderSide = OrderSide.BUY,
         quantity: int = 1,
-        last_price: float = 0,
         **kwargs,
     ):
         if side == OrderSide.BUY:
             self.buys += quantity
-            self.balance -= quantity * last_price
+            self.balance -= quantity * 1  # this should be buy/sell price
             self.highest_price[symbol] = (
-                last_price
-                if self.highest_price[symbol] < last_price
+                1  # this should be buy/sell price
+                if self.highest_price[symbol] < 1  # this should be buy/sell price
                 else self.highest_price[symbol]
             )
             self.lowest_price[symbol] = (
-                last_price
-                if self.lowest_price[symbol] > last_price
+                1  # this should be buy/sell price
+                if self.lowest_price[symbol] > 1  # this should be buy/sell price
                 else self.lowest_price[symbol]
             )
+            self.positions_held[symbol] += quantity
         elif side == OrderSide.SELL:
             self.sells += quantity
-            self.balance += quantity * last_price
+            self.balance += quantity * 1  # this should be buy/sell price
+            self.positions_held[symbol] -= quantity
 
     def aggregate(self, verbose: bool = False):
         response = {
             "profit": self.balance - self.starting_balance,
             "buys": self.buys,
             "sells": self.sells,
+            "total_positions_held": sum(self.positions_held.values()),
         }
         if verbose:
             response["extra"] = {
                 "lowest_price": dict(self.lowest_price),
                 "highest_price": dict(self.highest_price),
+                "positions_held": dict(self.positions_held),
             }
         return response
 
@@ -133,9 +137,7 @@ class LlamaTrader:
             symbol=symbol, qty=quantity, side=side, time_in_force=time_in_force
         )
         response = self.client.submit_order(market_order_data)
-        response_dict = response.dict()
-        response_dict["id_"] = response_dict.pop("id")
         with self.pg_sessionmaker.begin() as session:
-            session.execute(insert(Orders).values(response_dict))
+            session.execute(insert(Orders).values(response.dict()))
 
         return response

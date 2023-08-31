@@ -86,7 +86,10 @@ class liveTradingStream:
 
     async def handle_trade_updates(self, trade_update: TradeUpdate):
         logging.info(
-            "received a trading update for symbol %s", trade_update.order.symbol
+            "received a trading update event %s on order %s for symbol %s",
+            trade_update.event,
+            trade_update.order.id,
+            trade_update.order.symbol,
         )
         with self.trader.pg_sessionmaker.begin() as session:
             ordr_stmt = insert(Orders).values(trade_update.order.dict())

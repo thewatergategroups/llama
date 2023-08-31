@@ -18,7 +18,7 @@ down:
 	docker compose down
 
 debug:
-	docker compose run -it --entrypoint bash $(REPOSITORY)-api
+	docker compose run -it --entrypoint bash datastream
 
 push: build
 	docker tag $(REPOSITORY):latest 10.252.1.0:1880/llama:latest

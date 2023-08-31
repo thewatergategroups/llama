@@ -42,7 +42,7 @@ class Trades(BaseSql):
     __tablename__ = "trades"
     __table_args__ = {"schema": "llama"}
 
-    id_: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
     symbol: Mapped[str]
     timestamp: Mapped[datetime]
     exchange: Mapped[str]
@@ -56,7 +56,7 @@ class Qoutes(BaseSql):
     __tablename__ = "qoutes"
     __table_args__ = {"schema": "llama"}
 
-    id_: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     symbol: Mapped[str]
     timestamp: Mapped[datetime]
     ask_exchange: Mapped[str]
@@ -72,7 +72,7 @@ class Qoutes(BaseSql):
 class Orders(BaseSql):
     __tablename__ = "orders"
     __table_args__ = {"schema": "llama"}
-    id_: Mapped[UUID] = mapped_column(primary_key=True)
+    id: Mapped[UUID] = mapped_column(primary_key=True)
     client_order_id: Mapped[str]
     created_at: Mapped[datetime]
     updated_at: Mapped[datetime]
@@ -109,12 +109,10 @@ class Orders(BaseSql):
 class TradeUpdates(BaseSql):
     __tablename__ = "trade_updates"
     __table_args__ = {"schema": "llama"}
-
-    execution_id: Mapped[UUID] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    execution_id: Mapped[Optional[UUID]]
     event: Mapped[str]
-    order_id: Mapped[Optional[str]] = mapped_column(
-        ForeignKey("llama.orders.id_"), nullable=True
-    )
+    order_id: Mapped[UUID] = mapped_column(ForeignKey("llama.orders.id"))
     timestamp: Mapped[datetime]
     position_qty: Mapped[Optional[float]]
     price: Mapped[Optional[float]]
