@@ -1,12 +1,11 @@
-import logging
 import uvicorn
+
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
 from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, BackTester, LlamaTrader
 from trekkers import database
 from enum import Enum
 from typing import Callable
-from concurrent.futures import ThreadPoolExecutor
 
 
 def api(*args, **kwargs):
@@ -21,21 +20,17 @@ def api(*args, **kwargs):
     )
 
 
-def trading_stream(settings: Settings, *args, **kwargs):
-    logging.info("Starting trade updates thread...")
-    ls_object: liveTradingStream = liveTradingStream.create(settings)
-    ls_object.trading_stream.run()
+def trade_stream(settings: Settings, *args, **kwargs):
+    trader = LlamaTrader.create(settings)
+    ls_object: liveTradingStream = liveTradingStream.create(settings, trader)
+    ls_object.run()
 
 
-def live(settings: Settings, *args, **kwargs):
+def data_stream(settings: Settings, *args, **kwargs):
     """Websocket Stream data"""
     trader = LlamaTrader.create(settings)
     history = LlamaHistory.create(settings)
     all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
-
-    with ThreadPoolExecutor(1) as x:
-        _ = x.submit(trading_stream, settings, trader)
-
     strats = [strat.create(history, all_) for strat in STRATEGIES]
     ls_object = liveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
@@ -59,7 +54,8 @@ class Entrypoints(Enum):
         self.function = function
 
     API = "api", api
-    LIVE = "live", live
+    DATASTREAM = "datastream", data_stream
+    TRADESTREAM = "tradestream", trade_stream
     DATABASE = "db", db
     BACKTEST = "backtest", backtest
 

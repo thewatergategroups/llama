@@ -5,6 +5,7 @@ from alpaca.trading import TradeUpdate, TradeEvent
 from alpaca.data.models import Quote, Bar, Trade
 from alpaca.data.timeframe import TimeFrame
 
+
 from ..settings import Settings
 from ..stocks.strats import Strategy
 from sqlalchemy.dialects.postgresql import insert
@@ -83,7 +84,7 @@ class liveTradingStream:
             trader,
         )
 
-    def handle_trade_upates(self, trade_update: TradeUpdate):
+    async def handle_trade_updates(self, trade_update: TradeUpdate):
         logging.info(
             "received a trading update for symbol %s", trade_update.order.symbol
         )
@@ -105,5 +106,6 @@ class liveTradingStream:
             ...
 
     def run(self):
-        self.trading_stream.subscribe_trade_updates(self.handle_trade_upates)
+        self.trading_stream.subscribe_trade_updates(self.handle_trade_updates)
+        logging.info("Running trading updates stream...")
         self.trading_stream.run()

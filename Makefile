@@ -8,8 +8,14 @@ build:
 	--build-arg="NEXUS_PASS=${NEXUS_PASS}" \
 	. -t $(REPOSITORY)
 
-run: build
-	docker compose up
+run: build up
+
+up: 
+	docker compose up -d  --remove-orphans
+	docker compose logs -f 
+
+down:
+	docker compose down
 
 debug:
 	docker compose run -it --entrypoint bash $(REPOSITORY)-api

@@ -1,18 +1,38 @@
 version: "3.9"
 services:
-  llama-api:
+  datastream: 
     image: llama
-    entrypoint: python -m llama api
+    entrypoint: python -m llama datastream
+    depends_on:
+      - db
+      - dbsetup
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+  
+  tradestream: 
+    image: llama
+    entrypoint: python -m llama tradestream
+    depends_on:
+      - db
+      - dbsetup
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+  
+  
+  dbsetup: 
+    image: llama
+    entrypoint: python -m llama db upgrade
     depends_on:
       - db
     volumes:
       - ./:/app
     env_file:
       - .env
-    ports:
-      - 8000:8000
-    network_mode: host
-    
+      
   db:
     image: postgres:14
     ports:
@@ -21,28 +41,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
 
-  # llama-worker:
-  #   image: llama
-  #   entrypoint: python -m llama worker
 
-    ## depends_on:
-    ##   - redis
-  #   volumes:
-  #     - ./:/app
-  #   env_file:
-  #     - .env
-
-  # llama-backtest:
-  #   image: llama
-  #   entrypoint: python -m llama backtest
-
-  #   # depends_on:
-  #   #   - redis
-  #   volumes:
-  #     - ./:/app
-  #   env_file:
-  #     - .env
-
-  # redis:
-  #   image: "redis:latest"

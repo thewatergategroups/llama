@@ -28,12 +28,15 @@ def setup_logging(settings: "Settings"):
         os.makedirs(logfolder)
     file_handler = logging.FileHandler(f"{logfolder}/{logfile}")
     # Create a formatter for the log messages
-    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s | %(processName)-10s | %(levelname)-8s | %(funcName)s | %(message)s"
+    )
     stream_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
     # Add the StreamHandler to the logger
     logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
+    return logger
 
 
 def custom_json_encoder(data):
