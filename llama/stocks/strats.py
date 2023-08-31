@@ -181,7 +181,7 @@ class Vwap(Strategy):
         vwap_slope = 0
         if previous_vwap > 0:
             vwap_slope = (current_vwap - previous_vwap) / previous_vwap
-        vwap_slope_threshold = 0.05
+        vwap_slope_threshold = 0.02
         # VWAP Reversion
         deviation_threshold = 0.001
         # vwap resistance
@@ -193,8 +193,8 @@ class Vwap(Strategy):
             trader.positions_held[symbol] < 20,
             # most_recent_bar.close
             # < current_vwap * (1 - deviation_threshold),  # vwap reversion
-            (most_recent_bar.close > current_vwap)
-            and (most_recent_bar.close < (current_vwap + vwap_tolerance)),  # resistance
+            # (most_recent_bar.close > current_vwap)
+            # and (most_recent_bar.close < (current_vwap + vwap_tolerance)),  # resistance
             vwap_slope > vwap_slope_threshold,  # slope
         ]
 
