@@ -153,8 +153,7 @@ class LlamaHistory:
         """
         Currently geta all data we already have between start and end time,
         checks what data is missing during trading hours, and turns them into consecutive sequences of data that we need to fetch.
-        TODO: If data is missing after returning from the api, between 2 bounds, set that timeframe as collected but empty in postgres.
-
+        DO NOT TOUCH
         """
         logging.debug("identifying missing bars...")
         start_time = self._round_datetime(start_time, timeframe)
