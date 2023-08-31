@@ -16,16 +16,23 @@ class BackTester:
     ):
         logging.info("Beginning backtesting over the last %s days...", days_to_test)
 
-        start_time = datetime.utcnow() - timedelta(days=days_to_test)
-        end_time = datetime.utcnow() - timedelta(minutes=15)
+        start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
+        end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
+
+        start_time_historic = start_time_backtest - timedelta(days=60)
+        end_time_historic = start_time_backtest
+
         data = history.get_stock_bars(
             symbols,
             time_frame=TimeFrame.Minute,
-            start_time=start_time,
-            end_time=end_time,
+            start_time=start_time_backtest,
+            end_time=end_time_backtest,
         )
         history.get_stock_bars(
-            symbols, time_frame=TimeFrame.Day, start_time=start_time, end_time=end_time
+            symbols,
+            time_frame=TimeFrame.Day,
+            start_time=start_time_historic,
+            end_time=end_time_historic,
         )
         strat_data: dict[str, list[Strategy, MockLlamaTrader, list[Bar]]] = defaultdict(
             lambda: []
@@ -34,7 +41,9 @@ class BackTester:
             for symbol in symbols:
                 strat_data[symbol].append(
                     (
-                        strat.create(history, [symbol], days=days_to_test),
+                        strat.create(
+                            history, [symbol], start_time_historic, end_time_historic
+                        ),
                         MockLlamaTrader(),
                         data.data[symbol],
                     )

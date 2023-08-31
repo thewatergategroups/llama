@@ -1,7 +1,10 @@
+import logging
 from alpaca.data.live import StockDataStream
 from alpaca.trading.stream import TradingStream
 from alpaca.trading import TradeUpdate, TradeEvent
 from alpaca.data.models import Quote, Bar, Trade
+from alpaca.data.timeframe import TimeFrame
+
 from ..settings import Settings
 from ..stocks.strats import Strategy
 from sqlalchemy.dialects.postgresql import insert
@@ -35,10 +38,13 @@ class liveStockDataStream:
 
     async def handle_bars(self, data: Bar):
         """Perform trades based on data"""
+        time_frame: TimeFrame = TimeFrame.Minute
         for strategy in self.strategies:
             strategy.run(self.trader, data)
         with self.trader.pg_sessionmaker.begin() as session:
-            session.execute(insert(Bars).values(Bar.dict()))
+            data_dict = data.dict()
+            data_dict["timeframe"] = time_frame.value
+            session.execute(insert(Bars).values(data_dict))
 
     async def handle_qoutes(self, data: Quote):
         with self.trader.pg_sessionmaker.begin() as session:
@@ -78,6 +84,9 @@ class liveTradingStream:
         )
 
     def handle_trade_upates(self, trade_update: TradeUpdate):
+        logging.info(
+            "received a trading update for symbol %s", trade_update.order.symbol
+        )
         with self.trader.pg_sessionmaker.begin() as session:
             ordr_stmt = insert(Orders).values(trade_update.order.dict())
             session.execute(on_conflict_update(ordr_stmt, Orders))

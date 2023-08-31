@@ -2,7 +2,7 @@ import logging
 import uvicorn
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
-from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, BackTester
+from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, BackTester, LlamaTrader
 from trekkers import database
 from enum import Enum
 from typing import Callable
@@ -29,7 +29,7 @@ def trading_stream(settings: Settings, *args, **kwargs):
 
 def live(settings: Settings, *args, **kwargs):
     """Websocket Stream data"""
-    trader = MockLlamaTrader()
+    trader = LlamaTrader.create(settings)
     history = LlamaHistory.create(settings)
     all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
 

@@ -45,14 +45,13 @@ class Strategy:
         cls,
         history: LlamaHistory,
         symbols: list[str],
+        start_time: datetime = datetime.utcnow() - timedelta(days=60),
+        end_time: datetime = datetime.utcnow() - timedelta(minutes=15),
         timeframe: TimeFrame = TimeFrame.Day,
-        days: int = 50,
     ):
         return cls(
             history.get_stock_bars(
-                symbols,
-                time_frame=timeframe,
-                start_time=(datetime.utcnow() - timedelta(days=days)),
+                symbols, time_frame=timeframe, start_time=start_time, end_time=end_time
             )
         )
 
@@ -109,10 +108,13 @@ class MovingAverage(Strategy):
         cls,
         history: LlamaHistory,
         symbols: list[str],
+        start_time: datetime = datetime.utcnow() - timedelta(days=60),
+        end_time: datetime = datetime.utcnow() - timedelta(minutes=15),
         timeframe: TimeFrame = TimeFrame.Day,
-        days: int = 50,
     ):
-        obj: "MovingAverage" = super().create(history, symbols, timeframe, days)
+        obj: "MovingAverage" = super().create(
+            history, symbols, start_time, end_time, timeframe
+        )
         obj.moving_averages = cls.calculate_moving_averages(obj.historic_data)
         return obj
 
@@ -127,25 +129,18 @@ class MovingAverage(Strategy):
         historic_mean = self.moving_averages[symbol].value
         logging.debug("moving average: %s", historic_mean)
         logging.debug("last closing price %s", last_closing_price)
-        buy_condition = (
-            historic_mean > last_closing_price and trader.positions_held[symbol] < 10
-        )
-        sell_condition = (
-            historic_mean < last_closing_price and trader.positions_held[symbol] > 0
-        )
+        buy_condition = historic_mean > last_closing_price
+        sell_condition = historic_mean < last_closing_price
         if buy_condition:
-            logging.debug("buying a stock of %s", symbol)
-            trader.place_order(
-                symbol, time_in_force=TimeInForce.GTC, last_price=last_closing_price
-            )
+            logging.info("buying a stock of %s with strat %s", symbol, self.__class__)
+            trader.place_order(symbol, time_in_force=TimeInForce.GTC)
         elif sell_condition:
-            logging.debug("selling a share of %s", symbol)
+            logging.info("selling a share of %s with strat %s", symbol, self.__class__)
             trader.place_order(
                 symbol,
                 time_in_force=TimeInForce.GTC,
                 side=OrderSide.SELL,
-                last_price=last_closing_price,
-                quantity=trader.positions_held[symbol],
+                quantity=1,
             )
         return symbol, buy_condition, sell_condition
 
@@ -190,7 +185,6 @@ class Vwap(Strategy):
 
         buy_conditions: list = [
             current_vwap < most_recent_bar.close,  # vwap crossover
-            trader.positions_held[symbol] < 20,
             # most_recent_bar.close
             # < current_vwap * (1 - deviation_threshold),  # vwap reversion
             # (most_recent_bar.close > current_vwap)
@@ -200,7 +194,6 @@ class Vwap(Strategy):
 
         sell_conditions: list = [
             current_vwap > most_recent_bar.close,  # crossover
-            trader.positions_held[symbol] > 0,
             # most_recent_bar.close
             # > current_vwap * (1 + deviation_threshold),  # reversion
             # most_recent_bar.close < (current_vwap - vwap_tolerance / 2),  # resistance
@@ -208,18 +201,18 @@ class Vwap(Strategy):
         ]
 
         if all(buy_conditions):
-            logging.debug("buying a stock of %s", symbol)
+            logging.info("buying a stock of %s with strat %s", symbol, self.__class__)
             trader.place_order(
-                symbol, time_in_force=TimeInForce.GTC, last_price=most_recent_bar.close
+                symbol,
+                time_in_force=TimeInForce.GTC,
             )
         elif all(sell_conditions):
-            logging.debug("selling a share of %s", symbol)
+            logging.info("selling a share of %s with strat %s", symbol, self.__class__)
             trader.place_order(
                 symbol,
                 time_in_force=TimeInForce.GTC,
                 side=OrderSide.SELL,
-                last_price=most_recent_bar.close,
-                quantity=trader.positions_held[symbol],
+                quantity=1,
             )
         return symbol, buy_conditions, sell_conditions
 

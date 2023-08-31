@@ -24,7 +24,6 @@ def get_inf():
 
 class MockLlamaTrader:
     def __init__(self, starting_balance: float = 2000):
-        self.positions_held: dict[str, int] = defaultdict(get_0)
         self.buys = 0
         self.sells = 0
         self.starting_balance = starting_balance
@@ -54,24 +53,20 @@ class MockLlamaTrader:
                 if self.lowest_price[symbol] > last_price
                 else self.lowest_price[symbol]
             )
-            self.positions_held[symbol] += quantity
         elif side == OrderSide.SELL:
             self.sells += quantity
             self.balance += quantity * last_price
-            self.positions_held[symbol] -= quantity
 
     def aggregate(self, verbose: bool = False):
         response = {
             "profit": self.balance - self.starting_balance,
             "buys": self.buys,
             "sells": self.sells,
-            "total_positions_held": sum(self.positions_held.values()),
         }
         if verbose:
             response["extra"] = {
                 "lowest_price": dict(self.lowest_price),
                 "highest_price": dict(self.highest_price),
-                "positions_held": dict(self.positions_held),
             }
         return response
 
@@ -85,7 +80,6 @@ class LlamaTrader:
         pg_sessionmaker: sessionmaker[Session],
     ):
         self.client = client
-        self.positions_held: dict[str, bool] = defaultdict(lambda: False)
         self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
@@ -139,11 +133,9 @@ class LlamaTrader:
             symbol=symbol, qty=quantity, side=side, time_in_force=time_in_force
         )
         response = self.client.submit_order(market_order_data)
+        response_dict = response.dict()
+        response_dict["id_"] = response_dict.pop("id")
         with self.pg_sessionmaker.begin() as session:
-            session.execute(insert(Orders).values(response.dict()))
+            session.execute(insert(Orders).values(response_dict))
 
-        if side == OrderSide.BUY:
-            self.positions_held[symbol] += quantity
-        elif side == OrderSide.SELL:
-            self.positions_held[symbol] -= quantity
         return response
