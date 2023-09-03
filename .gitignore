@@ -7,3 +7,4 @@
 **/figs
 **/logs/*
 **/pg_data
+**/pgadmin-data

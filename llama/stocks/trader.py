@@ -1,4 +1,5 @@
-from alpaca.trading import TradingClient
+import logging
+from alpaca.trading import TradingClient, Position, Order
 from alpaca.trading.enums import AssetClass, OrderSide, TimeInForce
 from alpaca.trading.requests import (
     GetAssetsRequest,
@@ -6,12 +7,16 @@ from alpaca.trading.requests import (
     LimitOrderRequest,
     MarketOrderRequest,
 )
-from ..database.models import Orders
+from alpaca.common.exceptions import APIError
+
+from ..database.models import Orders, Positions
 from ..settings import Settings
 from collections import defaultdict
 from trekkers.config import get_sync_sessionmaker
+from trekkers.statements import on_conflict_update
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy import delete
 
 
 def get_0():
@@ -84,6 +89,8 @@ class LlamaTrader:
         pg_sessionmaker: sessionmaker[Session],
     ):
         self.client = client
+        self.positions: list[Position] = []
+        self.orders: list[Order] = []
         self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
@@ -93,12 +100,57 @@ class LlamaTrader:
             settings.api_key, settings.secret_key, paper=settings.paper
         )
         pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
-        return cls(client, pg_sessionmaker)
+        obj = cls(client, pg_sessionmaker)
+        obj.get_orders()
+        obj.get_positions()
+        return obj
 
-    def get_all_orders(self, side: OrderSide = OrderSide.SELL):
+    def get_positions(self):
+        logging.info("getting positions...")
+        positions = self.client.get_all_positions()
+        self.positions = positions
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(
+                on_conflict_update(
+                    insert(Positions).values([pos.dict() for pos in positions]),
+                    Positions,
+                )
+            )
+        return positions
+
+    def close_position(self, symbol: str):
+        logging.info("closing positions %s...", symbol)
+
+        self.client.close_position(symbol)
+        with self.pg_sessionmaker.begin() as session:
+            try:
+                position = self.client.get_open_position(symbol)
+            except APIError:
+                session.execute(delete(Positions).where(Positions.symbol == symbol))
+                self.positions = [
+                    position for position in self.positions if position.symbol != symbol
+                ]
+                return True
+            session.execute(
+                on_conflict_update(insert(Positions).values(position.dict()))
+            )
+        return False
+
+    def get_orders(self, side: OrderSide | None = None):
         """get all orders I have placed"""
+        logging.info("getting orders...")
+
         request_params = GetOrdersRequest(status="all", side=side)
-        return self.client.get_orders(filter=request_params)
+        orders = self.client.get_orders(filter=request_params)
+        self.orders = orders
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(
+                on_conflict_update(
+                    insert(Orders).values([pos.dict() for pos in orders]),
+                    Orders,
+                )
+            )
+        return orders
 
     def get_all_assets(self):
         """get all assets that can be bought"""
@@ -123,7 +175,10 @@ class LlamaTrader:
         )
 
         # Limit order
-        return self.client.submit_order(order_data=limit_order_data)
+        response = self.client.submit_order(order_data=limit_order_data)
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(insert(Orders).values(response.dict()))
+        return response
 
     def place_order(
         self,

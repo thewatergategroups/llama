@@ -117,3 +117,30 @@ class TradeUpdates(BaseSql):
     position_qty: Mapped[Optional[float]]
     price: Mapped[Optional[float]]
     qty: Mapped[Optional[float]]
+
+
+class Positions(BaseSql):
+    __tablename__ = "positions"
+    __table_args__ = {"schema": "llama"}
+
+    asset_id: Mapped[UUID] = mapped_column(unique=True, index=True)
+    symbol: Mapped[str] = mapped_column(primary_key=True)
+    exchange: Mapped[str]
+    asset_class: Mapped[str]
+    asset_marginable: Mapped[Optional[bool]]
+    avg_entry_price: Mapped[str]
+    qty: Mapped[str]
+    side: Mapped[str]
+    market_value: Mapped[str]
+    cost_basis: Mapped[str]
+    unrealized_pl: Mapped[str]
+    unrealized_plpc: Mapped[str]
+    unrealized_intraday_pl: Mapped[str]
+    unrealized_intraday_plpc: Mapped[str]
+    current_price: Mapped[str]
+    lastday_price: Mapped[str]
+    change_today: Mapped[str]
+    swap_rate: Mapped[Optional[str]]
+    avg_entry_swap_rate: Mapped[Optional[str]]
+    usd: Mapped[Optional[dict]] = mapped_column(type_=JSONB)
+    qty_available: Mapped[Optional[str]]
