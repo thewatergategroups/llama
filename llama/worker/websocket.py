@@ -8,9 +8,9 @@ from alpaca.data.timeframe import TimeFrame
 
 from ..settings import Settings
 from ..stocks.strats import Strategy
+from ..stocks.trader import Trader
 from sqlalchemy.dialects.postgresql import insert
 from ..database.models import Bars, Trades, Qoutes, Orders, TradeUpdates
-from ..consts import TRADER_TYPE
 from trekkers.statements import on_conflict_update
 
 
@@ -18,7 +18,7 @@ class liveStockDataStream:
     def __init__(
         self,
         wss_client: StockDataStream,
-        trader: TRADER_TYPE,
+        trader: Trader,
     ):
         self.wss_client = wss_client
         self.trader = trader
@@ -28,7 +28,7 @@ class liveStockDataStream:
     def create(
         cls,
         settings: Settings,
-        trader: TRADER_TYPE,
+        trader: Trader,
     ):
         """Create an instance of this object"""
 
@@ -71,12 +71,12 @@ class liveStockDataStream:
 
 
 class liveTradingStream:
-    def __init__(self, trading_stream: TradingStream, trader: TRADER_TYPE):
+    def __init__(self, trading_stream: TradingStream, trader: Trader):
         self.trading_stream = trading_stream
         self.trader = trader
 
     @classmethod
-    def create(cls, settings: Settings, trader: TRADER_TYPE):
+    def create(cls, settings: Settings, trader: Trader):
         """Create an instance of this object"""
 
         return cls(

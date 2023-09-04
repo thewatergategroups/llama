@@ -23,3 +23,6 @@ debug:
 push: build
 	docker tag $(REPOSITORY):latest 10.252.1.0:1880/llama:latest
 	docker push 10.252.1.0:1880/llama:latest
+
+pgadmin:
+	docker compose run pgadmin

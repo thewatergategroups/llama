@@ -2,7 +2,7 @@ import uvicorn
 
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
-from .stocks import LlamaHistory, MockLlamaTrader, STRATEGIES, BackTester, LlamaTrader
+from .stocks import History, STRATEGIES, BackTester, Trader
 from trekkers import database
 from enum import Enum
 from typing import Callable
@@ -21,15 +21,15 @@ def api(*args, **kwargs):
 
 
 def trade_stream(settings: Settings, *args, **kwargs):
-    trader = LlamaTrader.create(settings)
+    trader = Trader.create(settings)
     ls_object: liveTradingStream = liveTradingStream.create(settings, trader)
     ls_object.run()
 
 
 def data_stream(settings: Settings, *args, **kwargs):
     """Websocket Stream data"""
-    trader = LlamaTrader.create(settings)
-    history = LlamaHistory.create(settings)
+    trader = Trader.create(settings)
+    history = History.create(settings)
     all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
     strats = [strat.create(history, all_) for strat in STRATEGIES]
     ls_object = liveStockDataStream.create(settings, trader)
@@ -42,7 +42,7 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
 
 
 def backtest(settings: Settings, *args, **kwargs):
-    history = LlamaHistory.create(settings)
+    history = History.create(settings)
     backtester = BackTester()
     backtester.backtest_strats(history, STOCKS_TO_TRADE + ETFS_TO_TRADE)
 

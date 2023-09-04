@@ -7,11 +7,10 @@ from alpaca.trading.requests import (
     LimitOrderRequest,
     MarketOrderRequest,
 )
+from .models import NullPosition
 from alpaca.common.exceptions import APIError
-
 from ..database.models import Orders, Positions
 from ..settings import Settings
-from collections import defaultdict
 from trekkers.config import get_sync_sessionmaker
 from trekkers.statements import on_conflict_update
 from sqlalchemy.orm import Session, sessionmaker
@@ -19,68 +18,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import delete
 
 
-def get_0():
-    return 0
-
-
-def get_inf():
-    return 100000000
-
-
-class MockLlamaTrader:
-    def __init__(self, starting_balance: float = 2000):
-        self.buys = 0
-        self.sells = 0
-        self.starting_balance = starting_balance
-        self.balance = starting_balance
-        self.highest_price: dict[str, float] = defaultdict(get_0)
-        self.lowest_price: dict[str, float] = defaultdict(get_inf)
-        self.positions_held: dict[str, int] = defaultdict(get_0)
-
-    def place_order(
-        self,
-        symbol: str = "TSLA",
-        time_in_force: TimeInForce = TimeInForce.FOK,
-        side: OrderSide = OrderSide.BUY,
-        quantity: int = 1,
-        **kwargs,
-    ):
-        if side == OrderSide.BUY:
-            self.buys += quantity
-            self.balance -= quantity * 1  # this should be buy/sell price
-            self.highest_price[symbol] = (
-                1  # this should be buy/sell price
-                if self.highest_price[symbol] < 1  # this should be buy/sell price
-                else self.highest_price[symbol]
-            )
-            self.lowest_price[symbol] = (
-                1  # this should be buy/sell price
-                if self.lowest_price[symbol] > 1  # this should be buy/sell price
-                else self.lowest_price[symbol]
-            )
-            self.positions_held[symbol] += quantity
-        elif side == OrderSide.SELL:
-            self.sells += quantity
-            self.balance += quantity * 1  # this should be buy/sell price
-            self.positions_held[symbol] -= quantity
-
-    def aggregate(self, verbose: bool = False):
-        response = {
-            "profit": self.balance - self.starting_balance,
-            "buys": self.buys,
-            "sells": self.sells,
-            "total_positions_held": sum(self.positions_held.values()),
-        }
-        if verbose:
-            response["extra"] = {
-                "lowest_price": dict(self.lowest_price),
-                "highest_price": dict(self.highest_price),
-                "positions_held": dict(self.positions_held),
-            }
-        return response
-
-
-class LlamaTrader:
+class Trader:
     """Llama is created"""
 
     def __init__(
@@ -89,7 +27,7 @@ class LlamaTrader:
         pg_sessionmaker: sessionmaker[Session],
     ):
         self.client = client
-        self.positions: list[Position] = []
+        self.positions: dict[str, Position] = {}
         self.orders: list[Order] = []
         self.pg_sessionmaker = pg_sessionmaker
 
@@ -108,7 +46,7 @@ class LlamaTrader:
     def get_positions(self):
         logging.info("getting positions...")
         positions = self.client.get_all_positions()
-        self.positions = positions
+        self.positions = {position.symbol: position for position in positions}
         with self.pg_sessionmaker.begin() as session:
             session.execute(
                 on_conflict_update(
@@ -117,6 +55,20 @@ class LlamaTrader:
                 )
             )
         return positions
+
+    def get_position(self, symbol: str):
+        if (position := self.positions.get(symbol)) is not None:
+            return position
+        try:
+            position = self.client.get_open_position(symbol)
+            with self.pg_sessionmaker.begin() as session:
+                session.execute(
+                    on_conflict_update(insert(Positions).values(position.dict()))
+                )
+            return position
+        except APIError:
+            logging.info("No open position for %s", symbol)
+            return NullPosition(symbol=symbol)
 
     def close_position(self, symbol: str):
         logging.info("closing positions %s...", symbol)
@@ -137,12 +89,11 @@ class LlamaTrader:
         return False
 
     def get_orders(self, side: OrderSide | None = None):
-        """get all orders I have placed"""
+        """get all orders I have placed - Only ever set on start up"""
         logging.info("getting orders...")
 
         request_params = GetOrdersRequest(status="all", side=side)
         orders = self.client.get_orders(filter=request_params)
-        self.orders = orders
         with self.pg_sessionmaker.begin() as session:
             session.execute(
                 on_conflict_update(

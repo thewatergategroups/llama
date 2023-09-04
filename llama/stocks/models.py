@@ -3,8 +3,16 @@ from alpaca.data.models import Bar, BarSet
 from collections import defaultdict
 from datetime import datetime
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Optional
 from ..database.models import Bars
+from alpaca.trading import (
+    Position,
+    AssetExchange,
+    AssetClass,
+    PositionSide,
+    USDPositionValues,
+)
+from uuid import UUID, uuid4
 
 
 class CustomBarSet(BaseDataSet, TimeSeriesMixin):
@@ -73,3 +81,27 @@ class Metric:
     name: str
     value: Any
     calculated_at: datetime = field(default_factory=datetime.utcnow)
+
+
+class NullPosition(Position):
+    asset_id: UUID = uuid4()
+    symbol: str
+    exchange: AssetExchange = AssetExchange.NASDAQ
+    asset_class: AssetClass = AssetClass.US_EQUITY
+    asset_marginable: Optional[bool] = False
+    avg_entry_price: str = "0"
+    qty: str = "0"
+    side: PositionSide = PositionSide.LONG
+    market_value: str = "0"
+    cost_basis: str = "0"
+    unrealized_pl: str = "0"
+    unrealized_plpc: str = "0"
+    unrealized_intraday_pl: str = "0"
+    unrealized_intraday_plpc: str = "0"
+    current_price: str = "0"
+    lastday_price: str = "0"
+    change_today: str = "0"
+    swap_rate: Optional[str] = None
+    avg_entry_swap_rate: Optional[str] = None
+    usd: Optional[USDPositionValues] = None
+    qty_available: Optional[str] = "0"

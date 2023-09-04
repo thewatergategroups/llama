@@ -1,15 +1,15 @@
 from .tools import plot_stock_data
-from .history import LlamaHistory
-from .trader import LlamaTrader, MockLlamaTrader
+from .history import History
+from .trader import Trader
 from .strats import STRATEGIES, Strategy
 from .models import CustomBarSet
-from .backtest import BackTester
+from .backtest import BackTester, MockTrader
 
 __all__ = [
     "BackTester",
-    "LlamaHistory",
-    "MockLlamaTrader",
-    "LlamaTrader",
+    "History",
+    "MockTrader",
+    "Trader",
     "plot_stock_data",
     "STRATEGIES",
     "CustomBarSet",

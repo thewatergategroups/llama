@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timedelta
 
 import requests
-from alpaca.data.models import BarSet, Bar
+from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
@@ -42,7 +42,7 @@ FRAME_PARAMS = {
 }
 
 
-class LlamaHistory:
+class History:
     """Historic Trading data"""
 
     def __init__(
@@ -109,39 +109,6 @@ class LlamaHistory:
         # Round to the nearest minute
         rounded_timestamp = pandas_timestamp.round("T")
         return rounded_timestamp.to_pydatetime()
-
-    def fill_bars(
-        self,
-        bars: BarSet,
-        symbol: str,
-        timeframe: TimeFrame,
-        start_time: datetime,
-        end_time: datetime,
-    ):
-        """TODO: Fill missing data with most recent previous entry"""
-        new_bars: list[Bar] = []
-        delta = FRAME_PARAMS[timeframe.unit]["delta"]
-        num_intervals = int((end_time - start_time) / delta) + 1
-        datetime_objects = [start_time + i * delta for i in range(num_intervals)]
-        bar_ts = [bar.timestamp for bar in bars.data[symbol]]
-        for ts in datetime_objects:
-            if ts not in bar_ts:
-                new_bars.append(
-                    Bar(  ## what values do we put in here?
-                        symbol,
-                        {
-                            "t": ts,
-                            "o": 1,
-                            "h": 1,
-                            "l": 1,
-                            "c": 1,
-                            "v": 1,
-                            "n": 1,
-                            "vw": 1,
-                        },
-                    )
-                )
-        return CustomBarSet(new_bars)
 
     def identify_missing_bars(
         self,
