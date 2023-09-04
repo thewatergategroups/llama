@@ -60,7 +60,7 @@ class Strategy:
         qty = position.qty_available or position.qty
         if side == OrderSide.BUY:
             return int(qty) < 20
-        return int(qty) > -10
+        return int(qty) > 0
 
     def run(self, trader: Trader, most_recent_bar: Bar):
         """Standard strat run method to be overwritten"""
@@ -73,7 +73,7 @@ class Strategy:
         symbol = most_recent_bar.symbol
         position = trader.get_position(symbol)
         qty_avaliable = position.qty_available or position.qty
-        qty_avaliable = int(qty_avaliable)
+
         if all(
             [
                 condition(symbol, most_recent_bar, trader, OrderSide.BUY)
@@ -81,7 +81,8 @@ class Strategy:
             ]
         ):
             logging.info("buying a stock of %s with strat %s", symbol, self.__class__)
-            trader.place_order(symbol, time_in_force=TimeInForce.GTC, quantity=1)
+            buy = -(int(qty_avaliable)) if int(qty_avaliable) < 0 else 1
+            trader.place_order(symbol, time_in_force=TimeInForce.GTC, quantity=buy)
             return OrderSide.BUY
         elif all(
             [
@@ -90,11 +91,12 @@ class Strategy:
             ]
         ):
             logging.info("selling a share of %s with strat %s", symbol, self.__class__)
+            sell = int(qty_avaliable) if int(qty_avaliable) > 0 else 1
             trader.place_order(
                 symbol,
                 time_in_force=TimeInForce.GTC,
                 side=OrderSide.SELL,
-                quantity=qty_avaliable,
+                quantity=sell,
             )
             return OrderSide.SELL
 

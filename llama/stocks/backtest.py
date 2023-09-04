@@ -32,7 +32,8 @@ class MockTrader:
     def get_position(self, symbol: str):
         if (position := self.positions.get(symbol)) is not None:
             return position
-        return NullPosition(symbol=symbol)
+        self.positions[symbol] = NullPosition(symbol=symbol)
+        return self.positions[symbol]
 
     def place_order(
         self,
@@ -45,12 +46,11 @@ class MockTrader:
         position = self.get_position(symbol)
 
         if side == OrderSide.BUY:
-            position.qty = int(position.qty) + quantity
-            position.qty_available = int(position.qty_available) + quantity
+            position.qty = str(int(position.qty) + quantity)
+            position.qty_available = str(int(position.qty_available) + quantity)
         elif side == OrderSide.SELL:
-            position.qty = int(position.qty) - quantity
-            position.qty_available = int(position.qty_available) - quantity
-
+            position.qty = str(int(position.qty) - quantity)
+            position.qty_available = str(int(position.qty_available) - quantity)
         self.positions[symbol] = position
 
     def aggregate(self, verbose: bool = False):
@@ -149,9 +149,12 @@ class BackTester:
                 )
             action = strategy.run(trader, bars[i])
             if action == OrderSide.BUY:
-                trader.balance -= (bars[i].high + bars[i].low) / 2
+                trader.balance -= bars[i].close
                 trader.buys += 1
+                logging.info("buy on itteration %s", i)
             elif action == OrderSide.SELL:
-                trader.balance += (bars[i].high + bars[i].low) / 2
+                trader.balance += bars[i].close
                 trader.sells += 1
+                logging.info("sell on itteration %s", i)
+
         return trader, strategy
