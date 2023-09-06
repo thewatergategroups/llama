@@ -1,4 +1,3 @@
-import logging
 from fastapi import Depends, HTTPException, BackgroundTasks
 from fastapi.routing import APIRouter
 from sqlalchemy import select
