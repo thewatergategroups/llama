@@ -9,13 +9,12 @@ from collections import defaultdict
 from alpaca.trading import OrderSide
 from alpaca.trading import Position, Order
 from alpaca.trading.enums import OrderSide, TimeInForce
-from ..tools import custom_json_encoder
-import json
 from ..database.models import Backtests
 from ..settings import Settings
 from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy import update
 
 
 class MockTrader:
@@ -92,59 +91,77 @@ class BackTester:
                 .values({"symbols": symbols, "status": "inprogress"})
                 .returning(Backtests.id)
             ).scalar()
-        start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
-        end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
 
-        start_time_historic = start_time_backtest - timedelta(days=60)
-        end_time_historic = start_time_backtest
+        try:
+            start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
+            end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
 
-        data = history.get_stock_bars(
-            symbols,
-            time_frame=TimeFrame.Minute,
-            start_time=start_time_backtest,
-            end_time=end_time_backtest,
-        )
-        history.get_stock_bars(
-            symbols,
-            time_frame=TimeFrame.Day,
-            start_time=start_time_historic,
-            end_time=end_time_historic,
-        )
-        strat_data: dict[str, list[Strategy, MockTrader, list[Bar]]] = defaultdict(
-            lambda: []
-        )
-        for strat in STRATEGIES:
-            for symbol in symbols:
-                strat_data[symbol].append(
-                    (
-                        strat.create(
-                            history, [symbol], start_time_historic, end_time_historic
-                        ),
-                        MockTrader.create(),
-                        data.data[symbol],
-                    )
-                )
+            start_time_historic = start_time_backtest - timedelta(days=60)
+            end_time_historic = start_time_backtest
 
-        with ProcessPoolExecutor(max_workers=4) as xacuter:
-            for symbol, strat_list in strat_data.items():
-                for strat, trader, bars in strat_list:
-                    self.processes.append(
-                        xacuter.submit(
-                            self.test_strat,
-                            strategy=strat,
-                            trader=trader,
-                            bars=bars,
+            data = history.get_stock_bars(
+                symbols,
+                time_frame=TimeFrame.Minute,
+                start_time=start_time_backtest,
+                end_time=end_time_backtest,
+            )
+            history.get_stock_bars(
+                symbols,
+                time_frame=TimeFrame.Day,
+                start_time=start_time_historic,
+                end_time=end_time_historic,
+            )
+            strat_data: dict[str, list[Strategy, MockTrader, list[Bar]]] = defaultdict(
+                lambda: []
+            )
+            for strat in STRATEGIES:
+                for symbol in symbols:
+                    strat_data[symbol].append(
+                        (
+                            strat.create(
+                                history,
+                                [symbol],
+                                start_time_historic,
+                                end_time_historic,
+                            ),
+                            MockTrader.create(),
+                            data.data[symbol],
                         )
                     )
-        overall = defaultdict(lambda: defaultdict(lambda: 0))
-        for future in as_completed(self.processes):
-            result: tuple[MockTrader, Strategy] = future.result()
-            trader, strat = result
-            for key, value in trader.aggregate().items():
-                overall[type(strat).__name__][key] += value
 
-        with open("./data/overall.json", "w") as f:
-            f.write(json.dumps(overall, default=custom_json_encoder))
+            with ProcessPoolExecutor(max_workers=4) as xacuter:
+                for symbol, strat_list in strat_data.items():
+                    for strat, trader, bars in strat_list:
+                        self.processes.append(
+                            xacuter.submit(
+                                self.test_strat,
+                                strategy=strat,
+                                trader=trader,
+                                bars=bars,
+                            )
+                        )
+            overall = defaultdict(lambda: defaultdict(lambda: 0))
+            for future in as_completed(self.processes):
+                result: tuple[MockTrader, Strategy] = future.result()
+                trader, strat = result
+                for key, value in trader.aggregate().items():
+                    overall[type(strat).__name__][key] += value
+
+            with self.pg_sessionmaker.begin() as session:
+                session.execute(
+                    update(Backtests)
+                    .where(Backtests.id == backtest_id)
+                    .values(result=overall, status="success")
+                )
+        except Exception as exc:
+            logging.exception(exc)
+            logging.error("failed to complete backtest")
+        with self.pg_sessionmaker.begin() as session:
+            session.execute(
+                update(Backtests)
+                .where(Backtests.id == backtest_id)
+                .values(result=overall, status="failed")
+            )
 
     @staticmethod
     def test_strat(

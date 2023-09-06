@@ -6,9 +6,7 @@ from ...stocks import History, BackTester
 router = APIRouter(prefix="/backtest")
 
 
-router.post("/start")
-
-
+@router.post("/start")
 def run_backtest(
     symbols: list[str],
     background_task: BackgroundTasks,
@@ -22,3 +20,6 @@ def run_backtest(
         backtester.backtest_strats, history, symbols, days_to_test_over
     )
     return {"details": "Backtest started"}
+
+@router.get("/result")
+def get_backtest(backtest_id:int):

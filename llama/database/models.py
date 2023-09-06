@@ -153,3 +153,4 @@ class Backtests(BaseSql):
     symbols: Mapped[list[str]] = mapped_column(type_=JSONB)
     result: Mapped[Optional[dict]] = mapped_column(type_=JSONB, nullable=True)
     status: Mapped[str]
+    timestamp: Mapped[datetime] = mapped_column(server_default=datetime.utcnow())
