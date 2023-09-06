@@ -11,6 +11,11 @@ from alpaca.trading import Position, Order
 from alpaca.trading.enums import OrderSide, TimeInForce
 from ..tools import custom_json_encoder
 import json
+from ..database.models import Backtests
+from ..settings import Settings
+from trekkers.config import get_sync_sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.dialects.postgresql import insert
 
 
 class MockTrader:
@@ -68,14 +73,25 @@ class MockTrader:
 
 
 class BackTester:
-    def __init__(self):
+    def __init__(self, pg_sessionmaker: sessionmaker[Session]):
         self.processes = []
+        self.pg_sessionmaker = pg_sessionmaker
+
+    @classmethod
+    def create(cls, settings: Settings):
+        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
+        return cls(pg_sessionmaker)
 
     def backtest_strats(
         self, history: History, symbols: list[str], days_to_test: int = 30
     ):
         logging.info("Beginning backtesting over the last %s days...", days_to_test)
-
+        with self.pg_sessionmaker.begin() as session:
+            backtest_id = session.execute(
+                insert(Backtests)
+                .values({"symbols": symbols, "status": "inprogress"})
+                .returning(Backtests.id)
+            ).scalar()
         start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
         end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
 

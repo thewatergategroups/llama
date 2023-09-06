@@ -1,5 +1,18 @@
 version: "3.9"
 services:
+
+  api: 
+    image: llama
+    entrypoint: python -m llama api
+    depends_on:
+      - db
+      - dbsetup
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    network_mode: host
+
   datastream: 
     image: llama
     entrypoint: python -m llama datastream

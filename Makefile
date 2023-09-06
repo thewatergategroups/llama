@@ -10,6 +10,9 @@ build:
 
 run: build up
 
+api:
+	docker compose run api 
+
 up: 
 	docker compose up -d  --remove-orphans
 	docker compose logs -f 

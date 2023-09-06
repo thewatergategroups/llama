@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .endpoints import router
+from .endpoints.stocks import router as stock_router
 
 
 def create_app() -> FastAPI:
@@ -12,5 +12,5 @@ def create_app() -> FastAPI:
         description="trading bot using alpaca API",
         version="1.0",
     )
-    app.include_router(router)
+    app.include_router(stock_router)
     return app

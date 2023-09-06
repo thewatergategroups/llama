@@ -28,7 +28,7 @@ class Trader:
     ):
         self.client = client
         self.positions: dict[str, Position] = {}
-        self.orders: list[Order] = []
+        self.orders: dict[str, list[Order]] = {}
         self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
@@ -43,8 +43,10 @@ class Trader:
         obj.get_positions()
         return obj
 
-    def get_positions(self):
+    def get_positions(self, force: bool = False):
         logging.info("getting positions...")
+        if self.positions and not force:
+            return self.positions
         positions = self.client.get_all_positions()
         self.positions = {position.symbol: position for position in positions}
         with self.pg_sessionmaker.begin() as session:
@@ -56,8 +58,8 @@ class Trader:
             )
         return positions
 
-    def get_position(self, symbol: str):
-        if (position := self.positions.get(symbol)) is not None:
+    def get_position(self, symbol: str, force: bool = False):
+        if (position := self.positions.get(symbol)) is not None and not force:
             return position
         try:
             position = self.client.get_open_position(symbol)
@@ -88,20 +90,22 @@ class Trader:
             )
         return False
 
-    def get_orders(self, side: OrderSide | None = None):
+    def get_orders(self, side: OrderSide | None = None, force: bool = False):
         """get all orders I have placed - Only ever set on start up"""
         logging.info("getting orders...")
+        if side_orders := self.orders.get(side) and not force:
+            return side_orders
 
         request_params = GetOrdersRequest(status="all", side=side)
-        orders = self.client.get_orders(filter=request_params)
+        self.orders[side] = self.client.get_orders(filter=request_params)
         with self.pg_sessionmaker.begin() as session:
             session.execute(
                 on_conflict_update(
-                    insert(Orders).values([pos.dict() for pos in orders]),
+                    insert(Orders).values([pos.dict() for pos in self.orders[side]]),
                     Orders,
                 )
             )
-        return orders
+        return self.orders[side]
 
     def get_all_assets(self):
         """get all assets that can be bought"""

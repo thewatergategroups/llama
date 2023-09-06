@@ -144,3 +144,12 @@ class Positions(BaseSql):
     avg_entry_swap_rate: Mapped[Optional[str]]
     usd: Mapped[Optional[dict]] = mapped_column(type_=JSONB)
     qty_available: Mapped[Optional[str]]
+
+
+class Backtests(BaseSql):
+    __tablename__ = "backtests"
+    __table_args__ = {"schema": "llama"}
+    id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
+    symbols: Mapped[list[str]] = mapped_column(type_=JSONB)
+    result: Mapped[Optional[dict]] = mapped_column(type_=JSONB, nullable=True)
+    status: Mapped[str]

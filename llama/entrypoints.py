@@ -43,7 +43,7 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
 
 def backtest(settings: Settings, *args, **kwargs):
     history = History.create(settings)
-    backtester = BackTester()
+    backtester = BackTester.create(settings)
     backtester.backtest_strats(history, STOCKS_TO_TRADE + ETFS_TO_TRADE)
 
 

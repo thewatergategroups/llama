@@ -26,7 +26,7 @@ def plot_stock_data(data: BarSet):
     image_buffs = []
     for key in data.data.keys():
         logging.info("Plotting data for %s..", key)
-        times, closing_prices = get_times_and_closing_p(key, data)
+        times, closing_prices = get_times_and_closing_p(data.data[key])
         plt.figure(figsize=(10, 6))
         plt.plot(times, closing_prices, marker="o", linestyle="-", color="b")
         plt.xlabel("Date")

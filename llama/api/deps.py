@@ -1,12 +1,31 @@
-from ..settings import Settings
+from ..settings import get_settings
 from ..stocks.history import History
+from ..stocks.trader import Trader
+from ..stocks.backtest import BackTester
 
 _HISTORY = None
+_TRADER = None
+_BACKTESTER = None
 
 
 def get_history():
     """Get history wrapper"""
     global _HISTORY
     if _HISTORY is None:
-        _HISTORY = History(Settings())
+        _HISTORY = History.create(get_settings())
     return _HISTORY
+
+
+def get_trader():
+    """Get trader wrapper"""
+    global _TRADER
+    if _TRADER is None:
+        _TRADER = Trader.create(get_settings())
+    return _TRADER
+
+
+def get_backtester():
+    global _BACKTESTER
+    if _BACKTESTER is None:
+        _BACKTESTER = BackTester.create(get_settings())
+    return _BACKTESTER

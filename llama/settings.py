@@ -22,6 +22,17 @@ class Settings(BaseSettings):
     )
 
 
+_SETTINGS = None
+
+
+def get_settings():
+    """Get history wrapper"""
+    global _SETTINGS
+    if _SETTINGS is None:
+        _SETTINGS = Settings()
+    return _SETTINGS
+
+
 STOCKS_TO_TRADE = (
     "AAPL",
     "TSLA",
