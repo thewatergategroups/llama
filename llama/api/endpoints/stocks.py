@@ -11,7 +11,7 @@ router = APIRouter(prefix="/stocks")
 
 
 @router.get("/historic/graph")
-def get_historic_graph(
+async def get_historic_graph(
     symbol: str,
     timeframe: TimeFrameUnit = TimeFrameUnit.Hour,
     start_date: datetime = (datetime.utcnow() - timedelta(days=900)),
@@ -29,7 +29,7 @@ def get_historic_graph(
 
 
 @router.get("/historic/data")
-def get_historic_data(
+async def get_historic_data(
     symbol: str,
     timeframe: TimeFrameUnit = TimeFrameUnit.Hour,
     start_date: datetime = (datetime.utcnow() - timedelta(days=900)),
@@ -46,12 +46,12 @@ def get_historic_data(
 
 
 @router.get("/assets/price/latest")
-def latest_ask_price(symbols: list[str], history: History = Depends(get_history)):
+async def latest_ask_price(symbols: list[str], history: History = Depends(get_history)):
     return history.get_latest_ask_price(symbols)
 
 
 @router.get("/news")
-def latest_ask_price(
+async def latest_ask_price(
     start_time: datetime,
     end_time: datetime,
     symbols: list[str],
@@ -61,7 +61,7 @@ def latest_ask_price(
 
 
 @router.get("/positions")
-def get_positions(force: bool = False, trader: Trader = Depends(get_trader)):
+async def get_positions(force: bool = False, trader: Trader = Depends(get_trader)):
     """
     Api endpoint to returnmy current positions
     """
@@ -69,7 +69,7 @@ def get_positions(force: bool = False, trader: Trader = Depends(get_trader)):
 
 
 @router.get("/position")
-def get_positions(
+async def get_positions(
     symbol: str, force: bool = False, trader: Trader = Depends(get_trader)
 ):
     """
@@ -79,7 +79,7 @@ def get_positions(
 
 
 @router.get("/orders")
-def get_orders(
+async def get_orders(
     side: OrderSide, force: bool = False, trader: Trader = Depends(get_trader)
 ):
     """
@@ -89,12 +89,12 @@ def get_orders(
 
 
 @router.post("/position/close")
-def close_position(symbol: str, trader: Trader = Depends(get_trader)):
+async def close_position(symbol: str, trader: Trader = Depends(get_trader)):
     trader.close_position(symbol)
 
 
 @router.post("/position/order")
-def place_order(
+async def place_order(
     symbol: str,
     time_in_force: TimeInForce,
     side: OrderSide,
@@ -105,5 +105,5 @@ def place_order(
 
 
 @router.get("/assets")
-def tradable_assets(trader: Trader = Depends(get_trader)):
+async def tradable_assets(trader: Trader = Depends(get_trader)):
     return trader.get_all_assets()

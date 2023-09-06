@@ -2,6 +2,7 @@ from ..settings import get_settings
 from ..stocks.history import History
 from ..stocks.trader import Trader
 from ..stocks.backtest import BackTester
+from trekkers.config import get_async_sessionmaker
 
 _HISTORY = None
 _TRADER = None
@@ -29,3 +30,8 @@ def get_backtester():
     if _BACKTESTER is None:
         _BACKTESTER = BackTester.create(get_settings())
     return _BACKTESTER
+
+
+async def get_async_session():
+    with get_async_sessionmaker(get_settings().db_settings) as session:
+        yield session

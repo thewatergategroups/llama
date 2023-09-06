@@ -1,13 +1,16 @@
 from fastapi import Depends, HTTPException, BackgroundTasks
 from fastapi.routing import APIRouter
-from ..deps import get_history, get_backtester
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from ..deps import get_history, get_backtester, get_async_session
 from ...stocks import History, BackTester
+from ...database.models import Backtests
 
 router = APIRouter(prefix="/backtest")
 
 
 @router.post("/start")
-def run_backtest(
+async def run_backtest(
     symbols: list[str],
     background_task: BackgroundTasks,
     days_to_test_over: int = 30,
@@ -21,5 +24,14 @@ def run_backtest(
     )
     return {"details": "Backtest started"}
 
+
 @router.get("/result")
-def get_backtest(backtest_id:int):
+async def get_backtest(
+    backtest_id: int, session: AsyncSession = Depends(get_async_session)
+):
+    return await session.execute(select(Backtests).where(Backtests.id == backtest_id))
+
+
+@router.get("/results")
+async def get_backtest(session: AsyncSession = Depends(get_async_session)):
+    return await session.execute(select(Backtests).order_by(Backtests.timestamp))
