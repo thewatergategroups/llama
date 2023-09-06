@@ -49,13 +49,16 @@ class Trader:
             return self.positions
         positions = self.client.get_all_positions()
         self.positions = {position.symbol: position for position in positions}
+
         with self.pg_sessionmaker.begin() as session:
-            session.execute(
-                on_conflict_update(
-                    insert(Positions).values([pos.dict() for pos in positions]),
-                    Positions,
+            session.execute(delete(Positions))
+            if positions:
+                session.execute(
+                    on_conflict_update(
+                        insert(Positions).values([pos.dict() for pos in positions]),
+                        Positions,
+                    )
                 )
-            )
         return positions
 
     def get_position(self, symbol: str, force: bool = False):
@@ -82,7 +85,9 @@ class Trader:
             except APIError:
                 session.execute(delete(Positions).where(Positions.symbol == symbol))
                 self.positions = [
-                    position for position in self.positions if position.symbol != symbol
+                    position
+                    for position in self.positions.values()
+                    if position.symbol != symbol
                 ]
                 return True
             session.execute(
@@ -98,13 +103,16 @@ class Trader:
 
         request_params = GetOrdersRequest(status="all", side=side)
         self.orders[side] = self.client.get_orders(filter=request_params)
-        with self.pg_sessionmaker.begin() as session:
-            session.execute(
-                on_conflict_update(
-                    insert(Orders).values([pos.dict() for pos in self.orders[side]]),
-                    Orders,
+        if self.orders[side]:
+            with self.pg_sessionmaker.begin() as session:
+                session.execute(
+                    on_conflict_update(
+                        insert(Orders).values(
+                            [pos.dict() for pos in self.orders[side]]
+                        ),
+                        Orders,
+                    )
                 )
-            )
         return self.orders[side]
 
     def get_all_assets(self):

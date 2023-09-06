@@ -33,5 +33,5 @@ def get_backtester():
 
 
 async def get_async_session():
-    with get_async_sessionmaker(get_settings().db_settings) as session:
+    async with get_async_sessionmaker(get_settings().db_settings).begin() as session:
         yield session

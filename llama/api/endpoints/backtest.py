@@ -1,3 +1,4 @@
+import logging
 from fastapi import Depends, HTTPException, BackgroundTasks
 from fastapi.routing import APIRouter
 from sqlalchemy import select
@@ -16,22 +17,44 @@ async def run_backtest(
     days_to_test_over: int = 30,
     history: History = Depends(get_history),
     backtester: BackTester = Depends(get_backtester),
+    session: AsyncSession = Depends(get_async_session),
 ):
     if not symbols:
         raise HTTPException(400, {"details": "You can't backtest with no symbols"})
-    background_task.add_task(
-        backtester.backtest_strats, history, symbols, days_to_test_over
+    running = (
+        (
+            await session.execute(
+                select(Backtests.id).where(Backtests.status == "inprogress")
+            )
+        )
+        .scalars()
+        .all()
     )
-    return {"details": "Backtest started"}
+    if running:
+        raise HTTPException(429, "backtest already running")
+    backtest_id = backtester.insert_start_of_backtest(symbols)
+    background_task.add_task(
+        backtester.backtest_strats, backtest_id, history, symbols, days_to_test_over
+    )
+    return {"id": backtest_id}
 
 
 @router.get("/result")
 async def get_backtest(
     backtest_id: int, session: AsyncSession = Depends(get_async_session)
 ):
-    return await session.execute(select(Backtests).where(Backtests.id == backtest_id))
+    return (
+        (await session.execute(select(Backtests).where(Backtests.id == backtest_id)))
+        .scalar()
+        .as_dict()
+    )
 
 
 @router.get("/results")
 async def get_backtest(session: AsyncSession = Depends(get_async_session)):
-    return await session.execute(select(Backtests).order_by(Backtests.timestamp))
+    results = (
+        (await session.execute(select(Backtests).order_by(Backtests.timestamp.desc())))
+        .scalars()
+        .all()
+    )
+    return [result.as_dict() for result in results]

@@ -1,6 +1,8 @@
 from alpaca.data.timeframe import TimeFrame
 from datetime import datetime, timedelta
 import logging
+
+from trekkers import on_conflict_update
 from . import History, STRATEGIES, Strategy
 from .models import NullPosition
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -14,7 +16,7 @@ from ..settings import Settings
 from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.dialects.postgresql import insert
-from sqlalchemy import update
+from sqlalchemy import update, select
 
 
 class MockTrader:
@@ -81,18 +83,47 @@ class BackTester:
         pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
         return cls(pg_sessionmaker)
 
-    def backtest_strats(
-        self, history: History, symbols: list[str], days_to_test: int = 30
-    ):
-        logging.info("Beginning backtesting over the last %s days...", days_to_test)
+    def insert_start_of_backtest(self, symbols):
+        """Insert an entry to start backtest"""
         with self.pg_sessionmaker.begin() as session:
+            scans = (
+                session.execute(
+                    select(Backtests.id).where(Backtests.status == "inprogress")
+                )
+                .scalars()
+                .all()
+            )
+            if len(scans) > 0:
+                raise RuntimeError("You can't run more than 1 backtest at a time")
+
+            logging.info("inserting new backtest entry")
             backtest_id = session.execute(
                 insert(Backtests)
-                .values({"symbols": symbols, "status": "inprogress"})
+                .values(
+                    {
+                        "symbols": symbols,
+                        "status": "inprogress",
+                        "timestamp": datetime.utcnow(),
+                    }
+                )
                 .returning(Backtests.id)
             ).scalar()
+            return backtest_id
 
+    def backtest_strats(
+        self,
+        backtest_id: str,
+        history: History,
+        symbols: list[str],
+        days_to_test: int = 30,
+    ):
+        logging.info("Beginning backtesting over the last %s days...", days_to_test)
         try:
+            """Check that the entry exists and is in progress"""
+            with self.pg_sessionmaker.begin() as session:
+                session.execute(
+                    select(Backtests.id).where(Backtests.status == "inprogress")
+                ).scalar_one()
             start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
             end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
 
@@ -153,15 +184,19 @@ class BackTester:
                     .where(Backtests.id == backtest_id)
                     .values(result=overall, status="success")
                 )
+            logging.info("backtest %s completed successfully", backtest_id)
         except Exception as exc:
             logging.exception(exc)
             logging.error("failed to complete backtest")
-        with self.pg_sessionmaker.begin() as session:
-            session.execute(
-                update(Backtests)
-                .where(Backtests.id == backtest_id)
-                .values(result=overall, status="failed")
-            )
+            with self.pg_sessionmaker.begin() as session:
+                session.execute(
+                    on_conflict_update(
+                        insert(Backtests)
+                        .where(Backtests.id == backtest_id)
+                        .values(result=overall, status="failed"),
+                        Backtests,
+                    )
+                )
 
     @staticmethod
     def test_strat(

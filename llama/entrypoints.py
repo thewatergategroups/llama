@@ -44,7 +44,9 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
 def backtest(settings: Settings, *args, **kwargs):
     history = History.create(settings)
     backtester = BackTester.create(settings)
-    backtester.backtest_strats(history, STOCKS_TO_TRADE + ETFS_TO_TRADE)
+    symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
+    backtest_id = backtester.insert_start_of_backtest(symbols)
+    backtester.backtest_strats(backtest_id, history, symbols)
 
 
 class Entrypoints(Enum):
