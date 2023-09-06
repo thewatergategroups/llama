@@ -10,6 +10,7 @@ services:
       - ./:/app
     env_file:
       - .env
+    network_mode: host
   
   tradestream: 
     image: llama
@@ -21,6 +22,7 @@ services:
       - ./:/app
     env_file:
       - .env
+    network_mode: host
   
   
   dbsetup: 
@@ -32,6 +34,7 @@ services:
       - ./:/app
     env_file:
       - .env
+    network_mode: host
       
   db:
     image: postgres:14
