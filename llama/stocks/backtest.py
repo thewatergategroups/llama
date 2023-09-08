@@ -57,7 +57,6 @@ class MockTrader:
         elif side == OrderSide.SELL:
             position.qty = str(int(position.qty) - quantity)
             position.qty_available = str(int(position.qty_available) - quantity)
-        self.positions[symbol] = position
 
     def aggregate(self, verbose: bool = False):
         response = {
@@ -191,9 +190,13 @@ class BackTester:
             with self.pg_sessionmaker.begin() as session:
                 session.execute(
                     on_conflict_update(
-                        insert(Backtests)
-                        .where(Backtests.id == backtest_id)
-                        .values(result=overall, status="failed"),
+                        insert(Backtests).values(
+                            id=backtest_id,
+                            symbols=symbols,
+                            result=overall,
+                            status="failed",
+                            timestamp=datetime.utcnow(),
+                        ),
                         Backtests,
                     )
                 )
@@ -215,14 +218,14 @@ class BackTester:
                 logging.debug(
                     "Progress of %s on %s: %s", strat_name, symbol, percent_completed
                 )
-            action = strategy.run(trader, bars[i])
+            action, qty = strategy.run(trader, bars[i])
             if action == OrderSide.BUY:
-                trader.balance -= bars[i].close
-                trader.buys += 1
+                trader.balance -= bars[i].close * qty
+                trader.buys += qty
                 logging.info("buy on itteration %s", i)
             elif action == OrderSide.SELL:
-                trader.balance += bars[i].close
-                trader.sells += 1
+                trader.balance += bars[i].close * qty
+                trader.sells += qty
                 logging.info("sell on itteration %s", i)
 
         return trader, strategy

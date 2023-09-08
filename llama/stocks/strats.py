@@ -57,22 +57,22 @@ class Strategy:
     ):
         """purchase condition based on quantity"""
         position = trader.get_position(symbol)
-        qty = position.qty_available or position.qty
+        qty = int(position.qty_available)
         if side == OrderSide.BUY:
-            return int(qty) < 20
-        return int(qty) > 0
+            return qty < 20
+        return qty > 0
 
     def run(self, trader: Trader, most_recent_bar: Bar):
         """Standard strat run method to be overwritten"""
-        action = self.trade(trader, most_recent_bar)
+        action, qty = self.trade(trader, most_recent_bar)
         self.current_data.append(most_recent_bar)
-        return action
+        return action, qty
 
     def trade(self, trader: Trader, most_recent_bar: Bar):
         """Making buying decisions based on the VWAP"""
         symbol = most_recent_bar.symbol
         position = trader.get_position(symbol)
-        qty_avaliable = position.qty_available or position.qty
+        qty_avaliable = int(position.qty_available)
 
         if all(
             [
@@ -81,9 +81,9 @@ class Strategy:
             ]
         ):
             logging.info("buying a stock of %s with strat %s", symbol, self.__class__)
-            buy = -(int(qty_avaliable)) if int(qty_avaliable) < 0 else 1
+            buy = -qty_avaliable if qty_avaliable < 0 else 1
             trader.place_order(symbol, time_in_force=TimeInForce.GTC, quantity=buy)
-            return OrderSide.BUY
+            return OrderSide.BUY, buy
         elif all(
             [
                 condition(symbol, most_recent_bar, trader, OrderSide.SELL)
@@ -91,14 +91,15 @@ class Strategy:
             ]
         ):
             logging.info("selling a share of %s with strat %s", symbol, self.__class__)
-            sell = int(qty_avaliable) if int(qty_avaliable) > 0 else 1
+            sell = qty_avaliable if qty_avaliable > 0 else 1
             trader.place_order(
                 symbol,
                 time_in_force=TimeInForce.GTC,
                 side=OrderSide.SELL,
                 quantity=sell,
             )
-            return OrderSide.SELL
+            return OrderSide.SELL, sell
+        return None, None
 
 
 class Vwap(Strategy):
@@ -106,7 +107,7 @@ class Vwap(Strategy):
 
     def __init__(self, data: BARSET_TYPE):
         super().__init__(data)
-        self.buy_conditions += [self._crossover]
+        self.buy_conditions += [self._slope, self._crossover]
         self.sell_conditions += [self._crossover]
 
     def _slope(
@@ -120,7 +121,7 @@ class Vwap(Strategy):
         vwap_slope = 0
         if previous_vwap > 0:
             vwap_slope = (current_vwap - previous_vwap) / previous_vwap
-        vwap_slope_threshold = 0.02
+        vwap_slope_threshold = 0.001
         if side == OrderSide.BUY:
             return vwap_slope > vwap_slope_threshold  # slope
         return vwap_slope < -vwap_slope_threshold
