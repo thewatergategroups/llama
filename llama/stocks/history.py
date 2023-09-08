@@ -6,13 +6,11 @@ from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import func, select
 from ..settings import Settings
 from .models import CustomBarSet
-from ..database.models import Bars
+from ..database import Bars, upsert
 from trekkers.config import get_sync_sessionmaker
-from trekkers.statements import on_conflict_update
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import func, Values, column
 import pandas as pd
@@ -67,6 +65,7 @@ class History:
         start_date: datetime = (datetime.utcnow() - timedelta(days=1)),
         end_date: datetime = datetime.utcnow(),
         symbols: list[str] | None = None,
+        next_page: str | None = None,
     ):
         """Get stock news"""
         symbols = symbols if symbols is not None else ["SPY"]  ## Spy is S&P500
@@ -80,6 +79,8 @@ class History:
             "end": end_date.date(),
             "symbols": symbols,
         }
+        if next_page is not None:
+            params["page_token"] = next_page
         response = requests.get(
             self.news_api_url,
             headers=headers,
@@ -93,10 +94,7 @@ class History:
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
             return
-        stmt = insert(Bars).values(dict_bars)
-        stmt = on_conflict_update(stmt, Bars)
-        with self.pg_sessionmaker.begin() as session:
-            session.execute(stmt)
+        upsert(self.pg_sessionmaker, dict_bars, Bars)
 
     @staticmethod
     def _round_datetime(dt: datetime, timeframe: TimeFrame):

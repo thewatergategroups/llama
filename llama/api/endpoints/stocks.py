@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 from alpaca.trading.enums import OrderSide, TimeInForce
 
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from fastapi import Response, Depends
+from fastapi import Response, Depends, Query
+from typing import Annotated
 from fastapi.routing import APIRouter
 from ..deps import get_history, get_trader
 from ...stocks import plot_stock_data, History, Trader
@@ -46,7 +47,9 @@ async def get_historic_data(
 
 
 @router.get("/assets/price/latest")
-async def latest_ask_price(symbols: list[str], history: History = Depends(get_history)):
+async def latest_ask_price(
+    symbols: Annotated[list[str], Query()], history: History = Depends(get_history)
+):
     return history.get_latest_ask_price(symbols)
 
 
@@ -54,10 +57,11 @@ async def latest_ask_price(symbols: list[str], history: History = Depends(get_hi
 async def latest_ask_price(
     start_time: datetime,
     end_time: datetime,
-    symbols: list[str],
+    symbols: Annotated[list[str], Query()],
     history: History = Depends(get_history),
+    next_page: str | None = None,
 ):
-    return history.get_news(start_time, end_time, symbols)
+    return history.get_news(start_time, end_time, symbols, next_page)
 
 
 @router.get("/positions")

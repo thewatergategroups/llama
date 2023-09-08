@@ -1558,13 +1558,13 @@ files = [
 
 [[package]]
 name = "trekkers"
-version = "0.1.2"
+version = "0.1.3"
 description = ""
 optional = false
 python-versions = ">=3.11,<3.12"
 files = [
-    {file = "trekkers-0.1.2-py3-none-any.whl", hash = "sha256:880a894a411ae5140a2f65aef92bd07de746e8bee734cd479e3a0634471227e1"},
-    {file = "trekkers-0.1.2.tar.gz", hash = "sha256:e5cce064b738d873983c55f959633ea7f0d4b893e1e794dd31c0a16b5b305b45"},
+    {file = "trekkers-0.1.3-py3-none-any.whl", hash = "sha256:5183feb08e9c3b8522cd0e06b45b45ef29c9761c3fe426b0e7d3aff8c0142b7d"},
+    {file = "trekkers-0.1.3.tar.gz", hash = "sha256:a61ee76ad061a1fa2f8c08b8078d521b23e2d9de8d9f1af87b80fbb04c8459ba"},
 ]
 
 [package.dependencies]

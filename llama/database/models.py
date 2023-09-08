@@ -1,25 +1,10 @@
 from typing import Optional
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import ForeignKey, ARRAY
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime
-from copy import deepcopy
 from uuid import UUID
-
-
-class BaseSql(DeclarativeBase):
-    ...
-
-    def as_dict(self):
-        return {
-            column.name: getattr(self, column.name) for column in self.__table__.columns
-        }
-
-    def duplicate(self, field_overrides: dict):
-        obj = deepcopy(self)
-        for name, value in field_overrides.items():
-            setattr(obj, name, value)
-        return obj
+from trekkers import BaseSql
 
 
 class Bars(BaseSql):

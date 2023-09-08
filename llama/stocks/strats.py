@@ -106,7 +106,7 @@ class Vwap(Strategy):
 
     def __init__(self, data: BARSET_TYPE):
         super().__init__(data)
-        self.buy_conditions += [self._slope, self._crossover]
+        self.buy_conditions += [self._crossover]
         self.sell_conditions += [self._crossover]
 
     def _slope(

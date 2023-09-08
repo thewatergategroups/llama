@@ -10,8 +10,7 @@ from ..settings import Settings
 from ..stocks.strats import Strategy
 from ..stocks.trader import Trader
 from sqlalchemy.dialects.postgresql import insert
-from ..database.models import Bars, Trades, Qoutes, Orders, TradeUpdates
-from trekkers.statements import on_conflict_update
+from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates, upsert
 
 
 class liveStockDataStream:
@@ -91,15 +90,14 @@ class liveTradingStream:
             trade_update.order.id,
             trade_update.order.symbol,
         )
-        with self.trader.pg_sessionmaker.begin() as session:
-            ordr_stmt = insert(Orders).values(trade_update.order.dict())
-            session.execute(on_conflict_update(ordr_stmt, Orders))
+        upsert(self.trader.pg_sessionmaker, trade_update.order.dict(), Orders)
 
-            trade_update_dict = trade_update.dict()
-            trade_update_dict.pop("order")
-            trade_update_dict["order_id"] = trade_update.order.id
-            trade_stmt = insert(TradeUpdates).values(trade_update_dict)
-            session.execute(on_conflict_update(trade_stmt, TradeUpdates))
+        trade_update_dict = trade_update.dict()
+        trade_update_dict.pop("order")
+        trade_update_dict["order_id"] = trade_update.order.id
+        upsert(self.trader.pg_sessionmaker, trade_update_dict, TradeUpdates)
+
+        self.trader.get_position(trade_update.order.symbol, force=True)
 
         if trade_update.event in {TradeEvent.FILL, TradeEvent.PARTIAL_FILL}:
             ...
