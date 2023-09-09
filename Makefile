@@ -14,11 +14,15 @@ api:
 	docker compose run api 
 
 up: 
-	docker compose up -d  --remove-orphans
+	docker compose up -d --remove-orphans
 	docker compose logs -f 
 
 down:
-	docker compose down
+	docker kill llama-api-1
+	docker kill llama-tradestream-1
+	docker kill llama-datastream-1
+
+
 
 debug:
 	docker compose run -it --entrypoint bash datastream

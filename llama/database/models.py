@@ -139,3 +139,24 @@ class Backtests(BaseSql):
     result: Mapped[Optional[dict]] = mapped_column(type_=JSONB, nullable=True)
     status: Mapped[str]
     timestamp: Mapped[datetime]
+
+
+class Assets(BaseSql):
+    __tablename__ = "tradable_assets"
+    __table_args__ = {"schema": "llama"}
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    bot_is_trading: Mapped[bool] = mapped_column(default=False)
+    asset_class: Mapped[str]
+    exchange: Mapped[str]
+    symbol: Mapped[str] = mapped_column(index=True)
+    name: Mapped[Optional[str]]
+    status: Mapped[str]
+    tradable: Mapped[bool]
+    marginable: Mapped[bool]
+    shortable: Mapped[bool]
+    easy_to_borrow: Mapped[bool]
+    fractionable: Mapped[bool]
+    min_order_size: Mapped[Optional[float]]
+    min_trade_increment: Mapped[Optional[float]]
+    price_increment: Mapped[Optional[float]]
+    maintenance_margin_requirement: Mapped[Optional[float]]

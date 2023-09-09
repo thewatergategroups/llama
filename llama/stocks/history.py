@@ -9,7 +9,8 @@ from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy import func, select
 from ..settings import Settings
 from .models import CustomBarSet
-from ..database import Bars, upsert
+from ..database import Bars
+from trekkers.statements import upsert
 from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import func, Values, column

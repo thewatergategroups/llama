@@ -4,13 +4,14 @@ from alpaca.trading.stream import TradingStream
 from alpaca.trading import TradeUpdate, TradeEvent
 from alpaca.data.models import Quote, Bar, Trade
 from alpaca.data.timeframe import TimeFrame
+from trekkers.statements import upsert
 
 
 from ..settings import Settings
 from ..stocks.strats import Strategy
 from ..stocks.trader import Trader
 from sqlalchemy.dialects.postgresql import insert
-from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates, upsert
+from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates
 
 
 class liveStockDataStream:

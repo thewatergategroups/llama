@@ -1,7 +1,7 @@
 import uvicorn
 
 from .worker.websocket import liveStockDataStream, liveTradingStream
-from .settings import Settings, STOCKS_TO_TRADE, ETFS_TO_TRADE
+from .settings import Settings
 from .stocks import History, STRATEGIES, BackTester, Trader
 from trekkers import database
 from enum import Enum
@@ -30,7 +30,7 @@ def data_stream(settings: Settings, *args, **kwargs):
     """Websocket Stream data"""
     trader = Trader.create(settings)
     history = History.create(settings)
-    all_ = STOCKS_TO_TRADE + ETFS_TO_TRADE
+    all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
     strats = [strat.create(history, all_) for strat in STRATEGIES]
     ls_object = liveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
@@ -42,9 +42,10 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
 
 
 def backtest(settings: Settings, *args, **kwargs):
+    trader = Trader.create(settings)
     history = History.create(settings)
     backtester = BackTester.create(settings)
-    symbols = STOCKS_TO_TRADE + ETFS_TO_TRADE
+    symbols = [asset.symbol for asset in trader.get_assets(trading=True)]
     backtest_id = backtester.insert_start_of_backtest(symbols)
     backtester.backtest_strats(backtest_id, history, symbols)
 

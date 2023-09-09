@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..deps import get_history, get_backtester, get_async_session
 from ...stocks import History, BackTester
 from ...database.models import Backtests
+from ...consts import Status
 
 router = APIRouter(prefix="/backtest")
 
@@ -23,7 +24,7 @@ async def run_backtest(
     running = (
         (
             await session.execute(
-                select(Backtests.id).where(Backtests.status == "inprogress")
+                select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
             )
         )
         .scalars()

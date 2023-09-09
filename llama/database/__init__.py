@@ -1,2 +1,10 @@
-from .statements import upsert
-from .models import Orders, Positions, TradeUpdates, Trades, Qoutes, Backtests, Bars
+from .models import (
+    Orders,
+    Positions,
+    TradeUpdates,
+    Trades,
+    Qoutes,
+    Backtests,
+    Bars,
+    Assets,
+)

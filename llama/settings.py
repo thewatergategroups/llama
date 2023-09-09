@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     db_settings: DbSettings = DbSettings(
         env_script_location=f"{TOP_LEVEL_PATH}/database/alembic"
     )
+    force_get_all_assets: bool = False
 
 
 _SETTINGS = None
@@ -31,31 +32,3 @@ def get_settings():
     if _SETTINGS is None:
         _SETTINGS = Settings()
     return _SETTINGS
-
-
-STOCKS_TO_TRADE = (
-    "AAPL",
-    "TSLA",
-    "MSFT",
-    "PFE",
-    "XOM",
-    "BAC",
-    "INTC",
-    "IBM",
-    "CSCO",
-    "HPQ",
-    "JPM",
-)
-
-ETFS_TO_TRADE = (
-    "SPY",
-    "VOO",
-    "IVV",
-    "QQQ",
-    "VTWO",
-    "DIA",
-    "VTI",
-    "ONEQ",
-    "QQQE",
-    "QQQJ",
-)

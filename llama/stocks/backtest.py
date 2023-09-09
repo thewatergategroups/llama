@@ -13,6 +13,7 @@ from alpaca.trading import Position, Order
 from alpaca.trading.enums import OrderSide, TimeInForce
 from ..database.models import Backtests
 from ..settings import Settings
+from ..consts import Status
 from trekkers.config import get_sync_sessionmaker
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.dialects.postgresql import insert
@@ -87,7 +88,7 @@ class BackTester:
         with self.pg_sessionmaker.begin() as session:
             scans = (
                 session.execute(
-                    select(Backtests.id).where(Backtests.status == "inprogress")
+                    select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
                 )
                 .scalars()
                 .all()
@@ -101,7 +102,7 @@ class BackTester:
                 .values(
                     {
                         "symbols": symbols,
-                        "status": "inprogress",
+                        "status": Status.IN_PROGRESS,
                         "timestamp": datetime.utcnow(),
                     }
                 )
@@ -121,7 +122,7 @@ class BackTester:
             """Check that the entry exists and is in progress"""
             with self.pg_sessionmaker.begin() as session:
                 session.execute(
-                    select(Backtests.id).where(Backtests.status == "inprogress")
+                    select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
                 ).scalar_one()
             start_time_backtest = datetime.utcnow() - timedelta(days=days_to_test)
             end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
@@ -181,7 +182,7 @@ class BackTester:
                 session.execute(
                     update(Backtests)
                     .where(Backtests.id == backtest_id)
-                    .values(result=overall, status="success")
+                    .values(result=overall, status=Status.COMPLETED)
                 )
             logging.info("backtest %s completed successfully", backtest_id)
         except Exception as exc:
@@ -194,7 +195,7 @@ class BackTester:
                             id=backtest_id,
                             symbols=symbols,
                             result=overall,
-                            status="failed",
+                            status=Status.FAILED,
                             timestamp=datetime.utcnow(),
                         ),
                         Backtests,

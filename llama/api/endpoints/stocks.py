@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from uuid import UUID
 from alpaca.trading.enums import OrderSide, TimeInForce
 
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
@@ -109,5 +110,31 @@ async def place_order(
 
 
 @router.get("/assets")
-async def tradable_assets(trader: Trader = Depends(get_trader)):
-    return trader.get_all_assets()
+async def tradable_assets(
+    offset: int = 0, limit: int = 300, trader: Trader = Depends(get_trader)
+):
+    assets = trader.get_assets(limit=limit, offset=offset)
+    return {"count": len(assets), "data": assets}
+
+
+@router.get("/assets/search")
+async def get_trading_assets(
+    symbol: str | None = None,
+    name: str | None = None,
+    trader: Trader = Depends(get_trader),
+):
+    assets = trader.get_assets(symbol=symbol, name=name)
+    return {"count": len(assets), "data": assets}
+
+
+@router.get("/assets/trading")
+async def get_trading_assets(trader: Trader = Depends(get_trader)):
+    assets = trader.get_assets(trading=True)
+    return {"count": len(assets), "data": assets}
+
+
+@router.post("/assets/trading")
+async def set_trading_assets(
+    asset_id: str, trading: bool, trader: Trader = Depends(get_trader)
+):
+    return trader.set_trading_asset(UUID(asset_id), trading)
