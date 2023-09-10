@@ -14,8 +14,7 @@
 # ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
 import logging
 from alpaca.data.models import Bar
-
-from llama.consts import BARSET_TYPE
+from sqlalchemy import select
 
 
 from .models import CustomBarSet
@@ -28,14 +27,16 @@ from ..consts import BARSET_TYPE
 from datetime import datetime, timedelta
 from alpaca.data.timeframe import TimeFrame
 import logging
+from ..database.models import Orders
 
 
 class Strategy:
-    def __init__(self, data: BARSET_TYPE):
+    def __init__(self, history: History, data: BARSET_TYPE):
+        self.history = history
         self.historic_data = data
         self.current_data = CustomBarSet()
         self.buy_conditions = [self._quantity]
-        self.sell_conditions = [self._quantity]
+        self.sell_conditions = [self._quantity, self._allowed_price]
 
     @classmethod
     def create(
@@ -47,9 +48,10 @@ class Strategy:
         timeframe: TimeFrame = TimeFrame.Day,
     ):
         return cls(
+            history,
             history.get_stock_bars(
                 symbols, time_frame=timeframe, start_time=start_time, end_time=end_time
-            )
+            ),
         )
 
     def _quantity(
@@ -61,6 +63,36 @@ class Strategy:
         if side == OrderSide.BUY:
             return qty < 20
         return qty > 0
+
+    def _allowed_price(
+        self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
+    ):
+        """purchase condition based on buy prices.. PURELY a sell condition"""
+        if side == OrderSide.BUY:
+            raise RuntimeError("Can't use this condition on the buy side..")
+
+        position = trader.get_position(symbol)
+        qty = int(position.qty_available)
+        if qty > 0:
+            with trader.pg_sessionmaker.begin() as session:
+                orders = session.scalars(
+                    select(Orders)
+                    .where(
+                        Orders.status == "filled",
+                        Orders.symbol == symbol,
+                        Orders.side == OrderSide.BUY.value,
+                    )
+                    .order_by(Orders.filled_at.desc())
+                    .limit(qty)
+                )
+                avg = (
+                    sum([order.filled_avg_price for order in orders]) / len(orders)
+                    if orders
+                    else 0
+                )
+                bid_price = self.history.get_latest_qoute(symbol).bid_price
+            return bid_price > avg
+        return True
 
     def run(self, trader: Trader, most_recent_bar: Bar):
         """Standard strat run method to be overwritten"""

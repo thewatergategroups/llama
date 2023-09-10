@@ -234,13 +234,11 @@ class History:
                 bars
             )  ## slowest bit - multiprocessing doesn't work
 
-    def get_latest_ask_price(self, symbols: list[str] | None = None):
+    def get_latest_qoute(self, symbol: list[str] | None = None):
         """get latest stock price"""
         symbols = symbols if symbols is not None else ["SPY"]
-        multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=symbols)
+        multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=symbol)
         latest_multisymbol_quotes = self.client.get_stock_latest_quote(
             multisymbol_request_params
         )
-        return {
-            symbol: latest_multisymbol_quotes[symbol].ask_price for symbol in symbols
-        }
+        return latest_multisymbol_quotes[symbol]

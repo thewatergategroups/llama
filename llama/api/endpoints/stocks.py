@@ -47,11 +47,11 @@ async def get_historic_data(
     return data.data[symbol]
 
 
-@router.get("/assets/price/latest")
+@router.get("/assets/qoute/latest")
 async def latest_ask_price(
     symbols: Annotated[list[str], Query()], history: History = Depends(get_history)
 ):
-    return history.get_latest_ask_price(symbols)
+    return {symbol: history.get_latest_qoute(symbol).dict() for symbol in symbols}
 
 
 @router.get("/news")
