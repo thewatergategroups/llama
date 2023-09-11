@@ -1,5 +1,5 @@
 import uvicorn
-
+from datetime import datetime, timedelta
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings
 from .stocks import History, STRATEGIES, BackTester, Trader
@@ -26,6 +26,16 @@ def trade_stream(settings: Settings, *args, **kwargs):
     ls_object.run()
 
 
+def debug(settings: Settings, *args, **kwargs):
+    history = History.create(settings)
+    print(
+        history.get_closest_qoute_to_time(
+            "AAPL", datetime.utcnow() - timedelta(minutes=15)
+        )
+    )
+    print(history.get_latest_qoute("AAPL"))
+
+
 def data_stream(settings: Settings, *args, **kwargs):
     """Websocket Stream data"""
     trader = Trader.create(settings)
@@ -34,7 +44,7 @@ def data_stream(settings: Settings, *args, **kwargs):
     strats = [strat.create(history, all_) for strat in STRATEGIES]
     ls_object = liveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
-    ls_object.subscribe(bars=all_)
+    ls_object.subscribe(bars=all_, qoutes=all_)
 
 
 def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
@@ -61,6 +71,7 @@ class Entrypoints(Enum):
     TRADESTREAM = "tradestream", trade_stream
     DATABASE = "db", db
     BACKTEST = "backtest", backtest
+    DEBUG = "debug", debug
 
     @classmethod
     def get_entrypoint(cls, entrypoint: str):

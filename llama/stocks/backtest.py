@@ -12,10 +12,8 @@ from alpaca.trading import OrderSide
 from alpaca.trading import Position, Order
 from alpaca.trading.enums import OrderSide, TimeInForce
 from ..database.models import Backtests
-from ..settings import Settings
+from ..settings import get_sync_sessionm
 from ..consts import Status
-from trekkers.config import get_sync_sessionmaker
-from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import update, select
 
@@ -74,18 +72,16 @@ class MockTrader:
 
 
 class BackTester:
-    def __init__(self, pg_sessionmaker: sessionmaker[Session]):
+    def __init__(self):
         self.processes = []
-        self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
-    def create(cls, settings: Settings):
-        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
-        return cls(pg_sessionmaker)
+    def create(cls):
+        return cls()
 
     def insert_start_of_backtest(self, symbols):
         """Insert an entry to start backtest"""
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             scans = (
                 session.execute(
                     select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
@@ -120,7 +116,7 @@ class BackTester:
         logging.info("Beginning backtesting over the last %s days...", days_to_test)
         try:
             """Check that the entry exists and is in progress"""
-            with self.pg_sessionmaker.begin() as session:
+            with get_sync_sessionm().begin() as session:
                 session.execute(
                     select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
                 ).scalar_one()
@@ -178,7 +174,7 @@ class BackTester:
                 for key, value in trader.aggregate().items():
                     overall[type(strat).__name__][key] += value
 
-            with self.pg_sessionmaker.begin() as session:
+            with get_sync_sessionm().begin() as session:
                 session.execute(
                     update(Backtests)
                     .where(Backtests.id == backtest_id)
@@ -188,7 +184,7 @@ class BackTester:
         except Exception as exc:
             logging.exception(exc)
             logging.error("failed to complete backtest")
-            with self.pg_sessionmaker.begin() as session:
+            with get_sync_sessionm().begin() as session:
                 session.execute(
                     on_conflict_update(
                         insert(Backtests).values(

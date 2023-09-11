@@ -11,11 +11,9 @@ from alpaca.trading.requests import (
 from .models import NullPosition
 from alpaca.common.exceptions import APIError
 from ..database import Orders, Positions, Assets
-from ..settings import Settings
+from ..settings import Settings, get_sync_sessionm
 from ..tools import divide_chunks
 from trekkers.statements import upsert
-from trekkers.config import get_sync_sessionmaker
-from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import delete, select, update
 
 
@@ -25,12 +23,8 @@ class Trader:
     def __init__(
         self,
         client: TradingClient,
-        pg_sessionmaker: sessionmaker[Session],
     ):
         self.client = client
-        self.positions: dict[str, Position] = {}
-        self.orders: dict[str, list[Order]] = {}
-        self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
     def create(cls, settings: Settings):
@@ -38,8 +32,7 @@ class Trader:
         client = TradingClient(
             settings.api_key, settings.secret_key, paper=settings.paper
         )
-        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
-        obj = cls(client, pg_sessionmaker)
+        obj = cls(client)
         obj.get_orders(OrderSide.BUY)
         obj.get_orders(OrderSide.SELL)
         obj.get_positions()
@@ -48,24 +41,31 @@ class Trader:
 
     def get_positions(self, force: bool = False):
         logging.info("getting positions...")
-        if self.positions and not force:
-            return self.positions
+        if not force:
+            with get_sync_sessionm().begin() as session:
+                return [
+                    Position(**pos.as_dict())
+                    for pos in session.scalars(select(Positions)).all()
+                ]
         positions = self.client.get_all_positions()
-        self.positions = {position.symbol: position for position in positions}
 
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             session.execute(delete(Positions))
             if positions:
-                upsert(self.pg_sessionmaker, [p.dict() for p in positions], Positions)
+                upsert(get_sync_sessionm(), [p.dict() for p in positions], Positions)
         return positions
 
     def get_position(self, symbol: str, force: bool = False):
-        if (position := self.positions.get(symbol)) is not None and not force:
-            return position
+        if not force:
+            with get_sync_sessionm().begin() as session:
+                position = session.scalar(
+                    select(Positions).where(Positions.symbol == symbol)
+                )
+                if position:
+                    return Position(**position.as_dict())
         try:
             position = self.client.get_open_position(symbol)
-            self.positions[symbol] = position
-            upsert(self.pg_sessionmaker, position.dict(), Positions)
+            upsert(get_sync_sessionm(), position.dict(), Positions)
             return position
         except APIError:
             logging.debug("No open position for %s", symbol)
@@ -75,28 +75,32 @@ class Trader:
         logging.info("closing positions %s...", symbol)
 
         self.client.close_position(symbol)
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             try:
                 position = self.client.get_open_position(symbol)
-                self.positions[symbol] = position
-                upsert(self.pg_sessionmaker, position.dict(), Positions)
+                upsert(get_sync_sessionm(), position.dict(), Positions)
             except APIError:
                 session.execute(delete(Positions).where(Positions.symbol == symbol))
-                self.positions.pop(symbol)
                 return True
         return False
 
     def get_orders(self, side: OrderSide, force: bool = False):
         """get all orders I have placed - Only ever set on start up"""
         logging.info("getting orders for %s side...", side)
-        if side_orders := self.orders.get(side) and not force:
-            return side_orders
+        if not force:
+            with get_sync_sessionm().begin() as session:
+                a = [
+                    Order(**ord.as_dict())
+                    for ord in session.scalars(
+                        select(Orders).where(Orders.side == side.value)
+                    ).all()
+                ]
 
         request_params = GetOrdersRequest(status="all", side=side)
-        self.orders[side] = self.client.get_orders(filter=request_params)
-        if self.orders[side]:
-            upsert(self.pg_sessionmaker, [o.dict() for o in self.orders[side]], Orders)
-        return self.orders[side]
+        orders = self.client.get_orders(filter=request_params)
+        if orders:
+            upsert(get_sync_sessionm(), [o.dict() for o in orders], Orders)
+        return orders
 
     def get_all_assets(self, force: bool = False):
         """get all assets that can be bought"""
@@ -108,7 +112,7 @@ class Trader:
 
         for entry in divide_chunks(tradable_assets, 4000):
             upsert(
-                self.pg_sessionmaker,
+                get_sync_sessionm(),
                 [a.dict() for a in entry],
                 Assets,
             )
@@ -123,7 +127,7 @@ class Trader:
         limit: int | None = None,
         fields: list[str] | None = None,
     ):
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             stmt = select(Assets)
             if isinstance(trading, bool):
                 stmt = stmt.where(Assets.bot_is_trading == trading)
@@ -141,7 +145,7 @@ class Trader:
             ]
 
     def set_trading_asset(self, id: UUID, trading: bool):
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             session.execute(
                 update(Assets).where(Assets.id == id).values(bot_is_trading=trading)
             )
@@ -165,8 +169,7 @@ class Trader:
 
         # Limit order
         response = self.client.submit_order(order_data=limit_order_data)
-        upsert(self.pg_sessionmaker, response.dict(), Orders)
-        self.orders[side].append(response)
+        upsert(get_sync_sessionm(), response.dict(), Orders)
         return response
 
     def place_order(
@@ -181,6 +184,5 @@ class Trader:
             symbol=symbol, qty=quantity, side=side, time_in_force=time_in_force
         )
         response = self.client.submit_order(market_order_data)
-        upsert(self.pg_sessionmaker, response.dict(), Orders)
-        self.orders[side].append(response)
+        upsert(get_sync_sessionm(), response.dict(), Orders)
         return response

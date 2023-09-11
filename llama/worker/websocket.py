@@ -7,7 +7,7 @@ from alpaca.data.timeframe import TimeFrame
 from trekkers.statements import upsert
 
 
-from ..settings import Settings
+from ..settings import Settings, get_sync_sessionm
 from ..stocks.strats import Strategy
 from ..stocks.trader import Trader
 from sqlalchemy.dialects.postgresql import insert
@@ -42,17 +42,17 @@ class liveStockDataStream:
         time_frame: TimeFrame = TimeFrame.Minute
         for strategy in self.strategies:
             strategy.run(self.trader, data)
-        with self.trader.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             data_dict = data.dict()
             data_dict["timeframe"] = time_frame.value
             session.execute(insert(Bars).values(data_dict))
 
     async def handle_qoutes(self, data: Quote):
-        with self.trader.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             session.execute(insert(Qoutes).values(data.dict()))
 
     async def handle_trades(self, data: Trade):
-        with self.trader.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             session.execute(insert(Trades).values(data.dict()))
 
     def subscribe(
@@ -91,12 +91,12 @@ class liveTradingStream:
             trade_update.order.id,
             trade_update.order.symbol,
         )
-        upsert(self.trader.pg_sessionmaker, trade_update.order.dict(), Orders)
+        upsert(get_sync_sessionm(), trade_update.order.dict(), Orders)
 
         trade_update_dict = trade_update.dict()
         trade_update_dict.pop("order")
         trade_update_dict["order_id"] = trade_update.order.id
-        upsert(self.trader.pg_sessionmaker, trade_update_dict, TradeUpdates)
+        upsert(get_sync_sessionm(), trade_update_dict, TradeUpdates)
 
         self.trader.get_position(trade_update.order.symbol, force=True)
 

@@ -2,7 +2,7 @@
 Consts, Enums and Models
 """
 from pydantic import BaseSettings
-from trekkers.config import DbSettings
+from trekkers.config import DbSettings, get_sync_sessionmaker
 import pathlib
 
 TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
@@ -32,3 +32,7 @@ def get_settings():
     if _SETTINGS is None:
         _SETTINGS = Settings()
     return _SETTINGS
+
+
+def get_sync_sessionm():
+    return get_sync_sessionmaker(get_settings().db_settings)

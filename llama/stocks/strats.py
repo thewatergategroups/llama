@@ -27,7 +27,8 @@ from ..consts import BARSET_TYPE
 from datetime import datetime, timedelta
 from alpaca.data.timeframe import TimeFrame
 import logging
-from ..database.models import Orders
+from ..database.models import Orders, Qoutes
+from ..settings import get_sync_sessionm
 
 
 class Strategy:
@@ -36,7 +37,7 @@ class Strategy:
         self.historic_data = data
         self.current_data = CustomBarSet()
         self.buy_conditions = [self._quantity]
-        self.sell_conditions = [self._quantity, self._allowed_price]
+        self.sell_conditions = [self._quantity, self._is_profitable]
 
     @classmethod
     def create(
@@ -60,39 +61,40 @@ class Strategy:
         """purchase condition based on quantity"""
         position = trader.get_position(symbol)
         qty = int(position.qty_available)
+        logging.debug(
+            "Quantity condition on %s where side is %s and quantity is %s",
+            symbol,
+            side.value,
+            qty,
+        )
         if side == OrderSide.BUY:
-            return qty < 20
-        return qty > 0
+            condition = qty < 20
+            logging.debug(
+                "Quantity condition on %s side %s is %s", symbol, side.value, condition
+            )
+            return condition
+        condition = qty > 0
+        logging.info(
+            "Quantity condition on %s side %s is %s", symbol, side.value, condition
+        )
+        return condition
 
-    def _allowed_price(
+    def _is_profitable(
         self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
     ):
         """purchase condition based on buy prices.. PURELY a sell condition"""
         if side == OrderSide.BUY:
             raise RuntimeError("Can't use this condition on the buy side..")
 
-        position = trader.get_position(symbol)
-        qty = int(position.qty_available)
-        if qty > 0:
-            with trader.pg_sessionmaker.begin() as session:
-                orders = session.scalars(
-                    select(Orders)
-                    .where(
-                        Orders.status == "filled",
-                        Orders.symbol == symbol,
-                        Orders.side == OrderSide.BUY.value,
-                    )
-                    .order_by(Orders.filled_at.desc())
-                    .limit(qty)
-                )
-                avg = (
-                    sum([order.filled_avg_price for order in orders]) / len(orders)
-                    if orders
-                    else 0
-                )
-                bid_price = self.history.get_latest_qoute(symbol).bid_price
-            return bid_price > avg
-        return True
+        position = trader.get_position(symbol, force=True)
+        condition = float(position.unrealized_pl) > 0
+        logging.info(
+            "is profitable sell condition on %s where unrealised profit/loss is %s condition response is %s",
+            symbol,
+            position.unrealized_pl,
+            condition,
+        )
+        return float(position.unrealized_pl) > 0
 
     def run(self, trader: Trader, most_recent_bar: Bar):
         """Standard strat run method to be overwritten"""
@@ -137,8 +139,8 @@ class Strategy:
 class Vwap(Strategy):
     """Stratedgy based on Volume Weighted Average Price"""
 
-    def __init__(self, data: BARSET_TYPE):
-        super().__init__(data)
+    def __init__(self, history: History, data: BARSET_TYPE):
+        super().__init__(history, data)
         self.buy_conditions += [self._slope, self._crossover]
         self.sell_conditions += [self._crossover]
 

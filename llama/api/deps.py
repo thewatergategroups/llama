@@ -28,7 +28,7 @@ def get_trader():
 def get_backtester():
     global _BACKTESTER
     if _BACKTESTER is None:
-        _BACKTESTER = BackTester.create(get_settings())
+        _BACKTESTER = BackTester.create()
     return _BACKTESTER
 
 

@@ -4,15 +4,17 @@ from datetime import datetime, timedelta
 import requests
 from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
-from alpaca.data.requests import StockBarsRequest, StockLatestQuoteRequest
+from alpaca.data.requests import (
+    StockBarsRequest,
+    StockLatestQuoteRequest,
+    StockQuotesRequest,
+)
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from sqlalchemy import func, select
-from ..settings import Settings
+from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
-from ..database import Bars
+from ..database import Bars, Qoutes
 from trekkers.statements import upsert
-from trekkers.config import get_sync_sessionmaker
-from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy import func, Values, column
 import pandas as pd
 from datetime import datetime
@@ -48,18 +50,15 @@ class History:
         self,
         client: StockHistoricalDataClient,
         news_url: str,
-        pg_sessionmaker: sessionmaker[Session],
     ):
         self.client = client
         self.news_api_url = news_url
-        self.pg_sessionmaker = pg_sessionmaker
 
     @classmethod
     def create(cls, settings: Settings):
         """Create a historical data client"""
         client = StockHistoricalDataClient(settings.api_key, settings.secret_key)
-        pg_sessionmaker = get_sync_sessionmaker(settings.db_settings)
-        return cls(client, settings.news_url, pg_sessionmaker)
+        return cls(client, settings.news_url)
 
     def get_news(
         self,
@@ -95,7 +94,7 @@ class History:
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
             return
-        upsert(self.pg_sessionmaker, dict_bars, Bars)
+        upsert(get_sync_sessionm(), dict_bars, Bars)
 
     @staticmethod
     def _round_datetime(dt: datetime, timeframe: TimeFrame):
@@ -128,7 +127,7 @@ class History:
         delta = FRAME_PARAMS[timeframe.unit]["delta"]
         allowed_delta = FRAME_PARAMS[timeframe.unit]["allowed_delta"]
 
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             generator = func.generate_series(start_time, end_time, delta)
             series = select(generator.label("time")).subquery()
             match_query = (
@@ -210,7 +209,7 @@ class History:
                 # bars = self.fill_bars(bars, start_time, end_time)
                 if bars.data:
                     self.insert_bars(bars, time_frame)
-        with self.pg_sessionmaker.begin() as session:
+        with get_sync_sessionm().begin() as session:
             logging.debug("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(
                 [(symbol,) for symbol in symbols]
@@ -234,11 +233,71 @@ class History:
                 bars
             )  ## slowest bit - multiprocessing doesn't work
 
-    def get_latest_qoute(self, symbol: list[str] | None = None):
+    def get_latest_qoute(self, symbol: str | None = None):
         """get latest stock price"""
-        symbols = symbols if symbols is not None else ["SPY"]
-        multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=symbol)
+        multisymbol_request_params = StockLatestQuoteRequest(
+            symbol_or_symbols=symbol,
+        )
         latest_multisymbol_quotes = self.client.get_stock_latest_quote(
             multisymbol_request_params
         )
         return latest_multisymbol_quotes[symbol]
+
+    def get_qoutes(
+        self,
+        symbol: str,
+        start_time: datetime = (datetime.utcnow() - timedelta(days=900)),
+        end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
+    ):
+        logging.info("getting qoutes...")
+        with get_sync_sessionm().begin() as session:
+            stmt = select(Qoutes.timestamp).where(
+                Qoutes.timestamp >= start_time,
+                Qoutes.timestamp <= end_time,
+                Qoutes.symbol == symbol,
+            )
+            first = (
+                session.execute(stmt.order_by(Qoutes.timestamp.asc())).scalars().first()
+            )
+            last = (
+                session.execute(stmt.order_by(Qoutes.timestamp.desc()))
+                .scalars()
+                .first()
+            )
+        if not first and not last:
+            logging.info(
+                "getting all qoutes between %s and %s for %s...",
+                start_time,
+                end_time,
+                symbol,
+            )
+            request = StockQuotesRequest(
+                symbol_or_symbols=symbol, start=start_time, end=end_time
+            )
+            qoutes = self.client.get_stock_quotes(request).data[symbol]
+            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+        if first and first >= start_time + timedelta(days=1):
+            logging.info(
+                "getting qoutes at beginning between %s and %s for %s...",
+                start_time,
+                first,
+                symbol,
+            )
+            request = StockQuotesRequest(
+                symbol_or_symbols=symbol, start=start_time, end=first
+            )
+            qoutes = self.client.get_stock_quotes(request).data[symbol]
+            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+        if last and last <= end_time - timedelta(days=1):
+            logging.info(
+                "getting qoutes at end between %s and %s for %s...",
+                last,
+                end_time,
+                symbol,
+            )
+
+            request = StockQuotesRequest(
+                symbol_or_symbols=symbol, start=last, end=end_time
+            )
+            qoutes = self.client.get_stock_quotes(request).data[symbol]
+            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
