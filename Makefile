@@ -14,8 +14,8 @@ api:
 	docker compose run api 
 
 up: 
-	docker compose up -d --remove-orphans
-	docker compose logs -f 
+	docker compose --profile trader --profile db up -d --remove-orphans
+	docker compose --profile trader logs -f 
 
 down:
 	docker kill llama-api-1

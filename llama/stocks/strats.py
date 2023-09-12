@@ -27,8 +27,6 @@ from ..consts import BARSET_TYPE
 from datetime import datetime, timedelta
 from alpaca.data.timeframe import TimeFrame
 import logging
-from ..database.models import Orders, Qoutes
-from ..settings import get_sync_sessionm
 
 
 class Strategy:
@@ -36,8 +34,10 @@ class Strategy:
         self.history = history
         self.historic_data = data
         self.current_data = CustomBarSet()
-        self.buy_conditions = [self._quantity]
-        self.sell_conditions = [self._quantity, self._is_profitable]
+        self.and_buy_conditions = [self._quantity]
+        self.or_buy_conditions = [self._take_profit]
+        self.and_sell_conditions = [self._quantity, self._is_profitable]
+        self.or_sell_conditions = [self._stop_loss]
 
     @classmethod
     def create(
@@ -59,7 +59,7 @@ class Strategy:
         self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
     ):
         """purchase condition based on quantity"""
-        position = trader.get_position(symbol)
+        position = trader.get_position(symbol, force=True)
         qty = int(position.qty_available)
         logging.debug(
             "Quantity condition on %s where side is %s and quantity is %s",
@@ -94,7 +94,41 @@ class Strategy:
             position.unrealized_pl,
             condition,
         )
-        return float(position.unrealized_pl) > 0
+        return condition
+
+    def _stop_loss(
+        self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
+    ):
+        """purchase condition based on buy prices.. PURELY a sell condition"""
+        if side == OrderSide.BUY:
+            raise RuntimeError("Can't use this condition on the buy side..")
+
+        position = trader.get_position(symbol, force=True)
+        condition = float(position.unrealized_intraday_plpc) <= -10
+        logging.info(
+            "stop loss sell condition on %s where unrealised profit/loss percent is %s condition response is %s",
+            symbol,
+            position.unrealized_plpc,
+            condition,
+        )
+        return condition
+
+    def _take_profit(
+        self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
+    ):
+        """purchase condition based on buy prices.. PURELY a sell condition"""
+        if side == OrderSide.SELL:
+            raise RuntimeError("Can't use this condition on the buy side..")
+
+        position = trader.get_position(symbol, force=True)
+        condition = float(position.unrealized_intraday_plpc) >= 2
+        logging.info(
+            "take profit condition on %s where unrealised profit/loss percent is %s condition response is %s",
+            symbol,
+            position.unrealized_plpc,
+            condition,
+        )
+        return condition
 
     def run(self, trader: Trader, most_recent_bar: Bar):
         """Standard strat run method to be overwritten"""
@@ -102,27 +136,55 @@ class Strategy:
         self.current_data.append(most_recent_bar)
         return action, qty
 
+    @staticmethod
+    def _condition_check(
+        symbol: str,
+        most_recent_bar: Bar,
+        trader: Trader,
+        side: OrderSide,
+        and_conditions: list,
+        or_conditions: list,
+    ):
+        return any(
+            [
+                all(
+                    [
+                        condition(symbol, most_recent_bar, trader, side)
+                        for condition in and_conditions
+                    ]
+                ),
+                *[
+                    condition(symbol, most_recent_bar, trader, side)
+                    for condition in or_conditions
+                ],
+            ]
+        )
+
     def trade(self, trader: Trader, most_recent_bar: Bar):
         """Making buying decisions based on the VWAP"""
         symbol = most_recent_bar.symbol
-        position = trader.get_position(symbol)
+        position = trader.get_position(symbol, force=True)
         qty_avaliable = int(position.qty_available)
 
-        if all(
-            [
-                condition(symbol, most_recent_bar, trader, OrderSide.BUY)
-                for condition in self.buy_conditions
-            ]
+        if self._condition_check(
+            symbol,
+            most_recent_bar,
+            trader,
+            OrderSide.BUY,
+            self.and_buy_conditions,
+            self.or_buy_conditions,
         ):
             logging.info("buying a stock of %s with strat %s", symbol, self.__class__)
             buy = -qty_avaliable if qty_avaliable < 0 else 1
             trader.place_order(symbol, time_in_force=TimeInForce.GTC, quantity=buy)
             return OrderSide.BUY, buy
-        elif all(
-            [
-                condition(symbol, most_recent_bar, trader, OrderSide.SELL)
-                for condition in self.sell_conditions
-            ]
+        elif self._condition_check(
+            symbol,
+            most_recent_bar,
+            trader,
+            OrderSide.SELL,
+            self.and_sell_conditions,
+            self.or_sell_conditions,
         ):
             logging.info("selling a share of %s with strat %s", symbol, self.__class__)
             sell = qty_avaliable if qty_avaliable > 0 else 1
@@ -141,8 +203,8 @@ class Vwap(Strategy):
 
     def __init__(self, history: History, data: BARSET_TYPE):
         super().__init__(history, data)
-        self.buy_conditions += [self._slope, self._crossover]
-        self.sell_conditions += [self._crossover]
+        self.and_buy_conditions += [self._slope, self._crossover]
+        self.and_sell_conditions += [self._crossover]
 
     def _slope(
         self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide

@@ -35,7 +35,7 @@ class Trader:
         obj = cls(client)
         obj.get_orders(OrderSide.BUY)
         obj.get_orders(OrderSide.SELL)
-        obj.get_positions()
+        obj.get_positions(True)
         obj.get_all_assets(settings.force_get_all_assets)
         return obj
 
@@ -69,6 +69,7 @@ class Trader:
             return position
         except APIError:
             logging.debug("No open position for %s", symbol)
+            session.execute(delete(Positions).where(symbol == symbol))
             return NullPosition(symbol=symbol)
 
     def close_position(self, symbol: str):
