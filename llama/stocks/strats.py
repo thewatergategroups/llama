@@ -55,6 +55,12 @@ class Strategy:
             ),
         )
 
+    def run(self, trader: Trader, most_recent_bar: Bar):
+        """Standard strat run method to be overwritten"""
+        action, qty = self.trade(trader, most_recent_bar)
+        self.current_data.append(most_recent_bar)
+        return action, qty
+
     def _quantity(
         self, symbol: str, most_recent_bar: Bar, trader: Trader, side: OrderSide
     ):
@@ -68,7 +74,7 @@ class Strategy:
             qty,
         )
         if side == OrderSide.BUY:
-            condition = qty < 20
+            condition = qty < 5
             logging.debug(
                 "Quantity condition on %s side %s is %s", symbol, side.value, condition
             )
@@ -104,7 +110,7 @@ class Strategy:
             raise RuntimeError("Can't use this condition on the buy side..")
 
         position = trader.get_position(symbol, force=True)
-        condition = float(position.unrealized_intraday_plpc) <= -10
+        condition = float(position.unrealized_plpc) <= -10
         logging.info(
             "stop loss sell condition on %s where unrealised profit/loss percent is %s condition response is %s",
             symbol,
@@ -121,7 +127,7 @@ class Strategy:
             raise RuntimeError("Can't use this condition on the buy side..")
 
         position = trader.get_position(symbol, force=True)
-        condition = float(position.unrealized_intraday_plpc) >= 2
+        condition = float(position.unrealized_plpc) >= 2
         logging.info(
             "take profit condition on %s where unrealised profit/loss percent is %s condition response is %s",
             symbol,
@@ -129,12 +135,6 @@ class Strategy:
             condition,
         )
         return condition
-
-    def run(self, trader: Trader, most_recent_bar: Bar):
-        """Standard strat run method to be overwritten"""
-        action, qty = self.trade(trader, most_recent_bar)
-        self.current_data.append(most_recent_bar)
-        return action, qty
 
     @staticmethod
     def _condition_check(

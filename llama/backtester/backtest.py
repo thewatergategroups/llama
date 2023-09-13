@@ -3,72 +3,16 @@ from datetime import datetime, timedelta
 import logging
 
 from trekkers import on_conflict_update
-from . import History, STRATEGIES, Strategy
-from .models import NullPosition
+from ..stocks import History, STRATEGIES, Strategy
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
-from alpaca.trading import OrderSide
-from alpaca.trading import Position, Order
-from alpaca.trading.enums import OrderSide, TimeInForce
 from ..database.models import Backtests
 from ..settings import get_sync_sessionm
 from ..consts import Status
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import update, select
-
-
-class MockTrader:
-    """Llama is created"""
-
-    def __init__(self):
-        self.positions: dict[str, Position] = {}
-        self.orders: list[Order] = []
-        self.balance = 100_000
-        self.starting_balance = self.balance
-        self.buys = 0
-        self.sells = 0
-
-    @classmethod
-    def create(cls):
-        """Create class with data"""
-        return cls()
-
-    def get_position(self, symbol: str):
-        if (position := self.positions.get(symbol)) is not None:
-            return position
-        self.positions[symbol] = NullPosition(symbol=symbol)
-        return self.positions[symbol]
-
-    def place_order(
-        self,
-        symbol: str = "TSLA",
-        time_in_force: TimeInForce = TimeInForce.GTC,
-        side: OrderSide = OrderSide.BUY,
-        quantity: int = 1,
-    ):
-        """place order"""
-        position = self.get_position(symbol)
-
-        if side == OrderSide.BUY:
-            position.qty = str(int(position.qty) + quantity)
-            position.qty_available = str(int(position.qty_available) + quantity)
-        elif side == OrderSide.SELL:
-            position.qty = str(int(position.qty) - quantity)
-            position.qty_available = str(int(position.qty_available) - quantity)
-
-    def aggregate(self, verbose: bool = False):
-        response = {
-            "profit": self.balance - self.starting_balance,
-            "buys": self.buys,
-            "sells": self.sells,
-            "total_positions_held": sum(
-                [int(pos.qty) for pos in self.positions.values()]
-            ),
-        }
-        if verbose:
-            response["extra"] = {"positions_held": dict(self.positions)}
-        return response
+from .mocktrader import MockTrader
 
 
 class BackTester:
@@ -216,13 +160,9 @@ class BackTester:
                     "Progress of %s on %s: %s", strat_name, symbol, percent_completed
                 )
             action, qty = strategy.run(trader, bars[i])
-            if action == OrderSide.BUY:
-                trader.balance -= bars[i].close * qty
-                trader.buys += qty
-                logging.info("buy on itteration %s", i)
-            elif action == OrderSide.SELL:
-                trader.balance += bars[i].close * qty
-                trader.sells += qty
-                logging.info("sell on itteration %s", i)
+            update
+            if (action, qty) != (None, None):
+                trader.post_trade_update_position(symbol, action, qty, bars[i].close)
+                trader.update_stats(symbol, action, qty, bars[i].close, i)
 
         return trader, strategy

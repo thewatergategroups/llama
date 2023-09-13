@@ -3,7 +3,8 @@ from fastapi.routing import APIRouter
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..deps import get_history, get_backtester, get_async_session
-from ...stocks import History, BackTester
+from ...stocks import History
+from ...backtester import BackTester
 from ...database.models import Backtests
 from ...consts import Status
 

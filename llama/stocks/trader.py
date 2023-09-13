@@ -20,10 +20,7 @@ from sqlalchemy import delete, select, update
 class Trader:
     """Llama is created"""
 
-    def __init__(
-        self,
-        client: TradingClient,
-    ):
+    def __init__(self, client: TradingClient):
         self.client = client
 
     @classmethod
@@ -69,7 +66,8 @@ class Trader:
             return position
         except APIError:
             logging.debug("No open position for %s", symbol)
-            session.execute(delete(Positions).where(symbol == symbol))
+            with get_sync_sessionm().begin() as session:
+                session.execute(delete(Positions).where(symbol == symbol))
             return NullPosition(symbol=symbol)
 
     def close_position(self, symbol: str):
