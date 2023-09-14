@@ -15,27 +15,16 @@ from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates
 
 
 class liveStockDataStream:
-    def __init__(
-        self,
-        wss_client: StockDataStream,
-        trader: Trader,
-    ):
+    def __init__(self, wss_client: StockDataStream, trader: Trader):
         self.wss_client = wss_client
         self.trader = trader
         self.strategies: list[Strategy] = []
 
     @classmethod
-    def create(
-        cls,
-        settings: Settings,
-        trader: Trader,
-    ):
+    def create(cls, settings: Settings, trader: Trader):
         """Create an instance of this object"""
 
-        return cls(
-            StockDataStream(settings.api_key, settings.secret_key),
-            trader,
-        )
+        return cls(StockDataStream(settings.api_key, settings.secret_key), trader)
 
     async def handle_bars(self, data: Bar):
         """Perform trades based on data"""

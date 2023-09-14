@@ -2,7 +2,8 @@ import uvicorn
 from datetime import datetime, timedelta
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings
-from .stocks import History, STRATEGIES, BackTester, Trader
+from .stocks import History, STRATEGIES, Trader
+from .backtester import BackTester
 from trekkers import database
 from enum import Enum
 from typing import Callable
