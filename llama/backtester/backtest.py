@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import logging
 
 from trekkers import on_conflict_update
-from ..stocks import History, STRATEGIES, Strategy
+from ..stocks import History, get_all_strats, Strategy
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
@@ -85,7 +85,7 @@ class BackTester:
             strat_data: dict[str, list[Strategy, MockTrader, list[Bar]]] = defaultdict(
                 lambda: []
             )
-            for strat in STRATEGIES:
+            for strat in get_all_strats().values():
                 for symbol in symbols:
                     strat_data[symbol].append(
                         (

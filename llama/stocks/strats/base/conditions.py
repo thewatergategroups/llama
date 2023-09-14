@@ -33,11 +33,11 @@ class Condition(BaseModel):
         return {"func": self.func.__name__, "variables": self.variables}
 
 
-def quantity_sell(most_recent_bar: Bar, trader: Trader, qty: int):
+def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
     """sell condition based on quantity"""
     position = trader.get_position(most_recent_bar.symbol, force=True)
     qty_avail = int(position.qty_available)
-    condition = qty_avail > qty
+    condition = qty_avail > min_quantity
     return condition
 
 
@@ -69,11 +69,11 @@ def stop_loss_sell(most_recent_bar: Bar, trader: Trader, unrealized_plpc: float)
     return condition
 
 
-def quantity_buy(most_recent_bar: Bar, trader: Trader, qty: int):
+def quantity_buy(most_recent_bar: Bar, trader: Trader, max_quantity: int):
     """buy condition based on quantity"""
     position = trader.get_position(most_recent_bar.symbol, force=True)
     qty_avail = int(position.qty_available)
-    condition = qty_avail < qty
+    condition = qty_avail < max_quantity
     return condition
 
 
@@ -99,7 +99,7 @@ def get_base_conditions():
     return {
         OrderSide.BUY: {
             ConditionType.AND: [
-                Condition(func=quantity_buy, variables={"qty": 5}),
+                Condition(func=quantity_buy, variables={"max_quantity": 5}),
             ],
             ConditionType.OR: [
                 Condition(func=take_profit_buy, variables={"unrealized_plpc": 2}),
@@ -107,7 +107,7 @@ def get_base_conditions():
         },
         OrderSide.SELL: {
             ConditionType.AND: [
-                Condition(func=quantity_sell, variables={"qty": 0}),
+                Condition(func=quantity_sell, variables={"min_quantity": 0}),
                 Condition(func=is_profitable_sell, variables={"unrealized_pl": 0}),
             ],
             ConditionType.OR: [

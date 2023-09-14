@@ -3,7 +3,7 @@ from fastapi.routing import APIRouter
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..deps import get_history, get_backtester, get_async_session
-from ...stocks import History, STRATEGIES
+from ...stocks import History, get_all_strats
 from ...backtester import BackTester
 from ...database.models import Backtests
 from ...consts import Status
@@ -63,4 +63,4 @@ async def get_backtest(session: AsyncSession = Depends(get_async_session)):
 
 @router.get("/strategies")
 async def get_strats():
-    return {strat.__name__: strat.CONDITIONS for strat in STRATEGIES}
+    return {strat.NAME: strat.CONDITIONS for strat in get_all_strats()}

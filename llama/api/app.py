@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from .endpoints.stocks import router as stock_router
 from .endpoints.backtest import router as bt_router
+from .endpoints.trading import router as tr_router
 from fastapi.middleware.cors import CORSMiddleware
 from ..tools import setup_logging
 from ..settings import get_settings
@@ -26,5 +27,6 @@ def create_app() -> FastAPI:
     )
     app.include_router(stock_router)
     app.include_router(bt_router)
+    app.include_router(tr_router)
 
     return app

@@ -27,6 +27,8 @@ from .conditions import get_base_conditions, ConditionType, LIVE_DATA
 
 class Strategy:
     CONDITIONS = get_base_conditions()
+    NAME = "Base"
+    ALIAS = "BS"
 
     def __init__(self, history: History, data: BARSET_TYPE):
         self.history = history

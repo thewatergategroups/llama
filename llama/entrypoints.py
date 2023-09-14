@@ -2,7 +2,7 @@ import uvicorn
 from datetime import datetime, timedelta
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings
-from .stocks import History, STRATEGIES, Trader
+from .stocks import History, get_all_strats, Trader
 from .backtester import BackTester
 from trekkers import database
 from enum import Enum
@@ -42,7 +42,7 @@ def data_stream(settings: Settings, *args, **kwargs):
     trader = Trader.create(settings)
     history = History.create(settings)
     all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
-    strats = [strat.create(history, all_) for strat in STRATEGIES]
+    strats = [strat.create(history, all_) for strat in get_all_strats().values()]
     ls_object = liveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
     ls_object.subscribe(bars=all_, qoutes=all_)
