@@ -146,9 +146,7 @@ class BackTester:
                 result: tuple[MockTrader, Strategy] = future.result()
                 trader, strat = result
                 for key, value in trader.aggregate().items():
-                    print(key, value)
                     overall[type(strat).__name__][key] += value
-
             with get_sync_sessionm().begin() as session:
                 session.execute(
                     update(Backtests)
@@ -172,6 +170,7 @@ class BackTester:
                         Backtests,
                     )
                 )
+        self.processes = []
 
     @staticmethod
     def test_strat(
