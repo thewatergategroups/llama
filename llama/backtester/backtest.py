@@ -17,9 +17,6 @@ from .consts import BacktestDefinition
 
 
 class BackTester:
-    def __init__(self):
-        self.processes = []
-
     @classmethod
     def create(cls):
         return cls()
@@ -130,10 +127,11 @@ class BackTester:
                             data.data[symbol],
                         )
                     )
+            processes = []
             with ProcessPoolExecutor(max_workers=4) as xacuter:
                 for symbol, strat_list in strat_data.items():
                     for strat, trader, bars in strat_list:
-                        self.processes.append(
+                        processes.append(
                             xacuter.submit(
                                 self.test_strat,
                                 strategy=strat,
@@ -142,7 +140,7 @@ class BackTester:
                             )
                         )
             overall = defaultdict(lambda: defaultdict(lambda: 0))
-            for future in as_completed(self.processes):
+            for future in as_completed(processes):
                 result: tuple[MockTrader, Strategy] = future.result()
                 trader, strat = result
                 for key, value in trader.aggregate().items():
@@ -170,7 +168,6 @@ class BackTester:
                         Backtests,
                     )
                 )
-        self.processes = []
 
     @staticmethod
     def test_strat(

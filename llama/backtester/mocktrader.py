@@ -80,7 +80,7 @@ class MockTrader:
         elif side == OrderSide.SELL:
             new_cost_basis = cost_basis - new_total
             new_qty = int(position.qty) - quantity
-
+        logging.info(f"{symbol},{side}, {quantity}, {new_qty}")
         position.avg_entry_price = str(new_cost_basis / (new_qty or 1))
         position.cost_basis = str(new_cost_basis)
         position.qty = str(new_qty)
@@ -88,5 +88,7 @@ class MockTrader:
 
         total_pl = (price * new_qty) - new_cost_basis
 
-        position.unrealized_pl = str(total_pl)
-        position.unrealized_plpc = str(total_pl / (new_cost_basis or 1) * 100)
+        position.unrealized_pl = str(0) if new_qty == 0 else str(total_pl)
+        position.unrealized_plpc = (
+            str(0) if new_qty == 0 else str(total_pl / (new_cost_basis or 1) * 100)
+        )
