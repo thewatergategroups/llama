@@ -139,6 +139,7 @@ class Backtests(BaseSql):
     result: Mapped[Optional[dict]] = mapped_column(type_=JSONB, nullable=True)
     status: Mapped[str]
     timestamp: Mapped[datetime]
+    strategies: Mapped[dict] = mapped_column(nullable=True, type_=JSONB)
 
 
 class Assets(BaseSql):
@@ -160,3 +161,34 @@ class Assets(BaseSql):
     min_trade_increment: Mapped[Optional[float]]
     price_increment: Mapped[Optional[float]]
     maintenance_margin_requirement: Mapped[Optional[float]]
+
+
+class Strategies(BaseSql):
+    __tablename__ = "strategies"
+    __table_args__ = {"schema": "llama"}
+
+    alias: Mapped[str] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    active: Mapped[bool] = mapped_column(default=False)
+
+
+class Conditions(BaseSql):
+    __tablename__ = "conditions"
+    __table_args__ = {"schema": "llama"}
+    name: Mapped[str] = mapped_column(primary_key=True)
+    side: Mapped[str]
+    default_variables: Mapped[dict] = mapped_column(type_=JSONB)
+
+
+class StratConditionMap(BaseSql):
+    __tablename__ = "strat_conditions"
+    __table_args__ = {"schema": "llama"}
+    strategy_alias: Mapped[str] = mapped_column(
+        ForeignKey("llama.strategies.alias"), primary_key=True
+    )
+    condition_name: Mapped[str] = mapped_column(
+        ForeignKey("llama.conditions.name"), primary_key=True
+    )
+    type: Mapped[str]
+    active: Mapped[bool] = mapped_column(default=False)
+    variables: Mapped[dict] = mapped_column(type_=JSONB)

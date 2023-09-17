@@ -53,11 +53,30 @@ def tolerance_sell(most_recent_bar: Bar, trader: Trader):
 
 def get_conditions():
     conditions = get_base_conditions()
-    conditions[OrderSide.BUY][ConditionType.AND] += [
-        Condition(func=slope_buy, variables={"vwap_slope_threshold": 0.005}),
-        Condition(func=crossover_buy, variables={}),
-    ]
-    conditions[OrderSide.SELL][ConditionType.AND] += [
-        Condition(func=crossover_sell, variables={}),
+    conditions += [
+        Condition(
+            name="positive_vwap_slope",
+            func=slope_buy,
+            variables={"vwap_slope_threshold": 0.005},
+            active=True,
+            side=OrderSide.BUY,
+            type=ConditionType.AND,
+        ),
+        Condition(
+            name="positive_vwap_crossover",
+            func=crossover_buy,
+            variables={},
+            active=True,
+            side=OrderSide.BUY,
+            type=ConditionType.AND,
+        ),
+        Condition(
+            name="negative_vwap_crossover",
+            func=crossover_sell,
+            variables={},
+            active=True,
+            side=OrderSide.SELL,
+            type=ConditionType.AND,
+        ),
     ]
     return conditions

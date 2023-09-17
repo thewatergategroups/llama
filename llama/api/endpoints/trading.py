@@ -3,16 +3,11 @@ from fastapi import Depends
 from uuid import UUID
 from alpaca.trading.enums import OrderSide, TimeInForce
 
-from ...stocks import get_all_strats, Trader
+from ...stocks import Trader
 from ..deps import get_trader
 
 
 router = APIRouter(prefix="/trading")
-
-
-@router.get("/strategies")
-async def get_strats():
-    return {name: strat.CONDITIONS for name, strat in get_all_strats().items()}
 
 
 @router.get("/assets")

@@ -3,7 +3,13 @@ from typing import Callable, Any
 from pydantic import BaseModel
 from enum import Enum
 from alpaca.data.models import Bar
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+from ....database import Conditions, StratConditionMap
 
+from trekkers.statements import on_conflict_update
+from sqlalchemy.dialects.postgresql import insert
 from alpaca.trading import OrderSide
 from ...trader import Trader
 from ...models import CustomBarSet
@@ -17,8 +23,12 @@ class ConditionType(Enum):
 
 
 class Condition(BaseModel):
+    name: str
     func: Callable
     variables: dict
+    active: bool = False
+    side: OrderSide
+    type: ConditionType
 
     def __call__(self, most_recent_bar: Bar, trader: Trader) -> bool:
         return self.func(most_recent_bar, trader, **self.variables)
@@ -29,8 +39,55 @@ class Condition(BaseModel):
     def set_variables(self, key: str, value: Any):
         self.variables[key] = value
 
+    def update_variables(self, variables: dict):
+        for key, value in variables.items():
+            if key in self.variables:
+                self.variables[key] = value
+
     def dict(self, **kwargs):
-        return {"func": self.func.__name__, "variables": self.variables}
+        return {
+            "name": self.name,
+            "active": self.active,
+            "variables": self.variables,
+        }
+
+    def get(self, strat_alias: str, session: Session):
+        condition = session.scalar(
+            select(StratConditionMap).where(
+                StratConditionMap.condition_name == self.name,
+                StratConditionMap.strategy_alias == strat_alias,
+            )
+        )
+        if condition is None:
+            raise KeyError("condition doesn't exist")
+        self.variables = condition.variables
+        self.active = condition.active
+
+    def upsert(self, strat_alias: str, session: Session):
+        values = {
+            "condition_name": self.name,
+            "strategy_alias": strat_alias,
+            "type": self.type.value,
+            "variables": self.variables,
+            "active": self.active,
+        }
+        try:
+            session.execute(
+                insert(Conditions).values(
+                    {
+                        "name": self.name,
+                        "side": self.side,
+                        "default_variables": self.variables,
+                    }
+                )
+            )
+        except IntegrityError:
+            ...
+        session.execute(
+            on_conflict_update(
+                insert(StratConditionMap).values(values), StratConditionMap
+            )
+        )
 
 
 def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
@@ -96,22 +153,45 @@ def take_profit_buy(
 
 
 def get_base_conditions():
-    return {
-        OrderSide.BUY: {
-            ConditionType.AND: [
-                Condition(func=quantity_buy, variables={"max_quantity": 5}),
-            ],
-            ConditionType.OR: [
-                Condition(func=take_profit_buy, variables={"unrealized_plpc": 2}),
-            ],
-        },
-        OrderSide.SELL: {
-            ConditionType.AND: [
-                Condition(func=quantity_sell, variables={"min_quantity": 0}),
-                Condition(func=is_profitable_sell, variables={"unrealized_pl": 0}),
-            ],
-            ConditionType.OR: [
-                Condition(func=stop_loss_sell, variables={"unrealized_plpc": -10}),
-            ],
-        },
-    }
+    return [
+        Condition(
+            name="max_quantity_allowed",
+            func=quantity_buy,
+            variables={"max_quantity": 5},
+            active=True,
+            side=OrderSide.BUY,
+            type=ConditionType.AND,
+        ),
+        Condition(
+            name="take_profit",
+            func=take_profit_buy,
+            variables={"unrealized_plpc": 2},
+            active=True,
+            side=OrderSide.BUY,
+            type=ConditionType.OR,
+        ),
+        Condition(
+            name="min_quantity_allowed",
+            func=quantity_sell,
+            variables={"min_quantity": 0},
+            active=True,
+            side=OrderSide.SELL,
+            type=ConditionType.AND,
+        ),
+        Condition(
+            name="is_profitable",
+            func=is_profitable_sell,
+            variables={"unrealized_pl": 0},
+            active=True,
+            side=OrderSide.SELL,
+            type=ConditionType.AND,
+        ),
+        Condition(
+            name="stop_loss",
+            func=stop_loss_sell,
+            variables={"unrealized_plpc": -10},
+            active=True,
+            side=OrderSide.SELL,
+            type=ConditionType.OR,
+        ),
+    ]

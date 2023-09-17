@@ -3,24 +3,24 @@ from fastapi.routing import APIRouter
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..deps import get_history, get_backtester, get_async_session
-from ...stocks import History, get_all_strats
-from ...backtester import BackTester
+from ...stocks import History
+from ...backtester import BackTester, BacktestDefinition
 from ...database.models import Backtests
 from ...consts import Status
+from .strats import get_strats
 
 router = APIRouter(prefix="/backtest")
 
 
 @router.post("/start")
 async def run_backtest(
-    symbols: list[str],
+    data: BacktestDefinition,
     background_task: BackgroundTasks,
-    days_to_test_over: int = 30,
     history: History = Depends(get_history),
     backtester: BackTester = Depends(get_backtester),
     session: AsyncSession = Depends(get_async_session),
 ):
-    if not symbols:
+    if not data.symbols:
         raise HTTPException(400, {"details": "You can't backtest with no symbols"})
     running = (
         (
@@ -33,10 +33,10 @@ async def run_backtest(
     )
     if running:
         raise HTTPException(429, "backtest already running")
-    backtest_id = backtester.insert_start_of_backtest(symbols)
-    background_task.add_task(
-        backtester.backtest_strats, backtest_id, history, symbols, days_to_test_over
-    )
+    strats = data.strategies or await get_strats(session=session)
+    backtest_id = backtester.insert_start_of_backtest(data.symbols, strats)
+
+    background_task.add_task(backtester.backtest_strats, backtest_id, history, data)
     return {"id": backtest_id}
 
 
@@ -59,8 +59,3 @@ async def get_backtest(session: AsyncSession = Depends(get_async_session)):
         .all()
     )
     return [result.as_dict() for result in results]
-
-
-@router.get("/strategies")
-async def get_strats():
-    return {strat.NAME: strat.CONDITIONS for strat in get_all_strats()}
