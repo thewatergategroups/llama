@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from ..deps import get_async_session, get_sync_session
-from ...stocks import get_all_strats
+from ...strats import get_all_strats
 from ...database import Conditions, StratConditionMap
 
 router = APIRouter(prefix="/strategies")

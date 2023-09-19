@@ -1,10 +1,5 @@
-from .vwap import Vwap
-from .base import Strategy, ConditionType
 from pydantic import BaseModel
-
-
-def get_all_strats() -> dict[str, type[Strategy]]:
-    return {Vwap.ALIAS: Vwap, Strategy.ALIAS: Strategy}
+from .base.consts import ConditionType
 
 
 class ConditionDefinition(BaseModel):

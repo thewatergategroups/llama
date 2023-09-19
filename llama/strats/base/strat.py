@@ -12,22 +12,21 @@
 # ⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿
 # ⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿
 # ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
-from collections import defaultdict
 from alpaca.data.models import Bar
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
-from trekkers.statements import upsert, on_conflict_update
+from trekkers.statements import on_conflict_update
 from alpaca.trading import OrderSide, TimeInForce
 import logging
-from ...history import History
-from ...trader import Trader
-from ....settings import get_sync_sessionm
+from ...stocks import History, Trader
+from ...settings import get_sync_sessionm
 from datetime import datetime, timedelta
-from ....consts import BARSET_TYPE
-from ....database import Strategies, StratConditionMap
+from ...consts import BARSET_TYPE
+from ...database import Strategies, StratConditionMap
 from datetime import datetime, timedelta
 from alpaca.data.timeframe import TimeFrame
-from .conditions import get_base_conditions, ConditionType, LIVE_DATA, Condition
+from .consts import ConditionType, LIVE_DATA, Condition
+from .conditions import get_base_conditions
 from sqlalchemy.dialects.postgresql import insert
 
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from ..stocks import StrategyDefinition
+from ..strats import StrategyDefinition
 
 
 class BacktestDefinition(BaseModel):

@@ -8,7 +8,7 @@ from trekkers.statements import upsert
 
 
 from ..settings import Settings, get_sync_sessionm
-from ..stocks.strats import Strategy
+from ..strats import Strategy
 from ..stocks.trader import Trader
 from sqlalchemy.dialects.postgresql import insert
 from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates

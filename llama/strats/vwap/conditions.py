@@ -1,8 +1,8 @@
 from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
-from ...trader import Trader
-from ..base import Condition, ConditionType, get_base_conditions, LIVE_DATA
+from ...stocks import Trader
+from ..base import Condition, ConditionType, LIVE_DATA
 
 
 def crossover_buy(most_recent_bar: Bar, trader: Trader):
@@ -51,9 +51,8 @@ def tolerance_sell(most_recent_bar: Bar, trader: Trader):
     )
 
 
-def get_conditions():
-    conditions = get_base_conditions()
-    conditions += [
+def get_vwap_conditions():
+    return [
         Condition(
             name="positive_vwap_slope",
             func=slope_buy,
@@ -79,4 +78,3 @@ def get_conditions():
             type=ConditionType.AND,
         ),
     ]
-    return conditions

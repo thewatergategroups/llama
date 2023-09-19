@@ -3,8 +3,9 @@ from datetime import datetime, timedelta
 import logging
 from copy import deepcopy
 from trekkers import on_conflict_update
-from ..stocks import History, get_all_strats, Strategy, ConditionDefinition
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from ..stocks import History
+from ..strats import get_all_strats, Strategy, ConditionDefinition
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
 from ..database.models import Backtests
@@ -128,7 +129,7 @@ class BackTester:
                         )
                     )
             processes = []
-            with ProcessPoolExecutor(max_workers=4) as xacuter:
+            with ThreadPoolExecutor(max_workers=4) as xacuter:
                 for symbol, strat_list in strat_data.items():
                     for strat, trader, bars in strat_list:
                         processes.append(

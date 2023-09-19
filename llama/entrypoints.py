@@ -2,7 +2,8 @@ import uvicorn
 from datetime import datetime, timedelta
 from .worker.websocket import liveStockDataStream, liveTradingStream
 from .settings import Settings
-from .stocks import History, get_all_strats, Trader
+from .stocks import History, Trader
+from .strats import insert_strats, get_all_strats
 from .backtester import BackTester
 from trekkers import database
 from enum import Enum
@@ -50,6 +51,7 @@ def data_stream(settings: Settings, *args, **kwargs):
 
 def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
     database(settings.db_settings, action, revision)
+    insert_strats()
 
 
 def backtest(settings: Settings, *args, **kwargs):
