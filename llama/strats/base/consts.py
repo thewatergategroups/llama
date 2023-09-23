@@ -7,7 +7,7 @@ from ...database import Conditions, StratConditionMap
 from enum import Enum
 from typing import Callable
 from pydantic import BaseModel
-from enum import Enum
+from enum import StrEnum
 from alpaca.trading import OrderSide
 from trekkers.statements import on_conflict_update
 from sqlalchemy.dialects.postgresql import insert
@@ -17,12 +17,7 @@ from ...stocks import Trader, CustomBarSet
 LIVE_DATA = CustomBarSet()
 
 
-class ConditionType(Enum):
-    AND = "and"
-    OR = "or"
-
-
-class ConditionType(Enum):
+class ConditionType(StrEnum):
     AND = "and"
     OR = "or"
 
@@ -67,6 +62,7 @@ class Condition(BaseModel):
             raise KeyError("condition doesn't exist")
         self.variables = condition.variables
         self.active = condition.active
+        self.type = condition.type
 
     def upsert(self, strat_alias: str, session: Session):
         values = {

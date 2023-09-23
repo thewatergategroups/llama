@@ -1,3 +1,4 @@
+import copy
 from sqlalchemy import select
 from .base import Strategy
 from ..settings import get_sync_sessionm
@@ -34,9 +35,13 @@ def get_all_strats() -> dict[str, type[Strategy]]:
                     StratConditionMap.strategy_alias == strat.alias
                 )
             )
-            conditions = [
-                all_conditions[str_cond.condition_name] for str_cond in strat_cond_map
-            ]
+            conditions = []
+            for str_cond in strat_cond_map:
+                condition = copy.deepcopy(all_conditions[str_cond.condition_name])
+                condition.active = str_cond.active
+                condition.variables = str_cond.variables
+                condition.type = str_cond.type
+                conditions.append(condition)
             all_strats[strat.alias] = get_strategy_class(
                 strat.name, strat.alias, strat.active, conditions
             )
