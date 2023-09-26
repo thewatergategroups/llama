@@ -3,8 +3,10 @@ from datetime import datetime, timedelta
 import logging
 from copy import deepcopy
 from trekkers import on_conflict_update
+
+
 from ..stocks import History
-from ..strats import get_all_strats, Strategy, ConditionDefinition
+from ..strats import Strategy
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
@@ -15,6 +17,12 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy import update, select
 from .mocktrader import MockTrader
 from .consts import BacktestDefinition
+from ..strats import (
+    get_all_strats,
+    get_all_conditions,
+    StrategyDefinition,
+    get_strategy_class,
+)
 
 
 class BackTester:
@@ -52,7 +60,7 @@ class BackTester:
             ).scalar()
             return backtest_id
 
-    def backtest_strats(
+    async def backtest_strats(
         self, backtest_id: str, history: History, definition: BacktestDefinition
     ):
         logging.info(
@@ -89,31 +97,33 @@ class BackTester:
                 lambda: []
             )
 
-            strategies = get_all_strats().values()
-            strats_and_conds: dict[str, dict[str, ConditionDefinition]] = {}
-            if definition.strategies is not None:
-                strategies = []
-                for strat in definition.strategies:
-                    strats_and_conds[strat.strategy_alias] = {
-                        cond.name: cond for cond in strat.conditions
-                    }
-                    strategy = get_all_strats().get(strat.strategy_alias)
-                    if strategy is None:
-                        continue
+            strategies = definition.strategy_definitions or []
+            if definition.strategy_aliases is not None:
+                all_strats = get_all_strats()
+                for strat in definition.strategy_aliases:
+                    strate = all_strats.get(strat)
+                    if not strate:
+                        raise KeyError(f"Strategy with alias {strat} doesn't exist")
+                    strategies.append(StrategyDefinition(**strate.dict()))
 
-                    strategies.append(strategy)
-
+            all_conditions = get_all_conditions()
+            strat_classes: list[Strategy] = []
             for strat in strategies:
                 conditions = []
-                if (conds := strats_and_conds.get(strat.ALIAS)) is not None:
-                    for value in strat.DEFAULT_CONDITIONS:
-                        if (cond := conds.get(value.name)) is None:
-                            continue
-                        new_condition = deepcopy(value)
-                        new_condition.update_variables(cond.variables)
-                        new_condition.active = cond.active
-                        new_condition.type = cond.type
-                        conditions.append(new_condition)
+                for cond in strat.conditions:
+                    if (condition := all_conditions.get(cond.name)) is None:
+                        raise KeyError(f"condition {cond.name} doesn't exist")
+                    new_condition = deepcopy(condition)
+                    new_condition.update_variables(cond.variables)
+                    new_condition.active = cond.active
+                    new_condition.type = cond.type
+                    conditions.append(new_condition)
+                strat_classes.append(
+                    get_strategy_class(
+                        strat.name, strat.alias, strat.active, conditions
+                    )
+                )
+            for strat in strat_classes:
                 for symbol in definition.symbols:
                     strat_data[symbol].append(
                         (
@@ -145,7 +155,7 @@ class BackTester:
                 result: tuple[MockTrader, Strategy] = future.result()
                 trader, strat = result
                 for key, value in trader.aggregate().items():
-                    overall[type(strat).__name__][key] += value
+                    overall[strat.ALIAS][key] += value
             with get_sync_sessionm().begin() as session:
                 session.execute(
                     update(Backtests)

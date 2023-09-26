@@ -1,13 +1,14 @@
 from fastapi.routing import APIRouter
 from fastapi import HTTPException
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import exists, select
 from sqlalchemy.orm import Session
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from ..deps import get_async_session, get_sync_session
-from ...strats import get_all_strats
-from ...database import Conditions, StratConditionMap
+from ...strats import get_all_strats, StrategyDefinition
+from ...database import Conditions, StratConditionMap, Strategies
 
 router = APIRouter(prefix="/strategies")
 
@@ -15,8 +16,7 @@ router = APIRouter(prefix="/strategies")
 @router.get("")
 async def get_strats(
     alias: str | None = None,
-    session: AsyncSession = Depends(get_async_session),
-):
+) -> list[StrategyDefinition]:
     strats = get_all_strats().values()
     if alias:
         strats = [get_all_strats().get(alias)]
@@ -24,27 +24,7 @@ async def get_strats(
             raise HTTPException(404, "strategy not found")
     response = []
     for strat in strats:
-        conditions = await session.scalars(
-            select(StratConditionMap).where(
-                StratConditionMap.strategy_alias == strat.ALIAS
-            )
-        )
-        response.append(
-            {
-                "alias": strat.ALIAS,
-                "name": strat.NAME,
-                "active": strat.ACTIVE,
-                "conditions": [
-                    condition.as_dict(
-                        column_name_aliases={"condition_name": "name"},
-                        included_keys=StratConditionMap.get_all_keys(
-                            ["strategy_alias"]
-                        ),
-                    )
-                    for condition in conditions
-                ],
-            }
-        )
+        response.append(strat.dict())
     return response
 
 
@@ -60,9 +40,42 @@ async def get_conds(
     return [condition.as_dict() for condition in conditions]
 
 
+@router.post("/create")
+async def create_strat(
+    strat: StrategyDefinition,
+    session: AsyncSession = Depends(get_async_session),
+):
+    if await session.execute(
+        select(exists(Strategies)).where(Strategies.alias == strat.alias)
+    ):
+        raise HTTPException(400, f"Strategy with alias {strat.alias} already exists")
+    session.add(
+        insert(Strategies).values(
+            {"name": strat.name, "alias": strat.alias, "active": strat.active}
+        )
+    )
+    session.add(
+        insert(StratConditionMap).values(
+            [
+                {
+                    "strategy_alias": strat.alias,
+                    "condition_name": cond.name,
+                    "type": cond.type,
+                    "active": cond.active,
+                    "variables": cond.variables,
+                }
+                for cond in strat.conditions
+            ]
+        )
+    )
+    session.commit()
+    return {"detail": "success"}
+
+
 class PatchStrategy(BaseModel):
     alias: str
-    active: bool
+    name: str | None = None
+    active: bool | None = None
 
 
 @router.patch("/update")
@@ -73,7 +86,9 @@ async def update_strategy(
     strat = get_all_strats().get(update.alias)
     if not strat:
         raise HTTPException(404, "strategy not found")
-    strat.ACTIVE = update.active
+    strat.ACTIVE = update.active or strat.ACTIVE
+    strat.NAME = update.name or strat.NAME
+
     strat.upsert(session)
     return {"detail": "success"}
 
@@ -86,7 +101,7 @@ class PatchCondition(BaseModel):
 
 
 @router.patch("/conditions/update")
-async def update_condition(
+async def update_strategy_condition(
     update: PatchCondition,
     session: Session = Depends(get_sync_session),
 ):

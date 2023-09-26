@@ -10,5 +10,7 @@ class ConditionDefinition(BaseModel):
 
 
 class StrategyDefinition(BaseModel):
-    strategy_alias: str
+    alias: str
+    name: str
+    active: bool
     conditions: list[ConditionDefinition]

@@ -182,3 +182,12 @@ class Strategy:
             )
             return OrderSide.SELL, sell
         return None, None
+
+    @classmethod
+    def dict(cls):
+        return {
+            "alias": cls.ALIAS,
+            "name": cls.NAME,
+            "active": cls.ACTIVE,
+            "conditions": [cond.dict() for cond in cls.DEFAULT_CONDITIONS],
+        }

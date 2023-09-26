@@ -4,5 +4,6 @@ from ..strats import StrategyDefinition
 
 class BacktestDefinition(BaseModel):
     symbols: list[str] = ["AAPL"]
-    strategies: list[StrategyDefinition] | None = None
+    strategy_definitions: list[StrategyDefinition] | None = None
+    strategy_aliases: list[str] | None = None
     days_to_test_over: int = 30

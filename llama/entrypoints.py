@@ -1,3 +1,4 @@
+import asyncio
 import uvicorn
 from datetime import datetime, timedelta
 from .worker.websocket import liveStockDataStream, liveTradingStream
@@ -61,7 +62,7 @@ def backtest(settings: Settings, *args, **kwargs):
     backtester = BackTester.create(settings)
     symbols = [asset.symbol for asset in trader.get_assets(trading=True)]
     backtest_id = backtester.insert_start_of_backtest(symbols)
-    backtester.backtest_strats(backtest_id, history, symbols)
+    asyncio.run(backtester.backtest_strats(backtest_id, history, symbols))
 
 
 class Entrypoints(Enum):

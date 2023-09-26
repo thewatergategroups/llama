@@ -4,7 +4,6 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from ...database import Conditions, StratConditionMap
-from enum import Enum
 from typing import Callable
 from pydantic import BaseModel
 from enum import StrEnum
@@ -47,6 +46,7 @@ class Condition(BaseModel):
     def dict(self, **kwargs):
         return {
             "name": self.name,
+            "type": self.type,
             "active": self.active,
             "variables": self.variables,
         }
