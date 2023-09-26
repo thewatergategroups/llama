@@ -1,7 +1,7 @@
 from fastapi.routing import APIRouter
 from fastapi import HTTPException
 from pydantic import BaseModel
-from sqlalchemy import exists, select
+from sqlalchemy import delete, exists, select
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -45,16 +45,17 @@ async def create_strat(
     strat: StrategyDefinition,
     session: AsyncSession = Depends(get_async_session),
 ):
-    if await session.execute(
+    does_exists = await session.scalar(
         select(exists(Strategies)).where(Strategies.alias == strat.alias)
-    ):
+    )
+    if does_exists:
         raise HTTPException(400, f"Strategy with alias {strat.alias} already exists")
-    session.add(
+    await session.execute(
         insert(Strategies).values(
             {"name": strat.name, "alias": strat.alias, "active": strat.active}
         )
     )
-    session.add(
+    await session.execute(
         insert(StratConditionMap).values(
             [
                 {
@@ -68,7 +69,18 @@ async def create_strat(
             ]
         )
     )
-    session.commit()
+    return {"detail": "success"}
+
+
+@router.delete("")
+async def del_strat(
+    alias: str,
+    session: AsyncSession = Depends(get_async_session),
+):
+    await session.execute(
+        delete(StratConditionMap).where(StratConditionMap.strategy_alias == alias)
+    )
+    await session.execute(delete(Strategies).where(Strategies.alias == alias))
     return {"detail": "success"}
 
 

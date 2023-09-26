@@ -73,7 +73,7 @@ class Strategy:
             try:
                 cls.get(session)
             except KeyError:
-                cls.upsert(session)
+                logging.warn(f"strategy doesn't exist in database")
         return cls(
             history,
             history.get_stock_bars(
