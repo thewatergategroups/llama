@@ -1,8 +1,9 @@
 from fastapi.routing import APIRouter
 from fastapi import HTTPException
 from pydantic import BaseModel
-from sqlalchemy import delete, exists, select
+from sqlalchemy import delete, exists, select, update
 from sqlalchemy.orm import Session
+from alpaca.trading.enums import OrderSide
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
@@ -92,43 +93,69 @@ class PatchStrategy(BaseModel):
 
 @router.patch("/update")
 async def update_strategy(
-    update: PatchStrategy,
+    update_strat: PatchStrategy,
     session: Session = Depends(get_sync_session),
 ):
-    strat = get_all_strats().get(update.alias)
+    strat = get_all_strats().get(update_strat.alias)
     if not strat:
         raise HTTPException(404, "strategy not found")
-    strat.ACTIVE = update.active or strat.ACTIVE
-    strat.NAME = update.name or strat.NAME
+    strat.ACTIVE = update_strat.active or strat.ACTIVE
+    strat.NAME = update_strat.name or strat.NAME
 
     strat.upsert(session)
     return {"detail": "success"}
 
 
-class PatchCondition(BaseModel):
+class PatchStratCondition(BaseModel):
     strategy_alias: str
     condition_name: str
     active: bool | None
     variables: dict | None
 
 
-@router.patch("/conditions/update")
+@router.patch("/strategy/conditions/update")
 async def update_strategy_condition(
-    update: PatchCondition,
+    update_cond: PatchStratCondition,
     session: Session = Depends(get_sync_session),
 ):
-    strat = get_all_strats().get(update.strategy_alias)
+    strat = get_all_strats().get(update_cond.strategy_alias)
     if not strat:
         raise HTTPException(404, "strategy not found")
     cond = None
     for condition in strat.DEFAULT_CONDITIONS:
-        if condition.name == update.condition_name:
+        if condition.name == update_cond.condition_name:
             cond = condition
             break
     if not cond:
-        raise HTTPException(404, "Condition doesn't exist")
-    cond.active = update.active if update.active is not None else cond.active
+        raise HTTPException(404, "Condition not found on strategy")
+    cond.active = update_cond.active if update_cond.active is not None else cond.active
 
-    cond.update_variables(update.variables) if update.variables else None
-    cond.upsert(update.strategy_alias, session)
+    cond.update_variables(update_cond.variables) if update_cond.variables else None
+    cond.upsert(update_cond.strategy_alias, session)
+    return {"detail": "success"}
+
+
+class PatchCondition(BaseModel):
+    name: str
+    side: OrderSide | None
+    variables: dict | None
+
+
+@router.patch("/conditions/update")
+async def update_condition(
+    update_cond: PatchCondition,
+    session: Session = Depends(get_sync_session),
+):
+    values = {}
+    if update_cond.side:
+        values["side"] = update_cond.side.value
+    if update_cond.variables:
+        values["default_variables"] = update_cond.variables
+    try:
+        await session.execute(
+            update(Conditions).values(values).where(Conditions.name == update_cond.name)
+        )
+    except Exception:
+        raise HTTPException(404, "failed to update condition")
+
     return {"detail": "success"}

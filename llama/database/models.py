@@ -142,6 +142,20 @@ class Backtests(BaseSql):
     strategies: Mapped[dict] = mapped_column(nullable=True, type_=JSONB)
 
 
+class BacktestStats(BaseSql):
+    __tablename__ = "backtest_stats"
+    __table_args__ = {"schema": "llama"}
+    id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
+    backtest_id: Mapped[int] = mapped_column(ForeignKey("llama.backtests.id"))
+    positions: Mapped[dict] = mapped_column(type_=JSONB)
+    orders: Mapped[list] = mapped_column(type_=JSONB)
+    balance: Mapped[float]
+    starting_balance: Mapped[float]
+    buys: Mapped[int]
+    sells: Mapped[int]
+    timestamp: Mapped[datetime]
+
+
 class Assets(BaseSql):
     __tablename__ = "tradable_assets"
     __table_args__ = {"schema": "llama"}

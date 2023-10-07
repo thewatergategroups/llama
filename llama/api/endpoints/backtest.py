@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..deps import get_history, get_backtester, get_async_session
 from ...stocks import History
 from ...backtester import BackTester, BacktestDefinition
-from ...database.models import Backtests
+from ...database.models import Backtests, BacktestStats
 from ...consts import Status
 from .strats import get_strats
 
@@ -51,6 +51,20 @@ async def get_backtest(
         .scalar()
         .as_dict()
     )
+
+
+@router.get("/result/stats")
+async def get_backtest(
+    backtest_id: int, session: AsyncSession = Depends(get_async_session)
+):
+    response = (
+        await session.execute(
+            select(BacktestStats)
+            .where(BacktestStats.backtest_id == backtest_id)
+            .order_by(BacktestStats.timestamp.asc())
+        )
+    ).scalars()
+    return [resp.as_dict() for resp in response]
 
 
 @router.get("/results")

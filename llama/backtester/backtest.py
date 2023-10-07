@@ -3,14 +3,14 @@ from datetime import datetime, timedelta
 import logging
 from copy import deepcopy
 from trekkers import on_conflict_update
-
+from dataclasses import asdict
 
 from ..stocks import History
 from ..strats import Strategy
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from alpaca.data.models import Bar
 from collections import defaultdict
-from ..database.models import Backtests
+from ..database.models import Backtests, BacktestStats
 from ..settings import get_sync_sessionm
 from ..consts import Status
 from sqlalchemy.dialects.postgresql import insert
@@ -154,13 +154,22 @@ class BackTester:
             for future in as_completed(processes):
                 result: tuple[MockTrader, Strategy] = future.result()
                 trader, strat = result
-                for key, value in trader.aggregate().items():
+                for key, value in trader.get_stat_position(trader.stats).items():
                     overall[strat.ALIAS][key] += value
+
             with get_sync_sessionm().begin() as session:
                 session.execute(
                     update(Backtests)
                     .where(Backtests.id == backtest_id)
                     .values(result=overall, status=Status.COMPLETED)
+                )
+                session.execute(
+                    insert(BacktestStats).values(
+                        [
+                            {**asdict(stat), "backtest_id": backtest_id}
+                            for stat in trader.stats_record
+                        ]
+                    )
                 )
             logging.info("backtest %s completed successfully", backtest_id)
         except Exception as exc:
@@ -198,8 +207,8 @@ class BackTester:
                     "Progress of %s on %s: %s", strat_name, symbol, percent_completed
                 )
             action, qty = strategy.run(trader, bars[i], False)
-            if (action, qty) != (None, None):
-                trader.post_trade_update_position(symbol, action, qty, bars[i].close)
-                trader.update_stats(symbol, action, qty, bars[i].close, i)
+            trader.post_trade_update(
+                symbol, action, qty, bars[i].close, bars[i].timestamp
+            )
 
         return trader, strategy

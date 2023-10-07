@@ -45,7 +45,6 @@ class Strategy:
         self.condition_map: dict[
             str, dict[str, list[Condition]]
         ] = self.to_condition_map(conditions)
-        self.active = True
 
     @staticmethod
     def to_condition_map(conditions: list[Condition]):
