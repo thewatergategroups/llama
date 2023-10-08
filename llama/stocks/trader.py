@@ -8,9 +8,10 @@ from alpaca.trading.requests import (
     LimitOrderRequest,
     MarketOrderRequest,
 )
+
 from .models import NullPosition
 from alpaca.common.exceptions import APIError
-from ..database import Orders, Positions, Assets
+from ..database import Orders, Positions, Assets, Account
 from ..settings import Settings, get_sync_sessionm
 from ..tools import divide_chunks
 from trekkers.statements import upsert
@@ -22,6 +23,7 @@ class Trader:
 
     def __init__(self, client: TradingClient):
         self.client = client
+        self.buying_power = 0
 
     @classmethod
     def create(cls, settings: Settings):
@@ -29,12 +31,20 @@ class Trader:
         client = TradingClient(
             settings.api_key, settings.secret_key, paper=settings.paper
         )
+        client.get_account_configurations
         obj = cls(client)
         obj.get_orders(OrderSide.BUY)
         obj.get_orders(OrderSide.SELL)
         obj.get_positions(True)
         obj.get_all_assets(settings.force_get_all_assets)
+        obj.get_account()
         return obj
+
+    def get_account(self):
+        account = self.client.get_account()
+        self.buying_power = account.buying_power
+        upsert(get_sync_sessionm(), account.dict(), Account)
+        return account
 
     def get_positions(self, force: bool = False):
         logging.info("getting positions...")
@@ -184,4 +194,5 @@ class Trader:
         )
         response = self.client.submit_order(market_order_data)
         upsert(get_sync_sessionm(), response.dict(), Orders)
+        self.get_account()
         return response

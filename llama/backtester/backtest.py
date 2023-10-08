@@ -93,9 +93,6 @@ class BackTester:
                 start_time=start_time_historic,
                 end_time=end_time_historic,
             )
-            strat_data: dict[str, list[Strategy, MockTrader, list[Bar]]] = defaultdict(
-                lambda: []
-            )
 
             strategies = definition.strategy_definitions or []
             if definition.strategy_aliases is not None:
@@ -123,39 +120,46 @@ class BackTester:
                         strat.name, strat.alias, strat.active, conditions
                     )
                 )
+
+            strat_data: list[tuple[Strategy, MockTrader, list[Bar]]] = []
             for strat in strat_classes:
-                for symbol in definition.symbols:
-                    strat_data[symbol].append(
-                        (
-                            strat.create(
-                                history,
-                                [symbol],
-                                start_time_historic,
-                                end_time_historic,
-                                conditions=conditions,
-                            ),
-                            MockTrader.create(),
-                            data.data[symbol],
-                        )
+                bars = []
+                [bars.extend(value) for value in data.data.values()]
+                bars.sort(key=lambda x: x.timestamp)
+                strat_data.append(
+                    (
+                        strat.create(
+                            history,
+                            definition.symbols,
+                            start_time_historic,
+                            end_time_historic,
+                            conditions=conditions,
+                        ),
+                        MockTrader.create(),
+                        bars,
                     )
+                )
             processes = []
             with ThreadPoolExecutor(max_workers=4) as xacuter:
-                for symbol, strat_list in strat_data.items():
-                    for strat, trader, bars in strat_list:
-                        processes.append(
-                            xacuter.submit(
-                                self.test_strat,
-                                strategy=strat,
-                                trader=trader,
-                                bars=bars,
-                            )
+                for strat, trader, bars in strat_data:
+                    processes.append(
+                        xacuter.submit(
+                            self.test_strat,
+                            strategy=strat,
+                            trader=trader,
+                            bars=bars,
                         )
-            overall = defaultdict(lambda: defaultdict(lambda: 0))
+                    )
+            overall = defaultdict(MockTrader.get_aggregate_template)
             for future in as_completed(processes):
                 result: tuple[MockTrader, Strategy] = future.result()
                 trader, strat = result
-                for key, value in trader.get_stat_position(trader.stats).items():
-                    overall[strat.ALIAS][key] += value
+                for key, value in trader.aggregate().items():
+                    field = overall[strat.ALIAS][key]
+                    if isinstance(field, dict):
+                        field.update(value)
+                    else:
+                        field += value
 
             with get_sync_sessionm().begin() as session:
                 session.execute(
@@ -181,7 +185,7 @@ class BackTester:
                         insert(Backtests).values(
                             id=backtest_id,
                             symbols=definition.symbols,
-                            result=overall,
+                            result={},
                             status=Status.FAILED,
                             timestamp=datetime.utcnow(),
                         ),

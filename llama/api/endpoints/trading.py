@@ -10,6 +10,11 @@ from ..deps import get_trader
 router = APIRouter(prefix="/trading")
 
 
+@router.get("/account")
+async def get_trading_account(trader: Trader = Depends(get_trader)):
+    return trader.get_account()
+
+
 @router.get("/assets")
 async def get_trading_assets(trader: Trader = Depends(get_trader)):
     assets = trader.get_assets(trading=True)

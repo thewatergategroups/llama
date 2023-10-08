@@ -88,7 +88,7 @@ class liveTradingStream:
         upsert(get_sync_sessionm(), trade_update_dict, TradeUpdates)
 
         self.trader.get_position(trade_update.order.symbol, force=True)
-
+        self.trader.get_account()
         if trade_update.event in {TradeEvent.FILL, TradeEvent.PARTIAL_FILL}:
             ...
         elif trade_update.event == TradeEvent.CANCELED:

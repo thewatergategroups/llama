@@ -5,6 +5,44 @@ from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime
 from uuid import UUID
 from trekkers import BaseSql
+from alpaca.trading import AccountStatus
+
+
+class Account(BaseSql):
+    __tablename__ = "account"
+    __table_args__ = {"schema": "llama"}
+
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    account_number: Mapped[str]
+    status: Mapped[AccountStatus]
+    crypto_status: Mapped[Optional[AccountStatus]]
+    currency: Mapped[Optional[str]]
+    buying_power: Mapped[Optional[str]]
+    regt_buying_power: Mapped[Optional[str]]
+    daytrading_buying_power: Mapped[Optional[str]]
+    non_marginable_buying_power: Mapped[Optional[str]]
+    cash: Mapped[Optional[str]]
+    accrued_fees: Mapped[Optional[str]]
+    pending_transfer_out: Mapped[Optional[str]]
+    pending_transfer_in: Mapped[Optional[str]]
+    portfolio_value: Mapped[Optional[str]]
+    pattern_day_trader: Mapped[Optional[bool]]
+    trading_blocked: Mapped[Optional[bool]]
+    transfers_blocked: Mapped[Optional[bool]]
+    account_blocked: Mapped[Optional[bool]]
+    created_at: Mapped[Optional[datetime]]
+    trade_suspended_by_user: Mapped[Optional[bool]]
+    multiplier: Mapped[Optional[str]]
+    shorting_enabled: Mapped[Optional[bool]]
+    equity: Mapped[Optional[str]]
+    last_equity: Mapped[Optional[str]]
+    long_market_value: Mapped[Optional[str]]
+    short_market_value: Mapped[Optional[str]]
+    initial_margin: Mapped[Optional[str]]
+    maintenance_margin: Mapped[Optional[str]]
+    last_maintenance_margin: Mapped[Optional[str]]
+    sma: Mapped[Optional[str]]
+    daytrade_count: Mapped[Optional[int]]
 
 
 class Bars(BaseSql):
@@ -149,8 +187,9 @@ class BacktestStats(BaseSql):
     backtest_id: Mapped[int] = mapped_column(ForeignKey("llama.backtests.id"))
     positions: Mapped[dict] = mapped_column(type_=JSONB)
     orders: Mapped[list] = mapped_column(type_=JSONB)
-    balance: Mapped[float]
-    starting_balance: Mapped[float]
+    buying_power: Mapped[float]
+    equity: Mapped[float]
+    starting_buying_power: Mapped[float]
     buys: Mapped[int]
     sells: Mapped[int]
     timestamp: Mapped[datetime]

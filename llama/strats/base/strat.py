@@ -156,6 +156,19 @@ class Strategy:
         qty_avaliable = int(position.qty_available)
 
         if self._condition_check(most_recent_bar, trader, OrderSide.BUY):
+            latest_qoute = self.history.get_latest_qoute(most_recent_bar.symbol)
+            if (
+                trader.buying_power
+                < latest_qoute.ask_price + 0.02 * latest_qoute.ask_price
+            ):
+                logging.info(
+                    "Balance %s is not enough money to buy %s at %s",
+                    trader.buying_power,
+                    most_recent_bar.symbol,
+                    latest_qoute.ask_price,
+                )
+                return None, None
+
             logging.info(
                 "buying a stock of %s with strat %s",
                 most_recent_bar.symbol,

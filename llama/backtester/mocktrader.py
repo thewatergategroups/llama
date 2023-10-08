@@ -12,8 +12,9 @@ from dataclasses import dataclass, field
 class MockStats:
     positions: dict[str, NullPosition] = field(default_factory=dict)
     orders: list[Order] = field(default_factory=list)
-    balance: float = 1_000
-    starting_balance: float = 1_000
+    buying_power: float = 1_000
+    starting_buying_power: float = 1_000
+    equity: float = 1_000
     buys: int = 0
     sells: int = 0
     timestamp: datetime = datetime.utcnow()
@@ -25,6 +26,7 @@ class MockTrader:
     def __init__(self):
         self.stats = MockStats()
         self.stats_record: list[MockStats] = []
+        self.buying_power = self.stats.buying_power
 
     @classmethod
     def create(cls):
@@ -51,28 +53,29 @@ class MockTrader:
         self.get_position(symbol)
 
     @staticmethod
-    def get_stat_position(stats: MockStats):
-        response = {
-            "profit": stats.balance - stats.starting_balance,
-            "buys": stats.buys,
-            "sells": stats.sells,
-            "total_positions_held": sum(
-                [int(pos.qty) for pos in stats.positions.values()]
-            ),
+    def get_aggregate_template():
+        return {
+            "starting_buying_power": 0,
+            "buying_power": 0,
+            "equity": 0,
+            "buys": 0,
+            "sells": 0,
+            "total_positions_held": 0,
+            "positions": {},
         }
-        return response
 
     def aggregate(self, verbose: bool = False):
         response = {
-            "profit": self.stats.balance - self.stats.starting_balance,
+            "starting_buying_power": self.stats.starting_buying_power,
+            "buying_power": self.stats.buying_power,
+            "equity": self.stats.equity,
             "buys": self.stats.buys,
             "sells": self.stats.sells,
             "total_positions_held": sum(
                 [int(pos.qty) for pos in self.stats.positions.values()]
             ),
+            "positions": {"positions_held": dict(self.stats.positions)},
         }
-        if verbose:
-            response["extra"] = {"positions_held": dict(self.stats.positions)}
         return response
 
     def post_trade_update(
@@ -91,32 +94,37 @@ class MockTrader:
         position.current_price = price
         position.market_value = price * int(position.qty)
         cost_basis = int(position.qty) * float(position.avg_entry_price)
-        if (side, quantity) == (None, None):
-            self.stats_record.append(deepcopy(self.stats))
-            return
 
-        new_total = quantity * price
-        if side == OrderSide.BUY:
-            self.stats.balance -= price * quantity
-            self.stats.buys += quantity
-            new_cost_basis = cost_basis + new_total
-            new_qty = int(position.qty) + quantity
+        self.stats.equity = self.stats.buying_power + sum(
+            [float(pos.market_value) for pos in self.stats.positions.values()]
+        )
+        if (side, quantity) != (None, None):
+            new_total = quantity * price
+            if side == OrderSide.BUY:
+                self.stats.buying_power -= price * quantity
+                self.stats.buys += quantity
+                new_cost_basis = cost_basis + new_total
+                new_qty = int(position.qty) + quantity
 
-        elif side == OrderSide.SELL:
-            self.stats.balance += price * quantity
-            self.stats.sells += quantity
-            new_cost_basis = cost_basis - new_total
-            new_qty = int(position.qty) - quantity
-        logging.info(f"{symbol},{side}, {quantity}, {new_qty}")
-        position.avg_entry_price = str(new_cost_basis / (new_qty or 1))
-        position.cost_basis = str(new_cost_basis)
-        position.qty = str(new_qty)
-        position.qty_available = str(new_qty)
+            elif side == OrderSide.SELL:
+                self.stats.buying_power += price * quantity
+                self.stats.sells += quantity
+                new_cost_basis = cost_basis - new_total
+                new_qty = int(position.qty) - quantity
+            logging.info(f"{symbol},{side}, {quantity}, {new_qty}")
+            position.avg_entry_price = str(new_cost_basis / (new_qty or 1))
+            position.cost_basis = str(new_cost_basis)
+            position.qty = str(new_qty)
+            position.qty_available = str(new_qty)
 
-        total_pl = (price * new_qty) - new_cost_basis
+            total_pl = (price * new_qty) - new_cost_basis
 
-        position.unrealized_pl = str(0) if new_qty == 0 else str(total_pl)
-        position.unrealized_plpc = (
-            str(0) if new_qty == 0 else str(total_pl / (new_cost_basis or 1) * 100)
+            position.unrealized_pl = str(0) if new_qty == 0 else str(total_pl)
+            position.unrealized_plpc = (
+                str(0) if new_qty == 0 else str(total_pl / (new_cost_basis or 1) * 100)
+            )
+
+        self.stats.equity = self.stats.buying_power + sum(
+            [float(pos.market_value) for pos in self.stats.positions.values()]
         )
         self.stats_record.append(deepcopy(self.stats))
