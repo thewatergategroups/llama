@@ -6,14 +6,14 @@ from matplotlib import pyplot as plt
 
 
 resp = requests.get(
-    "http://localhost:8000/backtest/result/stats", params={"backtest_id": 122}
+    "http://localhost:8000/backtest/result/stats", params={"backtest_id": 123}
 )
 vals = resp.json()
 balances = []
 datetimes = []
 for val in vals:
     poss = val["positions"].values()
-    balance = val["balance"] + sum([float(pos["cost_basis"]) for pos in poss])
+    balance = val["balance"] + sum([float(pos["market_value"]) for pos in poss])
 
     balances.append(balance)
     datetimes.append(val["timestamp"])

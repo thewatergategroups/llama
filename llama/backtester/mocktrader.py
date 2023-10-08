@@ -84,16 +84,18 @@ class MockTrader:
         timestamp: datetime,
     ):
         self.stats.timestamp = timestamp
+        new_cost_basis = 0
+        new_qty = 0
+
         position = self.get_position(symbol)
-        position.market_value = price
+        position.current_price = price
+        position.market_value = price * int(position.qty)
+        cost_basis = int(position.qty) * float(position.avg_entry_price)
         if (side, quantity) == (None, None):
             self.stats_record.append(deepcopy(self.stats))
             return
 
-        cost_basis = int(position.qty) * float(position.avg_entry_price)
         new_total = quantity * price
-        new_cost_basis = 0
-        new_qty = 0
         if side == OrderSide.BUY:
             self.stats.balance -= price * quantity
             self.stats.buys += quantity
