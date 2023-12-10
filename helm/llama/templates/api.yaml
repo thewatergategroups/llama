@@ -33,9 +33,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: 300Mi
+              memory: 500Mi
             requests:
-              memory: 300Mi
+              memory: 500Mi
           command:
             - python
             - -m
