@@ -54,6 +54,7 @@ def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
     database(settings.db_settings, action, revision)
     insert_conditions()
     insert_strats()
+    Trader.create(settings).get_all_assets(True)
 
 
 def backtest(settings: Settings, *args, **kwargs):
