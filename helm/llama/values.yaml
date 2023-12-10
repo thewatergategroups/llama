@@ -1,0 +1,17 @@
+
+imageName: ghcr.io/1ndistinct/llama:latest
+
+regCredName: regcred
+
+secrets:
+  API_KEY: <SECRET>
+  API_ENDPOINT: https://paper-api.alpaca.markets
+  SECRET_KEY: <SECRET>
+  STREAM_URL: wss://stream.data.sandbox.alpaca.markets/v2/iex
+  NEWS_URL: https://data.alpaca.markets/v1beta1/news
+  LOG_LEVEL: INFO
+  PGHOST: <SECRET>
+  PGDATABASE: <SECRET>
+  PGPASSWORD: <SECRET>
+  PGUSER: <SECRET>
+  DB_SCHEMA: llama

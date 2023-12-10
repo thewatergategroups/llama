@@ -1,0 +1,39 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: llama-db-setup
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.regCredName }} 
+      containers:
+      - name: llama-db-setup
+        volumeMounts:
+          - mountPath: /secrets
+            name: llama
+        securityContext: null
+        image: {{ .Values.imageName }}
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        command:
+          - python
+          - -m
+          - llama
+          - db
+          - upgrade
+      restartPolicy: Never
+      volumes:
+        - name: llama
+          secret:
+            optional: false
+            secretName: llama
+  backoffLimit: 4
+---

@@ -27,8 +27,13 @@ down:
 
 
 push: build
-	docker tag $(REPOSITORY):latest 10.252.1.0:1880/llama:latest
-	docker push 10.252.1.0:1880/llama:latest
+	docker tag $(REPOSITORY):latest ghcr.io/1ndistinct/llama:latest
+	docker push  ghcr.io/1ndistinct/llama:latest
 
 pgadmin:
 	docker compose run pgadmin
+
+
+template:
+	if [ ! -f secret_vals.yaml ]; then echo "secrets: {}" > secret_vals.yaml; fi
+	helm template ./helm/${PROJECT}-local -f secret_vals.yaml --debug > template.yaml

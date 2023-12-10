@@ -1,0 +1,52 @@
+---
+# Source: llama/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-datastream
+  namespace: {{ $.Release.Namespace }}
+  labels: {}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-datastream
+  template:
+    metadata:
+      labels:
+        app: llama-datastream
+    spec:
+      securityContext: {}
+      imagePullSecrets:
+        - name: {{ .Values.regCredName }} 
+      containers:
+        - name: llama-datastream
+          volumeMounts:
+            - mountPath: /secrets
+              name: llama
+          securityContext: null
+          image: {{ .Values.imageName }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          command:
+            - python
+            - -m
+            - llama
+            - datastream
+      volumes:
+        - name: llama
+          secret:
+            optional: false
+            secretName: llama
+
+---
