@@ -5,7 +5,7 @@ metadata:
   name: llama-db-setup
   annotations:
     argocd.argoproj.io/sync-wave: "-4"
-    argocd.argoproj.io/hook: PreSync
+    # argocd.argoproj.io/hook: Sync
 spec:
   template:
     spec:
