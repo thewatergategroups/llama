@@ -37,6 +37,8 @@ spec:
             requests:
               memory: 500Mi
           command:
+            - bash
+            - start.sh  
             - python
             - -m
             - llama
