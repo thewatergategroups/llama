@@ -7,9 +7,9 @@ metadata:
     argocd.argoproj.io/sync-wave: "-4"
     argocd.argoproj.io/hook: Sync
 spec:
+  ttlSecondsAfterFinished: 20
   template:
     spec:
-      ttlSecondsAfterFinished: 20
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
       containers:
