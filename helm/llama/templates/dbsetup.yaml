@@ -3,8 +3,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: llama-db-setup
-  annotations:
-    argocd.argoproj.io/sync-wave: "-4"
+  # annotations:
+    # argocd.argoproj.io/sync-wave: "-4"
     # argocd.argoproj.io/hook: Sync
 spec:
   template:
