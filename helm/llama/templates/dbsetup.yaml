@@ -16,11 +16,11 @@ spec:
         securityContext: null
         image: {{ .Values.imageName }}
         imagePullPolicy: Always
-          resources:
-            limits:
-              memory: 300Mi
-            requests:
-              memory: 300Mi
+        resources:
+          limits:
+            memory: 300Mi
+          requests:
+            memory: 300Mi
         command:
           - python
           - -m
