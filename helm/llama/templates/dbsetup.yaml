@@ -12,7 +12,6 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
-      dnsPolicy: Default
       containers:
       - name: llama-db-setup
         volumeMounts:
