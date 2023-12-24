@@ -19,6 +19,7 @@ spec:
       securityContext: {}
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
+      dnsPolicy: Default
       containers:
         - name: llama-tradestream
           volumeMounts:
