@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: llama
+  name: llama-api
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
@@ -66,4 +66,4 @@ spec:
       name: http
       nodePort: 30200
   selector:
-    app: llama
+    app: llama-api
