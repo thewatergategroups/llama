@@ -58,11 +58,12 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8000
       targetPort: http
       protocol: TCP
       name: http
+      nodePort: 30200
   selector:
     app: llama
