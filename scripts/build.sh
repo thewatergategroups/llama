@@ -1,5 +1,5 @@
 #! /bin/bash 
-poetry config http-basic.nexus $NEXUS_USER $NEXUS_PASS
+poetry config http-basic.kube $PYPI_USER $PYPI_PASS
 if [[ $DEV_MODE = "true" ]]; then
     echo installing dev deps
     poetry install

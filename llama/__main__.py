@@ -2,9 +2,9 @@
 Entrypoint to the application
 """
 import argparse
-from .entrypoints import Entrypoints
-from .tools import setup_logging
+from .entrypoints import Entry
 from .settings import Settings
+from yumi import setup_logging
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="entrypoint options.")
@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "entrypoint",
         help="which entrypoint to use.",
-        choices=Entrypoints.get_all_names(),
+        choices=Entry.get_all_names(),
     )
     parser.add_argument(
         "db_action", nargs="?", default="upgrade", choices=["upgrade", "downgrade"]
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     settings = Settings()
 
-    setup_logging(settings)
+    setup_logging(settings.log_config)
 
-    func = Entrypoints.get_entrypoint(args.entrypoint)
+    func = Entry.get_entrypoint(args.entrypoint)
     func(settings=settings, action=args.db_action, revision=args.revision)

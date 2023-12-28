@@ -1,41 +1,37 @@
-from ..settings import get_settings
+from functools import lru_cache
+
 from ..stocks.history import History
 from ..stocks.trader import Trader
 from ..backtester import BackTester
 from trekkers.config import get_async_sessionmaker
-from ..settings import get_sync_sessionm
-
-_HISTORY = None
-_TRADER = None
-_BACKTESTER = None
+from ..settings import get_sync_sessionm, get_settings
+from yumi import JwtClient
 
 
+@lru_cache
 def get_history():
     """Get history wrapper"""
-    global _HISTORY
-    if _HISTORY is None:
-        _HISTORY = History.create(get_settings())
-    return _HISTORY
+    return History.create(get_settings())
 
 
+@lru_cache
 def get_trader():
     """Get trader wrapper"""
-    global _TRADER
-    if _TRADER is None:
-        _TRADER = Trader.create(get_settings())
-    return _TRADER
+    return Trader.create(get_settings())
 
 
 def get_backtester():
-    global _BACKTESTER
-    if _BACKTESTER is None:
-        _BACKTESTER = BackTester.create()
-    return _BACKTESTER
+    return BackTester.create()
 
 
 async def get_async_session():
     async with get_async_sessionmaker(get_settings().db_settings).begin() as session:
         yield session
+
+
+@lru_cache
+def get_jwt_client():
+    return JwtClient(get_settings().jwt_config)
 
 
 def get_sync_session():

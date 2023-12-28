@@ -1,12 +1,14 @@
 REPOSITORY := llama
-include ~/.nexus_auth
+include ~/pypi_creds
+
 
 build:
 	docker build --network=host \
 	-f docker/Dockerfile \
-	--build-arg="NEXUS_USER=${NEXUS_USER}" \
-	--build-arg="NEXUS_PASS=${NEXUS_PASS}" \
+	--build-arg="PYPI_USER=${PYPI_USER}" \
+	--build-arg="PYPI_PASS=${PYPI_PASS}" \
 	. -t $(REPOSITORY)
+
 
 run: build up
 

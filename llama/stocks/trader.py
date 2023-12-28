@@ -8,12 +8,12 @@ from alpaca.trading.requests import (
     LimitOrderRequest,
     MarketOrderRequest,
 )
+from yumi import divide_chunks
 
 from .models import NullPosition
 from alpaca.common.exceptions import APIError
 from ..database import Orders, Positions, Assets, Account
 from ..settings import Settings, get_sync_sessionm
-from ..tools import divide_chunks
 from trekkers.statements import upsert
 from sqlalchemy import delete, select, update
 

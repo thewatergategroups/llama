@@ -13,10 +13,8 @@ matplotlib = "^3.7.2"
 numpy = "^1.25.1"
 fastapi = "^0.100.0"
 uvicorn = "^0.23.1"
-sqlalchemy = "^2.0.19"
-alembic = "^1.11.2"
-psycopg2-binary = "^2.9.7"
-trekkers = { version = "*", source = "nexus" }
+trekkers = { version = "*", source = "kube" }
+yumi = { version = "*", source = "kube" }
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
@@ -29,8 +27,8 @@ ipykernel = "^6.25.2"
 
 
 [[tool.poetry.source]]
-name = "nexus"
-url = "http://10.252.1.0:8081/repository/packages/simple"
+name = "kube"
+url = "http://10.252.1.0:30500/simple"
 priority = "explicit"
 
 [build-system]

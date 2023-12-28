@@ -8,8 +8,13 @@ from ...backtester import BackTester, BacktestDefinition
 from ...database.models import Backtests, BacktestStats
 from ...consts import Status
 from .strats import get_strats
+from ..validator import validate_jwt, has_admin_scope
 
-router = APIRouter(prefix="/backtest")
+router = APIRouter(
+    prefix="/backtest",
+    tags=["Backtesting"],
+    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
+)
 
 
 @router.post("/start")

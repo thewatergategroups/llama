@@ -7,8 +7,7 @@ from .stocks import History, Trader
 from .strats import insert_strats, get_all_strats, insert_conditions
 from .backtester import BackTester
 from trekkers import database
-from enum import Enum
-from typing import Callable
+from yumi import Entrypoints
 
 
 def api(*args, **kwargs):
@@ -66,26 +65,10 @@ def backtest(settings: Settings, *args, **kwargs):
     asyncio.run(backtester.backtest_strats(backtest_id, history, symbols))
 
 
-class Entrypoints(Enum):
-    def __init__(self, entrypoint: str, function: Callable):
-        super().__init__()
-        self.entrypoint = entrypoint
-        self.function = function
-
+class Entry(Entrypoints):
     API = "api", api
     DATASTREAM = "datastream", data_stream
     TRADESTREAM = "tradestream", trade_stream
     DATABASE = "db", db
     BACKTEST = "backtest", backtest
     DEBUG = "debug", debug
-
-    @classmethod
-    def get_entrypoint(cls, entrypoint: str):
-        for entry in cls:
-            if entrypoint == entry.entrypoint:
-                return entry.function
-        raise KeyError(f"Entrypoint {entrypoint} not found...")
-
-    @classmethod
-    def get_all_names(cls):
-        return [value.entrypoint for value in cls]

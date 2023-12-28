@@ -5,7 +5,7 @@ from .endpoints.backtest import router as bt_router
 from .endpoints.trading import router as tr_router
 from .endpoints.strats import router as st_router
 from fastapi.middleware.cors import CORSMiddleware
-from ..tools import setup_logging
+from yumi import setup_logging
 from ..settings import get_settings
 
 
@@ -13,7 +13,7 @@ def create_app() -> FastAPI:
     """
     create and return fastapi app
     """
-    setup_logging(get_settings())
+    setup_logging(get_settings().log_config)
     app = FastAPI(
         title="llama trading bot",
         description="trading bot using alpaca API",

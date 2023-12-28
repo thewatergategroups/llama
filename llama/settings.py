@@ -1,9 +1,11 @@
 """
 Consts, Enums and Models
 """
+from functools import lru_cache
 from pydantic import BaseSettings
 from trekkers.config import DbSettings, get_sync_sessionmaker
 import pathlib
+from yumi import LogConfig, JwtConfig
 
 TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
 
@@ -16,22 +18,18 @@ class Settings(BaseSettings):
     secret_key: str = ""
     news_url: str = "https://data.alpaca.markets/v1beta1/news"
     paper: bool = True
-    log_level: str = "INFO"
+    force_get_all_assets: bool = False
     db_settings: DbSettings = DbSettings(
         env_script_location=f"{TOP_LEVEL_PATH}/database/alembic"
     )
-    force_get_all_assets: bool = False
+    log_config: LogConfig = LogConfig()
+    jwt_config: JwtConfig = JwtConfig(jwks_server_url="http://authapi:8000")
 
 
-_SETTINGS = None
-
-
+@lru_cache
 def get_settings():
     """Get history wrapper"""
-    global _SETTINGS
-    if _SETTINGS is None:
-        _SETTINGS = Settings()
-    return _SETTINGS
+    return Settings()
 
 
 def get_sync_sessionm():

@@ -5,9 +5,14 @@ from alpaca.trading.enums import OrderSide, TimeInForce
 
 from ...stocks import Trader
 from ..deps import get_trader
+from ..validator import validate_jwt, has_admin_scope
 
 
-router = APIRouter(prefix="/trading")
+router = APIRouter(
+    prefix="/trading",
+    tags=["Trading"],
+    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
+)
 
 
 @router.get("/account")

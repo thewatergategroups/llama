@@ -1,6 +1,6 @@
 FROM ghcr.io/1ndistinct/ops:python311 as requirements
-ARG NEXUS_USER
-ARG NEXUS_PASS
+ARG PYPI_USER
+ARG PYPI_PASS
 COPY pyproject.toml poetry.lock ./scripts/build.sh ./
 RUN bash ./build.sh 
 

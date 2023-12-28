@@ -10,8 +10,13 @@ from fastapi import Depends
 from ..deps import get_async_session, get_sync_session
 from ...strats import get_all_strats, StrategyDefinition
 from ...database import Conditions, StratConditionMap, Strategies
+from ..validator import validate_jwt, has_admin_scope
 
-router = APIRouter(prefix="/strategies")
+router = APIRouter(
+    prefix="/strategies",
+    tags=["Strategies"],
+    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
+)
 
 
 @router.get("")
