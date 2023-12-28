@@ -99,6 +99,8 @@ class History:
     @staticmethod
     def _round_datetime(dt: datetime, timeframe: TimeFrame):
         if timeframe.unit == TimeFrameUnit.Day:
+            if dt.hour < 4:
+                dt = dt - timedelta(days=1)
             dt = dt.replace(hour=4, minute=0, second=0)
         if timeframe.unit == TimeFrameUnit.Minute:
             dt = dt.replace(hour=0, minute=0, second=0)
