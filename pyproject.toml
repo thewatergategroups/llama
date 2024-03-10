@@ -28,7 +28,7 @@ ipykernel = "^6.25.2"
 
 [[tool.poetry.source]]
 name = "kube"
-url = "http://10.252.1.0:30500/simple"
+url = "http://pypi.apps.svc.cluster.local:8080/simple"
 priority = "explicit"
 
 [build-system]
