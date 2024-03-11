@@ -31,8 +31,8 @@ class Trader:
         client = TradingClient(
             settings.api_key, settings.secret_key, paper=settings.paper
         )
-        client.get_account_configurations
         obj = cls(client)
+        # client.get_account_configurations()
         obj.get_orders(OrderSide.BUY)
         obj.get_orders(OrderSide.SELL)
         obj.get_positions(True)

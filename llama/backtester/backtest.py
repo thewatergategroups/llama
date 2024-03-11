@@ -23,6 +23,7 @@ from ..strats import (
     StrategyDefinition,
     get_strategy_class,
 )
+from yumi import divide_chunks
 
 
 class BackTester:
@@ -167,14 +168,15 @@ class BackTester:
                     .where(Backtests.id == backtest_id)
                     .values(result=overall, status=Status.COMPLETED)
                 )
-                session.execute(
-                    insert(BacktestStats).values(
-                        [
-                            {**asdict(stat), "backtest_id": backtest_id}
-                            for stat in trader.stats_record
-                        ]
-                    )
-                )
+                for chunk in divide_chunks(
+                    [
+                        {**asdict(stat), "backtest_id": backtest_id}
+                        for stat in trader.stats_record
+                    ],
+                    100,
+                ):
+                    session.execute(insert(BacktestStats).values(chunk))
+
             logging.info("backtest %s completed successfully", backtest_id)
         except Exception as exc:
             logging.exception(exc)

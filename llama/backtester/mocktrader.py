@@ -111,7 +111,6 @@ class MockTrader:
                 self.stats.sells += quantity
                 new_cost_basis = cost_basis - new_total
                 new_qty = int(position.qty) - quantity
-            logging.info(f"{symbol},{side}, {quantity}, {new_qty}")
             position.avg_entry_price = str(new_cost_basis / (new_qty or 1))
             position.cost_basis = str(new_cost_basis)
             position.qty = str(new_qty)
