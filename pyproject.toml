@@ -17,6 +17,11 @@ uvicorn = "^0.23.1"
 [tool.poetry.group.local.dependencies]
 trekkers = { version = "^0.2", source = "kube" }
 yumi = { version = "^0.2", source = "kube" }
+pandas-datareader = "^0.10.0"
+pyportfolioopt = "^1.5.5"
+yfinance = "^0.2.37"
+requests = "^2.31.0"
+pandas-ta = "^0.3.14b0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"

@@ -8,6 +8,15 @@ from pypfopt import risk_models
 from pypfopt import expected_returns
 from trekkers import BaseSql
 import matplotlib.ticker as mtick
+import requests
+import pandas as pd
+import yfinance as yf
+
+# poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance
+
+# Needed to resolve from _bz2 import BZ2Compressor, BZ2Decompressor
+# sudo apt-get install libbz2-dev
+# pyenv install 3.11   
 
 # class Bars(BaseSql):
 #     __tablename__ = "bars"
@@ -26,9 +35,9 @@ import matplotlib.ticker as mtick
 
 class GKV(): # Needs to extend Bars?
 
-    df = [] # TODO: Insert data here, ideally as a dataFrame
-    
-    def load_sp500_data():
+    self.df = [] # TODO: Insert data here, ideally as a dataFrame
+   
+    def load_sp500_data(self):
         sp500 = pd.read_html('sp500.html')[0]
         print(sp500)
         sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
@@ -37,11 +46,8 @@ class GKV(): # Needs to extend Bars?
 
         df = pd.read_csv("sp500-yf-1.csv", index_col=0, encoding='utf-8-sig')
         return df
-    
-    def download_data_from_source():
-        import requests
-        import pandas as pd
-        import yfinance as yf
+
+    def download_data_from_source(self):
         url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
         response = requests.get(url)
         with open('sp500.html', 'w') as file:
@@ -62,19 +68,17 @@ class GKV(): # Needs to extend Bars?
                              end=end_date)
             df.to_csv("sp500-yf-2.csv")
             return df
-
-
-    def calculate_german_klass_vol(df):
+    def calculate_german_klass_vol(self, df):
         df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         return df
 
         # RSI indicator
-    def calculate_rsi_indicator(df):
+    def calculate_rsi_indicator(self, df):
         df['rsi'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.rsi(close=x, length=20))
         return df
     
     # Bollinger Bands
-    def calculate_bollinger_bands(df):
+    def calculate_bollinger_bands(self, df):
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
 
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
@@ -83,25 +87,25 @@ class GKV(): # Needs to extend Bars?
         return df
     
     # MACD
-    def calculate_macd(close):
+    def calculate_macd(self, close):
         macd = pandas_ta.macd(close=close, length=20).iloc[:,0]
         return macd.sub(macd.mean()).div(macd.std())
 
     # ATR 
     # Exactly what stock_data is this expecting??
-    def calculate_atr(stock_data):
+    def calculate_atr(self, stock_data):
         atr = pandas_ta.atr(
             high=stock_data['high'],
             low=stock_data['low'],
             close=stock_data['close'],
             length=14
         )
-        
+       
         normalized_atr = atr.sub(atr.mean()).div(atr.std())
         # can be applied by doing df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
         return normalized_atr
 
-    def execute_strategy_1():
+    def execute_strategy_1(self):
         pass
     
     # Calculate 5-year rolling average of dollar volume for each stocks before filtering
@@ -221,7 +225,7 @@ class GKV(): # Needs to extend Bars?
     # 7. For each month select assets based on the cluster and form a portfolio based on Efficient Frontier max sharpe ratio optimization
     # First we will filter only stocks corresponding to the cluster we choose based on our hypothesis.
     # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back: N = 3
-    def form_portfolio(data)
+    def form_portfolio(data):
         N = 3
         CLUSTER_NUMBER = N
 
@@ -307,7 +311,7 @@ class GKV(): # Needs to extend Bars?
         return portfolio_df
     
     # Also compares to existing sp500 returns
-    def visualize_portfolio_returns(portfolio_df)
+    def visualize_portfolio_returns(portfolio_df):
         # 8. Visualize Portfolio returns and compare to SP500 returns.
         # Download the returns of SP500
         # TODO: This should be an online CSV
