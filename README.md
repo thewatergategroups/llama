@@ -53,3 +53,5 @@ EOF
 ##### Bring down all services
 1. run `make down`
 
+poetry config http-basic.kube admin admin
+poetry config virtualenvs.in-project true
