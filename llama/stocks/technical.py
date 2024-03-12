@@ -159,3 +159,51 @@ class GKV(Bars):
         data = data.dropna()
         data.info()
 
+    # 6. For each month fit a K-Means Clustering Algorithm to group similar assets based on their features.
+    ### K-Means Clustering
+    # You may want to initialize predefined centroids for each cluster based on your research.
+    # For visualization purpose of this tutorial we will initially rely on the ‘k-means++’ initialization.
+    # Then we will pre-define our centroids for each cluster.
+    def visualize_stocks():
+
+        data = data.drop('cluster', axis=1)
+        cluster_numbers = 4
+
+        target_rsi_values = [30, 45, 55, 70]
+
+        def get_clusters(df):
+            # this will ensure we have the same cluster every time
+            # We follow the trend of the stock with the RSI
+            initial_centroids = np.zeros((len(target_rsi_values), 18))
+            initial_centroids[:, 6] = target_rsi_values
+            
+            df['cluster'] = KMeans(n_clusters=cluster_numbers,
+                                random_state=0,
+                                init=initial_centroids).fit(df).labels_
+            return df
+
+        data = data.dropna().groupby('date', group_keys=False).apply(get_clusters)
+
+        def plot_clusters(data):
+
+            cluster_0 = data[data['cluster']==0]
+            cluster_1 = data[data['cluster']==1]
+            cluster_2 = data[data['cluster']==2]
+            cluster_3 = data[data['cluster']==3]
+
+            plt.scatter(cluster_0.iloc[:,0],  cluster_0.iloc[:,6],  color = 'red', label='cluster 0')
+            plt.scatter(cluster_1.iloc[:,0],  cluster_1.iloc[:,6],  color = 'green', label='cluster 1')
+            plt.scatter(cluster_2.iloc[:,0],  cluster_2.iloc[:,6],  color = 'blue', label='cluster 2')
+            plt.scatter(cluster_3.iloc[:,0],  cluster_3.iloc[:,6],  color = 'black', label='cluster 3')
+            
+            plt.legend()
+            plt.show()
+            return
+
+        plt.style.use('ggplot')
+
+        for i in data.index.get_level_values('date').unique().tolist():
+            g = data.xs(i, level=0)
+            plt.title(f'Date {i}')
+            # This does the visual in the end
+            plot_clusters(g)
