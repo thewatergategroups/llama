@@ -11,6 +11,9 @@ import matplotlib.ticker as mtick
 import requests
 import pandas as pd
 import yfinance as yf
+import matplotlib.pyplot as plt
+import datetime as dt
+import logging
 
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance
 
@@ -33,11 +36,43 @@ import yfinance as yf
 #     vwap: Mapped[float]
 #     volume: Mapped[int]
 
+data_folder = '/home/borisb/projects/llama/data/test/'
+
 class GKV(): # Needs to extend Bars?
 
     self.df = [] # TODO: Insert data here, ideally as a dataFrame
    
-    def load_sp500_data(self):
+    """
+    Downloads SP500 data for 1 year given an an end data.
+    Also, saves the 
+    TODO: Break this up into 2/3 other functions for each of the parts
+    """
+    def download_data_from_source(self, end_date = '2024-03-30'):
+        url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+        response = requests.get(url)
+        with open('sp500.html', 'w') as file:
+            file.write(response.text)
+
+            sp500 = pd.read_html(response.text)[0]
+            
+            # sp500 = response.text[0]
+            # Normalize the data
+            sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
+            symbols_list = sp500['Symbol'].unique().tolist()
+            
+            # Exactly 1 year before start of the data
+            start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
+            
+            df = yf.download(tickers=symbols_list,
+                             start=start_date,
+                             end=end_date)
+            df.to_csv("sp500-yf-2.csv")
+            return df
+    """
+    Load sp500 Data given an an already downloaded file
+    Returns a fully populated pandas Dataframe with all of the necessary data
+    """
+    def load_sp500_data(self) -> pd.DataFrame:
         sp500 = pd.read_html('sp500.html')[0]
         print(sp500)
         sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
@@ -47,27 +82,6 @@ class GKV(): # Needs to extend Bars?
         df = pd.read_csv("sp500-yf-1.csv", index_col=0, encoding='utf-8-sig')
         return df
 
-    def download_data_from_source(self):
-        url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-        response = requests.get(url)
-        with open('sp500.html', 'w') as file:
-            file.write(response.text)
-
-            sp500 = pd.read_html(response.text)[0]
-            
-            # sp500 = response.text[0]
-            sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
-            symbols_list = sp500['Symbol'].unique().tolist()
-            
-            end_date = '2024-03-30'
-            # Exactly 1 year before start of the data
-            start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
-            
-            df = yf.download(tickers=symbols_list,
-                             start=start_date,
-                             end=end_date)
-            df.to_csv("sp500-yf-2.csv")
-            return df
     def calculate_german_klass_vol(self, df):
         df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         return df
@@ -80,9 +94,7 @@ class GKV(): # Needs to extend Bars?
     # Bollinger Bands
     def calculate_bollinger_bands(self, df):
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
-
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
-
         df['bb_high'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,2])
         return df
     
@@ -93,29 +105,36 @@ class GKV(): # Needs to extend Bars?
 
     # ATR 
     # Exactly what stock_data is this expecting??
-    def calculate_atr(self, stock_data):
+    # 
+    def calculate_atr(self, ticker, stock_low, stock_high, stock_close):
+        logging.debug(f"attempting to calculate ATR for ${}")
+        # atr = pandas_ta.atr(
+        #     high=stock_data['high'],
+        #     low=stock_data['low'],
+        #     close=stock_data['close'],
+        #     length=14
+        # )
         atr = pandas_ta.atr(
-            high=stock_data['high'],
-            low=stock_data['low'],
-            close=stock_data['close'],
+            high=stock_high,
+            low=stock_low,
+            close=stock_close,
             length=14
         )
-       
         normalized_atr = atr.sub(atr.mean()).div(atr.std())
         # can be applied by doing df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
         return normalized_atr
 
     def execute_strategy_1(self):
+        ...
         pass
     
     # Calculate 5-year rolling average of dollar volume for each stocks before filtering
-    def foo(df):
+    def foo(self, df):
         last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
 
         data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
                            df.unstack()[last_cols].resample('M').last().stack('ticker')],
                           axis=1)).dropna()
-        
         data['dollar_volume'] = (data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
         data['dollar_vol_rank'] = (data.groupby('date')['dollar_volume'].rank(ascending=False))
         data = data[data['dollar_vol_rank']<150].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
@@ -127,7 +146,7 @@ class GKV(): # Needs to extend Bars?
     # * We will introduce the Fama—French data to estimate the exposure of assets to common risk factors using linear regression.
     # * The five Fama—French factors, namely market risk, size, value, operating profitability, and investment have been shown empirically to explainasset returns and are commonly used to assess the risk/return profile of portfolios. Hence, it is natural to include past factor exposures as financial features in models.
     # * We can access the historical factor returns using the pandas-datareader and estimate historical exposures using the RollingOLS rolling linearregression. 
-    def download_fama_french_factors_and_calc_rolling_factors_betas():
+    def download_fama_french_factors_and_calc_rolling_factors_betas(self):
         factor_data = web.DataReader('F-F_Research_Data_5_Factors_2x3',
                                     'famafrench',
                                     start='2010')[0].drop('RF', axis=1)
@@ -178,7 +197,7 @@ class GKV(): # Needs to extend Bars?
     # We use this data and the plots to decide on which cluster of stocks to form our portfolio
     # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back:
     # the data Cluster 3 will be the cluster we will be using as they had good momentum in the previous month
-    def visualize_stocks(data):
+    def visualize_stocks(self, data):
 
         data = data.drop('cluster', axis=1)
         cluster_numbers = 4
@@ -225,7 +244,7 @@ class GKV(): # Needs to extend Bars?
     # 7. For each month select assets based on the cluster and form a portfolio based on Efficient Frontier max sharpe ratio optimization
     # First we will filter only stocks corresponding to the cluster we choose based on our hypothesis.
     # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back: N = 3
-    def form_portfolio(data):
+    def form_portfolio(self, data):
         N = 3
         CLUSTER_NUMBER = N
 
@@ -311,7 +330,7 @@ class GKV(): # Needs to extend Bars?
         return portfolio_df
     
     # Also compares to existing sp500 returns
-    def visualize_portfolio_returns(portfolio_df):
+    def visualize_portfolio_returns(self, portfolio_df, dt):
         # 8. Visualize Portfolio returns and compare to SP500 returns.
         # Download the returns of SP500
         # TODO: This should be an online CSV
@@ -326,8 +345,6 @@ class GKV(): # Needs to extend Bars?
                                         right_index=True)
 
         # print(portfolio_df)
-
-
 
         plt.style.use('ggplot')
 
