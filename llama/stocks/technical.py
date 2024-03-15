@@ -16,7 +16,7 @@ import datetime as dt
 import logging
 from statsmodels.regression.rolling import RollingOLS
 from sklearn.cluster import KMeans
-
+import sys
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
 # Needed to resolve from _bz2 import BZ2Compressor, BZ2Decompressor
@@ -37,6 +37,8 @@ from sklearn.cluster import KMeans
 #     trade_count: Mapped[int]
 #     vwap: Mapped[float]
 #     volume: Mapped[int]
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 data_folder = '/home/borisb/projects/llama/data/test/'
 
@@ -90,6 +92,11 @@ class GKV(): # Needs to extend Bars?
 
         # TODO: Improve to which dir it goes + date in filename
         df = pd.read_csv("sp500-yf-1.csv", index_col=0, encoding='utf-8-sig')
+        df.columns = df.columns.str.lower()
+        df = df.stack()
+        df.index.names = ['date', 'ticker']
+        # print(df.columns.tolist())
+        
         return df
 
     def calculate_german_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -465,6 +472,9 @@ gvk_strategy = GKV()
 
 # df = gvk_strategy.download_data_from_source()
 df = gvk_strategy.load_sp500_data()
+logging.info('PRINTED DF-------------------')
+logging.info(df)
+logging.info('PRINTED DF-------------------')
 df = gvk_strategy.calculate_german_klass_vol(df)
 df = gvk_strategy.calculate_rsi_indicator(df)
 df = gvk_strategy.calculate_bollinger_bands(df)
