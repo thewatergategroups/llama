@@ -60,14 +60,14 @@ class GKV(): # Needs to extend Bars?
             # Normalize the data
             sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
             symbols_list = sp500['Symbol'].unique().tolist()
-        
+
             # Exactly 1 year before start of the data
             start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
-         
+
             df = yf.download(tickers=symbols_list,
                              start=start_date,
                              end=end_date)
-           
+
             # TODO: Improve to which dir it goes + date in filename
             df.to_csv("sp500-yf-2.csv")
             logging.debug(df)
@@ -131,13 +131,13 @@ class GKV(): # Needs to extend Bars?
             pd.DataFrame: _description_
         """
         logging.info("Calculating Bollinger bands")
-        
+
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
         df['bb_high'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,2])
         logging.debug(df)
         return df
-    
+
     def calculate_macd(self, close):
         """
         Calculate MACD indicator
@@ -148,7 +148,7 @@ class GKV(): # Needs to extend Bars?
         Returns:
             _type_: _description_
         """
-      
+
         macd = pandas_ta.macd(close=close, length=20).iloc[:,0]
         return macd.sub(macd.mean()).div(macd.std())
 
@@ -169,7 +169,6 @@ class GKV(): # Needs to extend Bars?
         Returns:
             _type_: _description_
         """
-      
         logging.debug(f"attempting to calculate ATR for ${ticker}")
         # atr = pandas_ta.atr(
         #     high=stock_data['high'],
@@ -212,7 +211,7 @@ class GKV(): # Needs to extend Bars?
         data['dollar_volume'] = (data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
         data['dollar_vol_rank'] = (data.groupby('date')['dollar_volume'].rank(ascending=False))
         data = data[data['dollar_vol_rank']<150].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
-      
+
         return [data, df]
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
@@ -232,12 +231,12 @@ class GKV(): # Needs to extend Bars?
 
         Returns:
             _type_: _description_
-        """        
+        """      
 
         factor_data = web.DataReader('F-F_Research_Data_5_Factors_2x3',
                                     'famafrench',
                                     start='2010')[0].drop('RF', axis=1)
-        
+       
         # Fix index
         factor_data.index = factor_data.index.to_timestamp()
         # Fix end of month and percentages
@@ -304,7 +303,7 @@ class GKV(): # Needs to extend Bars?
         def get_clusters(df):
             initial_centroids = np.zeros((len(target_rsi_values), 18))
             initial_centroids[:, 6] = target_rsi_values
-            
+           
             df['cluster'] = KMeans(n_clusters=cluster_numbers,
                                 random_state=0,
                                 init=initial_centroids).fit(df).labels_
@@ -323,7 +322,7 @@ class GKV(): # Needs to extend Bars?
             plt.scatter(cluster_1.iloc[:,0],  cluster_1.iloc[:,6],  color = 'green', label='cluster 1')
             plt.scatter(cluster_2.iloc[:,0],  cluster_2.iloc[:,6],  color = 'blue', label='cluster 2')
             plt.scatter(cluster_3.iloc[:,0],  cluster_3.iloc[:,6],  color = 'black', label='cluster 3')
-            
+           
             plt.legend()
             plt.show()
             return
@@ -372,13 +371,13 @@ class GKV(): # Needs to extend Bars?
                                                             frequency=252) # 252 days = 1 year of trading days
             cov = risk_models.sample_cov(prices=prices,
                                         frequency=252)
-           
+          
             ef = EfficientFrontier(expected_returns=returns,
                                 cov_matrix=cov,
                                 weight_bounds=(lower_bound, .1), # .1 because we want maximum weight of 10% our portfolio in a single stock
                                 solver='SCS')
             weights = ef.max_sharpe() # Needs to returned. We needs in the outer scope
-           
+          
             return ef.clean_weights()
 
         # Download Fresh Daily Prices Data only for short listed stocks
@@ -432,7 +431,7 @@ class GKV(): # Needs to extend Bars?
         portfolio_df = portfolio_df.drop_duplicates()
         print(portfolio_df)
         return portfolio_df
-    
+   
     # Also compares to existing sp500 returns
     def visualize_portfolio_returns(self, portfolio_df, dt):
         # 8. Visualize Portfolio returns and compare to SP500 returns.
