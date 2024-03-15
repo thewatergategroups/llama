@@ -14,8 +14,10 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import datetime as dt
 import logging
+from statsmodels.regression.rolling import RollingOLS
+from sklearn.cluster import KMeans
 
-# poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance
+# poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
 # Needed to resolve from _bz2 import BZ2Compressor, BZ2Decompressor
 # sudo apt-get install libbz2-dev
@@ -47,7 +49,7 @@ class GKV(): # Needs to extend Bars?
     Also, saves the 
     TODO: Break this up into 2/3 other functions for each of the parts
     """
-    def download_data_from_source(self, end_date = '2024-03-30'):
+    def download_data_from_source(self, end_date = '2023-09-27'):
         url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
         response = requests.get(url)
         with open('sp500.html', 'w') as file:
@@ -58,16 +60,17 @@ class GKV(): # Needs to extend Bars?
             # Normalize the data
             sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
             symbols_list = sp500['Symbol'].unique().tolist()
-         
+        
             # Exactly 1 year before start of the data
             start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
-          
+         
             df = yf.download(tickers=symbols_list,
                              start=start_date,
                              end=end_date)
-            
+           
             # TODO: Improve to which dir it goes + date in filename
             df.to_csv("sp500-yf-2.csv")
+            logging.debug(df)
             return df
 
     def load_sp500_data(self) -> pd.DataFrame:
@@ -78,7 +81,7 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """
-          
+        logging.info("Starting to load sp500 Data")
         sp500 = pd.read_html('sp500.html')[0]
         print(sp500)
         sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
@@ -99,9 +102,9 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """
-        print("Calculating German class vol")
-        print(df)
+        logging.info("Calculating German class vol")
         df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
+        logging.debug(df)
         return df
 
     def calculate_rsi_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -126,10 +129,13 @@ class GKV(): # Needs to extend Bars?
 
         Returns:
             pd.DataFrame: _description_
-        """        
+        """
+        logging.info("Calculating Bollinger bands")
+        
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
         df['bb_high'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,2])
+        logging.debug(df)
         return df
     
     def calculate_macd(self, close):
@@ -163,7 +169,7 @@ class GKV(): # Needs to extend Bars?
         Returns:
             _type_: _description_
         """
-        
+      
         logging.debug(f"attempting to calculate ATR for ${ticker}")
         # atr = pandas_ta.atr(
         #     high=stock_data['high'],
@@ -189,7 +195,7 @@ class GKV(): # Needs to extend Bars?
         By calculating the moving average, the impacts of random, short-term fluctuations on the price of a stock
         over a specified time frame are mitigated. Simple moving averages (SMAs) use a simple arithmetic average 
         of prices over some timespan, while exponential moving averages (EMAs) place greater weight on more recent 
-        prices than older ones over the time period. 
+        prices than older ones over the time period.
 
         Args:
             df (pd.DataFrame): _description_
@@ -206,7 +212,7 @@ class GKV(): # Needs to extend Bars?
         data['dollar_volume'] = (data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
         data['dollar_vol_rank'] = (data.groupby('date')['dollar_volume'].rank(ascending=False))
         data = data[data['dollar_vol_rank']<150].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
-        
+      
         return [data, df]
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
@@ -232,7 +238,7 @@ class GKV(): # Needs to extend Bars?
                                     'famafrench',
                                     start='2010')[0].drop('RF', axis=1)
         
-        #  FIx index
+        # Fix index
         factor_data.index = factor_data.index.to_timestamp()
         # Fix end of month and percentages
 
@@ -255,7 +261,7 @@ class GKV(): # Needs to extend Bars?
                                             window=min(24, x.shape[0]),
                                             min_nobs=len(x.columns)+1)
                 .fit(params_only=True)
-                #  .params
+                 .params # Do we need this? Not convinced
                 .drop('const', axis=1)))
 
 
@@ -269,7 +275,6 @@ class GKV(): # Needs to extend Bars?
         data = data.dropna()
         data.info()
         return data
-
 
     def visualize_stocks(self, data):
         """
@@ -342,7 +347,7 @@ class GKV(): # Needs to extend Bars?
 
         Returns:
             _type_: _description_
-        """        
+        """
         N = 3
         CLUSTER_NUMBER = N
 
@@ -367,13 +372,13 @@ class GKV(): # Needs to extend Bars?
                                                             frequency=252) # 252 days = 1 year of trading days
             cov = risk_models.sample_cov(prices=prices,
                                         frequency=252)
-            
+           
             ef = EfficientFrontier(expected_returns=returns,
                                 cov_matrix=cov,
                                 weight_bounds=(lower_bound, .1), # .1 because we want maximum weight of 10% our portfolio in a single stock
                                 solver='SCS')
-            weights = ef.max_sharpe()
-            
+            weights = ef.max_sharpe() # Needs to returned. We needs in the outer scope
+           
             return ef.clean_weights()
 
         # Download Fresh Daily Prices Data only for short listed stocks
@@ -389,7 +394,7 @@ class GKV(): # Needs to extend Bars?
         returns_dataframe = np.log(new_df['Adj Close']).diff()
 
         portfolio_df = pd.DataFrame()
-        
+
         # This part needs to be verified. I am not sure this returns the expected value 
         for start_date in fixed_dates.items():
         # for start_date in fixed_dates.keys():
@@ -404,9 +409,10 @@ class GKV(): # Needs to extend Bars?
                     weights = optimize_weights(prices=optimization_df, lower_bound=round(1/(len(optimization_df.columns)*2),3))
                     weights = pd.DataFrame(weights, index=pd.Series(0))
                     success = True
-                except:
-                    print(f'Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights')
-                if success==False:
+                except Exception as e:
+                    logging.error(f'Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights')
+                    logging.debug(e)
+                if success == False:
                     weights = pd.DataFrame([1/len(optimization_df.columns) for i in range(len(optimization_df.columns))],
                                         index=optimization_df.columns.tolist(),
                                         columns=pd.Series(0)).T
@@ -453,12 +459,13 @@ class GKV(): # Needs to extend Bars?
 
         plt.title('Unsupervised Learning Trading Strategy Returns Over Time')
         plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
-        plt.ylable('Return')
+        plt.ylabel('Return')
         plt.show()
     
 gvk_strategy = GKV()
 
-df = gvk_strategy.download_data_from_source()
+# df = gvk_strategy.download_data_from_source()
+df = gvk_strategy.load_sp500_data()
 df = gvk_strategy.calculate_german_klass_vol(df)
 df = gvk_strategy.calculate_rsi_indicator(df)
 df = gvk_strategy.calculate_bollinger_bands(df)
@@ -468,5 +475,5 @@ data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(
 
 gvk_strategy.visualize_stocks(data)
 
-portfolio_df = gvk_strategy.form_portfolio(data)
+portfolio_df = gvk_strategy.form_portfolio(df, data)
 gvk_strategy.visualize_portfolio_returns(portfolio_df)
