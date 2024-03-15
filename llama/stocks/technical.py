@@ -40,8 +40,8 @@ data_folder = '/home/borisb/projects/llama/data/test/'
 
 class GKV(): # Needs to extend Bars?
 
-    self.df = [] # TODO: Insert data here, ideally as a dataFrame
-   
+    # self.df = [] # TODO: Insert data here, ideally as a dataFrame
+
     """
     Downloads SP500 data for 1 year given an an end data.
     Also, saves the 
@@ -54,60 +54,117 @@ class GKV(): # Needs to extend Bars?
             file.write(response.text)
 
             sp500 = pd.read_html(response.text)[0]
-            
             # sp500 = response.text[0]
             # Normalize the data
             sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
             symbols_list = sp500['Symbol'].unique().tolist()
-            
+         
             # Exactly 1 year before start of the data
             start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
-            
+          
             df = yf.download(tickers=symbols_list,
                              start=start_date,
                              end=end_date)
+            
+            # TODO: Improve to which dir it goes + date in filename
             df.to_csv("sp500-yf-2.csv")
             return df
-    """
-    Load sp500 Data given an an already downloaded file
-    Returns a fully populated pandas Dataframe with all of the necessary data
-    """
+
     def load_sp500_data(self) -> pd.DataFrame:
+        """
+        Load sp500 Data given an an already downloaded file
+        Returns a fully populated pandas Dataframe with all of the necessary data
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+          
         sp500 = pd.read_html('sp500.html')[0]
         print(sp500)
         sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
         # symbols_list = sp500['Symbol'].unique().tolist()
         end_date = '2023-09-27'
 
+        # TODO: Improve to which dir it goes + date in filename
         df = pd.read_csv("sp500-yf-1.csv", index_col=0, encoding='utf-8-sig')
         return df
 
-    def calculate_german_klass_vol(self, df):
+    def calculate_german_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculates German Klass volatility technical indicator
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        print("Calculating German class vol")
+        print(df)
         df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         return df
 
-        # RSI indicator
-    def calculate_rsi_indicator(self, df):
+    def calculate_rsi_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Calculate RSI indicator 
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """ 
+
         df['rsi'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.rsi(close=x, length=20))
         return df
-    
-    # Bollinger Bands
-    def calculate_bollinger_bands(self, df):
+
+    def calculate_bollinger_bands(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculate bollinger bands 
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """        
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
         df['bb_high'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,2])
         return df
     
-    # MACD
     def calculate_macd(self, close):
+        """
+        Calculate MACD indicator
+
+        Args:
+            close (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+      
         macd = pandas_ta.macd(close=close, length=20).iloc[:,0]
         return macd.sub(macd.mean()).div(macd.std())
 
-    # ATR 
-    # Exactly what stock_data is this expecting??
-    # 
     def calculate_atr(self, ticker, stock_low, stock_high, stock_close):
-        logging.debug(f"attempting to calculate ATR for ${}")
+        """
+        Calculate the average true range (ATR) is a market volatility indicator.
+        It is typically derived from the 14-day simple moving average of a series of true range indicators.
+        The ATR was initially developed for use in commodities markets but has since been applied to all types of securities
+        
+        Exactly what stock_data is this expecting??
+
+        Args:
+            ticker (_type_): _description_
+            stock_low (_type_): _description_
+            stock_high (_type_): _description_
+            stock_close (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        
+        logging.debug(f"attempting to calculate ATR for ${ticker}")
         # atr = pandas_ta.atr(
         #     high=stock_data['high'],
         #     low=stock_data['low'],
@@ -124,12 +181,23 @@ class GKV(): # Needs to extend Bars?
         # can be applied by doing df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
         return normalized_atr
 
-    def execute_strategy_1(self):
-        ...
-        pass
-    
-    # Calculate 5-year rolling average of dollar volume for each stocks before filtering
-    def foo(self, df):
+    def calculate_five_year_rolling_average(self, df: pd.DataFrame):
+        """
+        Calculate 5-year rolling average of dollar volume for each stocks before filtering. The reason for calculating the moving average of
+        a stock is to help smooth out the price data by creating a constantly updated average price.
+
+        By calculating the moving average, the impacts of random, short-term fluctuations on the price of a stock
+        over a specified time frame are mitigated. Simple moving averages (SMAs) use a simple arithmetic average 
+        of prices over some timespan, while exponential moving averages (EMAs) place greater weight on more recent 
+        prices than older ones over the time period. 
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            _type_: _description_
+        """        
+
         last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
 
         data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
@@ -141,12 +209,25 @@ class GKV(): # Needs to extend Bars?
         
         return [data, df]
 
-    
-    # Download Fama-French Factors and Calculate Rolling Factor Betas.
-    # * We will introduce the Fama—French data to estimate the exposure of assets to common risk factors using linear regression.
-    # * The five Fama—French factors, namely market risk, size, value, operating profitability, and investment have been shown empirically to explainasset returns and are commonly used to assess the risk/return profile of portfolios. Hence, it is natural to include past factor exposures as financial features in models.
-    # * We can access the historical factor returns using the pandas-datareader and estimate historical exposures using the RollingOLS rolling linearregression. 
-    def download_fama_french_factors_and_calc_rolling_factors_betas(self):
+    def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
+        """
+        Download Fama-French Factors and Calculate Rolling Factor Betas.
+        * Use the Fama—French data to estimate 
+        the exposure of assets to common risk factors using linear regression
+        * The five Fama—French factors, namely market risk, size, value, operating profitability, and investment
+        have been shown empirically to explain asset returns and are commonly used to assess the risk/return profile of portfolios. 
+        Hence, it is natural to include past factor exposures as financial features in models.
+        * We can access the historical factor returns using the pandas-datareader
+        and estimate historical exposures using the RollingOLS rolling linearregression. 
+        Data object is expected input from the calculate_five_year_rolling_average
+
+        Args:
+            data (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
+
         factor_data = web.DataReader('F-F_Research_Data_5_Factors_2x3',
                                     'famafrench',
                                     start='2010')[0].drop('RF', axis=1)
@@ -189,15 +270,24 @@ class GKV(): # Needs to extend Bars?
         data.info()
         return data
 
-    # 6. For each month fit a K-Means Clustering Algorithm to group similar assets based on their features.
-    ### K-Means Clustering
-    # You may want to initialize predefined centroids for each cluster based on your research.
-    # For visualization purpose of this tutorial we will initially rely on the ‘k-means++’ initialization.
-    # Then we will pre-define our centroids for each cluster.
-    # We use this data and the plots to decide on which cluster of stocks to form our portfolio
-    # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back:
-    # the data Cluster 3 will be the cluster we will be using as they had good momentum in the previous month
+
     def visualize_stocks(self, data):
+        """
+        # 6. For each month fit a K-Means Clustering Algorithm to group similar assets based on their features.
+        ### K-Means Clustering
+        # You may want to initialize predefined centroids for each cluster based on your research.
+        # For visualization purpose of this tutorial we will initially rely on the ‘k-means++’ initialization.
+        # Then we will pre-define our centroids for each cluster.
+        # We use this data and the plots to decide on which cluster of stocks to form our portfolio
+        # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back:
+        # the data Cluster 3 will be the cluster we will be using as they had good momentum in the previous month
+
+        Args:
+            data (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
 
         data = data.drop('cluster', axis=1)
         cluster_numbers = 4
@@ -241,10 +331,18 @@ class GKV(): # Needs to extend Bars?
             # This does the visual in the end
             plot_clusters(g)
 
-    # 7. For each month select assets based on the cluster and form a portfolio based on Efficient Frontier max sharpe ratio optimization
-    # First we will filter only stocks corresponding to the cluster we choose based on our hypothesis.
-    # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back: N = 3
     def form_portfolio(self, data):
+        """
+        # 7. For each month select assets based on the cluster and form a portfolio based on Efficient Frontier max sharpe ratio optimization
+        # First we will filter only stocks corresponding to the cluster we choose based on our hypothesis.
+        # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back: N = 3
+
+        Args:
+            data (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
         N = 3
         CLUSTER_NUMBER = N
 
@@ -361,9 +459,9 @@ class GKV(): # Needs to extend Bars?
 gvk_strategy = GKV()
 
 df = gvk_strategy.download_data_from_source()
-df = calculate_german_klass_vol(df)
-df = calculate_rsi_indicator(df)
-df = calculate_bollinger_bands(df)
+df = gvk_strategy.calculate_german_klass_vol(df)
+df = gvk_strategy.calculate_rsi_indicator(df)
+df = gvk_strategy.calculate_bollinger_bands(df)
 df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
 
 data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas()
