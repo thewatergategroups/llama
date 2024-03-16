@@ -17,6 +17,10 @@ import logging
 from statsmodels.regression.rolling import RollingOLS
 from sklearn.cluster import KMeans
 import sys
+
+# warnings.filterwarnings('ignore')
+yf.pdr_override()  # Enable caching
+
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
 # Needed to resolve from _bz2 import BZ2Compressor, BZ2Decompressor
@@ -51,29 +55,35 @@ class GKV(): # Needs to extend Bars?
     Also, saves the 
     TODO: Break this up into 2/3 other functions for each of the parts
     """
-    def download_data_from_source(self, end_date = '2023-09-27'):
-        url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-        response = requests.get(url)
-        with open('sp500.html', 'w') as file:
-            file.write(response.text)
+    def download_data_from_source(self, end_date = '2023-09-29', download_filename="sp500-yf-2.csv"):
+        # url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+        # response = requests.get(url)
+        
+        # with open('sp500.html', 'w') as file:
+        #     file.write(response.text)
 
-            sp500 = pd.read_html(response.text)[0]
-            # sp500 = response.text[0]
-            # Normalize the data
-            sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
-            symbols_list = sp500['Symbol'].unique().tolist()
+        # sp500 = pd.read_html(response.text)[0]
+        sp500 = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
+        # sp500 = response.text[0]
+        # Normalize the data
+        sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
+        symbols_list = sp500['Symbol'].unique().tolist()
 
-            # Exactly 1 year before start of the data
-            start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
+        # Exactly 1 year before start of the data
+        start_date = pd.to_datetime(end_date)-pd.DateOffset(365*8)
 
-            df = yf.download(tickers=symbols_list,
-                             start=start_date,
-                             end=end_date)
+        df = yf.download(tickers=symbols_list,
+                            start=start_date,
+                            end=end_date).stack()
 
-            # TODO: Improve to which dir it goes + date in filename
-            df.to_csv("sp500-yf-2.csv")
-            logging.debug(df)
-            return df
+        df.index.names = ['date', 'ticker']
+        df.columns = df.columns.str.lower()
+
+        # TODO: Improve to which dir it goes + date in filename
+        df.to_csv(download_filename)
+        logging.debug(df)
+        
+        return df
 
     def load_sp500_data(self) -> pd.DataFrame:
         """
@@ -84,19 +94,15 @@ class GKV(): # Needs to extend Bars?
             pd.DataFrame: _description_
         """
         logging.info("Starting to load sp500 Data")
-        sp500 = pd.read_html('sp500.html')[0]
-        print(sp500)
-        sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
+        # sp500 = pd.read_html('sp500.html')[0]
+        # print(sp500)
+        # sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
         # symbols_list = sp500['Symbol'].unique().tolist()
-        end_date = '2023-09-27'
+        # end_date = '2023-09-27'
 
         # TODO: Improve to which dir it goes + date in filename
-        df = pd.read_csv("sp500-yf-1.csv", index_col=0, encoding='utf-8-sig')
-        df.columns = df.columns.str.lower()
-        df = df.stack()
-        df.index.names = ['date', 'ticker']
-        # print(df.columns.tolist())
-        
+        df = pd.read_csv("sp500-yf-3.csv", index_col=0, encoding='utf-8-sig')
+        logging.debug(df)
         return df
 
     def calculate_german_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -110,8 +116,8 @@ class GKV(): # Needs to extend Bars?
             pd.DataFrame: _description_
         """
         logging.info("Calculating German class vol")
-        df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         logging.debug(df)
+        df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         return df
 
     def calculate_rsi_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -438,7 +444,7 @@ class GKV(): # Needs to extend Bars?
         portfolio_df = portfolio_df.drop_duplicates()
         print(portfolio_df)
         return portfolio_df
-   
+
     # Also compares to existing sp500 returns
     def visualize_portfolio_returns(self, portfolio_df, dt):
         # 8. Visualize Portfolio returns and compare to SP500 returns.
@@ -469,20 +475,20 @@ class GKV(): # Needs to extend Bars?
         plt.show()
     
 gvk_strategy = GKV()
-
-# df = gvk_strategy.download_data_from_source()
 df = gvk_strategy.load_sp500_data()
-logging.info('PRINTED DF-------------------')
-logging.info(df)
-logging.info('PRINTED DF-------------------')
+# df = gvk_strategy.download_data_from_source()
+# df = gvk_strategy.load_sp500_data()
+# logging.info('PRINTED DF-------------------')
+# logging.info(df)
+# logging.info('PRINTED DF-------------------')
 df = gvk_strategy.calculate_german_klass_vol(df)
 df = gvk_strategy.calculate_rsi_indicator(df)
 df = gvk_strategy.calculate_bollinger_bands(df)
-df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
+# df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
 
-data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas()
+# data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas()
 
-gvk_strategy.visualize_stocks(data)
+# gvk_strategy.visualize_stocks(data)
 
-portfolio_df = gvk_strategy.form_portfolio(df, data)
-gvk_strategy.visualize_portfolio_returns(portfolio_df)
+# portfolio_df = gvk_strategy.form_portfolio(df, data)
+# gvk_strategy.visualize_portfolio_returns(portfolio_df)
