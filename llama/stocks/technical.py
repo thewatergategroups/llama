@@ -20,6 +20,16 @@ import sys
 
 # warnings.filterwarnings('ignore')
 yf.pdr_override()  # Enable caching
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+file_handler = logging.FileHandler('/home/borisb/projects/llama/gol/gvk.log')
+file_handler.setLevel(logging.DEBUG)
+
+logger.addHandler(file_handler)
+logger.addHandler(stdout_handler)
 
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
@@ -42,7 +52,7 @@ yf.pdr_override()  # Enable caching
 #     vwap: Mapped[float]
 #     volume: Mapped[int]
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+# logger.basicConfig(stream=sys.stdout, level=logger.DEBUG)
 
 data_folder = '/home/borisb/projects/llama/data/test/'
 
@@ -81,11 +91,11 @@ class GKV(): # Needs to extend Bars?
 
         # TODO: Improve to which dir it goes + date in filename
         df.to_csv(download_filename)
-        logging.debug(df)
+        logger.debug(df)
         
         return df
 
-    def load_sp500_data(self) -> pd.DataFrame:
+    def load_sp500_data(self, filename="sp500-yf-3.csv") -> pd.DataFrame:
         """
         Load sp500 Data given an an already downloaded file
         Returns a fully populated pandas Dataframe with all of the necessary data
@@ -93,16 +103,17 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """
-        logging.info("Starting to load sp500 Data")
+        logger.info("Starting to load sp500 Data")
         # sp500 = pd.read_html('sp500.html')[0]
-        # print(sp500)
+        # logger.info(sp500)
         # sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
         # symbols_list = sp500['Symbol'].unique().tolist()
         # end_date = '2023-09-27'
 
         # TODO: Improve to which dir it goes + date in filename
-        df = pd.read_csv("sp500-yf-3.csv",index_col=['date', 'ticker'], encoding='utf-8-sig')
-        logging.debug(df)
+        
+        df = pd.read_csv(filename, index_col=['date', 'ticker'], encoding='utf-8-sig')
+        logger.debug(df)
         return df
 
     def calculate_german_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -115,8 +126,8 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """
-        logging.info("Calculating German class vol")
-        logging.debug(df)
+        logger.info("Calculating German class vol")
+        logger.debug(df)
         df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         return df
 
@@ -129,9 +140,9 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """ 
-        logging.info("Calculating RSI indicator")
-        logging.debug(df)
-        logging.debug(df.index)
+        logger.info("Calculating RSI indicator")
+        logger.debug(df)
+        logger.debug(df.index)
         df['rsi'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.rsi(close=x, length=20))
         
         return df
@@ -146,12 +157,12 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """
-        logging.info("Calculating Bollinger bands")
+        logger.info("Calculating Bollinger bands")
 
         df['bb_low'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,0])
         df['bb_mid'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,1])
         df['bb_high'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:,2])
-        logging.debug(df)
+        logger.debug(df)
         return df
 
     def calculate_macd(self, close):
@@ -168,7 +179,7 @@ class GKV(): # Needs to extend Bars?
         macd = pandas_ta.macd(close=close, length=20).iloc[:,0]
         return macd.sub(macd.mean()).div(macd.std())
 
-    def calculate_atr(self, ticker, stock_low, stock_high, stock_close):
+    def calculate_atr(self, stock_data):
         """
         Calculate the average true range (ATR) is a market volatility indicator.
         It is typically derived from the 14-day simple moving average of a series of true range indicators.
@@ -185,19 +196,19 @@ class GKV(): # Needs to extend Bars?
         Returns:
             _type_: _description_
         """
-        logging.debug(f"attempting to calculate ATR for ${ticker}")
-        # atr = pandas_ta.atr(
-        #     high=stock_data['high'],
-        #     low=stock_data['low'],
-        #     close=stock_data['close'],
-        #     length=14
-        # )
+        # logger.debug(f"attempting to calculate ATR for")
         atr = pandas_ta.atr(
-            high=stock_high,
-            low=stock_low,
-            close=stock_close,
+            high=stock_data['high'],
+            low=stock_data['low'],
+            close=stock_data['close'],
             length=14
         )
+        # atr = pandas_ta.atr(
+        #     high=stock_high,
+        #     low=stock_low,
+        #     close=stock_close,
+        #     length=14
+        # )
         normalized_atr = atr.sub(atr.mean()).div(atr.std())
         # can be applied by doing 
         return normalized_atr
@@ -213,20 +224,40 @@ class GKV(): # Needs to extend Bars?
         Returns:
             _type_: _description_
         """
-        logging.info("Filtering and aggregating current stock data")
+        logger.info("Filtering and aggregating current stock data")
+        # logger.info(df.index)
+        # df.index = pd.to_datetime(df.index)
+        df.index = df.index.set_levels(pd.to_datetime(df.index.get_level_values('date')), level='date')
+        # logger.info(df.index.names)
+        # logger.info(df.index.names[0])
+        # logger.info(df.index[0])
+        # logger.info(df.index[1])
+        
+        # For the moment we don't care about the rest of the columns
+        # Features DataFrame
         last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume' 'volume' 'open',
                                                             'high' 'low' 'close']]
 
-        data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
-                        df.unstack()[last_cols].resample('M').last().stack('ticker')],
-                        axis=1)).dropna()
-
-        logging.debug("Current data is:")
-        logging.debug(data)
+        # data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
+        #                 df.unstack()[last_cols].resample('M').last().stack('ticker')],
+        #                 axis=1)).dropna()
+        df_first = df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume')
+        # logger.info("Finished calculation of df_first")
+        # logger.info(df_first)
+        df_second = df.unstack()[last_cols].resample('M').last().stack('ticker')
+        # logger.info("Finished calculation of df_second")
+        # logger.info(df_second)
         
+        data = pd.concat([df_first, df_second],
+                        axis=1)
+        
+        # data = data.dropna()
+        logger.debug("Current data is:")
+        # logger.debug(data)
+       
         return data
     
-    def calculate_five_year_rolling_average(self, df: pd.DataFrame):
+    def calculate_five_year_rolling_average(self, df: pd.DataFrame, data):
         """
         Calculate 5-year rolling average of dollar volume for each stocks before filtering. The reason for calculating the moving average of
         a stock is to help smooth out the price data by creating a constantly updated average price.
@@ -241,22 +272,23 @@ class GKV(): # Needs to extend Bars?
 
         Returns:
             _type_: _description_
-        """        
+        """
+        logger.info("Starting to calculate 5-year rolling average")
+        top_number_of_stocks = 150
 
-        # For the moment we don't care about the rest of the columns
-        df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
-        last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
+        # df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
+        # last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
 
-        data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
-                           df.unstack()[last_cols].resample('M').last().stack('ticker')],
-                          axis=1)).dropna()
+        # data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
+        #                    df.unstack()[last_cols].resample('M').last().stack('ticker')],
+        #                   axis=1)).dropna()
         data['dollar_volume'] = (data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
         data['dollar_vol_rank'] = (data.groupby('date')['dollar_volume'].rank(ascending=False))
-        data = data[data['dollar_vol_rank']<150].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
+        data = data[data['dollar_vol_rank'] < top_number_of_stocks].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
 
         return [data, df]
  
-    def calculate_returns(df):
+    def calculate_returns(self, df):
         """ Calculate Monthly Returns for different time horizons as features.
             To capture time series dynamics that reflect, for example, momentum patterns, 
             we compute historical returns using the method .pct_change(lag), that is, 
@@ -480,8 +512,8 @@ class GKV(): # Needs to extend Bars?
                     weights = pd.DataFrame(weights, index=pd.Series(0))
                     success = True
                 except Exception as e:
-                    logging.error(f'Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights')
-                    logging.debug(e)
+                    logger.error(f'Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights')
+                    logger.debug(e)
                 if success == False:
                     weights = pd.DataFrame([1/len(optimization_df.columns) for i in range(len(optimization_df.columns))],
                                         index=optimization_df.columns.tolist(),
@@ -497,10 +529,10 @@ class GKV(): # Needs to extend Bars?
                 temp_df = temp_df.groupby(level=0)['weighted_return'].sum().to_frame('Strategy Return')
                 portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
             except Exception as e:
-                print(e)
+                logger.error(e)
 
         portfolio_df = portfolio_df.drop_duplicates()
-        print(portfolio_df)
+        logger.info(portfolio_df)
         return portfolio_df
 
     # Also compares to existing sp500 returns
@@ -518,7 +550,8 @@ class GKV(): # Needs to extend Bars?
                                         left_index=True,
                                         right_index=True)
 
-        # print(portfolio_df)
+        logger.info("Sample portfolio is: ")
+        # logger.info(portfolio_df)
 
         plt.style.use('ggplot')
 
@@ -533,20 +566,26 @@ class GKV(): # Needs to extend Bars?
         plt.show()
     
 gvk_strategy = GKV()
-df = gvk_strategy.load_sp500_data()
+df = gvk_strategy.load_sp500_data("temporary-bb-16-03-v3.csv")
 
-df = gvk_strategy.calculate_german_klass_vol(df)
-df = gvk_strategy.calculate_rsi_indicator(df)
-df = gvk_strategy.calculate_bollinger_bands(df)
-df['atr'] = df.groupby(level=1, group_keys=False).apply(gvk_strategy.compute_atr)
-df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(gvk_strategy.calculate_macd)
-df['dollar_volume'] =  (df['adj close']*df['volume'])/1e6
-# Think we need to re-calculate the Garman class Volatility??
-data, df = gvk_strategy.calculate_five_year_rolling_average(df)
-logging.debug('---------------------------------')
-logging.debug(data)
-logging.debug(df)
-logging.debug('---------------------------------')
+# df = gvk_strategy.calculate_german_klass_vol(df)
+# df = gvk_strategy.calculate_rsi_indicator(df)
+# df = gvk_strategy.calculate_bollinger_bands(df)
+# df.to_csv("temporary-bb-16-03-v2.csv")
+# logging.debug("------------------------SAVING DF FOR TEMPORARY USE------------------------")
+# logger.info(df)
+# df['atr'] = df.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_atr)
+# df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(gvk_strategy.calculate_macd)
+# df['dollar_volume'] =  (df['adj close']*df['volume'])/1e6
+# df.to_csv("temporary-bb-16-03-v3.csv")
+logger.info(df)
+
+data = gvk_strategy.filter_top_most_liquid_stocks(df)
+data, df = gvk_strategy.calculate_five_year_rolling_average(df, data)
+logger.debug('---------------------------------')
+# logger.debug(data)
+# logger.debug(df)
+logger.debug('---------------------------------')
 data = data.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_returns).dropna()
 
 data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(data)
