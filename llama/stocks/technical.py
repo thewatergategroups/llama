@@ -201,6 +201,30 @@ class GKV(): # Needs to extend Bars?
         normalized_atr = atr.sub(atr.mean()).div(atr.std())
         # can be applied by doing 
         return normalized_atr
+
+    def filter_top_most_liquid_stocks(self, df: pd.DataFrame):
+        """ Aggregate to monthly level and filter top 150 most liquid stocks for each month.
+            * To reduce training time and experiment with features and strategies, 
+            we convert the business-daily data to month-end frequency
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        logging.info("Filtering and aggregating current stock data")
+        last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume' 'volume' 'open',
+                                                            'high' 'low' 'close']]
+
+        data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
+                        df.unstack()[last_cols].resample('M').last().stack('ticker')],
+                        axis=1)).dropna()
+
+        logging.debug("Current data is:")
+        logging.debug(data)
+        
+        return data
     
     def calculate_five_year_rolling_average(self, df: pd.DataFrame):
         """
