@@ -101,7 +101,7 @@ class GKV(): # Needs to extend Bars?
         # end_date = '2023-09-27'
 
         # TODO: Improve to which dir it goes + date in filename
-        df = pd.read_csv("sp500-yf-3.csv", index_col=0, encoding='utf-8-sig')
+        df = pd.read_csv("sp500-yf-3.csv",index_col=['date', 'ticker'], encoding='utf-8-sig')
         logging.debug(df)
         return df
 
@@ -129,8 +129,11 @@ class GKV(): # Needs to extend Bars?
         Returns:
             pd.DataFrame: _description_
         """ 
-
+        logging.info("Calculating RSI indicator")
+        logging.debug(df)
+        logging.debug(df.index)
         df['rsi'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.rsi(close=x, length=20))
+        
         return df
 
     def calculate_bollinger_bands(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -484,7 +487,7 @@ df = gvk_strategy.load_sp500_data()
 df = gvk_strategy.calculate_german_klass_vol(df)
 df = gvk_strategy.calculate_rsi_indicator(df)
 df = gvk_strategy.calculate_bollinger_bands(df)
-# df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
+df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
 
 # data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas()
 
