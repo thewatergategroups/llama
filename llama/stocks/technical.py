@@ -199,9 +199,9 @@ class GKV(): # Needs to extend Bars?
             length=14
         )
         normalized_atr = atr.sub(atr.mean()).div(atr.std())
-        # can be applied by doing df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
+        # can be applied by doing 
         return normalized_atr
-
+    
     def calculate_five_year_rolling_average(self, df: pd.DataFrame):
         """
         Calculate 5-year rolling average of dollar volume for each stocks before filtering. The reason for calculating the moving average of
@@ -219,6 +219,8 @@ class GKV(): # Needs to extend Bars?
             _type_: _description_
         """        
 
+        # For the moment we don't care about the rest of the columns
+        df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
         last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
 
         data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
@@ -229,6 +231,31 @@ class GKV(): # Needs to extend Bars?
         data = data[data['dollar_vol_rank']<150].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
 
         return [data, df]
+ 
+    def calculate_returns(df):
+        """ Calculate Monthly Returns for different time horizons as features.
+            To capture time series dynamics that reflect, for example, momentum patterns, 
+            we compute historical returns using the method .pct_change(lag), that is, 
+            returns over various monthly periods as identified by lags.
+        Args:
+            df (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        outlier_cutoff = 0.005
+        lags = [1, 2, 6, 9, 12]
+        
+        for lag in lags:
+            df[f'returnm_{lag}m'] = (df['adj close']
+                                    .pct_change(lag) # calculate return for a given lag  
+                                    .pipe(lambda x: x.clip(lower=x.quantile(outlier_cutoff),
+                                                            upper=x.quantile(1-outlier_cutoff)))
+                                    .add(1)
+                                    .pow(1/lag)
+                                    .sub(1))
+        return df
+    
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
         """
@@ -241,6 +268,8 @@ class GKV(): # Needs to extend Bars?
         * We can access the historical factor returns using the pandas-datareader
         and estimate historical exposures using the RollingOLS rolling linearregression. 
         Data object is expected input from the calculate_five_year_rolling_average
+        
+        TODO: Exactly what data is this expecting? Possible to pass in a clear-er way?
 
         Args:
             data (_type_): _description_
@@ -269,7 +298,9 @@ class GKV(): # Needs to extend Bars?
         valid_stocks = observations[observations >= 10] 
 
         factor_data = factor_data[factor_data.index.get_level_values('ticker').isin(valid_stocks.index)]
+        
         # Calculate Rolling Factor Betas.
+        # TODO: This needs to be abstracted in a sensible way in a separate function
         betas = (factor_data.groupby(level=1, group_keys=False)
                 .apply(lambda x: RollingOLS(endog=x['return_1m'],
                                             exog=sm.add_constant(x.drop(['return_1m'], axis=1)),
@@ -479,19 +510,24 @@ class GKV(): # Needs to extend Bars?
     
 gvk_strategy = GKV()
 df = gvk_strategy.load_sp500_data()
-# df = gvk_strategy.download_data_from_source()
-# df = gvk_strategy.load_sp500_data()
-# logging.info('PRINTED DF-------------------')
-# logging.info(df)
-# logging.info('PRINTED DF-------------------')
+
 df = gvk_strategy.calculate_german_klass_vol(df)
 df = gvk_strategy.calculate_rsi_indicator(df)
 df = gvk_strategy.calculate_bollinger_bands(df)
-df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(compute_macd)
+df['atr'] = df.groupby(level=1, group_keys=False).apply(gvk_strategy.compute_atr)
+df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(gvk_strategy.calculate_macd)
+df['dollar_volume'] =  (df['adj close']*df['volume'])/1e6
+# Think we need to re-calculate the Garman class Volatility??
+data, df = gvk_strategy.calculate_five_year_rolling_average(df)
+logging.debug('---------------------------------')
+logging.debug(data)
+logging.debug(df)
+logging.debug('---------------------------------')
+data = data.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_returns).dropna()
 
-# data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas()
+data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(data)
 
-# gvk_strategy.visualize_stocks(data)
+gvk_strategy.visualize_stocks(data)
 
 # portfolio_df = gvk_strategy.form_portfolio(df, data)
 # gvk_strategy.visualize_portfolio_returns(portfolio_df)
