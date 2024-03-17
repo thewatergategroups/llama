@@ -1,5 +1,4 @@
 import sys
-import warnings
 import logging
 import yfinance as yf
 import matplotlib.pyplot as plt
@@ -29,13 +28,6 @@ logger.addHandler(stdout_handler)
 data_dir = '/home/borisb/projects/llama/'
 
 class SentimentStrategy():
-    """
-    # Twitter Sentiment Investing Strategy
-
-    ## 1. Load Twitter Sentiment Data
-    # Load the twitter sentiment dataset, set the index, calculate engagement ratio, 
-    # and filter out stocks with no significant twitter activity.
-    """
     def load_data(self, data_dir):
         """
         Load data from CSV to DataFrame
@@ -50,21 +42,50 @@ class SentimentStrategy():
 
         return df
 
-    def normalize_twitter_data(self, df: pd.DataFrame):
+    def download_data(self, ticker_list, start_date: str, end_date: str) -> pd.DataFrame:
+        """
+        Uses Yahoo Finance to fetch a list of stocks and loads it to a DataFrame
+
+        Args:
+            ticker_list (_type_): List of stock
+            start_date (str): Start date to list stocks
+            end_date (str): End date to list stocks
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        logger.info("Downloading data from Yahoo finance")
+        df = yf.download(tickers=ticker_list,
+                     start=start_date,
+                     end=end_date)
+        
+        return df
+
+    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        # Need to kind of normalize this so twitter likes + comments are included
+        """
         logger.info("Normalizing data for twitter based usage")
  
         df['date'] = pd.to_datetime(df['date'])
         df = df.set_index(['date', 'symbol'])
 
-        # Need to kind of normalize this so twitter likes + comments are included
         df['engagement_ratio'] = df['twitterComments']/df['twitterLikes']
         df = df[(df['twitterLikes']>20)&(df['twitterComments']>10)]
 
         logger.debug("Done with normalizations")
-
         return df
 
     def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Aggregate monthly twitter data
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """
         logger.info("Starting to aggregate monthly data")
         aggregated_df = (df.reset_index('symbol').groupby([pd.Grouper(freq='M'), 'symbol'])
                  [['engagement_ratio']].mean())
@@ -99,8 +120,10 @@ class SentimentStrategy():
         return filtered_df
     
     def select_stocks_beginning_of_month(self, df: pd.DataFrame):
-        # TODO: Hard type return
-        # Create a dictionary containing start of month and corresponded selected stocks.
+        """
+        TODO: Hard type return
+        Create a dictionary containing start of month and corresponded selected stocks.
+        """
         logger.info("Filtering and selecting stocks for each month")
         dates = df.index.get_level_values('date').unique().tolist()
 
@@ -112,6 +135,9 @@ class SentimentStrategy():
         return top_number_of_stocks_with_dates
 
     def calculate_portfolio(self, returns_df: pd.DataFrame):
+        """
+        Calculate portfolio returns
+        """
         logger.info("Starting to calculate portfolio")
         portfolio_df = pd.DataFrame()
 
@@ -125,14 +151,14 @@ class SentimentStrategy():
         logger.debug(portfolio_df)
         return portfolio_df
 
-    def download_data(self, ticker_list, start_date: str, end_date: str) -> pd.DataFrame:
-        qqq_df = yf.download(tickers=ticker_list,
-                     start=start_date,
-                     end=end_date)
-        
-        return qqq_df
 
     def plot_df(self, df: pd.DataFrame):
+        """
+        Plots a DataFrame
+
+        Args:
+            df (pd.DataFrame): _description_
+        """
         logger.info("Plotting")
         
         df.plot(figsize=(16, 6))
@@ -146,7 +172,11 @@ class SentimentStrategy():
     
     def execute_twitter_sent_strategy(self):
         """
-        Executes a sentiment analysis strategy 
+        Twitter Sentiment Investing Strategy
+
+        # 1. Load Twitter Sentiment Data
+        # Load the twitter sentiment dataset, set the index, calculate engagement ratio, 
+        # and filter out stocks with no significant twitter activity.
         """
         logger.info("Starting twitter execute strategy")
         START_DATE = '2021-01-01'
@@ -183,35 +213,3 @@ class SentimentStrategy():
 
 sent_strat = SentimentStrategy()
 sent_strat.execute_twitter_sent_strategy()
-
-# sentiment_df = sent_strat.load_data(data_dir)
-# sentiment_df = sent_strat.normalize_twitter_data(sentiment_df)
-# # logger.debug(sentiment_df)
-# aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
-# # logger.debug(aggregated_df)
-# filtered_df = sent_strat.select_top_stocks_monthly(aggregated_df)
-# logger.debug(filtered_df)
-# dates_to_top_stocks = sent_strat.select_stocks_beginning_of_month(filtered_df)
-
-# # Download fresh stock prices for only selected/shortlisted stocks
-# stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
-# prices_df = yf.download(tickers=stocks_list,
-#                         start='2021-01-01',
-#                         end='2023-03-01')
-
-# # Calculate Portfolio Returns with monthly rebalancing
-# returns_df = np.log(prices_df['Adj Close']).diff()
-# portfolio_df = sent_strat.calculate_portfolio(returns_df)
-# # logger.debug(portfolio_df)
-
-# # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
-# qqq_df = sent_strat.download_data('QQQ')
-# qqq_ref = np.log(qqq_df['Adj Close']).diff().to_frame('nasdaq_return')
-
-# portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
-
-# # logger.debug(portfolio_df)
-
-# portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
-
-# sent_strat.plot_df(portfolios_cumulative_return)
