@@ -84,6 +84,20 @@ class SentimentStrategy():
         logger.debug("Done with choosing the top 20 stocks")
         
         return filtered_df
+    
+    def select_stocks_beginning_of_month(self, df: pd.DataFrame):
+        # TODO: Hard type return
+        # Create a dictionary containing start of month and corresponded selected stocks.
+        logger.info("Filtering and selecting stocks for each month")
+        dates = df.index.get_level_values('date').unique().tolist()
+
+        top_number_of_stocks_with_dates = {}
+        for d in dates:
+            top_number_of_stocks_with_dates[d.strftime('%Y-%m-%d')] = df.xs(d, level=0).index.tolist()
+
+        logger.debug(top_number_of_stocks_with_dates)
+        return top_number_of_stocks_with_dates
+
 
 sent_strat = SentimentStrategy()
 
@@ -94,3 +108,7 @@ aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
 # logger.debug(aggregated_df)
 filtered_df = sent_strat.select_top_stocks_monthly(aggregated_df)
 logger.debug(filtered_df)
+dates_to_top_stocks = sent_strat.select_stocks_beginning_of_month(filtered_df)
+
+# Download fresh stock prices for only selected/shortlisted stocks
+stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
