@@ -94,7 +94,7 @@ class SentimentStrategy():
                  [['engagement_ratio']].mean())
 
         aggregated_df['rank'] = (aggregated_df.groupby(level=0)['engagement_ratio' ].transform(lambda x: x.rank(ascending=False)))
-    
+
         logger.debug("Done with all aggregations")
         return aggregated_df
 
@@ -110,7 +110,7 @@ class SentimentStrategy():
             pd.DataFrame: Creates a new DataFrame
         """
         logger.info("Starting to select top stocks for each month")
-        
+
         filtered_df = df[df['rank' ] <= max_rank].copy()
         filtered_df = filtered_df.reset_index(level=1)
 
@@ -119,9 +119,8 @@ class SentimentStrategy():
         filtered_df = filtered_df.reset_index().set_index(['date', 'symbol'])
         # logger.debug(filtered_df.head(20))
         logger.debug("Done with choosing the top 20 stocks")
-        
         return filtered_df
-    
+
     def select_stocks_beginning_of_month(self, df: pd.DataFrame):
         """
         TODO: Hard type return
@@ -149,11 +148,10 @@ class SentimentStrategy():
             cols = dates_to_top_stocks[start_date]
             temp_df = returns_df[start_date:end_date][cols].mean(axis=1).to_frame('portfolio_return')
             portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
-  
+
         logger.debug("Done with portfolio calculation")
         logger.debug(portfolio_df)
         return portfolio_df
-
 
     def plot_df(self, df: pd.DataFrame):
         """
@@ -164,7 +162,7 @@ class SentimentStrategy():
         """
         logger.info("Plotting")
         plt.style.use('ggplot')
-        
+
         df.plot(figsize=(16, 6))
 
         plt.title('Twitter Engagement Ratio Strategy Return Over Time')
@@ -174,11 +172,10 @@ class SentimentStrategy():
 
         # plt.show()
         plt.savefig("returns.png")
-    
+
     def execute_twitter_sent_strategy(self):
         """
         Twitter Sentiment Investing Strategy
-
         # 1. Load Twitter Sentiment Data
         # Load the twitter sentiment dataset, set the index, calculate engagement ratio, 
         # and filter out stocks with no significant twitter activity.
