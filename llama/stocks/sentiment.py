@@ -5,6 +5,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
+import numpy as np
 
 warnings.filterwarnings('ignore')
 yf.pdr_override()  # Enable caching
@@ -98,6 +99,19 @@ class SentimentStrategy():
         logger.debug(top_number_of_stocks_with_dates)
         return top_number_of_stocks_with_dates
 
+    def calculate_portfolio(self, returns_df: pd.DataFrame):
+        logger.info("Starting to calculate portfolio")
+        portfolio_df = pd.DataFrame()
+
+        for start_date in dates_to_top_stocks.keys():
+            end_date = (pd.to_datetime(start_date) + pd.offsets.MonthEnd()).strftime('%Y-%m-%d')
+            cols = dates_to_top_stocks[start_date]
+            temp_df = returns_df[start_date:end_date][cols].mean(axis=1).to_frame('portfolio_return')
+            portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
+  
+        logger.debug("Done with portfolio calculation")
+        logger.debug(portfolio_df)
+        return portfolio_df
 
 sent_strat = SentimentStrategy()
 
@@ -112,3 +126,11 @@ dates_to_top_stocks = sent_strat.select_stocks_beginning_of_month(filtered_df)
 
 # Download fresh stock prices for only selected/shortlisted stocks
 stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
+prices_df = yf.download(tickers=stocks_list,
+                        start='2021-01-01',
+                        end='2023-03-01')
+
+# Calculate Portfolio Returns with monthly rebalancing
+# returns_df = np.log(prices_df['Adj Close']).diff()
+# portfolio_df = sent_strat.calculate_portfolio(returns_df)
+
