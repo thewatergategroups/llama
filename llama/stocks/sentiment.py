@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.ticker as mtick
 
-# warnings.filterwarnings('ignore')
 yf.pdr_override()  # Enable caching
 
 logger = logging.getLogger()
@@ -25,9 +24,10 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(stdout_handler)
 
-data_dir = '/home/borisb/projects/llama/'
-
 class SentimentStrategy():
+    def __init__(self):
+        self.data_dir_twitter = '/home/borisb/projects/llama/'
+        
     def load_data(self, data_dir):
         """
         Load data from CSV to DataFrame
@@ -134,7 +134,7 @@ class SentimentStrategy():
         logger.debug(top_number_of_stocks_with_dates)
         return top_number_of_stocks_with_dates
 
-    def calculate_portfolio(self, returns_df: pd.DataFrame):
+    def calculate_portfolio(self, returns_df: pd.DataFrame, dates_to_top_stocks):
         """
         Calculate portfolio returns
         """
@@ -160,6 +160,7 @@ class SentimentStrategy():
             df (pd.DataFrame): _description_
         """
         logger.info("Plotting")
+        plt.style.use('ggplot')
         
         df.plot(figsize=(16, 6))
 
@@ -168,7 +169,8 @@ class SentimentStrategy():
 
         plt.ylabel('Return')
 
-        plt.show()
+        # plt.show()
+        plt.savefig("returns.png")
     
     def execute_twitter_sent_strategy(self):
         """
@@ -182,7 +184,7 @@ class SentimentStrategy():
         START_DATE = '2021-01-01'
         END_DATE = '2023-03-01'
 
-        sentiment_df = self.load_data(data_dir)
+        sentiment_df = self.load_data(self.data_dir_twitter)
         sentiment_df = self.normalize_twitter_data(sentiment_df)
         # logger.debug(sentiment_df)
         aggregated_df = self.aggregate_monthly_twitter_data(sentiment_df)
@@ -196,7 +198,7 @@ class SentimentStrategy():
         prices_df = self.download_data(stocks_list, START_DATE, END_DATE)
         # Calculate Portfolio Returns with monthly rebalancing
         returns_df = np.log(prices_df['Adj Close']).diff()
-        portfolio_df = self.calculate_portfolio(returns_df)
+        portfolio_df = self.calculate_portfolio(returns_df, dates_to_top_stocks)
         # logger.debug(portfolio_df)
 
         # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
