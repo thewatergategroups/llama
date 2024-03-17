@@ -113,6 +113,13 @@ class SentimentStrategy():
         logger.debug(portfolio_df)
         return portfolio_df
 
+    def download_data(self, ticker_list, start_date = '2021-01-01', end_date = '2023-03-01') -> pd.DataFrame:
+        qqq_df = yf.download(tickers=ticker_list,
+                     start=start_date,
+                     end=end_date)
+        
+        return qqq_df
+        
 sent_strat = SentimentStrategy()
 
 sentiment_df = sent_strat.load_data(data_dir)
@@ -133,4 +140,7 @@ prices_df = yf.download(tickers=stocks_list,
 # Calculate Portfolio Returns with monthly rebalancing
 returns_df = np.log(prices_df['Adj Close']).diff()
 portfolio_df = sent_strat.calculate_portfolio(returns_df)
-logger.debug(portfolio_df)
+# logger.debug(portfolio_df)
+
+# Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
+qqq_df = sent_strat.download_data('QQQ')
