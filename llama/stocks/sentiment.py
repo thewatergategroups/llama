@@ -131,6 +131,6 @@ prices_df = yf.download(tickers=stocks_list,
                         end='2023-03-01')
 
 # Calculate Portfolio Returns with monthly rebalancing
-# returns_df = np.log(prices_df['Adj Close']).diff()
-# portfolio_df = sent_strat.calculate_portfolio(returns_df)
-
+returns_df = np.log(prices_df['Adj Close']).diff()
+portfolio_df = sent_strat.calculate_portfolio(returns_df)
+logger.debug(portfolio_df)
