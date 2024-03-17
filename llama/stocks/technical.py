@@ -17,16 +17,21 @@ import logging
 from statsmodels.regression.rolling import RollingOLS
 from sklearn.cluster import KMeans
 import sys
+import warnings
 
-# warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore')
 yf.pdr_override()  # Enable caching
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+
 stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setFormatter(formatter)
 stdout_handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
 file_handler = logging.FileHandler('/home/borisb/projects/llama/gol/gvk.log')
 file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
 logger.addHandler(stdout_handler)
@@ -112,7 +117,7 @@ class GKV(): # Needs to extend Bars?
 
         # TODO: Improve to which dir it goes + date in filename
         
-        df = pd.read_csv(filename, index_col=['date', 'ticker'], encoding='utf-8-sig')
+        df = pd.read_csv(filename, index_col=['date', 'ticker'], encoding='utf-8-sig', parse_dates=True).dropna().drop_duplicates().set_flags(allows_duplicate_labels=True)
         logger.debug(df)
         return df
 
@@ -225,14 +230,6 @@ class GKV(): # Needs to extend Bars?
             _type_: _description_
         """
         logger.info("Filtering and aggregating current stock data")
-        # logger.info(df.index)
-        # df.index = pd.to_datetime(df.index)
-        df.index = df.index.set_levels(pd.to_datetime(df.index.get_level_values('date')), level='date')
-        # logger.info(df.index.names)
-        # logger.info(df.index.names[0])
-        # logger.info(df.index[0])
-        # logger.info(df.index[1])
-        
         # For the moment we don't care about the rest of the columns
         # Features DataFrame
         last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume' 'volume' 'open',
@@ -248,10 +245,9 @@ class GKV(): # Needs to extend Bars?
         # logger.info("Finished calculation of df_second")
         # logger.info(df_second)
         
-        data = pd.concat([df_first, df_second],
-                        axis=1)
+        data = pd.concat([df_first, df_second], axis=1).dropna().drop_duplicates().set_flags(allows_duplicate_labels=True)
         
-        # data = data.dropna()
+        data = data.dropna()
         logger.debug("Current data is:")
         # logger.debug(data)
        
@@ -276,15 +272,14 @@ class GKV(): # Needs to extend Bars?
         logger.info("Starting to calculate 5-year rolling average")
         top_number_of_stocks = 150
 
-        # df['garman_klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2-(2*np.log(2)-1)*((np.log(df['adj close'])-np.log(df['open']))**2)
-        # last_cols = [c for c in df.columns.unique(0) if c not in ['dollar_volume', 'volume', 'open', 'high', 'low','close']]
-
-        # data = (pd.concat([df.unstack('ticker')['dollar_volume'].resample('M').mean().stack('ticker').to_frame('dollar_volume'),
-        #                    df.unstack()[last_cols].resample('M').last().stack('ticker')],
-        #                   axis=1)).dropna()
-        data['dollar_volume'] = (data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
+        logger.info("showing data before dollar volume")
+        logger.info(data)
+        logger.debug(data.loc[: 'dollar_volume'])
+        logger.debug(data.loc[: 'dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12))
+        logger.debug(data.loc['dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean())
+        data['dollar_volume'] = (data.loc['dollar_volume'].unstack('ticker').rolling(5*12, min_periods=12).mean().stack())
         data['dollar_vol_rank'] = (data.groupby('date')['dollar_volume'].rank(ascending=False))
-        data = data[data['dollar_vol_rank'] < top_number_of_stocks].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
+        data = data[data['dollar_vol_rank']<top_number_of_stocks].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
 
         return [data, df]
  
@@ -581,12 +576,18 @@ df = gvk_strategy.load_sp500_data("temporary-bb-16-03-v3.csv")
 logger.info(df)
 
 data = gvk_strategy.filter_top_most_liquid_stocks(df)
+logger.debug('---------------------------------')
+logger.debug(data)
+logger.debug(df)
+logger.debug('---------------------------------')
 data, df = gvk_strategy.calculate_five_year_rolling_average(df, data)
-logger.debug('---------------------------------')
-# logger.debug(data)
-# logger.debug(df)
-logger.debug('---------------------------------')
+logger.debug("calculate_five_year_rolling_average:")
+logger.debug(data)
+logger.debug(df)
+
 data = data.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_returns).dropna()
+logger.debug("After regroup by")
+logger.debug(data)
 
 data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(data)
 
