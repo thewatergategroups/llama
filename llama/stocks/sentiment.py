@@ -27,7 +27,7 @@ logger.addHandler(stdout_handler)
 class SentimentStrategy():
     def __init__(self):
         self.data_dir_twitter = '/home/borisb/projects/llama/'
-        
+
     def load_data(self, data_dir):
         """
         Load data from CSV to DataFrame
@@ -58,7 +58,7 @@ class SentimentStrategy():
         df = yf.download(tickers=ticker_list,
                      start=start_date,
                      end=end_date)
-        
+
         return df
 
     def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -66,12 +66,15 @@ class SentimentStrategy():
         # Need to kind of normalize this so twitter likes + comments are included
         """
         logger.info("Normalizing data for twitter based usage")
- 
+
         df['date'] = pd.to_datetime(df['date'])
         df = df.set_index(['date', 'symbol'])
 
-        df['engagement_ratio'] = df['twitterComments']/df['twitterLikes']
-        df = df[(df['twitterLikes']>20)&(df['twitterComments']>10)]
+        df['engagement_ratio'] = df['twitterComments'] / df['twitterLikes']
+        
+        min_likes = 20
+        min_comments = 10
+        df = df[(df['twitterLikes'] > min_likes) & (df['twitterComments'] > min_comments)]
 
         logger.debug("Done with normalizations")
         return df
