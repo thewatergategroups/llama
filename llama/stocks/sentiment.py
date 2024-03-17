@@ -61,6 +61,30 @@ class SentimentStrategy():
         logger.debug("Done with all aggregations")
         return aggregated_df
 
+    def select_top_stocks_monthly(self, df: pd.DataFrame, max_rank = 5) -> pd.DataFrame:
+        """
+        Select the top N(5) stocks by rank for each month and fix the date to start at beginning of next month.
+
+        Args:
+            df (pd.DataFrame): Dataframe to work on
+            max_rank (int, optional): Top number of stocks to filter. Defaults to 5.
+
+        Returns:
+            pd.DataFrame: Creates a new DataFrame
+        """
+        logger.info("Starting to select top stocks for each month")
+        
+        filtered_df = df[df['rank' ] <= max_rank].copy()
+        filtered_df = filtered_df.reset_index(level=1)
+
+        # Set the beginning of the next month (!!)
+        filtered_df.index = filtered_df.index + pd.DateOffset(1)
+        filtered_df = filtered_df.reset_index().set_index(['date', 'symbol'])
+        # logger.debug(filtered_df.head(20))
+        logger.debug("Done with choosing the top 20 stocks")
+        
+        return filtered_df
+
 sent_strat = SentimentStrategy()
 
 sentiment_df = sent_strat.load_data(data_dir)
@@ -68,3 +92,5 @@ sentiment_df = sent_strat.normalize_twitter_data(sentiment_df)
 # logger.debug(sentiment_df)
 aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
 # logger.debug(aggregated_df)
+filtered_df = sent_strat.select_top_stocks_monthly(aggregated_df)
+logger.debug(filtered_df)
