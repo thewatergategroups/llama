@@ -125,7 +125,7 @@ class SentimentStrategy():
         logger.debug(portfolio_df)
         return portfolio_df
 
-    def download_data(self, ticker_list, start_date = '2021-01-01', end_date = '2023-03-01') -> pd.DataFrame:
+    def download_data(self, ticker_list, start_date: str, end_date: str) -> pd.DataFrame:
         qqq_df = yf.download(tickers=ticker_list,
                      start=start_date,
                      end=end_date)
@@ -143,37 +143,75 @@ class SentimentStrategy():
         plt.ylabel('Return')
 
         plt.show()
-        
+    
+    def execute_twitter_sent_strategy(self):
+        """
+        Executes a sentiment analysis strategy 
+        """
+        logger.info("Starting twitter execute strategy")
+        START_DATE = '2021-01-01'
+        END_DATE = '2023-03-01'
+
+        sentiment_df = self.load_data(data_dir)
+        sentiment_df = self.normalize_twitter_data(sentiment_df)
+        # logger.debug(sentiment_df)
+        aggregated_df = self.aggregate_monthly_twitter_data(sentiment_df)
+        # logger.debug(aggregated_df)
+        filtered_df = self.select_top_stocks_monthly(aggregated_df)
+        # logger.debug(filtered_df)
+        dates_to_top_stocks = self.select_stocks_beginning_of_month(filtered_df)
+
+        # Download fresh stock prices for only selected/shortlisted stocks
+        stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
+        prices_df = self.download_data(stocks_list, START_DATE, END_DATE)
+        # Calculate Portfolio Returns with monthly rebalancing
+        returns_df = np.log(prices_df['Adj Close']).diff()
+        portfolio_df = self.calculate_portfolio(returns_df)
+        # logger.debug(portfolio_df)
+
+        # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
+        qqq_df = self.download_data('QQQ', START_DATE, END_DATE)
+        qqq_ref = np.log(qqq_df['Adj Close']).diff().to_frame('nasdaq_return')
+
+        portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
+
+        # logger.debug(portfolio_df)
+
+        portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
+
+        self.plot_df(portfolios_cumulative_return)
+
 sent_strat = SentimentStrategy()
+sent_strat.execute_twitter_sent_strategy()
 
-sentiment_df = sent_strat.load_data(data_dir)
-sentiment_df = sent_strat.normalize_twitter_data(sentiment_df)
-# logger.debug(sentiment_df)
-aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
-# logger.debug(aggregated_df)
-filtered_df = sent_strat.select_top_stocks_monthly(aggregated_df)
-logger.debug(filtered_df)
-dates_to_top_stocks = sent_strat.select_stocks_beginning_of_month(filtered_df)
+# sentiment_df = sent_strat.load_data(data_dir)
+# sentiment_df = sent_strat.normalize_twitter_data(sentiment_df)
+# # logger.debug(sentiment_df)
+# aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
+# # logger.debug(aggregated_df)
+# filtered_df = sent_strat.select_top_stocks_monthly(aggregated_df)
+# logger.debug(filtered_df)
+# dates_to_top_stocks = sent_strat.select_stocks_beginning_of_month(filtered_df)
 
-# Download fresh stock prices for only selected/shortlisted stocks
-stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
-prices_df = yf.download(tickers=stocks_list,
-                        start='2021-01-01',
-                        end='2023-03-01')
+# # Download fresh stock prices for only selected/shortlisted stocks
+# stocks_list = sentiment_df.index.get_level_values('symbol').unique().tolist()
+# prices_df = yf.download(tickers=stocks_list,
+#                         start='2021-01-01',
+#                         end='2023-03-01')
 
-# Calculate Portfolio Returns with monthly rebalancing
-returns_df = np.log(prices_df['Adj Close']).diff()
-portfolio_df = sent_strat.calculate_portfolio(returns_df)
-# logger.debug(portfolio_df)
+# # Calculate Portfolio Returns with monthly rebalancing
+# returns_df = np.log(prices_df['Adj Close']).diff()
+# portfolio_df = sent_strat.calculate_portfolio(returns_df)
+# # logger.debug(portfolio_df)
 
-# Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
-qqq_df = sent_strat.download_data('QQQ')
-qqq_ref = np.log(qqq_df['Adj Close']).diff().to_frame('nasdaq_return')
+# # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
+# qqq_df = sent_strat.download_data('QQQ')
+# qqq_ref = np.log(qqq_df['Adj Close']).diff().to_frame('nasdaq_return')
 
-portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
+# portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
 
-# logger.debug(portfolio_df)
+# # logger.debug(portfolio_df)
 
-portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
+# portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
 
-sent_strat.plot_df(portfolios_cumulative_return)
+# sent_strat.plot_df(portfolios_cumulative_return)
