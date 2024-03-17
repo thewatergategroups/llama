@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 import numpy as np
+import matplotlib.ticker as mtick
 
-warnings.filterwarnings('ignore')
+# warnings.filterwarnings('ignore')
 yf.pdr_override()  # Enable caching
+
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
@@ -23,6 +25,7 @@ file_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
 logger.addHandler(stdout_handler)
+
 data_dir = '/home/borisb/projects/llama/'
 
 class SentimentStrategy():
@@ -34,9 +37,18 @@ class SentimentStrategy():
     # and filter out stocks with no significant twitter activity.
     """
     def load_data(self, data_dir):
-        sentiment_df = pd.read_csv(os.path.join(data_dir, 'sentiment_data.csv'))
+        """
+        Load data from CSV to DataFrame
 
-        return sentiment_df
+        Args:
+            data_dir (_type_): pth of data to load
+
+        Returns:
+            _type_: returns a DataFrame from the data dir
+        """
+        df = pd.read_csv(os.path.join(data_dir, 'sentiment_data.csv'))
+
+        return df
 
     def normalize_twitter_data(self, df: pd.DataFrame):
         logger.info("Normalizing data for twitter based usage")
@@ -119,6 +131,18 @@ class SentimentStrategy():
                      end=end_date)
         
         return qqq_df
+
+    def plot_df(self, df: pd.DataFrame):
+        logger.info("Plotting")
+        
+        df.plot(figsize=(16, 6))
+
+        plt.title('Twitter Engagement Ratio Strategy Return Over Time')
+        plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+
+        plt.ylabel('Return')
+
+        plt.show()
         
 sent_strat = SentimentStrategy()
 
@@ -144,3 +168,12 @@ portfolio_df = sent_strat.calculate_portfolio(returns_df)
 
 # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
 qqq_df = sent_strat.download_data('QQQ')
+qqq_ref = np.log(qqq_df['Adj Close']).diff().to_frame('nasdaq_return')
+
+portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
+
+# logger.debug(portfolio_df)
+
+portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
+
+sent_strat.plot_df(portfolios_cumulative_return)
