@@ -34,12 +34,12 @@ class SentimentStrategy():
     """
     def load_data(self, data_dir):
         sentiment_df = pd.read_csv(os.path.join(data_dir, 'sentiment_data.csv'))
-        
+
         return sentiment_df
-  
+
     def normalize_twitter_data(self, df: pd.DataFrame):
-        logging.info("Normalizing data for twitter based usage")
-      
+        logger.info("Normalizing data for twitter based usage")
+ 
         df['date'] = pd.to_datetime(df['date'])
         df = df.set_index(['date', 'symbol'])
 
@@ -47,12 +47,24 @@ class SentimentStrategy():
         df['engagement_ratio'] = df['twitterComments']/df['twitterLikes']
         df = df[(df['twitterLikes']>20)&(df['twitterComments']>10)]
 
-        logging.debug("Done with normalizations")
+        logger.debug("Done with normalizations")
 
         return df
+
+    def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        logger.info("Starting to aggregate monthly data")
+        aggregated_df = (df.reset_index('symbol').groupby([pd.Grouper(freq='M'), 'symbol'])
+                 [['engagement_ratio']].mean())
+
+        aggregated_df['rank'] = (aggregated_df.groupby(level=0)['engagement_ratio' ].transform(lambda x: x.rank(ascending=False)))
+    
+        logger.debug("Done with all aggregations")
+        return aggregated_df
 
 sent_strat = SentimentStrategy()
 
 sentiment_df = sent_strat.load_data(data_dir)
 sentiment_df = sent_strat.normalize_twitter_data(sentiment_df)
-# logging.debug(sentiment_df)
+# logger.debug(sentiment_df)
+aggregated_df = sent_strat.aggregate_monthly_twitter_data(sentiment_df)
+# logger.debug(aggregated_df)
