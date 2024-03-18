@@ -149,7 +149,7 @@ class GKV(): # Needs to extend Bars?
         logger.debug(df)
         logger.debug(df.index)
         df['rsi'] = df.groupby(level=1)['adj close'].transform(lambda x: pandas_ta.rsi(close=x, length=20))
-        
+
         return df
 
     def calculate_bollinger_bands(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -244,15 +244,15 @@ class GKV(): # Needs to extend Bars?
         df_second = df.unstack()[last_cols].resample('M').last().stack('ticker')
         # logger.info("Finished calculation of df_second")
         # logger.info(df_second)
-        
+
         data = pd.concat([df_first, df_second], axis=1).dropna().drop_duplicates().set_flags(allows_duplicate_labels=True)
-        
+
         data = data.dropna()
         logger.debug("Current data is:")
         # logger.debug(data)
-       
+
         return data
-    
+
     def calculate_five_year_rolling_average(self, df: pd.DataFrame, data):
         """
         Calculate 5-year rolling average of dollar volume for each stocks before filtering. The reason for calculating the moving average of
@@ -282,7 +282,7 @@ class GKV(): # Needs to extend Bars?
         data = data[data['dollar_vol_rank']<top_number_of_stocks].drop(['dollar_volume', 'dollar_vol_rank'], axis=1)
 
         return [data, df]
- 
+
     def calculate_returns(self, df):
         """ Calculate Monthly Returns for different time horizons as features.
             To capture time series dynamics that reflect, for example, momentum patterns, 
@@ -296,7 +296,7 @@ class GKV(): # Needs to extend Bars?
         """
         outlier_cutoff = 0.005
         lags = [1, 2, 6, 9, 12]
-        
+
         for lag in lags:
             df[f'returnm_{lag}m'] = (df['adj close']
                                     .pct_change(lag) # calculate return for a given lag  
@@ -306,7 +306,6 @@ class GKV(): # Needs to extend Bars?
                                     .pow(1/lag)
                                     .sub(1))
         return df
-    
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
         """
@@ -332,7 +331,6 @@ class GKV(): # Needs to extend Bars?
         factor_data = web.DataReader('F-F_Research_Data_5_Factors_2x3',
                                     'famafrench',
                                     start='2010')[0].drop('RF', axis=1)
-       
         # Fix index
         factor_data.index = factor_data.index.to_timestamp()
         # Fix end of month and percentages
@@ -349,7 +347,7 @@ class GKV(): # Needs to extend Bars?
         valid_stocks = observations[observations >= 10] 
 
         factor_data = factor_data[factor_data.index.get_level_values('ticker').isin(valid_stocks.index)]
-        
+
         # Calculate Rolling Factor Betas.
         # TODO: This needs to be abstracted in a sensible way in a separate function
         betas = (factor_data.groupby(level=1, group_keys=False)
@@ -360,7 +358,6 @@ class GKV(): # Needs to extend Bars?
                 .fit(params_only=True)
                  .params # Do we need this? Not convinced
                 .drop('const', axis=1)))
-
 
         # Join the rolling factors data to the main features dataframe.
 
@@ -401,7 +398,7 @@ class GKV(): # Needs to extend Bars?
         def get_clusters(df):
             initial_centroids = np.zeros((len(target_rsi_values), 18))
             initial_centroids[:, 6] = target_rsi_values
-           
+
             df['cluster'] = KMeans(n_clusters=cluster_numbers,
                                 random_state=0,
                                 init=initial_centroids).fit(df).labels_
@@ -420,7 +417,7 @@ class GKV(): # Needs to extend Bars?
             plt.scatter(cluster_1.iloc[:,0],  cluster_1.iloc[:,6],  color = 'green', label='cluster 1')
             plt.scatter(cluster_2.iloc[:,0],  cluster_2.iloc[:,6],  color = 'blue', label='cluster 2')
             plt.scatter(cluster_3.iloc[:,0],  cluster_3.iloc[:,6],  color = 'black', label='cluster 3')
-           
+
             plt.legend()
             plt.show()
             return
@@ -469,13 +466,13 @@ class GKV(): # Needs to extend Bars?
                                                             frequency=252) # 252 days = 1 year of trading days
             cov = risk_models.sample_cov(prices=prices,
                                         frequency=252)
-          
+
             ef = EfficientFrontier(expected_returns=returns,
                                 cov_matrix=cov,
                                 weight_bounds=(lower_bound, .1), # .1 because we want maximum weight of 10% our portfolio in a single stock
                                 solver='SCS')
             weights = ef.max_sharpe() # Needs to returned. We needs in the outer scope
-          
+
             return ef.clean_weights()
 
         # Download Fresh Daily Prices Data only for short listed stocks
