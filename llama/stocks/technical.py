@@ -121,9 +121,9 @@ class GKV(): # Needs to extend Bars?
         logger.debug(df)
         return df
 
-    def calculate_german_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
+    def calculate_garman_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Calculates German Klass volatility technical indicator
+        Calculates Garman Klass volatility technical indicator
 
         Args:
             df (pd.DataFrame): _description_
@@ -563,7 +563,7 @@ class GKV(): # Needs to extend Bars?
 gvk_strategy = GKV()
 df = gvk_strategy.load_sp500_data("temporary-bb-16-03-v3.csv")
 
-# df = gvk_strategy.calculate_german_klass_vol(df)
+# df = gvk_strategy.calculate_garman_klass_vol(df)
 # df = gvk_strategy.calculate_rsi_indicator(df)
 # df = gvk_strategy.calculate_bollinger_bands(df)
 # df.to_csv("temporary-bb-16-03-v2.csv")
