@@ -35,7 +35,6 @@ services:
       - .env
     network_mode: host
   
-  
   dbsetup: 
     image: llama
     entrypoint: python -m llama db upgrade
