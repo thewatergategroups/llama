@@ -1,17 +1,17 @@
-from typing import Any
+from enum import StrEnum
+from typing import Any, Callable
+
 from alpaca.data.models import Bar
+from alpaca.trading import OrderSide
+from pydantic import BaseModel
 from sqlalchemy import select
+from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
-from ...database import Conditions, StratConditionMap
-from typing import Callable
-from pydantic import BaseModel
-from enum import StrEnum
-from alpaca.trading import OrderSide
 from trekkers.statements import on_conflict_update
-from sqlalchemy.dialects.postgresql import insert
-from alpaca.trading import OrderSide
-from ...stocks import Trader, CustomBarSet
+
+from ...database import Conditions, StratConditionMap
+from ...stocks import CustomBarSet, Trader
 
 LIVE_DATA = CustomBarSet()
 

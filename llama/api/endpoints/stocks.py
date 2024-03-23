@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
+from typing import Annotated
 
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from fastapi import Response, Depends, Query
-from typing import Annotated
+from fastapi import Depends, Query, Response
 from fastapi.routing import APIRouter
+
+from ...stocks import History, Trader, plot_stock_data
 from ..deps import get_history, get_trader
-from ...stocks import plot_stock_data, History, Trader
-from ..validator import validate_jwt, has_admin_scope
+from ..validator import has_admin_scope, validate_jwt
 
 router = APIRouter(
     prefix="/stocks",

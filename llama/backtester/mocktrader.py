@@ -1,15 +1,22 @@
+"""
+Define the MockTrader object to simulate buying and selling of shares
+"""
+
 from copy import deepcopy
-from datetime import datetime
-import logging
-from ..stocks.models import NullPosition
-from alpaca.trading import OrderSide
-from alpaca.trading import Order
-from alpaca.trading.enums import OrderSide, TimeInForce
 from dataclasses import dataclass, field
+from datetime import datetime
+
+from alpaca.trading import Order, OrderSide, TimeInForce
+
+from ..stocks.models import NullPosition
 
 
 @dataclass
 class MockStats:
+    """
+    Stats to collect about the trading performance
+    """
+
     positions: dict[str, NullPosition] = field(default_factory=dict)
     orders: list[Order] = field(default_factory=list)
     buying_power: float = 1_000
@@ -33,7 +40,10 @@ class MockTrader:
         """Create class with data"""
         return cls()
 
-    def get_position(self, symbol: str, force: bool = False):
+    def get_position(
+        self, symbol: str, force: bool = False
+    ):  # pylint: disable=unused-argument
+        """get our position for a symbol"""
         if (position := self.stats.positions.get(symbol)) is not None:
             return position
         self.stats.positions[symbol] = NullPosition(symbol=symbol)
@@ -42,9 +52,9 @@ class MockTrader:
     def place_order(
         self,
         symbol: str = "TSLA",
-        time_in_force: TimeInForce = TimeInForce.GTC,
-        side: OrderSide = OrderSide.BUY,
-        quantity: int = 1,
+        time_in_force: TimeInForce = TimeInForce.GTC,  # pylint: disable=unused-argument
+        side: OrderSide = OrderSide.BUY,  # pylint: disable=unused-argument
+        quantity: int = 1,  # pylint: disable=unused-argument
     ):
         """
         placeholder for strat to call when a decision is made.
@@ -54,6 +64,7 @@ class MockTrader:
 
     @staticmethod
     def get_aggregate_template():
+        """return dict format of the results"""
         return {
             "starting_buying_power": 0,
             "buying_power": 0,
@@ -64,7 +75,10 @@ class MockTrader:
             "positions": {},
         }
 
-    def aggregate(self, verbose: bool = False):
+    def aggregate(self, verbose: bool = False):  # pylint: disable=unused-argument
+        """
+        return aggregated results based n template
+        """
         response = {
             "starting_buying_power": self.stats.starting_buying_power,
             "buying_power": self.stats.buying_power,
@@ -86,6 +100,9 @@ class MockTrader:
         price: float,
         timestamp: datetime,
     ):
+        """
+        Update trading history stats after having executed / not executed
+        """
         self.stats.timestamp = timestamp
         new_cost_basis = 0
         new_qty = 0

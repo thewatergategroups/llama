@@ -1,8 +1,7 @@
-from .tools import plot_stock_data
 from .history import History
-from .trader import Trader
-
 from .models import CustomBarSet
+from .tools import plot_stock_data
+from .trader import Trader
 
 __all__ = [
     "ConditionType",

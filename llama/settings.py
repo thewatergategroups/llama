@@ -1,11 +1,13 @@
 """
 Consts, Enums and Models
 """
+
+import pathlib
 from functools import lru_cache
+
 from pydantic import BaseSettings
 from trekkers.config import DbSettings, get_sync_sessionmaker
-import pathlib
-from yumi import LogConfig, JwtConfig
+from yumi import JwtConfig, LogConfig
 
 TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
 
@@ -28,9 +30,10 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings():
-    """Get history wrapper"""
+    """Get global db settings"""
     return Settings()
 
 
 def get_sync_sessionm():
+    """Get syncronous Postgres DB session"""
     return get_sync_sessionmaker(get_settings().db_settings)

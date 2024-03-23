@@ -1,6 +1,8 @@
 import logging
+
 from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
+
 from ...stocks.trader import Trader
 from .consts import Condition, ConditionType
 

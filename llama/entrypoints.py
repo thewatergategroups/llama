@@ -1,16 +1,31 @@
+"""
+Application Entrypoint
+"""
+
 import asyncio
+import json
+
 import uvicorn
-from datetime import datetime, timedelta
-from .worker.websocket import liveStockDataStream, liveTradingStream
-from .settings import Settings
-from .stocks import History, Trader
-from .strats import insert_strats, get_all_strats, insert_conditions
-from .backtester import BackTester
 from trekkers import database
 from yumi import Entrypoints
 
+from llama.strats.base.consts import ConditionType
 
-def api(*args, **kwargs):
+
+from .backtester import BackTester, BacktestDefinition
+from .settings import Settings
+from .stocks import History, Trader
+from .strats import (
+    get_all_strats,
+    insert_conditions,
+    insert_strats,
+    StrategyDefinition,
+    ConditionDefinition,
+)
+from .worker.websocket import liveStockDataStream, liveTradingStream
+
+
+def api(*_, **__):
     """API for querying data"""
     uvicorn.run(
         "llama.api.app:create_app",
@@ -22,24 +37,17 @@ def api(*args, **kwargs):
     )
 
 
-def trade_stream(settings: Settings, *args, **kwargs):
+def trade_stream(settings: Settings, *_, **__):
+    """Websocket pulling listening for data about trades"""
     trader = Trader.create(settings)
     ls_object: liveTradingStream = liveTradingStream.create(settings, trader)
     ls_object.run()
 
 
-def debug(settings: Settings, *args, **kwargs):
-    history = History.create(settings)
-    print(
-        history.get_closest_qoute_to_time(
-            "AAPL", datetime.utcnow() - timedelta(minutes=15)
-        )
-    )
-    print(history.get_latest_qoute("AAPL"))
-
-
-def data_stream(settings: Settings, *args, **kwargs):
-    """Websocket Stream data"""
+def data_stream(settings: Settings, *_, **__):
+    """
+    Websocket Stream data about changes in stock data
+    """
     trader = Trader.create(settings)
     history = History.create(settings)
     all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
@@ -49,26 +57,35 @@ def data_stream(settings: Settings, *args, **kwargs):
     ls_object.subscribe(bars=all_, qoutes=all_)
 
 
-def db(settings: Settings, action: str, revision: str | None, *args, **kwargs):
+def db(settings: Settings, action: str, revision: str | None, *_, **__):
+    """
+    Upgrade and downgrade the database tables
+    """
     database(settings.db_settings, action, revision)
     insert_conditions()
     insert_strats()
     Trader.create(settings).get_all_assets(True)
 
 
-def backtest(settings: Settings, *args, **kwargs):
-    trader = Trader.create(settings)
+def backtest(settings: Settings, *_, **__):
+    """
+    Run backtests from the command line
+    """
     history = History.create(settings)
-    backtester = BackTester.create(settings)
-    symbols = [asset.symbol for asset in trader.get_assets(trading=True)]
-    backtest_id = backtester.insert_start_of_backtest(symbols)
-    asyncio.run(backtester.backtest_strats(backtest_id, history, symbols))
+    backtester = BackTester.create()
+    with open("./backtests.json", "r", encoding="utf-8") as f:
+        list_json = json.loads(f.read())
+    for item in list_json:
+        definition = BacktestDefinition(**item)
+        backtest_id = backtester.insert_start_of_backtest(definition.symbols)
+        asyncio.run(backtester.backtest_strats(backtest_id, history, definition))
 
 
 class Entry(Entrypoints):
+    """Defining entrypoints to the application"""
+
     API = "api", api
     DATASTREAM = "datastream", data_stream
     TRADESTREAM = "tradestream", trade_stream
     DATABASE = "db", db
     BACKTEST = "backtest", backtest
-    DEBUG = "debug", debug

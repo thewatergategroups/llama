@@ -5,10 +5,7 @@ services:
     image: llama
     entrypoint: python -m llama api
     depends_on:
-      - db
       - dbsetup
-    profiles:
-      - trader
     volumes:
       - ./:/app
     env_file:
@@ -19,10 +16,7 @@ services:
     image: llama
     entrypoint: python -m llama datastream
     depends_on:
-      - db
       - dbsetup
-    profiles:
-      - trader
     volumes:
       - ./:/app
     env_file:
@@ -32,8 +26,6 @@ services:
   tradestream: 
     image: llama
     entrypoint: python -m llama tradestream
-    profiles:
-      - trader
     depends_on:
       - db
       - dbsetup
@@ -49,8 +41,6 @@ services:
     entrypoint: python -m llama db upgrade
     depends_on:
       - db
-    profiles:
-      - trader
     volumes:
       - ./:/app
     env_file:
@@ -58,15 +48,13 @@ services:
     network_mode: host
       
   db:
-    image: postgres:14
+    image: postgres:16
     ports:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
-    profiles:
-      - db
     volumes:
       - ./pg_data:/var/lib/postgresql/data
 
@@ -75,13 +63,13 @@ services:
     image: dpage/pgadmin4
     depends_on:
       - db
-    profiles:
-      - db
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_EMAIL: chart@domain.com
       PGADMIN_DEFAULT_PASSWORD: postgres
       PGADMIN_LISTEN_PORT: 8080
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
     volumes:
       - ./pgadmin-data:/var/lib/pgadmin
     network_mode: host

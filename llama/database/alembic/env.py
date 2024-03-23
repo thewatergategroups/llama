@@ -1,8 +1,8 @@
 from logging.config import fileConfig
 
-from llama.database.models import BaseSql
-from trekkers.config import run_migrations_online
 from alembic import context
+from trekkers.config import run_migrations_online
 
+from llama.database.models import BaseSql
 
 run_migrations_online(BaseSql.metadata, context.config)

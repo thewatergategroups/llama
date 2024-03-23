@@ -1,18 +1,15 @@
-from alpaca.data.models.base import TimeSeriesMixin, BaseDataSet
-from alpaca.data.models import Bar, BarSet
 from collections import defaultdict
-from datetime import datetime
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, Optional
-from ..database.models import Bars
-from alpaca.trading import (
-    Position,
-    AssetExchange,
-    AssetClass,
-    PositionSide,
-    USDPositionValues,
-)
 from uuid import UUID, uuid4
+
+from alpaca.data.models import Bar, BarSet
+from alpaca.data.models.base import BaseDataSet, TimeSeriesMixin
+from alpaca.trading import (AssetClass, AssetExchange, Position, PositionSide,
+                            USDPositionValues)
+
+from ..database.models import Bars
 
 
 class CustomBarSet(BaseDataSet, TimeSeriesMixin):

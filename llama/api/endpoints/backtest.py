@@ -1,14 +1,19 @@
-from fastapi import Depends, HTTPException, BackgroundTasks
+"""
+Backtesting endpoints
+"""
+
+from fastapi import BackgroundTasks, Depends, HTTPException
 from fastapi.routing import APIRouter
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from ..deps import get_history, get_backtester, get_async_session
-from ...stocks import History
-from ...backtester import BackTester, BacktestDefinition
-from ...database.models import Backtests, BacktestStats
+
+from ...backtester import BacktestDefinition, BackTester
 from ...consts import Status
+from ...database.models import Backtests, BacktestStats
+from ...stocks import History
+from ..deps import get_async_session, get_backtester, get_history
+from ..validator import has_admin_scope, validate_jwt
 from .strats import get_strats
-from ..validator import validate_jwt, has_admin_scope
 
 router = APIRouter(
     prefix="/backtest",
@@ -25,6 +30,9 @@ async def run_backtest(
     backtester: BackTester = Depends(get_backtester),
     session: AsyncSession = Depends(get_async_session),
 ):
+    """
+    Run a backtest
+    """
     if not data.symbols:
         raise HTTPException(400, {"details": "You can't backtest with no symbols"})
     running = (
@@ -51,6 +59,9 @@ async def run_backtest(
 async def get_backtest(
     backtest_id: int, session: AsyncSession = Depends(get_async_session)
 ):
+    """
+    Get backtest results
+    """
     return (
         (await session.execute(select(Backtests).where(Backtests.id == backtest_id)))
         .scalar()
@@ -59,9 +70,12 @@ async def get_backtest(
 
 
 @router.get("/result/stats")
-async def get_backtest(
+async def get_backtest_result_stats(
     backtest_id: int, session: AsyncSession = Depends(get_async_session)
 ):
+    """
+    Get stats about the backtest result
+    """
     response = (
         await session.execute(
             select(BacktestStats)
@@ -73,7 +87,10 @@ async def get_backtest(
 
 
 @router.get("/results")
-async def get_backtest(session: AsyncSession = Depends(get_async_session)):
+async def get_backtest_results(session: AsyncSession = Depends(get_async_session)):
+    """
+    Get the results of a run
+    """
     results = (
         (await session.execute(select(Backtests).order_by(Backtests.timestamp.desc())))
         .scalars()

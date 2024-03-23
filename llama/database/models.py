@@ -1,11 +1,12 @@
+from datetime import datetime
 from typing import Optional
-from sqlalchemy.orm import Mapped, mapped_column
+from uuid import UUID
+
+from alpaca.trading import AccountStatus
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import JSONB
-from datetime import datetime
-from uuid import UUID
+from sqlalchemy.orm import Mapped, mapped_column
 from trekkers import BaseSql
-from alpaca.trading import AccountStatus
 
 
 class Account(BaseSql):

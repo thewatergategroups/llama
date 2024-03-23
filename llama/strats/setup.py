@@ -1,9 +1,10 @@
 from sqlalchemy import select
-from .strats import get_predefined_strat_classes
-from .conditions import get_all_conditions
-from ..database import StratConditionMap, Strategies, Conditions
-from ..settings import get_sync_sessionm
 from trekkers.statements import upsert
+
+from ..database import Conditions, StratConditionMap, Strategies
+from ..settings import get_sync_sessionm
+from .conditions import get_all_conditions
+from .strats import get_predefined_strat_classes
 
 
 def insert_conditions():

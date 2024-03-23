@@ -1,7 +1,9 @@
 from typing import Annotated
+
 from fastapi import Cookie, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from yumi import NotAuthorized, Scopes, UserInfo
+
 from .deps import get_jwt_client
 
 

@@ -1,12 +1,12 @@
-from fastapi.routing import APIRouter
-from fastapi import Depends
 from uuid import UUID
+
 from alpaca.trading.enums import OrderSide, TimeInForce
+from fastapi import Depends
+from fastapi.routing import APIRouter
 
 from ...stocks import Trader
 from ..deps import get_trader
-from ..validator import validate_jwt, has_admin_scope
-
+from ..validator import has_admin_scope, validate_jwt
 
 router = APIRouter(
     prefix="/trading",

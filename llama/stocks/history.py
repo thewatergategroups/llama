@@ -1,23 +1,19 @@
 import logging
 from datetime import datetime, timedelta
 
+import pandas as pd
 import requests
-from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
-from alpaca.data.requests import (
-    StockBarsRequest,
-    StockLatestQuoteRequest,
-    StockQuotesRequest,
-)
+from alpaca.data.models import BarSet
+from alpaca.data.requests import (StockBarsRequest, StockLatestQuoteRequest,
+                                  StockQuotesRequest)
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from sqlalchemy import func, select
+from sqlalchemy import Values, column, func, select
+from trekkers.statements import upsert
+
+from ..database import Bars, Qoutes
 from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
-from ..database import Bars, Qoutes
-from trekkers.statements import upsert
-from sqlalchemy import func, Values, column
-import pandas as pd
-from datetime import datetime
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {

@@ -2,7 +2,7 @@ from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
 from ...stocks import Trader
-from ..base import Condition, ConditionType, LIVE_DATA
+from ..base import LIVE_DATA, Condition, ConditionType
 
 
 def crossover_buy(most_recent_bar: Bar, trader: Trader):

@@ -1,21 +1,18 @@
 import logging
 from uuid import UUID
-from alpaca.trading import TradingClient, Position, Order, Asset
+
+from alpaca.common.exceptions import APIError
+from alpaca.trading import Asset, Order, Position, TradingClient
 from alpaca.trading.enums import AssetClass, OrderSide, TimeInForce
-from alpaca.trading.requests import (
-    GetAssetsRequest,
-    GetOrdersRequest,
-    LimitOrderRequest,
-    MarketOrderRequest,
-)
+from alpaca.trading.requests import (GetAssetsRequest, GetOrdersRequest,
+                                     LimitOrderRequest, MarketOrderRequest)
+from sqlalchemy import delete, select, update
+from trekkers.statements import upsert
 from yumi import divide_chunks
 
-from .models import NullPosition
-from alpaca.common.exceptions import APIError
-from ..database import Orders, Positions, Assets, Account
+from ..database import Account, Assets, Orders, Positions
 from ..settings import Settings, get_sync_sessionm
-from trekkers.statements import upsert
-from sqlalchemy import delete, select, update
+from .models import NullPosition
 
 
 class Trader:

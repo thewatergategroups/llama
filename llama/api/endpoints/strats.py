@@ -1,16 +1,20 @@
+"""
+Strategy endpoints
+"""
+
+from alpaca.trading.enums import OrderSide
+from fastapi import Depends, HTTPException
 from fastapi.routing import APIRouter
-from fastapi import HTTPException
 from pydantic import BaseModel
 from sqlalchemy import delete, exists, select, update
-from sqlalchemy.orm import Session
-from alpaca.trading.enums import OrderSide
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends
-from ..deps import get_async_session, get_sync_session
-from ...strats import get_all_strats, StrategyDefinition
+from sqlalchemy.orm import Session
+
 from ...database import Conditions, StratConditionMap, Strategies
-from ..validator import validate_jwt, has_admin_scope
+from ...strats import StrategyDefinition, get_all_strats
+from ..deps import get_async_session, get_sync_session
+from ..validator import has_admin_scope, validate_jwt
 
 router = APIRouter(
     prefix="/strategies",
@@ -23,6 +27,7 @@ router = APIRouter(
 async def get_strats(
     alias: str | None = None,
 ) -> list[StrategyDefinition]:
+    """Get all existing strategies"""
     strats = get_all_strats().values()
     if alias:
         strats = [get_all_strats().get(alias)]
@@ -39,6 +44,7 @@ async def get_conds(
     name: str | None = None,
     session: AsyncSession = Depends(get_async_session),
 ):
+    """Get all existing condition"""
     stmt = select(Conditions)
     if name:
         stmt = stmt.where(Conditions.name == name)
@@ -51,6 +57,7 @@ async def create_strat(
     strat: StrategyDefinition,
     session: AsyncSession = Depends(get_async_session),
 ):
+    """Create new strategy"""
     does_exists = await session.scalar(
         select(exists(Strategies)).where(Strategies.alias == strat.alias)
     )
@@ -83,6 +90,7 @@ async def del_strat(
     alias: str,
     session: AsyncSession = Depends(get_async_session),
 ):
+    """delete existing strategy"""
     await session.execute(
         delete(StratConditionMap).where(StratConditionMap.strategy_alias == alias)
     )
@@ -91,6 +99,8 @@ async def del_strat(
 
 
 class PatchStrategy(BaseModel):
+    """Body for patching a strategy"""
+
     alias: str
     name: str | None = None
     active: bool | None = None
@@ -101,6 +111,7 @@ async def update_strategy(
     update_strat: PatchStrategy,
     session: Session = Depends(get_sync_session),
 ):
+    """endpoint for patching a strategy"""
     strat = get_all_strats().get(update_strat.alias)
     if not strat:
         raise HTTPException(404, "strategy not found")
@@ -112,6 +123,8 @@ async def update_strategy(
 
 
 class PatchStratCondition(BaseModel):
+    """patch a strategy condition body"""
+
     strategy_alias: str
     condition_name: str
     active: bool | None
@@ -123,6 +136,7 @@ async def update_strategy_condition(
     update_cond: PatchStratCondition,
     session: Session = Depends(get_sync_session),
 ):
+    """patch a strategy condition"""
     strat = get_all_strats().get(update_cond.strategy_alias)
     if not strat:
         raise HTTPException(404, "strategy not found")
@@ -134,13 +148,15 @@ async def update_strategy_condition(
     if not cond:
         raise HTTPException(404, "Condition not found on strategy")
     cond.active = update_cond.active if update_cond.active is not None else cond.active
-
-    cond.update_variables(update_cond.variables) if update_cond.variables else None
+    if update_cond.variables:
+        cond.update_variables(update_cond.variables)
     cond.upsert(update_cond.strategy_alias, session)
     return {"detail": "success"}
 
 
 class PatchCondition(BaseModel):
+    """Patch an overall condition body"""
+
     name: str
     side: OrderSide | None
     variables: dict | None
@@ -151,6 +167,7 @@ async def update_condition(
     update_cond: PatchCondition,
     session: Session = Depends(get_sync_session),
 ):
+    """Endpoint for patch an overall condition"""
     values = {}
     if update_cond.side:
         values["side"] = update_cond.side.value

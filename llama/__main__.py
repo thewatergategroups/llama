@@ -2,9 +2,11 @@
 Entrypoint to the application
 """
 import argparse
+
+from yumi import setup_logging
+
 from .entrypoints import Entry
 from .settings import Settings
-from yumi import setup_logging
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="entrypoint options.")

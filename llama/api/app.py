@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-
-from .endpoints.stocks import router as stock_router
-from .endpoints.backtest import router as bt_router
-from .endpoints.trading import router as tr_router
-from .endpoints.strats import router as st_router
 from fastapi.middleware.cors import CORSMiddleware
 from yumi import setup_logging
+
 from ..settings import get_settings
+from .endpoints.backtest import router as bt_router
+from .endpoints.stocks import router as stock_router
+from .endpoints.strats import router as st_router
+from .endpoints.trading import router as tr_router
 
 
 def create_app() -> FastAPI:

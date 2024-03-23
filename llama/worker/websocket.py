@@ -1,17 +1,17 @@
 import logging
+
 from alpaca.data.live import StockDataStream
-from alpaca.trading.stream import TradingStream
-from alpaca.trading import TradeUpdate, TradeEvent
-from alpaca.data.models import Quote, Bar, Trade
+from alpaca.data.models import Bar, Quote, Trade
 from alpaca.data.timeframe import TimeFrame
+from alpaca.trading import TradeEvent, TradeUpdate
+from alpaca.trading.stream import TradingStream
+from sqlalchemy.dialects.postgresql import insert
 from trekkers.statements import upsert
 
-
+from ..database import Bars, Orders, Qoutes, Trades, TradeUpdates
 from ..settings import Settings, get_sync_sessionm
-from ..strats import Strategy
 from ..stocks.trader import Trader
-from sqlalchemy.dialects.postgresql import insert
-from ..database import Bars, Trades, Qoutes, Orders, TradeUpdates
+from ..strats import Strategy
 
 
 class liveStockDataStream:

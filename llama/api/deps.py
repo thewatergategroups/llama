@@ -1,11 +1,12 @@
 from functools import lru_cache
 
+from trekkers.config import get_async_sessionmaker
+from yumi import JwtClient
+
+from ..backtester import BackTester
+from ..settings import get_settings, get_sync_sessionm
 from ..stocks.history import History
 from ..stocks.trader import Trader
-from ..backtester import BackTester
-from trekkers.config import get_async_sessionmaker
-from ..settings import get_sync_sessionm, get_settings
-from yumi import JwtClient
 
 
 @lru_cache

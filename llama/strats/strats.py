@@ -1,11 +1,12 @@
 import copy
+
 from sqlalchemy import select
-from .base import Strategy
+
+from ..database import StratConditionMap, Strategies
 from ..settings import get_sync_sessionm
-from ..database import Strategies, StratConditionMap
-from .base import Condition
-from .vwap import Vwap
+from .base import Condition, Strategy
 from .conditions import get_all_conditions
+from .vwap import Vwap
 
 
 def get_strategy_class(

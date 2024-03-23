@@ -1,41 +1,53 @@
-from alpaca.data.timeframe import TimeFrame
-from datetime import datetime, timedelta
-import logging
-from copy import deepcopy
-from trekkers import on_conflict_update
-from dataclasses import asdict
+"""
+Defines the backtester class 
+"""
 
-from ..stocks import History
-from ..strats import Strategy
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from alpaca.data.models import Bar
+import logging
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from copy import deepcopy
+from dataclasses import asdict
+from datetime import datetime, timedelta
+
+from alpaca.data.models import Bar
+from alpaca.data.timeframe import TimeFrame
+from sqlalchemy import select, update
+from sqlalchemy.dialects.postgresql import insert
+from trekkers import on_conflict_update
+from yumi import divide_chunks
+
+from ..consts import Status
 from ..database.models import Backtests, BacktestStats
 from ..settings import get_sync_sessionm
-from ..consts import Status
-from sqlalchemy.dialects.postgresql import insert
-from sqlalchemy import update, select
-from .mocktrader import MockTrader
-from .consts import BacktestDefinition
+from ..stocks import History
 from ..strats import (
-    get_all_strats,
-    get_all_conditions,
+    Strategy,
     StrategyDefinition,
+    get_all_conditions,
+    get_all_strats,
     get_strategy_class,
 )
-from yumi import divide_chunks
+from .consts import BacktestDefinition
+from .mocktrader import MockTrader
 
 
 class BackTester:
+    """
+    Class to run a backtest using specific strategies on specific stocks
+    """
+
     @classmethod
     def create(cls):
+        """
+        create an instance of the backtester class
+        """
         return cls()
 
     def insert_start_of_backtest(
         self, symbols: list[str], strategies: list[dict] | None = None
     ):
         """Insert an entry to start backtest"""
-        with get_sync_sessionm().begin() as session:
+        with get_sync_sessionm().begin() as session:  # pylint: disable=no-member
             scans = (
                 session.execute(
                     select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
@@ -64,13 +76,16 @@ class BackTester:
     async def backtest_strats(
         self, backtest_id: str, history: History, definition: BacktestDefinition
     ):
+        """
+        Backtest on specific stocks with strategoes defined in the backtest definition
+        """
         logging.info(
             "Beginning backtesting over the last %s days...",
             definition.days_to_test_over,
         )
         try:
-            """Check that the entry exists and is in progress"""
-            with get_sync_sessionm().begin() as session:
+            ### Check that the entry exists and is in progress
+            with get_sync_sessionm().begin() as session:  # pylint: disable=no-member
                 session.execute(
                     select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
                 ).scalar_one()
@@ -124,22 +139,22 @@ class BackTester:
 
             strat_data: list[tuple[Strategy, MockTrader, list[Bar]]] = []
             for strat in strat_classes:
-                bars = []
-                [bars.extend(value) for value in data.data.values()]
-                bars.sort(key=lambda x: x.timestamp)
-                strat_data.append(
-                    (
-                        strat.create(
-                            history,
-                            definition.symbols,
-                            start_time_historic,
-                            end_time_historic,
-                            conditions=conditions,
-                        ),
-                        MockTrader.create(),
-                        bars,
+                for symbol in definition.symbols:
+                    bars = [value for value in data.data[symbol]]
+                    bars.sort(key=lambda x: x.timestamp)
+                    strat_data.append(
+                        (
+                            strat.create(
+                                history,
+                                [symbol],
+                                start_time_historic,
+                                end_time_historic,
+                                conditions=conditions,
+                            ),
+                            MockTrader.create(),
+                            bars,
+                        )
                     )
-                )
             processes = []
             with ThreadPoolExecutor(max_workers=4) as xacuter:
                 for strat, trader, bars in strat_data:
@@ -162,7 +177,7 @@ class BackTester:
                     else:
                         field += value
 
-            with get_sync_sessionm().begin() as session:
+            with get_sync_sessionm().begin() as session:  # pylint: disable=no-member
                 session.execute(
                     update(Backtests)
                     .where(Backtests.id == backtest_id)
@@ -178,10 +193,10 @@ class BackTester:
                     session.execute(insert(BacktestStats).values(chunk))
 
             logging.info("backtest %s completed successfully", backtest_id)
-        except Exception as exc:
+        except Exception as exc:  # pylint: disable=broad-exception-caught
             logging.exception(exc)
             logging.error("failed to complete backtest")
-            with get_sync_sessionm().begin() as session:
+            with get_sync_sessionm().begin() as session:  # pylint: disable=no-member
                 session.execute(
                     on_conflict_update(
                         insert(Backtests).values(
@@ -201,6 +216,9 @@ class BackTester:
         trader: MockTrader,
         bars: list[Bar],
     ):
+        """
+        Run the trading strategy over all bars in specified time period using the mocktrader
+        """
         strat_name = type(strategy).__name__
         num_bars = len(bars)
         symbol = bars[0].symbol

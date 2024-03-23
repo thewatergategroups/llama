@@ -1,14 +1,3 @@
-from .models import (
-    Orders,
-    Positions,
-    TradeUpdates,
-    Trades,
-    Qoutes,
-    Backtests,
-    Bars,
-    Assets,
-    Strategies,
-    Conditions,
-    StratConditionMap,
-    Account,
-)
+from .models import (Account, Assets, Backtests, Bars, Conditions, Orders,
+                     Positions, Qoutes, StratConditionMap, Strategies, Trades,
+                     TradeUpdates)
