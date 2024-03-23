@@ -230,12 +230,13 @@ class History:
                 # bars = self.fill_bars(bars, start_time, end_time)
                 if bars.data:
                     self.insert_bars(bars, time_frame)
+                # logging.info(bars.df)
         with get_sync_sessionm().begin() as session:
-            logging.debug("fetching bars from postgres...")
+            logging.info("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(
                 [(symbol,) for symbol in symbols]
             )
-            bars = (
+            bars_d = (
                 session.execute(
                     select(Bars)
                     .join(sym_table, Bars.symbol == sym_table.c.symbol)
@@ -249,10 +250,13 @@ class History:
                 .scalars()
                 .fetchall()
             )
-            logging.debug("converting to barset...")
-            return CustomBarSet.from_postgres_bars(
-                bars
-            )  ## slowest bit - multiprocessing doesn't work
+            # logging.info("converting to barset...")
+            # bars_processed = bars._raw
+            # logging.info(bars.df)
+            return bars
+            # return CustomBarSet.from_postgres_bars(
+            #     bars
+            # )  ## slowest bit - multiprocessing doesn't work
 
     def get_latest_qoute(self, symbol: str | None = None):
         """get latest stock price"""
