@@ -15,7 +15,7 @@ from ..validator import has_admin_scope, validate_jwt
 router = APIRouter(
     prefix="/trading",
     tags=["Trading"],
-    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
+    # dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
 )
 
 
