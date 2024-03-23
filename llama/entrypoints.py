@@ -10,7 +10,10 @@ from time import sleep
 import uvicorn
 from trekkers import database
 from yumi import Entrypoints
-
+from .indicator.technical import GKV
+from alpaca.data.timeframe import TimeFrame
+from .database.models import Bars
+import logging
 
 from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
@@ -36,6 +39,19 @@ def trade_stream(settings: Settings, *_, **__):
     trader = Trader.create(settings)
     ls_object: LiveTradingStream = LiveTradingStream.create(settings, trader)
     ls_object.run()
+
+
+def debug(settings: Settings, *args, **kwargs):
+    hist = History.create(settings)
+    # history.get_stock_bars()
+    nvidia_df = hist.get_stock_bars(
+        symbols=["NVDA"],
+        time_frame=TimeFrame.Day,
+        start_time=datetime(2022, 9, 1),
+        end_time=datetime(2023, 9, 7),
+    )
+    logging.info("===================================")
+    logging.info(nvidia_df.df)
 
 
 def data_stream(settings: Settings, *_, **__):
@@ -80,13 +96,6 @@ def backtest(settings: Settings, *_, **__):
         definition = BacktestDefinition(**item)
         backtest_id = backtester.insert_start_of_backtest(definition.symbols)
         asyncio.run(backtester.backtest_strats(backtest_id, history, definition))
-
-
-def debug(settings: Settings, *_, **__):
-    """For running whatever functions you want to test"""
-    history = History.create(settings)
-    history.get_latest_qoute("AAPL")
-    ## do something
 
 
 class Entry(Entrypoints):
