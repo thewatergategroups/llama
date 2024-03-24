@@ -62,7 +62,7 @@ class GKV:
 
         # TODO: Improve to which dir it goes + date in filename
         df.to_csv(download_filename)
-        logging(df)
+        logging.info(df)
 
         return df
 
@@ -74,9 +74,9 @@ class GKV:
         Returns:
             pd.DataFrame: _description_
         """
-        logging("Starting to load sp500 Data")
+        logging.info("Starting to load sp500 Data")
         # sp500 = pd.read_html('sp500.html')[0]
-        # logging(sp500)
+        # logging.info(sp500)
         # sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
         # symbols_list = sp500['Symbol'].unique().tolist()
         # end_date = '2023-09-27'
@@ -93,7 +93,7 @@ class GKV:
             .drop_duplicates()
             .set_flags(allows_duplicate_labels=True)
         )
-        logging(df)
+        logging.info(df)
         return df
 
     def calculate_garman_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -106,8 +106,8 @@ class GKV:
         Returns:
             pd.DataFrame: _description_
         """
-        logging("Calculating German class vol")
-        logging(df)
+        logging.info("Calculating German class vol")
+        logging.info(df)
         df["garman_klass_vol"] = ((np.log(df["high"]) - np.log(df["low"])) ** 2) / 2 - (
             2 * np.log(2) - 1
         ) * ((np.log(df["adj close"]) - np.log(df["open"])) ** 2)
@@ -122,9 +122,9 @@ class GKV:
         Returns:
             pd.DataFrame: _description_
         """
-        logging("Calculating RSI indicator")
-        logging(df)
-        logging(df.index)
+        logging.info("Calculating RSI indicator")
+        logging.info(df)
+        logging.info(df.index)
         df["rsi"] = df.groupby(level=0)["adj close"].transform(
             lambda x: pandas_ta.rsi(close=x, length=20)
         )
@@ -142,7 +142,7 @@ class GKV:
         Returns:
             pd.DataFrame: _description_
         """
-        logging("Calculating Bollinger bands")
+        logging.info("Calculating Bollinger bands")
 
         df["bb_low"] = df.groupby(level=0)["adj close"].transform(
             lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:, 0]
@@ -153,7 +153,7 @@ class GKV:
         df["bb_high"] = df.groupby(level=0)["adj close"].transform(
             lambda x: pandas_ta.bbands(close=np.log1p(x), length=20).iloc[:, 2]
         )
-        logging(df)
+        logging.info(df)
         return df
 
     def calculate_macd(self, close):
@@ -187,7 +187,7 @@ class GKV:
         Returns:
             _type_: _description_
         """
-        # logging(f"attempting to calculate ATR for")
+        # logging.info(f"attempting to calculate ATR for")
         atr = pandas_ta.atr(
             high=stock_data["high"],
             low=stock_data["low"],
@@ -215,7 +215,7 @@ class GKV:
         Returns:
             _type_: _description_
         """
-        logging("Filtering and aggregating current stock data")
+        logging.info("Filtering and aggregating current stock data")
         # For the moment we don't care about the rest of the columns
         # Features DataFrame
         last_cols = [
@@ -234,11 +234,11 @@ class GKV:
             .stack("ticker")
             .to_frame("dollar_volume")
         )
-        # logging("Finished calculation of df_first")
-        # logging(df_first)
+        # logging.info("Finished calculation of df_first")
+        # logging.info(df_first)
         df_second = df.unstack()[last_cols].resample("M").last().stack("ticker")
-        # logging("Finished calculation of df_second")
-        # logging(df_second)
+        # logging.info("Finished calculation of df_second")
+        # logging.info(df_second)
 
         data = (
             pd.concat([df_first, df_second], axis=1)
@@ -248,8 +248,8 @@ class GKV:
         )
 
         data = data.dropna()
-        logging("Current data is:")
-        # logging(data)
+        logging.info("Current data is:")
+        # logging.info(data)
 
         return data
 
@@ -269,16 +269,16 @@ class GKV:
         Returns:
             _type_: _description_
         """
-        logging("Starting to calculate 5-year rolling average")
+        logging.info("Starting to calculate 5-year rolling average")
         top_number_of_stocks = 150
 
-        logging("showing data before dollar volume")
-        logging(data)
-        logging(data.loc[:"dollar_volume"])
-        logging(
+        logging.info("showing data before dollar volume")
+        logging.info(data)
+        logging.info(data.loc[:"dollar_volume"])
+        logging.info(
             data.loc[:"dollar_volume"].unstack("ticker").rolling(5 * 12, min_periods=12)
         )
-        logging(
+        logging.info(
             data.loc["dollar_volume"]
             .unstack("ticker")
             .rolling(5 * 12, min_periods=12)
@@ -585,7 +585,7 @@ class GKV:
                     logger.error(
                         f"Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights"
                     )
-                    logging(e)
+                    logging.info(e)
                 if success == False:
                     weights = pd.DataFrame(
                         [
@@ -624,7 +624,7 @@ class GKV:
                 logger.error(e)
 
         portfolio_df = portfolio_df.drop_duplicates()
-        logging(portfolio_df)
+        logging.info(portfolio_df)
         return portfolio_df
 
     # Also compares to existing sp500 returns
@@ -643,8 +643,8 @@ class GKV:
 
         portfolio_df = portfolio_df.merge(spy_ret, left_index=True, right_index=True)
 
-        logging("Sample portfolio is: ")
-        # logging(portfolio_df)
+        logging.info("Sample portfolio is: ")
+        # logging.info(portfolio_df)
 
         plt.style.use("ggplot")
 
@@ -667,27 +667,27 @@ class GKV:
 # # df = gvk_strategy.calculate_bollinger_bands(df)
 # # df.to_csv("temporary-bb-16-03-v2.csv")
 # # logging.debug("------------------------SAVING DF FOR TEMPORARY USE------------------------")
-# # logging(df)
+# # logging.info(df)
 # # df['atr'] = df.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_atr)
 # # df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(gvk_strategy.calculate_macd)
 # # TODO: This needs to be in a function
 # # df['dollar_volume'] =  (df['adj close']*df['volume'])/1e6
 # # df.to_csv("temporary-bb-16-03-v3.csv")
-# logging(df)
+# logging.info(df)
 
 # data = gvk_strategy.filter_top_most_liquid_stocks(df)
-# logging('---------------------------------')
-# logging(data)
-# logging(df)
-# logging('---------------------------------')
+# logging.info('---------------------------------')
+# logging.info(data)
+# logging.info(df)
+# logging.info('---------------------------------')
 # data, df = gvk_strategy.calculate_five_year_rolling_average(df, data)
-# logging("calculate_five_year_rolling_average:")
-# logging(data)
-# logging(df)
+# logging.info("calculate_five_year_rolling_average:")
+# logging.info(data)
+# logging.info(df)
 
 # data = data.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_returns).dropna()
-# logging("After regroup by")
-# logging(data)
+# logging.info("After regroup by")
+# logging.info(data)
 
 # data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(data)
 
