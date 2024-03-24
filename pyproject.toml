@@ -24,7 +24,6 @@ pandas-ta = "^0.3.14b0"
 statsmodels = "^0.14.1"
 scikit-learn = "^1.4.1.post1"
 requests = "^2.31.0"
-alpaca-trade-api = "^3.2.0"
 alpaca = "^1.0.0"
 tweepy = "^4.14.0"
 
