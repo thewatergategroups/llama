@@ -9,12 +9,12 @@ open_browser() {
     xdg-open "$1" >/dev/null 2>&1
 }
 
-if [ ${DOCS} != "false" ]; 
+if [[ ${DOCS} != "false" ]]; 
 then 
 open_browser http://localhost:8000/docs
 fi
 
-if [ ${PGADMIN} == "true" ]; 
+if [[ ${PGADMIN} == "true" ]]; 
 then 
 open_browser http://localhost:8080
 fi

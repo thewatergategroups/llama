@@ -4,6 +4,8 @@ Application Entrypoint
 
 import asyncio
 import json
+import logging
+from time import sleep
 
 import uvicorn
 from trekkers import database
@@ -43,6 +45,13 @@ def data_stream(settings: Settings, *_, **__):
     trader = Trader.create(settings)
     history = History.create(settings)
     all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
+    while not all_:
+        logging.warning(
+            "Not trading any stocks.. sleeping and retrying in 10 seconds..."
+        )
+        sleep(10)
+        all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
+
     strats = [strat.create(history, all_) for strat in get_all_strats().values()]
     ls_object = liveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
