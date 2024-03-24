@@ -10,7 +10,7 @@ from time import sleep
 import uvicorn
 from trekkers import database
 from yumi import Entrypoints
-from .indicator.technical import GKV
+from .indicators.technical import GKV
 from alpaca.data.timeframe import TimeFrame
 from .database.models import Bars
 import logging
