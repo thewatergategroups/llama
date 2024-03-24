@@ -1,3 +1,7 @@
+"""
+Strategy setup functions 
+"""
+
 from sqlalchemy import select
 from trekkers.statements import upsert
 
@@ -8,6 +12,7 @@ from .strats import get_predefined_strat_classes
 
 
 def insert_conditions():
+    """Insert or update condition in the database"""
     sessionm = get_sync_sessionm()
     upsert(
         sessionm,
@@ -24,6 +29,7 @@ def insert_conditions():
 
 
 def insert_strats():
+    """insert or update strategy into the database"""
     strats = get_predefined_strat_classes()
     sessionm = get_sync_sessionm()
     for strat in strats:

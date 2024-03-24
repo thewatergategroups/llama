@@ -9,19 +9,11 @@ import uvicorn
 from trekkers import database
 from yumi import Entrypoints
 
-from llama.strats.base.consts import ConditionType
-
 
 from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
 from .stocks import History, Trader
-from .strats import (
-    get_all_strats,
-    insert_conditions,
-    insert_strats,
-    StrategyDefinition,
-    ConditionDefinition,
-)
+from .strats import get_all_strats, insert_conditions, insert_strats
 from .worker.websocket import liveStockDataStream, liveTradingStream
 
 
@@ -81,6 +73,12 @@ def backtest(settings: Settings, *_, **__):
         asyncio.run(backtester.backtest_strats(backtest_id, history, definition))
 
 
+def debug(settings: Settings, *_, **__):
+    """For running whatever functions you want to test"""
+    history = History.create(settings)
+    ## do something
+
+
 class Entry(Entrypoints):
     """Defining entrypoints to the application"""
 
@@ -89,3 +87,4 @@ class Entry(Entrypoints):
     TRADESTREAM = "tradestream", trade_stream
     DATABASE = "db", db
     BACKTEST = "backtest", backtest
+    DEBUG = "debug", debug

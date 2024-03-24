@@ -4,6 +4,11 @@ from .base.consts import ConditionType
 
 
 class ConditionDefinition(BaseModel):
+    """
+    Definition of a condition in a model
+    to be converted from a json input
+    """
+
     name: str
     type: ConditionType
     active: bool
@@ -11,6 +16,10 @@ class ConditionDefinition(BaseModel):
 
 
 class StrategyDefinition(BaseModel):
+    """
+    Definition of a strategy as a model or as a condition would be
+    """
+
     alias: str
     name: str
     active: bool

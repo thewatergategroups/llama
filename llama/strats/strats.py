@@ -12,7 +12,11 @@ from .vwap import Vwap
 def get_strategy_class(
     name: str, alias: str, active: bool, conditions: list[Condition]
 ):
+    """Dynamically generates Strategy classes based on database rows"""
+
     class CustomStrat(Strategy):
+        """CustomStrategy class"""
+
         DEFAULT_CONDITIONS = conditions
         NAME = name
         ALIAS = alias
@@ -22,10 +26,12 @@ def get_strategy_class(
 
 
 def get_predefined_strat_classes() -> list[type[Strategy]]:
+    """Where you add Code defined strategies"""
     return [Vwap, Strategy]
 
 
 def get_all_strats() -> dict[str, type[Strategy]]:
+    """A dictionary of strategy alias to the strategy class"""
     all_conditions = get_all_conditions()
     all_strats = {}
     with get_sync_sessionm().begin() as session:

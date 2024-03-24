@@ -1,11 +1,19 @@
+"""
+Trader class for executing trades and keeping track of changes
+"""
+
 import logging
 from uuid import UUID
 
 from alpaca.common.exceptions import APIError
 from alpaca.trading import Asset, Order, Position, TradingClient
 from alpaca.trading.enums import AssetClass, OrderSide, TimeInForce
-from alpaca.trading.requests import (GetAssetsRequest, GetOrdersRequest,
-                                     LimitOrderRequest, MarketOrderRequest)
+from alpaca.trading.requests import (
+    GetAssetsRequest,
+    GetOrdersRequest,
+    LimitOrderRequest,
+    MarketOrderRequest,
+)
 from sqlalchemy import delete, select, update
 from trekkers.statements import upsert
 from yumi import divide_chunks
@@ -38,12 +46,25 @@ class Trader:
         return obj
 
     def get_account(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         account = self.client.get_account()
         self.buying_power = account.buying_power
         upsert(get_sync_sessionm(), account.dict(), Account)
         return account
 
     def get_positions(self, force: bool = False):
+        """_summary_
+
+        Args:
+            force (bool, optional): _description_. Defaults to False.
+
+        Returns:
+            _type_: _description_
+        """
         logging.info("getting positions...")
         if not force:
             with get_sync_sessionm().begin() as session:
@@ -78,6 +99,14 @@ class Trader:
             return NullPosition(symbol=symbol)
 
     def close_position(self, symbol: str):
+        """_summary_
+
+        Args:
+            symbol (str): _description_
+
+        Returns:
+            _type_: _description_
+        """
         logging.info("closing positions %s...", symbol)
 
         self.client.close_position(symbol)
@@ -95,13 +124,13 @@ class Trader:
         logging.info("getting orders for %s side...", side)
         if not force:
             with get_sync_sessionm().begin() as session:
-                a = [
+                orders = [
                     Order(**ord.as_dict())
                     for ord in session.scalars(
                         select(Orders).where(Orders.side == side.value)
                     ).all()
                 ]
-
+            return orders
         request_params = GetOrdersRequest(status="all", side=side)
         orders = self.client.get_orders(filter=request_params)
         if orders:
@@ -131,8 +160,19 @@ class Trader:
         symbol: str | None = None,
         offset: int | None = None,
         limit: int | None = None,
-        fields: list[str] | None = None,
     ):
+        """_summary_
+
+        Args:
+            trading (bool | None, optional): _description_. Defaults to None.
+            name (str | None, optional): _description_. Defaults to None.
+            symbol (str | None, optional): _description_. Defaults to None.
+            offset (int | None, optional): _description_. Defaults to None.
+            limit (int | None, optional): _description_. Defaults to None.
+
+        Returns:
+            _type_: _description_
+        """
         with get_sync_sessionm().begin() as session:
             stmt = select(Assets)
             if isinstance(trading, bool):
@@ -151,6 +191,12 @@ class Trader:
             ]
 
     def set_trading_asset(self, id: UUID, trading: bool):
+        """_summary_
+
+        Args:
+            id (UUID): _description_
+            trading (bool): _description_
+        """
         with get_sync_sessionm().begin() as session:
             session.execute(
                 update(Assets).where(Assets.id == id).values(bot_is_trading=trading)

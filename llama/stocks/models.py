@@ -1,24 +1,42 @@
+"""
+Helper Stock models
+"""
+
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 from uuid import UUID, uuid4
-
 from alpaca.data.models import Bar, BarSet
 from alpaca.data.models.base import BaseDataSet, TimeSeriesMixin
-from alpaca.trading import (AssetClass, AssetExchange, Position, PositionSide,
-                            USDPositionValues)
+from alpaca.trading import (
+    AssetClass,
+    AssetExchange,
+    Position,
+    PositionSide,
+    USDPositionValues,
+)
 
 from ..database.models import Bars
 
 
 class CustomBarSet(BaseDataSet, TimeSeriesMixin):
+    """
+    The same as the Alpaca defined barset, but with extra functionality
+    """
+
     data: dict[str, list[Bar]]
 
     def __init__(
         self,
-        bars: list[Bar] = [],
+        bars: list[Bar] | None = None,
     ):
+        """_summary_
+
+        Args:
+            bars (list[Bar] | None, optional): _description_. Defaults to None.
+        """
+        bars = bars or list()
         parsed_bars = defaultdict(lambda: [])
         for item in bars:
             parsed_bars[item.symbol].append(item)
@@ -27,6 +45,7 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
     @classmethod
     def from_barset(cls, barset: BarSet):
+        """From barset to custom barset"""
         bars = []
         for bset in barset.data.values():
             bars += bset
@@ -34,39 +53,41 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
     @classmethod
     def from_postgres_bars(cls, bars: list[Bars]):
+        """From postgres data to Bar and dataframes"""
         return cls(
             [
                 Bar(
-                    bar.symbol,
+                    bar_.symbol,
                     {
-                        "t": bar.timestamp,
-                        "o": bar.open,
-                        "h": bar.high,
-                        "l": bar.low,
-                        "c": bar.close,
-                        "v": bar.volume,
-                        "n": bar.trade_count,
-                        "vw": bar.vwap,
+                        "t": bar_.timestamp,
+                        "o": bar_.open,
+                        "h": bar_.high,
+                        "l": bar_.low,
+                        "c": bar_.close,
+                        "v": bar_.volume,
+                        "n": bar_.trade_count,
+                        "vw": bar_.vwap,
                     },
                 )
-                for bar in bars
+                for bar_ in bars
             ]
         )
 
-    def append(self, bar: Bar):
+    def append(self, bar_: Bar):
         """Keeps the last 15 bars in memory"""
-        if bar.symbol not in self.data:
-            self.data[bar.symbol] = []
-        symbol_list = self.data[bar.symbol]
-        symbol_list.append(bar)
+        if bar_.symbol not in self.data:
+            self.data[bar_.symbol] = []
+        symbol_list = self.data[bar_.symbol]
+        symbol_list.append(bar_)
 
     def to_dict(self, time_frame: str):
+        """Transforms a BarSet into a dictionary"""
         all_bars = []
         for bars in self.data.values():
             all_bars += bars
         response = []
-        for bar in all_bars:
-            dict_bar = bar.dict()
+        for bar_ in all_bars:
+            dict_bar = bar_.dict()
             dict_bar["timeframe"] = time_frame
             response.append(dict_bar)
         return response
@@ -74,6 +95,8 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
 @dataclass
 class Metric:
+    """Metric definition"""
+
     symbol: str
     name: str
     value: Any
@@ -81,6 +104,10 @@ class Metric:
 
 
 class NullPosition(Position):
+    """
+    A stand-in Position class where there are no positions
+    """
+
     asset_id: UUID = uuid4()
     symbol: str
     exchange: AssetExchange = AssetExchange.NASDAQ

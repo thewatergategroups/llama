@@ -9,6 +9,12 @@ build:
 	. -t $(REPOSITORY)
 
 debug:
+	docker compose run --entrypoint "python -m llama debug" api 
+
+backtest:
+	docker compose run --entrypoint "python -m llama backtest" api 
+
+shell:
 	docker compose run --entrypoint bash api 
 
 up: 

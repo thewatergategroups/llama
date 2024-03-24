@@ -1,3 +1,7 @@
+"""
+VWAP specific conditions
+"""
+
 from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
@@ -52,6 +56,7 @@ def tolerance_sell(most_recent_bar: Bar, trader: Trader):
 
 
 def get_vwap_conditions():
+    """Get VWAP specific conditions"""
     return [
         Condition(
             name="positive_vwap_slope",

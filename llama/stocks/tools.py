@@ -1,3 +1,7 @@
+"""
+Unimportant Helper functions - Possibly remove
+"""
+
 import io
 import logging
 
