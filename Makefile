@@ -4,10 +4,12 @@ include ~/pypi_creds
 
 build:
 	docker build --network=host \
-	-f docker/Dockerfile \
+	-f ./Dockerfile \
 	--build-arg="PYPI_USER=${PYPI_USER}" \
 	--build-arg="PYPI_PASS=${PYPI_PASS}" \
-	. -t $(REPOSITORY)
+	--target development \
+	-t $(REPOSITORY) \
+	. 
 
 debug:
 	docker compose run --entrypoint "python -m llama debug" api 
@@ -37,8 +39,14 @@ pgadmin:
 down: 
 	docker compose --profile "*" down
 
-push: build
-	docker tag $(REPOSITORY):latest ghcr.io/1ndistinct/llama:latest
+push: 
+	docker build --network=host \
+	-f docker/Dockerfile \
+	--build-arg="PYPI_USER=${PYPI_USER}" \
+	--build-arg="PYPI_PASS=${PYPI_PASS}" \
+	--target development \
+	-t ghcr.io/1ndistinct/llama:latest \
+	. 
 	docker push  ghcr.io/1ndistinct/llama:latest
 
 template:

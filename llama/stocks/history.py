@@ -297,7 +297,9 @@ class History:
                 symbol_or_symbols=symbol, start=start_time, end=end_time
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )
         if first and first >= start_time + timedelta(days=1):
             logging.info(
                 "getting qoutes at beginning between %s and %s for %s...",
@@ -309,7 +311,9 @@ class History:
                 symbol_or_symbols=symbol, start=start_time, end=first
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )
         if last and last <= end_time - timedelta(days=1):
             logging.info(
                 "getting qoutes at end between %s and %s for %s...",
@@ -322,4 +326,6 @@ class History:
                 symbol_or_symbols=symbol, start=last, end=end_time
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )

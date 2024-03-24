@@ -4,10 +4,9 @@ Settings definition
 
 import pathlib
 from functools import lru_cache
-
-from pydantic import BaseSettings
 from trekkers.config import DbSettings, get_sync_sessionmaker
 from yumi import JwtConfig, LogConfig
+from pydantic_settings import BaseSettings
 
 TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
 

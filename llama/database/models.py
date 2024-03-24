@@ -50,6 +50,9 @@ class Account(BaseSql):
     last_maintenance_margin: Mapped[Optional[str]]
     sma: Mapped[Optional[str]]
     daytrade_count: Mapped[Optional[int]]
+    options_buying_power: Mapped[Optional[str]]
+    options_approved_level: Mapped[Optional[int]]
+    options_trading_level: Mapped[Optional[int]]
 
 
 class Bars(BaseSql):

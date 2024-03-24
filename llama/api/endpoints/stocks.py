@@ -62,7 +62,7 @@ async def latest_ask_price(
     """
     Get the latest qoute for a stock
     """
-    return {symbol: history.get_latest_qoute(symbol).dict() for symbol in symbols}
+    return {symbol: history.get_latest_qoute(symbol).model_dump() for symbol in symbols}
 
 
 @router.get("/news")

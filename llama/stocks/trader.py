@@ -53,7 +53,7 @@ class Trader:
         """
         account = self.client.get_account()
         self.buying_power = account.buying_power
-        upsert(get_sync_sessionm(), account.dict(), Account)
+        upsert(get_sync_sessionm(), account.model_dump(), Account)
         return account
 
     def get_positions(self, force: bool = False):
@@ -77,7 +77,9 @@ class Trader:
         with get_sync_sessionm().begin() as session:
             session.execute(delete(Positions))
             if positions:
-                upsert(get_sync_sessionm(), [p.dict() for p in positions], Positions)
+                upsert(
+                    get_sync_sessionm(), [p.model_dump() for p in positions], Positions
+                )
         return positions
 
     def get_position(self, symbol: str, force: bool = False):
@@ -90,7 +92,7 @@ class Trader:
                     return Position(**position.as_dict())
         try:
             position = self.client.get_open_position(symbol)
-            upsert(get_sync_sessionm(), position.dict(), Positions)
+            upsert(get_sync_sessionm(), position.model_dump(), Positions)
             return position
         except APIError:
             logging.debug("No open position for %s", symbol)
@@ -113,7 +115,7 @@ class Trader:
         with get_sync_sessionm().begin() as session:
             try:
                 position = self.client.get_open_position(symbol)
-                upsert(get_sync_sessionm(), position.dict(), Positions)
+                upsert(get_sync_sessionm(), position.model_dump(), Positions)
             except APIError:
                 session.execute(delete(Positions).where(Positions.symbol == symbol))
                 return True
@@ -134,7 +136,7 @@ class Trader:
         request_params = GetOrdersRequest(status="all", side=side)
         orders = self.client.get_orders(filter=request_params)
         if orders:
-            upsert(get_sync_sessionm(), [o.dict() for o in orders], Orders)
+            upsert(get_sync_sessionm(), [o.model_dump() for o in orders], Orders)
         return orders
 
     def get_all_assets(self, force: bool = False):
@@ -148,7 +150,7 @@ class Trader:
         for entry in divide_chunks(tradable_assets, 4000):
             upsert(
                 get_sync_sessionm(),
-                [a.dict() for a in entry],
+                [a.model_dump(exclude=["attributes"]) for a in entry],
                 Assets,
             )
         return self.get_assets()
@@ -221,7 +223,7 @@ class Trader:
 
         # Limit order
         response = self.client.submit_order(order_data=limit_order_data)
-        upsert(get_sync_sessionm(), response.dict(), Orders)
+        upsert(get_sync_sessionm(), response.model_dump(), Orders)
         return response
 
     def place_order(
@@ -236,6 +238,6 @@ class Trader:
             symbol=symbol, qty=quantity, side=side, time_in_force=time_in_force
         )
         response = self.client.submit_order(market_order_data)
-        upsert(get_sync_sessionm(), response.dict(), Orders)
+        upsert(get_sync_sessionm(), response.model_dump(), Orders)
         self.get_account()
         return response

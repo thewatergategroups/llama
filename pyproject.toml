@@ -7,14 +7,16 @@ authors = ["Ciaran <ciaranmckey@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.11"
-pydantic = "^1.10.11"
-alpaca-py = "^0.8.2"
+pydantic = "^2"
+alpaca-py = "^0.19"
 matplotlib = "^3.7.2"
 numpy = "^1.25.1"
-fastapi = "^0.100.0"
+fastapi = "^0.110.0"
 uvicorn = "^0.23.1"
-trekkers = { version = "*", source = "kube" }
-yumi = { version = "*", source = "kube" }
+
+[tool.poetry.group.local.dependencies]
+trekkers = { version = "^0.2", source = "kube" }
+yumi = { version = "^0.2", source = "kube" }
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
@@ -38,6 +40,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
+
+[tool.pylint.'MESSAGES CONTROL']
+extension-pkg-whitelist = "pydantic"
 
 [[tool.mypy.overrides]]
 module = ["alpaca.*", "matplotlib.*"]

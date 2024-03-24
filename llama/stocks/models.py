@@ -82,12 +82,12 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
 
     def to_dict(self, time_frame: str):
         """Transforms a BarSet into a dictionary"""
-        all_bars = []
+        all_bars: list[Bar] = list()
         for bars in self.data.values():
             all_bars += bars
         response = []
         for bar_ in all_bars:
-            dict_bar = bar_.dict()
+            dict_bar = bar_.model_dump()
             dict_bar["timeframe"] = time_frame
             response.append(dict_bar)
         return response

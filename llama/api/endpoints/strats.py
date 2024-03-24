@@ -127,8 +127,8 @@ class PatchStratCondition(BaseModel):
 
     strategy_alias: str
     condition_name: str
-    active: bool | None
-    variables: dict | None
+    active: bool | None = None
+    variables: dict | None = None
 
 
 @router.patch("/strategy/conditions/update")
@@ -158,8 +158,8 @@ class PatchCondition(BaseModel):
     """Patch an overall condition body"""
 
     name: str
-    side: OrderSide | None
-    variables: dict | None
+    side: OrderSide | None = None
+    variables: dict | None = None
 
 
 @router.patch("/conditions/update")

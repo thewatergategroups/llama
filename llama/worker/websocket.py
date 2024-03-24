@@ -40,19 +40,19 @@ class LiveStockDataStream:
         for strategy in self.strategies:
             strategy.run(self.trader, data)
         with get_sync_sessionm().begin() as session:
-            data_dict = data.dict()
+            data_dict = data.model_dump()
             data_dict["timeframe"] = time_frame.value
             session.execute(insert(Bars).values(data_dict))
 
     async def handle_qoutes(self, data: Quote):
         """Handle incoming qoutes"""
         with get_sync_sessionm().begin() as session:
-            session.execute(insert(Qoutes).values(data.dict()))
+            session.execute(insert(Qoutes).values(data.model_dump()))
 
     async def handle_trades(self, data: Trade):
         """handle incoming trades"""
         with get_sync_sessionm().begin() as session:
-            session.execute(insert(Trades).values(data.dict()))
+            session.execute(insert(Trades).values(data.model_dump()))
 
     def subscribe(
         self,
@@ -96,9 +96,9 @@ class LiveTradingStream:
             trade_update.order.id,
             trade_update.order.symbol,
         )
-        upsert(get_sync_sessionm(), trade_update.order.dict(), Orders)
+        upsert(get_sync_sessionm(), trade_update.order.model_dump(), Orders)
 
-        trade_update_dict = trade_update.dict()
+        trade_update_dict = trade_update.model_dump()
         trade_update_dict.pop("order")
         trade_update_dict["order_id"] = trade_update.order.id
         upsert(get_sync_sessionm(), trade_update_dict, TradeUpdates)
