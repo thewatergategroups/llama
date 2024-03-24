@@ -20,9 +20,14 @@ PYPI_USER=admin
 PYPI_PASS=admin
 EOF
 ```
-3. contact `ciaranmckey@gmail.com` about giving you access to relevant repositories
-4. Connect to the wireguard VPN
-5. run `make build` to build the docker image
+3. Set up poetry deps
+```bash
+poetry config http-basic.kube <PYPI_USER> <PYPI_PASS>
+poetry config virtualenvs.in-project true
+``` 
+4. contact `ciaranmckey@gmail.com` about giving you access to relevant repositories
+5. Connect to the wireguard VPN
+6. run `make build` to build the docker image
 
 #### Differnet Modes 
 ##### Bring up all services
@@ -53,5 +58,3 @@ EOF
 ##### Bring down all services
 1. run `make down`
 
-poetry config http-basic.kube admin admin
-poetry config virtualenvs.in-project true
