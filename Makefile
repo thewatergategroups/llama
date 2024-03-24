@@ -1,4 +1,5 @@
 REPOSITORY := llama
+SHELL := /bin/bash
 include ~/pypi_creds
 
 build:
@@ -19,10 +20,22 @@ shell:
 
 up: 
 	docker compose up -d --remove-orphans
+	if [ $(PGADMIN) == "true" ]; then docker compose --profile pgadmin up -d; fi
+	echo "sleeping to allow services to start up..."
+	sleep 15
+	export PGADMIN=$(PGADMIN) && bash ./scripts/browser.sh
 	docker compose logs -f 
 
+pgadmin: 
+	docker compose --profile pgadmin up -d
+	echo "sleeping to allow services to start up..."
+	sleep 15
+	export PGADMIN=true && \
+	export DOCS=false && \
+	bash ./scripts/browser.sh
+
 down: 
-	docker compose down
+	docker compose --profile "*" down
 
 push: build
 	docker tag $(REPOSITORY):latest ghcr.io/1ndistinct/llama:latest

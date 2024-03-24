@@ -64,6 +64,8 @@ services:
     depends_on:
       - db
     restart: always
+    profiles:
+      - pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: chart@domain.com
       PGADMIN_DEFAULT_PASSWORD: postgres
