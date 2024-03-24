@@ -57,7 +57,7 @@ class SentimentStrategy:
         Returns:
             pd.DataFrame: _description_
         """
-        logger.info("Downloading data from Yahoo finance")
+        logging.info("Downloading data from Yahoo finance")
         df = yf.download(tickers=ticker_list, start=start_date, end=end_date)
 
         return df
@@ -66,7 +66,7 @@ class SentimentStrategy:
         """
         # Need to kind of normalize this so twitter likes + comments are included
         """
-        logger.info("Normalizing data for twitter based usage")
+        logging.info("Normalizing data for twitter based usage")
 
         df["date"] = pd.to_datetime(df["date"])
         df = df.set_index(["date", "symbol"])
@@ -92,7 +92,7 @@ class SentimentStrategy:
         Returns:
             pd.DataFrame: _description_
         """
-        logger.info("Starting to aggregate monthly data")
+        logging.info("Starting to aggregate monthly data")
         aggregated_df = (
             df.reset_index("symbol")
             .groupby([pd.Grouper(freq="M"), "symbol"])[["engagement_ratio"]]
@@ -117,7 +117,7 @@ class SentimentStrategy:
         Returns:
             pd.DataFrame: Creates a new DataFrame
         """
-        logger.info("Starting to select top stocks for each month")
+        logging.info("Starting to select top stocks for each month")
 
         filtered_df = df[df["rank"] <= max_rank].copy()
         filtered_df = filtered_df.reset_index(level=1)
@@ -134,7 +134,7 @@ class SentimentStrategy:
         TODO: Hard type return
         Create a dictionary containing start of month and corresponded selected stocks.
         """
-        logger.info("Filtering and selecting stocks for each month")
+        logging.info("Filtering and selecting stocks for each month")
         dates = df.index.get_level_values("date").unique().tolist()
 
         top_number_of_stocks_with_dates = {}
@@ -150,7 +150,7 @@ class SentimentStrategy:
         """
         Calculate portfolio returns
         """
-        logger.info("Starting to calculate portfolio")
+        logging.info("Starting to calculate portfolio")
         portfolio_df = pd.DataFrame()
 
         for start_date in dates_to_top_stocks.keys():
@@ -176,7 +176,7 @@ class SentimentStrategy:
         Args:
             df (pd.DataFrame): _description_
         """
-        logger.info("Plotting")
+        logging.info("Plotting")
         plt.style.use("ggplot")
 
         df.plot(figsize=(16, 6))
@@ -196,7 +196,7 @@ class SentimentStrategy:
         # Load the twitter sentiment dataset, set the index, calculate engagement ratio,
         # and filter out stocks with no significant twitter activity.
         """
-        logger.info("Starting twitter execute strategy")
+        logging.info("Starting twitter execute strategy")
         START_DATE = "2021-01-01"
         END_DATE = "2023-03-01"
 

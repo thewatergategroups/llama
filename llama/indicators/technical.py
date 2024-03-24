@@ -5,9 +5,6 @@ import pandas as pd
 import pandas as pd
 import logging
 from statsmodels.regression.rolling import RollingOLS
-import warnings
-
-warnings.filterwarnings("ignore")
 
 
 class Indicators:
@@ -285,3 +282,132 @@ class Indicators:
         data = data.dropna()
         data.info()
         return data
+
+
+class Sentiment:
+    """
+    Class for sentiment analysis.
+    Currently used only for Twitter data.
+    """
+
+    def __init__(self):
+        # TODO: Fetch this data dynamically
+        self.data_dir_twitter = "/home/borisb/projects/llama/"
+
+    def load_data(self, data_dir):
+        """
+        Load data from CSV to DataFrame
+
+        Args:
+            data_dir (_type_): pth of data to load
+
+        Returns:
+            _type_: returns a DataFrame from the data dir
+        """
+        df = pd.read_csv(os.path.join(data_dir, "sentiment_data.csv"))
+
+        return df
+
+    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        # Need to kind of normalize this so twitter likes + comments are included
+        """
+        logging.info("Normalizing data for twitter based usage")
+
+        df["date"] = pd.to_datetime(df["date"])
+        df = df.set_index(["date", "symbol"])
+
+        df["engagement_ratio"] = df["twitterComments"] / df["twitterLikes"]
+
+        min_likes = 20
+        min_comments = 10
+        df = df[
+            (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
+        ]
+
+        logging.debug("Done with normalizations")
+        return df
+
+    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        # Need to kind of normalize this so twitter likes + comments are included
+        """
+        logging.info("Normalizing data for twitter based usage")
+
+        df["date"] = pd.to_datetime(df["date"])
+        df = df.set_index(["date", "symbol"])
+
+        df["engagement_ratio"] = df["twitterComments"] / df["twitterLikes"]
+
+        min_likes = 20
+        min_comments = 10
+        df = df[
+            (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
+        ]
+
+        logging.debug("Done with normalizations")
+        return df
+
+    def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Aggregate monthly twitter data
+
+        Args:
+            df (pd.DataFrame): _description_
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        logging.info("Starting to aggregate monthly data")
+        aggregated_df = (
+            df.reset_index("symbol")
+            .groupby([pd.Grouper(freq="M"), "symbol"])[["engagement_ratio"]]
+            .mean()
+        )
+
+        aggregated_df["rank"] = aggregated_df.groupby(level=0)[
+            "engagement_ratio"
+        ].transform(lambda x: x.rank(ascending=False))
+
+        logging.debug("Done with all aggregations")
+        return aggregated_df
+
+    def select_top_stocks_monthly(self, df: pd.DataFrame, max_rank=5) -> pd.DataFrame:
+        """
+        Select the top N(5) stocks by rank for each month and fix the date to start at beginning of next month.
+
+        Args:
+            df (pd.DataFrame): Dataframe to work on
+            max_rank (int, optional): Top number of stocks to filter. Defaults to 5.
+
+        Returns:
+            pd.DataFrame: Creates a new DataFrame
+        """
+        logging.info("Starting to select top stocks for each month")
+
+        filtered_df = df[df["rank"] <= max_rank].copy()
+        filtered_df = filtered_df.reset_index(level=1)
+
+        # Set the beginning of the next month (!!)
+        filtered_df.index = filtered_df.index + pd.DateOffset(1)
+        filtered_df = filtered_df.reset_index().set_index(["date", "symbol"])
+        # logging.debug(filtered_df.head(20))
+        logging.debug("Done with choosing the top 20 stocks")
+        return filtered_df
+
+    def select_stocks_beginning_of_month(self, df: pd.DataFrame):
+        """
+        TODO: Hard type return
+        Create a dictionary containing start of month and corresponded selected stocks.
+        """
+        logging.info("Filtering and selecting stocks for each month")
+        dates = df.index.get_level_values("date").unique().tolist()
+
+        top_number_of_stocks_with_dates = {}
+        for d in dates:
+            top_number_of_stocks_with_dates[d.strftime("%Y-%m-%d")] = df.xs(
+                d, level=0
+            ).index.tolist()
+
+        logging.debug(top_number_of_stocks_with_dates)
+        return top_number_of_stocks_with_dates
