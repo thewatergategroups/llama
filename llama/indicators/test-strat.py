@@ -6,7 +6,7 @@ from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.timeframe import TimeFrame
 from alpaca.data.requests import StockBarsRequest
 from datetime import datetime
-import llama.boris.technical as tt
+from .technical import GKV
 
 # import database.models as bb
 from llama.database.models import Bars
@@ -16,7 +16,7 @@ API_KEY = "PKCTFA47WCR9XYAZJ6C8"
 SECRET_KEY = "jOHa3DTjOcOnezvKDoFjSbikcl2RDWCXwFg8PLF1"
 
 trading_client = TradingClient(API_KEY, SECRET_KEY, paper=True)
-gvk_client = tt.GKV()
+gvk_client = GKV()
 
 # NVDIA
 stock_client = StockHistoricalDataClient(API_KEY, SECRET_KEY)
