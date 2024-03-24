@@ -16,7 +16,7 @@ from .endpoints.trading import router as tr_router
 def create_app() -> FastAPI:
     """
     create and return fastapi app
-"""
+    """
     setup_logging(get_settings().log_config)
     app = FastAPI(
         title="llama trading bot",
