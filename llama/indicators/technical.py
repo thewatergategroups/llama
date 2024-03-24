@@ -16,11 +16,6 @@ class Indicators:
         """
         Calculates Garman Klass volatility technical indicator
 
-        Args:
-            df (pd.DataFrame): _description_
-
-        Returns:
-            pd.DataFrame: _description_
         """
         logging.info("Calculating German class vol")
         logging.info(df)
@@ -72,20 +67,16 @@ class Indicators:
 
         return df
 
-    def calculate_macd(self, close):
+    def calculate_macd(self, close, length: int = 20):
         """
         Calculate MACD indicator
-
-        Args:
-            close (_type_): _description_
-
-        Returns:
-            _type_: _description_
         """
-        length: int = 20
+        logging.debug("Calculating single column MACD")
 
         macd = pandas_ta.macd(close=close, length=length).iloc[:, 0]
-        return macd.sub(macd.mean()).div(macd.std())
+        final_macd = macd.sub(macd.mean()).div(macd.std())
+
+        return final_macd
 
     def calculate_atr(self, df: pd.DataFrame):
         """
@@ -117,14 +108,9 @@ class Indicators:
 
     def filter_top_most_liquid_stocks(self, df: pd.DataFrame) -> pd.DataFrame:
         """Aggregate to monthly level and filter top 150 most liquid stocks for each month.
-            * To reduce training time and experiment with features and strategies,
-            we convert the business-daily data to month-end frequency
+        To reduce training time and experiment with features and strategies,
+        we convert the business-daily data to month-end frequency
 
-        Args:
-            df (pd.DataFrame): _description_
-
-        Returns:
-            _type_: _description_
         """
         logging.info("Filtering and aggregating current stock data")
 
@@ -194,7 +180,7 @@ class Indicators:
         return most_liquid_stocks_df
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(
-        self, data, top_most_liquid_df: pd.DataFrame
+        self, top_most_liquid_df: pd.DataFrame
     ) -> pd.DataFrame:
         """
         Download Fama-French Factors and Calculate Rolling Factor Betas.
