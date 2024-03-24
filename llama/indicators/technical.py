@@ -8,7 +8,6 @@ from pypfopt import risk_models
 from pypfopt import expected_returns
 from trekkers import BaseSql
 import matplotlib.ticker as mtick
-import requests
 import pandas as pd
 import yfinance as yf
 import matplotlib.pyplot as plt
@@ -16,25 +15,10 @@ import datetime as dt
 import logging
 from statsmodels.regression.rolling import RollingOLS
 from sklearn.cluster import KMeans
-import sys
 import warnings
 
 warnings.filterwarnings("ignore")
 yf.pdr_override()  # Enable caching
-# logger = logging.getLogger()
-# logger.setLevel(logging.DEBUG)
-# formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
-
-# stdout_handler = logging.StreamHandler(sys.stdout)
-# stdout_handler.setFormatter(formatter)
-# stdout_handler.setLevel(logging.DEBUG)
-# formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
-# file_handler = logging.FileHandler('/home/borisb/projects/llama/gol/gvk.log')
-# file_handler.setLevel(logging.DEBUG)
-# file_handler.setFormatter(formatter)
-
-# logger.addHandler(file_handler)
-# logger.addHandler(stdout_handler)
 
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
@@ -42,98 +26,13 @@ yf.pdr_override()  # Enable caching
 # sudo apt-get install libbz2-dev
 # pyenv install 3.11
 
-# class Bars(BaseSql):
-#     __tablename__ = "bars"
-#     __table_args__ = {"schema": "llama"}
 
-#     symbol: Mapped[str] = mapped_column(primary_key=True)
-#     timeframe: Mapped[str] = mapped_column(primary_key=True)
-#     timestamp: Mapped[datetime] = mapped_column(primary_key=True)
-#     open: Mapped[float]
-#     close: Mapped[float]
-#     high: Mapped[float]
-#     low: Mapped[float]
-#     trade_count: Mapped[int]
-#     vwap: Mapped[float]
-#     volume: Mapped[int]
-
-# logger.basicConfig(stream=sys.stdout, level=logger.DEBUG)
-
-data_folder = "/home/borisb/projects/llama/data/test/"
-
-
-class GKV:  # Needs to extend Bars?
-
-    # self.df = [] # TODO: Insert data here, ideally as a dataFrame
-
+class GKV:
     """
     Downloads SP500 data for 1 year given an an end data.
     Also, saves the
     TODO: Break this up into 2/3 other functions for each of the parts
     """
-
-    def download_data_from_source(
-        self, end_date="2023-09-29", download_filename="sp500-yf-2.csv"
-    ):
-        # url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-        # response = requests.get(url)
-
-        # with open('sp500.html', 'w') as file:
-        #     file.write(response.text)
-
-        # sp500 = pd.read_html(response.text)[0]
-        sp500 = pd.read_html(
-            "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-        )[0]
-        # sp500 = response.text[0]
-        # Normalize the data
-        sp500["Symbol"] = sp500["Symbol"].str.replace(".", "-")
-        symbols_list = sp500["Symbol"].unique().tolist()
-
-        # Exactly 1 year before start of the data
-        start_date = pd.to_datetime(end_date) - pd.DateOffset(365 * 8)
-
-        df = yf.download(tickers=symbols_list, start=start_date, end=end_date).stack()
-
-        df.index.names = ["date", "ticker"]
-        df.columns = df.columns.str.lower()
-
-        # TODO: Improve to which dir it goes + date in filename
-        df.to_csv(download_filename)
-        logging(df)
-
-        return df
-
-    def load_sp500_data(self, filename="sp500-yf-3.csv") -> pd.DataFrame:
-        """
-        Load sp500 Data given an an already downloaded file
-        Returns a fully populated pandas Dataframe with all of the necessary data
-
-        Returns:
-            pd.DataFrame: _description_
-        """
-        logging("Starting to load sp500 Data")
-        # sp500 = pd.read_html('sp500.html')[0]
-        # logging(sp500)
-        # sp500['Symbol'] = sp500['Symbol'].str.replace('.', '-')
-        # symbols_list = sp500['Symbol'].unique().tolist()
-        # end_date = '2023-09-27'
-
-        # TODO: Improve to which dir it goes + date in filename
-        df = (
-            pd.read_csv(
-                filename,
-                index_col=["date", "ticker"],
-                encoding="utf-8-sig",
-                parse_dates=True,
-            )
-            .dropna()
-            .drop_duplicates()
-            .set_flags(allows_duplicate_labels=True)
-        )
-        logging(df)
-        return df
-
     def calculate_garman_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Calculates Garman Klass volatility technical indicator
@@ -337,36 +236,6 @@ class GKV:  # Needs to extend Bars?
         )
 
         return [data, df]
-
-    def calculate_returns(self, df):
-        """Calculate Monthly Returns for different time horizons as features.
-            To capture time series dynamics that reflect, for example, momentum patterns,
-            we compute historical returns using the method .pct_change(lag), that is,
-            returns over various monthly periods as identified by lags.
-        Args:
-            df (_type_): _description_
-
-        Returns:
-            _type_: _description_
-        """
-        outlier_cutoff = 0.005
-        lags = [1, 2, 6, 9, 12]
-
-        for lag in lags:
-            df[f"returnm_{lag}m"] = (
-                df["adj close"]
-                .pct_change(lag)  # calculate return for a given lag
-                .pipe(
-                    lambda x: x.clip(
-                        lower=x.quantile(outlier_cutoff),
-                        upper=x.quantile(1 - outlier_cutoff),
-                    )
-                )
-                .add(1)
-                .pow(1 / lag)
-                .sub(1)
-            )
-        return df
 
     def download_fama_french_factors_and_calc_rolling_factors_betas(self, data):
         """
