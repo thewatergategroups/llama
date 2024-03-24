@@ -49,3 +49,6 @@ select = ["E", "PLE", "F", "W605", "S", "RUF"]
 ignore = ["S104"]
 exclude = ["tests"]
 show-fixes = true
+
+[tool.pylint]
+ignored-modules = ["alembic.context","sqlalchemy.orm.session"]

@@ -85,6 +85,7 @@ def backtest(settings: Settings, *_, **__):
 def debug(settings: Settings, *_, **__):
     """For running whatever functions you want to test"""
     history = History.create(settings)
+    history.get_latest_qoute("AAPL")
     ## do something
 
 

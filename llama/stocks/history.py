@@ -157,9 +157,18 @@ class History:
                 .where(match_query.c.timestamp.is_(None))
             )
             if timeframe.unit in {TimeFrameUnit.Minute, TimeFrameUnit.Day}:
-                query = query.where(func.extract("isodow", series.c.time) < 6)
+                query = query.where(
+                    func.extract(  # pylint: disable=not-callable
+                        "isodow", series.c.time
+                    )
+                    < 6
+                )
             if timeframe.unit == TimeFrameUnit.Minute:
-                query = query.where(func.extract("hour", series.c.time).between(13, 19))
+                query = query.where(
+                    func.extract(  # pylint: disable=not-callable
+                        "hour", series.c.time
+                    ).between(13, 19)
+                )
 
             response: list[datetime] = session.execute(query).scalars().fetchall()
 
