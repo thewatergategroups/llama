@@ -411,3 +411,43 @@ class Sentiment:
 
         logging.debug(top_number_of_stocks_with_dates)
         return top_number_of_stocks_with_dates
+
+    def execute_twitter_sent_strategy(self):
+        """
+        Twitter Sentiment Investing Strategy
+        # 1. Load Twitter Sentiment Data
+        # Load the twitter sentiment dataset, set the index, calculate engagement ratio,
+        # and filter out stocks with no significant twitter activity.
+        """
+        logging.info("Starting twitter execute strategy")
+        START_DATE = "2021-01-01"
+        END_DATE = "2023-03-01"
+
+        sentiment_df = self.load_data(self.data_dir_twitter)
+        sentiment_df = self.normalize_twitter_data(sentiment_df)
+        # logger.debug(sentiment_df)
+        aggregated_df = self.aggregate_monthly_twitter_data(sentiment_df)
+        # logger.debug(aggregated_df)
+        filtered_df = self.select_top_stocks_monthly(aggregated_df)
+        # logger.debug(filtered_df)
+        dates_to_top_stocks = self.select_stocks_beginning_of_month(filtered_df)
+
+        # Download fresh stock prices for only selected/shortlisted stocks
+        stocks_list = sentiment_df.index.get_level_values("symbol").unique().tolist()
+        prices_df = self.download_data(stocks_list, START_DATE, END_DATE)
+        # Calculate Portfolio Returns with monthly rebalancing
+        returns_df = np.log(prices_df["Adj Close"]).diff()
+        portfolio_df = self.calculate_portfolio(returns_df, dates_to_top_stocks)
+        # logger.debug(portfolio_df)
+
+        # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
+        qqq_df = self.download_data("QQQ", START_DATE, END_DATE)
+        qqq_ref = np.log(qqq_df["Adj Close"]).diff().to_frame("nasdaq_return")
+
+        portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
+
+        # logger.debug(portfolio_df)
+
+        portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
+
+        self.plot_df(portfolios_cumulative_return)

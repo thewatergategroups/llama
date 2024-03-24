@@ -284,6 +284,51 @@ class Utils:
         plt.ylabel("Return")
         plt.show()
 
+    ###### FOR Twitter sentiment Analysis
+    def calculate_portfolio(self, returns_df: pd.DataFrame, dates_to_top_stocks):
+        """
+        Calculate portfolio returns
+        """
+        logging.info("Starting to calculate portfolio")
+        portfolio_df = pd.DataFrame()
+
+        for start_date in dates_to_top_stocks.keys():
+            end_date = (pd.to_datetime(start_date) + pd.offsets.MonthEnd()).strftime(
+                "%Y-%m-%d"
+            )
+            cols = dates_to_top_stocks[start_date]
+            temp_df = (
+                returns_df[start_date:end_date][cols]
+                .mean(axis=1)
+                .to_frame("portfolio_return")
+            )
+            portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
+
+        logger.debug("Done with portfolio calculation")
+        logger.debug(portfolio_df)
+        return portfolio_df
+
+    def plot_df(self, df: pd.DataFrame):
+        """
+        Plots a DataFrame
+
+        Args:
+            df (pd.DataFrame): _description_
+        """
+        logging.info("Plotting")
+        plt.style.use("ggplot")
+
+        df.plot(figsize=(16, 6))
+
+        plt.title("Twitter Engagement Ratio Strategy Return Over Time")
+        plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+
+        plt.ylabel("Return")
+
+        # plt.show()
+        plt.savefig("returns.png")
+        ###### [END] %£FOR Twitter sentiment Analysis
+
 
 # poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
 
