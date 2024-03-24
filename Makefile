@@ -17,8 +17,6 @@ debug:
 backtest:
 	docker compose run --entrypoint "python -m llama backtest" api 
 
-run: build up
-
 shell:
 	docker compose run --entrypoint bash api 
 
@@ -54,6 +52,3 @@ push:
 template:
 	if [ ! -f secret_vals.yaml ]; then echo "secrets: {}" > secret_vals.yaml; fi
 	helm template ./helm/${PROJECT}-local -f secret_vals.yaml --debug > template.yaml
-
-debug-v1:
-	docker compose --profile debug run --entrypoint bash api
