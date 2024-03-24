@@ -1,23 +1,26 @@
+"""
+History object to pull back data from alpaca's apis
+"""
+
 import logging
 from datetime import datetime, timedelta
 
+import pandas as pd
 import requests
-from alpaca.data.models import BarSet
 from alpaca.data.historical import StockHistoricalDataClient
+from alpaca.data.models import BarSet
 from alpaca.data.requests import (
     StockBarsRequest,
     StockLatestQuoteRequest,
     StockQuotesRequest,
 )
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from sqlalchemy import func, select
+from sqlalchemy import Values, column, func, select
+from trekkers.statements import upsert
+
+from ..database import Bars, Qoutes
 from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
-from ..database import Bars, Qoutes
-from trekkers.statements import upsert
-from sqlalchemy import func, Values, column
-import pandas as pd
-from datetime import datetime
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
@@ -71,8 +74,8 @@ class History:
         symbols = symbols if symbols is not None else ["SPY"]  ## Spy is S&P500
         headers = {
             "content-type": "application/json",
-            "Apca-Api-Key-Id": self.client._api_key,  # type: ignore
-            "Apca-Api-Secret-Key": self.client._secret_key,  # type: ignore
+            "Apca-Api-Key-Id": self.client._api_key,  # pylint: disable=protected-access
+            "Apca-Api-Secret-Key": self.client._secret_key,  # pylint: disable=protected-access
         }
         params = {
             "start": start_date.date(),
@@ -90,6 +93,12 @@ class History:
         return response.json()
 
     def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
+        """_summary_
+
+        Args:
+            bars (BarSet): _description_
+            time_frame (TimeFrame): _description_
+        """
         logging.debug("inserting bars...")
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
@@ -119,7 +128,8 @@ class History:
     ):
         """
         Currently geta all data we already have between start and end time,
-        checks what data is missing during trading hours, and turns them into consecutive sequences of data that we need to fetch.
+        checks what data is missing during trading hours,
+        and turns them into consecutive sequences of data that we need to fetch.
         DO NOT TOUCH
         """
         logging.debug("identifying missing bars...")
@@ -147,9 +157,18 @@ class History:
                 .where(match_query.c.timestamp.is_(None))
             )
             if timeframe.unit in {TimeFrameUnit.Minute, TimeFrameUnit.Day}:
-                query = query.where(func.extract("isodow", series.c.time) < 6)
+                query = query.where(
+                    func.extract(  # pylint: disable=not-callable
+                        "isodow", series.c.time
+                    )
+                    < 6
+                )
             if timeframe.unit == TimeFrameUnit.Minute:
-                query = query.where(func.extract("hour", series.c.time).between(13, 19))
+                query = query.where(
+                    func.extract(  # pylint: disable=not-callable
+                        "hour", series.c.time
+                    ).between(13, 19)
+                )
 
             response: list[datetime] = session.execute(query).scalars().fetchall()
 
@@ -251,6 +270,7 @@ class History:
         start_time: datetime = (datetime.utcnow() - timedelta(days=900)),
         end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
     ):
+        """Get the existing qoutes for a symbol"""
         logging.info("getting qoutes...")
         with get_sync_sessionm().begin() as session:
             stmt = select(Qoutes.timestamp).where(
@@ -277,7 +297,9 @@ class History:
                 symbol_or_symbols=symbol, start=start_time, end=end_time
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )
         if first and first >= start_time + timedelta(days=1):
             logging.info(
                 "getting qoutes at beginning between %s and %s for %s...",
@@ -289,7 +311,9 @@ class History:
                 symbol_or_symbols=symbol, start=start_time, end=first
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )
         if last and last <= end_time - timedelta(days=1):
             logging.info(
                 "getting qoutes at end between %s and %s for %s...",
@@ -302,4 +326,6 @@ class History:
                 symbol_or_symbols=symbol, start=last, end=end_time
             )
             qoutes = self.client.get_stock_quotes(request).data[symbol]
-            upsert(get_sync_sessionm(), [qoute.dict() for qoute in qoutes], Qoutes)
+            upsert(
+                get_sync_sessionm(), [qoute.model_dump() for qoute in qoutes], Qoutes
+            )
