@@ -5,6 +5,7 @@ import pandas as pd
 import pandas as pd
 import logging
 from statsmodels.regression.rolling import RollingOLS
+import tweepy
 
 
 class Indicators:
@@ -307,6 +308,59 @@ class Sentiment:
         df = pd.read_csv(os.path.join(data_dir, "sentiment_data.csv"))
 
         return df
+
+    def load_live_twitter_data(self):
+        # Your Twitter API credentials
+        api_key = ""
+        api_secret = ""
+        access_token = ""
+        access_token_secret = ""
+
+        # Set up Twitter API access
+        auth = tweepy.OAuthHandler(api_key, api_secret)
+        auth.set_access_token(access_token, access_token_secret)
+        api = tweepy.API(auth)
+
+        # Load S&P 500 tickers
+        tickers = ["AAPL", "MSFT", "GOOGL"]  # Replace this with your actual list
+
+        # Function to get Twitter data
+        def get_twitter_data(ticker):
+            """
+            No free access for this.
+            TODO: Look for mock data online
+            """
+            # Search for tweets containing the ticker
+            tweets = api.search_tweets(q=ticker, count=100)  # Adjust count as needed
+            data = []
+            for tweet in tweets:
+                logging.info(tweet)
+                # Here we're just collecting the tweet's text, likes and retweets count.
+                # You can adjust this as needed.
+                tweet_data = {
+                    "text": tweet.text,
+                    "likes": tweet.favorite_count,
+                    "retweets": tweet.retweet_count,
+                }
+                data.append(tweet_data)
+
+            logging.info("all twitter data is:")
+            logging.info(data)
+            return data
+
+        # Iterate over tickers and get Twitter data
+        for ticker in tickers:
+            ticker_data = get_twitter_data(ticker)
+            print(f"Data for {ticker}: {ticker_data}")
+            # Here you can also save this data to a file, database, etc.
+
+        # Example usage
+        tickers = ["AAPL", "MSFT", "GOOGL"]  # Add your S&P 500 tickers here
+        for ticker in tickers:
+            print(f"Data for {ticker}:")
+            tweets_data = search_tweets(ticker)
+            for tweet_data in tweets_data:
+                print(tweet_data)
 
     def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
