@@ -14,7 +14,7 @@ from .indicators.technical import GKV
 from alpaca.data.timeframe import TimeFrame
 from .database.models import Bars
 import logging
-
+from datetime import datetime
 from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
 from .stocks import History, Trader
