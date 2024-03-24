@@ -1,3 +1,7 @@
+"""
+API dependencies
+"""
+
 from functools import lru_cache
 
 from trekkers.config import get_async_sessionmaker
@@ -11,30 +15,34 @@ from ..stocks.trader import Trader
 
 @lru_cache
 def get_history():
-    """Get history wrapper"""
+    """Get global history object"""
     return History.create(get_settings())
 
 
 @lru_cache
 def get_trader():
-    """Get trader wrapper"""
+    """Get global trader object"""
     return Trader.create(get_settings())
 
 
 def get_backtester():
+    """get an instance of a backtester"""
     return BackTester.create()
 
 
 async def get_async_session():
+    """Return an async session to connect to postgres"""
     async with get_async_sessionmaker(get_settings().db_settings).begin() as session:
         yield session
 
 
 @lru_cache
 def get_jwt_client():
+    """Get global JWT client"""
     return JwtClient(get_settings().jwt_config)
 
 
 def get_sync_session():
+    """get a sync session too connect to postgres"""
     with get_sync_sessionm().begin() as session:
         yield session

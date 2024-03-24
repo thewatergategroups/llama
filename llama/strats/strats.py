@@ -1,3 +1,7 @@
+"""
+Functions to dynamically build Strategy classes based off of db rows
+"""
+
 import copy
 
 from sqlalchemy import select

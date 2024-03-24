@@ -1,3 +1,7 @@
+"""
+Database Table Model definitions
+"""
+
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
@@ -10,6 +14,8 @@ from trekkers import BaseSql
 
 
 class Account(BaseSql):
+    """Alpaca Bot Accounnt information"""
+
     __tablename__ = "account"
     __table_args__ = {"schema": "llama"}
 
@@ -47,6 +53,8 @@ class Account(BaseSql):
 
 
 class Bars(BaseSql):
+    """Bar information for symbols over time"""
+
     __tablename__ = "bars"
     __table_args__ = {"schema": "llama"}
 
@@ -63,6 +71,8 @@ class Bars(BaseSql):
 
 
 class Trades(BaseSql):
+    """Trade information for specific symbols"""
+
     __tablename__ = "trades"
     __table_args__ = {"schema": "llama"}
 
@@ -77,6 +87,8 @@ class Trades(BaseSql):
 
 
 class Qoutes(BaseSql):
+    """Qoute information for specific symbols"""
+
     __tablename__ = "qoutes"
     __table_args__ = {"schema": "llama"}
 
@@ -94,6 +106,8 @@ class Qoutes(BaseSql):
 
 
 class Orders(BaseSql):
+    """Bot order information from alpaca"""
+
     __tablename__ = "orders"
     __table_args__ = {"schema": "llama"}
     id: Mapped[UUID] = mapped_column(primary_key=True)
@@ -131,6 +145,8 @@ class Orders(BaseSql):
 
 
 class TradeUpdates(BaseSql):
+    """Market trade updates information"""
+
     __tablename__ = "trade_updates"
     __table_args__ = {"schema": "llama"}
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -144,6 +160,8 @@ class TradeUpdates(BaseSql):
 
 
 class Positions(BaseSql):
+    """Bot Alpaca Positions"""
+
     __tablename__ = "positions"
     __table_args__ = {"schema": "llama"}
 
@@ -171,6 +189,8 @@ class Positions(BaseSql):
 
 
 class Backtests(BaseSql):
+    """Backtest run information"""
+
     __tablename__ = "backtests"
     __table_args__ = {"schema": "llama"}
     id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
@@ -182,6 +202,8 @@ class Backtests(BaseSql):
 
 
 class BacktestStats(BaseSql):
+    """Backtest run stats"""
+
     __tablename__ = "backtest_stats"
     __table_args__ = {"schema": "llama"}
     id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
@@ -197,6 +219,8 @@ class BacktestStats(BaseSql):
 
 
 class Assets(BaseSql):
+    """Existing and tradable assets on Alpaca"""
+
     __tablename__ = "tradable_assets"
     __table_args__ = {"schema": "llama"}
     id: Mapped[UUID] = mapped_column(primary_key=True)
@@ -218,6 +242,8 @@ class Assets(BaseSql):
 
 
 class Strategies(BaseSql):
+    """Strategies definitions"""
+
     __tablename__ = "strategies"
     __table_args__ = {"schema": "llama"}
 
@@ -227,6 +253,8 @@ class Strategies(BaseSql):
 
 
 class Conditions(BaseSql):
+    """Condition definitions"""
+
     __tablename__ = "conditions"
     __table_args__ = {"schema": "llama"}
     name: Mapped[str] = mapped_column(primary_key=True)
@@ -235,6 +263,8 @@ class Conditions(BaseSql):
 
 
 class StratConditionMap(BaseSql):
+    """Map of what conditions exist in what strategies"""
+
     __tablename__ = "strat_conditions"
     __table_args__ = {"schema": "llama"}
     strategy_alias: Mapped[str] = mapped_column(

@@ -1,3 +1,7 @@
+"""
+Base Conditions added to all strategies
+"""
+
 import logging
 
 from alpaca.data.models import Bar
@@ -8,7 +12,9 @@ from .consts import Condition, ConditionType
 
 
 def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
-    """sell condition based on quantity"""
+    """
+    sell condition based on quantity
+    """
     position = trader.get_position(most_recent_bar.symbol, force=True)
     qty_avail = int(position.qty_available)
     condition = qty_avail > min_quantity
@@ -16,12 +22,14 @@ def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
 
 
 def is_profitable_sell(most_recent_bar: Bar, trader: Trader, unrealized_pl: float):
-    """purchase condition based on buy prices.. PURELY a sell condition"""
+    """
+    purchase condition based on buy prices.. PURELY a sell condition
+    """
 
     position = trader.get_position(most_recent_bar.symbol, force=True)
     condition = float(position.unrealized_pl) > unrealized_pl
     logging.info(
-        "is profitable sell condition on %s where unrealised profit/loss is %s condition response is %s",
+        "is profitable sell condition on %s where unrealised profit/loss is %s condition response is %s",  # pylint: disable=line-too-long
         most_recent_bar.symbol,
         position.unrealized_pl,
         condition,
@@ -30,12 +38,14 @@ def is_profitable_sell(most_recent_bar: Bar, trader: Trader, unrealized_pl: floa
 
 
 def stop_loss_sell(most_recent_bar: Bar, trader: Trader, unrealized_plpc: float):
-    """purchase condition based on buy prices.. PURELY a sell condition"""
+    """
+    purchase condition based on buy prices.. PURELY a sell condition
+    """
 
     position = trader.get_position(most_recent_bar.symbol, force=True)
     condition = float(position.unrealized_plpc) <= unrealized_plpc
     logging.info(
-        "stop loss sell condition on %s where unrealised profit/loss percent is %s condition response is %s",
+        "stop loss sell condition on %s where unrealised profit/loss percent is %s condition response is %s",  # pylint: disable=line-too-long
         most_recent_bar.symbol,
         position.unrealized_plpc,
         condition,
@@ -56,12 +66,14 @@ def take_profit_buy(
     trader: Trader,
     unrealized_plpc: float,
 ):
-    """purchase condition based on buy prices.. PURELY a sell condition"""
+    """
+    purchase condition based on buy prices.. PURELY a sell condition
+    """
 
     position = trader.get_position(most_recent_bar.symbol, force=True)
     condition = float(position.unrealized_plpc) >= unrealized_plpc
     logging.info(
-        "take profit condition on %s where unrealised profit/loss percent is %s condition response is %s",
+        "take profit condition on %s where unrealised profit/loss percent is %s condition response is %s",  # pylint: disable=line-too-long
         most_recent_bar.symbol,
         position.unrealized_plpc,
         condition,
@@ -70,6 +82,9 @@ def take_profit_buy(
 
 
 def get_base_conditions():
+    """
+    Return a list of all base conditions
+    """
     return [
         Condition(
             name="max_quantity_allowed",

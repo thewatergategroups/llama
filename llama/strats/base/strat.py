@@ -1,3 +1,7 @@
+"""
+Base Strategy class definition
+"""
+
 # ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
 # ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿
 # ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣾⣿⣿⣿⣿
@@ -32,6 +36,10 @@ from .consts import LIVE_DATA, Condition, ConditionType
 
 
 class Strategy:
+    """
+    Strategy Parent class which defines how conditions are checked
+    """
+
     DEFAULT_CONDITIONS = get_base_conditions()
     NAME = "Base"
     ALIAS = "bs"
@@ -40,22 +48,25 @@ class Strategy:
     def __init__(
         self, history: History, data: BARSET_TYPE, conditions: list[Condition]
     ):
+        """Initialising function of self"""
         self.history = history
         self.historic_data = data
         self.conditions = conditions
-        self.condition_map: dict[
-            str, dict[str, list[Condition]]
-        ] = self.to_condition_map(conditions)
+        self.condition_map: dict[str, dict[str, list[Condition]]] = (
+            self.to_condition_map(conditions)
+        )
 
     @staticmethod
     def to_condition_map(conditions: list[Condition]):
+        """
+        Return conditions in a map that is used for quantifying trade decision easily
+        """
         condition_map = {
             OrderSide.BUY: {ConditionType.AND: [], ConditionType.OR: []},
             OrderSide.SELL: {ConditionType.AND: [], ConditionType.OR: []},
         }
         for condition in conditions:
             condition_map[condition.side][condition.type].append(condition)
-        condition_map
         return condition_map
 
     @classmethod
@@ -68,12 +79,13 @@ class Strategy:
         timeframe: TimeFrame = TimeFrame.Day,
         conditions: list[Condition] | None = None,
     ):
+        """Create an instance of self using the inputs provided"""
         conditions = conditions or cls.DEFAULT_CONDITIONS
         with get_sync_sessionm().begin() as session:
             try:
                 cls.get(session)
             except KeyError:
-                logging.warn(f"strategy doesn't exist in database")
+                logging.warning("strategy doesn't exist in database")
         return cls(
             history,
             history.get_stock_bars(
@@ -84,6 +96,9 @@ class Strategy:
 
     @classmethod
     def upsert(cls, session: Session):
+        """
+        Update and insert self into the database
+        """
         values = {"name": cls.NAME, "alias": cls.ALIAS, "active": cls.ACTIVE}
         session.execute(
             on_conflict_update(insert(Strategies).values(values), Strategies)
@@ -102,6 +117,9 @@ class Strategy:
 
     @classmethod
     def get(cls, session: Session):
+        """
+        Get self and all conditions of self from the database
+        """
         strat = session.scalar(select(Strategies).where(Strategies.alias == cls.ALIAS))
         if strat is None:
             raise KeyError("strat doesn't exist")
@@ -134,6 +152,9 @@ class Strategy:
         trader: Trader,
         side: OrderSide,
     ):
+        """
+        Run the condition check against all strategy conditions
+        """
         return any(
             [
                 all(
@@ -152,7 +173,7 @@ class Strategy:
         )
 
     def trade(self, trader: Trader, most_recent_bar: Bar):
-        """Making buying decisions based on the VWAP"""
+        """Making trade decisions based on the conditions"""
         position = trader.get_position(most_recent_bar.symbol, force=True)
         qty_avaliable = int(position.qty_available)
 
@@ -198,6 +219,9 @@ class Strategy:
 
     @classmethod
     def dict(cls):
+        """
+        Return the strategy as a dictionary
+        """
         return {
             "alias": cls.ALIAS,
             "name": cls.NAME,

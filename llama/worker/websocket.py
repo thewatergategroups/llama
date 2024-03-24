@@ -1,3 +1,7 @@
+"""
+Define the websocket classes to get trading and stock trading data
+"""
+
 import logging
 
 from alpaca.data.live import StockDataStream
@@ -14,7 +18,11 @@ from ..stocks.trader import Trader
 from ..strats import Strategy
 
 
-class liveStockDataStream:
+class LiveStockDataStream:
+    """
+    Get sent live updates for changes to stock bars,qoutes and trades
+    """
+
     def __init__(self, wss_client: StockDataStream, trader: Trader):
         self.wss_client = wss_client
         self.trader = trader
@@ -37,10 +45,12 @@ class liveStockDataStream:
             session.execute(insert(Bars).values(data_dict))
 
     async def handle_qoutes(self, data: Quote):
+        """Handle incoming qoutes"""
         with get_sync_sessionm().begin() as session:
             session.execute(insert(Qoutes).values(data.dict()))
 
     async def handle_trades(self, data: Trade):
+        """handle incoming trades"""
         with get_sync_sessionm().begin() as session:
             session.execute(insert(Trades).values(data.dict()))
 
@@ -50,6 +60,7 @@ class liveStockDataStream:
         trades: tuple[str] | None = None,
         bars: tuple[str] | None = None,
     ):
+        """Start up websockets and subscribe to data streams"""
         if bars is not None:
             self.wss_client.subscribe_bars(self.handle_bars, *bars)
         if trades is not None:
@@ -59,7 +70,11 @@ class liveStockDataStream:
         self.wss_client.run()
 
 
-class liveTradingStream:
+class LiveTradingStream:
+    """
+    Websocket stream to recieve live updates about trade events
+    """
+
     def __init__(self, trading_stream: TradingStream, trader: Trader):
         self.trading_stream = trading_stream
         self.trader = trader
@@ -74,6 +89,7 @@ class liveTradingStream:
         )
 
     async def handle_trade_updates(self, trade_update: TradeUpdate):
+        """Function that handles the incoming trade event"""
         logging.info(
             "received a trading update event %s on order %s for symbol %s",
             trade_update.event,
@@ -97,6 +113,9 @@ class liveTradingStream:
             ...
 
     def run(self):
+        """
+        The startup function that starts the webhook and subscribes to updates
+        """
         self.trading_stream.subscribe_trade_updates(self.handle_trade_updates)
         logging.info("Running trading updates stream...")
         self.trading_stream.run()

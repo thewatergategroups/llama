@@ -1,3 +1,7 @@
+"""
+Stock and asset Information 
+"""
+
 from datetime import datetime, timedelta
 from typing import Annotated
 
@@ -55,17 +59,23 @@ async def get_historic_data(
 async def latest_ask_price(
     symbols: Annotated[list[str], Query()], history: History = Depends(get_history)
 ):
+    """
+    Get the latest qoute for a stock
+    """
     return {symbol: history.get_latest_qoute(symbol).dict() for symbol in symbols}
 
 
 @router.get("/news")
-async def latest_ask_price(
+async def get_news(
     start_time: datetime,
     end_time: datetime,
     symbols: Annotated[list[str], Query()],
     history: History = Depends(get_history),
     next_page: str | None = None,
 ):
+    """
+    Get news about a stock
+    """
     return history.get_news(start_time, end_time, symbols, next_page)
 
 
@@ -73,6 +83,7 @@ async def latest_ask_price(
 async def tradable_assets(
     offset: int = 0, limit: int = 300, trader: Trader = Depends(get_trader)
 ):
+    """Get all assets that are tradable through alpaca"""
     assets = trader.get_assets(limit=limit, offset=offset)
     return {"count": len(assets), "data": assets}
 
@@ -83,5 +94,6 @@ async def get_trading_assets(
     name: str | None = None,
     trader: Trader = Depends(get_trader),
 ):
+    """Search within the tradable assets"""
     assets = trader.get_assets(symbol=symbol, name=name)
     return {"count": len(assets), "data": assets}

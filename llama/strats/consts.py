@@ -1,3 +1,7 @@
+"""
+Strategy specific enums and models
+"""
+
 from pydantic import BaseModel
 
 from .base.consts import ConditionType

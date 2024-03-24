@@ -20,7 +20,7 @@ shell:
 
 up: 
 	docker compose up -d --remove-orphans
-	if [ $(PGADMIN) == "true" ]; then docker compose --profile pgadmin up -d; fi
+	if [ "$(PGADMIN)" == "true" ]; then docker compose --profile pgadmin up -d; fi
 	echo "sleeping to allow services to start up..."
 	sleep 15
 	export PGADMIN=$(PGADMIN) && bash ./scripts/browser.sh

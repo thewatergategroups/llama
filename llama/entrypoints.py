@@ -16,7 +16,7 @@ from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
 from .stocks import History, Trader
 from .strats import get_all_strats, insert_conditions, insert_strats
-from .worker.websocket import liveStockDataStream, liveTradingStream
+from .worker.websocket import LiveStockDataStream, LiveTradingStream
 
 
 def api(*_, **__):
@@ -34,7 +34,7 @@ def api(*_, **__):
 def trade_stream(settings: Settings, *_, **__):
     """Websocket pulling listening for data about trades"""
     trader = Trader.create(settings)
-    ls_object: liveTradingStream = liveTradingStream.create(settings, trader)
+    ls_object: LiveTradingStream = LiveTradingStream.create(settings, trader)
     ls_object.run()
 
 
@@ -53,7 +53,7 @@ def data_stream(settings: Settings, *_, **__):
         all_ = [asset.symbol for asset in trader.get_assets(trading=True)]
 
     strats = [strat.create(history, all_) for strat in get_all_strats().values()]
-    ls_object = liveStockDataStream.create(settings, trader)
+    ls_object = LiveStockDataStream.create(settings, trader)
     ls_object.strategies = strats
     ls_object.subscribe(bars=all_, qoutes=all_)
 

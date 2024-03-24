@@ -1,3 +1,7 @@
+"""
+Base Strategy models and Enums
+"""
+
 from enum import StrEnum
 from typing import Any, Callable
 
@@ -17,11 +21,17 @@ LIVE_DATA = CustomBarSet()
 
 
 class ConditionType(StrEnum):
+    """Acceptable types of conditions"""
+
     AND = "and"
     OR = "or"
 
 
 class Condition(BaseModel):
+    """
+    Definition of a condition
+    """
+
     name: str
     func: Callable
     variables: dict
@@ -30,20 +40,25 @@ class Condition(BaseModel):
     type: ConditionType
 
     def __call__(self, most_recent_bar: Bar, trader: Trader) -> bool:
+        """What to do when you call a condition"""
         return self.func(most_recent_bar, trader, **self.variables)
 
     def get_variables(self):
+        """Return condition variables"""
         return self.variables
 
     def set_variables(self, key: str, value: Any):
+        """set condition variables"""
         self.variables[key] = value
 
     def update_variables(self, variables: dict):
+        """update self variables based on input variables"""
         for key, value in variables.items():
             if key in self.variables:
                 self.variables[key] = value
 
-    def dict(self, **kwargs):
+    def dict(self, **__):
+        """Turn a condition into a dict"""
         return {
             "name": self.name,
             "type": self.type,
@@ -52,6 +67,7 @@ class Condition(BaseModel):
         }
 
     def get(self, strat_alias: str, session: Session):
+        """Get self from database for a specific strategy"""
         condition = session.scalar(
             select(StratConditionMap).where(
                 StratConditionMap.condition_name == self.name,
@@ -65,6 +81,7 @@ class Condition(BaseModel):
         self.type = condition.type
 
     def upsert(self, strat_alias: str, session: Session):
+        """Insert or update self into the database"""
         values = {
             "condition_name": self.name,
             "strategy_alias": strat_alias,

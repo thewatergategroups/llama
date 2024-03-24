@@ -1,3 +1,7 @@
+"""
+Required by alembic - runs the database migrations
+"""
+
 from logging.config import fileConfig
 
 from alembic import context

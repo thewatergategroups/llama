@@ -1,3 +1,7 @@
+"""
+API Application definition
+"""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from yumi import setup_logging

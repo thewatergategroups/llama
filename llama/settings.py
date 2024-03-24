@@ -1,5 +1,5 @@
 """
-Consts, Enums and Models
+Settings definition
 """
 
 import pathlib

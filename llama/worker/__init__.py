@@ -1,3 +1,7 @@
-from .websocket import liveStockDataStream, liveTradingStream
+"""
+Export Websocket classes
+"""
 
-__all__ = ["liveStockDataStream", "liveTradingStream"]
+from .websocket import LiveStockDataStream, LiveTradingStream
+
+__all__ = ["LiveStockDataStream", "LiveTradingStream"]
