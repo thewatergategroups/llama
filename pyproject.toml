@@ -26,6 +26,7 @@ scikit-learn = "^1.4.1.post1"
 requests = "^2.31.0"
 alpaca-trade-api = "^3.2.0"
 alpaca = "^1.0.0"
+tweepy = "^4.14.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
