@@ -1,32 +1,11 @@
-import sys
-import logging
-import yfinance as yf
-import matplotlib.pyplot as plt
-import os
-import pandas as pd
-import numpy as np
-import matplotlib.ticker as mtick
+class Sentiment:
+    """
+    Class for sentiment analysis.
+    Currently used only for Twitter data.
+    """
 
-yf.pdr_override()  # Enable caching
-
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
-
-stdout_handler = logging.StreamHandler(sys.stdout)
-stdout_handler.setFormatter(formatter)
-stdout_handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
-file_handler = logging.FileHandler("/home/borisb/projects/llama/gol/sentiment.log")
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
-logger.addHandler(stdout_handler)
-
-
-class SentimentStrategy:
     def __init__(self):
+        # TODO: Fetch this data dynamically
         self.data_dir_twitter = "/home/borisb/projects/llama/"
 
     def load_data(self, data_dir):
@@ -43,23 +22,77 @@ class SentimentStrategy:
 
         return df
 
-    def download_data(
-        self, ticker_list, start_date: str, end_date: str
-    ) -> pd.DataFrame:
+    def load_live_twitter_data(self):
+        # Your Twitter API credentials
+        api_key = ""
+        api_secret = ""
+        access_token = ""
+        access_token_secret = ""
+
+        # Set up Twitter API access
+        auth = tweepy.OAuthHandler(api_key, api_secret)
+        auth.set_access_token(access_token, access_token_secret)
+        api = tweepy.API(auth)
+
+        # Load S&P 500 tickers
+        tickers = ["AAPL", "MSFT", "GOOGL"]  # Replace this with your actual list
+
+        # Function to get Twitter data
+        def get_twitter_data(ticker):
+            """
+            No free access for this.
+            TODO: Look for mock data online
+            """
+            # Search for tweets containing the ticker
+            tweets = api.search_tweets(q=ticker, count=100)  # Adjust count as needed
+            data = []
+            for tweet in tweets:
+                logging.info(tweet)
+                # Here we're just collecting the tweet's text, likes and retweets count.
+                # You can adjust this as needed.
+                tweet_data = {
+                    "text": tweet.text,
+                    "likes": tweet.favorite_count,
+                    "retweets": tweet.retweet_count,
+                }
+                data.append(tweet_data)
+
+            logging.info("all twitter data is:")
+            logging.info(data)
+            return data
+
+        # Iterate over tickers and get Twitter data
+        for ticker in tickers:
+            ticker_data = get_twitter_data(ticker)
+            print(f"Data for {ticker}: {ticker_data}")
+            # Here you can also save this data to a file, database, etc.
+
+        # Example usage
+        tickers = ["AAPL", "MSFT", "GOOGL"]  # Add your S&P 500 tickers here
+        for ticker in tickers:
+            print(f"Data for {ticker}:")
+            tweets_data = search_tweets(ticker)
+            for tweet_data in tweets_data:
+                print(tweet_data)
+
+    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Uses Yahoo Finance to fetch a list of stocks and loads it to a DataFrame
-
-        Args:
-            ticker_list (_type_): List of stock
-            start_date (str): Start date to list stocks
-            end_date (str): End date to list stocks
-
-        Returns:
-            pd.DataFrame: _description_
+        # Need to kind of normalize this so twitter likes + comments are included
         """
-        logging.info("Downloading data from Yahoo finance")
-        df = yf.download(tickers=ticker_list, start=start_date, end=end_date)
+        logging.info("Normalizing data for twitter based usage")
 
+        df["date"] = pd.to_datetime(df["date"])
+        df = df.set_index(["date", "symbol"])
+
+        df["engagement_ratio"] = df["twitterComments"] / df["twitterLikes"]
+
+        min_likes = 20
+        min_comments = 10
+        df = df[
+            (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
+        ]
+
+        logging.debug("Done with normalizations")
         return df
 
     def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -79,7 +112,7 @@ class SentimentStrategy:
             (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
         ]
 
-        logger.debug("Done with normalizations")
+        logging.debug("Done with normalizations")
         return df
 
     def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -103,7 +136,7 @@ class SentimentStrategy:
             "engagement_ratio"
         ].transform(lambda x: x.rank(ascending=False))
 
-        logger.debug("Done with all aggregations")
+        logging.debug("Done with all aggregations")
         return aggregated_df
 
     def select_top_stocks_monthly(self, df: pd.DataFrame, max_rank=5) -> pd.DataFrame:
@@ -125,8 +158,8 @@ class SentimentStrategy:
         # Set the beginning of the next month (!!)
         filtered_df.index = filtered_df.index + pd.DateOffset(1)
         filtered_df = filtered_df.reset_index().set_index(["date", "symbol"])
-        # logger.debug(filtered_df.head(20))
-        logger.debug("Done with choosing the top 20 stocks")
+        # logging.debug(filtered_df.head(20))
+        logging.debug("Done with choosing the top 20 stocks")
         return filtered_df
 
     def select_stocks_beginning_of_month(self, df: pd.DataFrame):
@@ -143,51 +176,8 @@ class SentimentStrategy:
                 d, level=0
             ).index.tolist()
 
-        logger.debug(top_number_of_stocks_with_dates)
+        logging.debug(top_number_of_stocks_with_dates)
         return top_number_of_stocks_with_dates
-
-    def calculate_portfolio(self, returns_df: pd.DataFrame, dates_to_top_stocks):
-        """
-        Calculate portfolio returns
-        """
-        logging.info("Starting to calculate portfolio")
-        portfolio_df = pd.DataFrame()
-
-        for start_date in dates_to_top_stocks.keys():
-            end_date = (pd.to_datetime(start_date) + pd.offsets.MonthEnd()).strftime(
-                "%Y-%m-%d"
-            )
-            cols = dates_to_top_stocks[start_date]
-            temp_df = (
-                returns_df[start_date:end_date][cols]
-                .mean(axis=1)
-                .to_frame("portfolio_return")
-            )
-            portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
-
-        logger.debug("Done with portfolio calculation")
-        logger.debug(portfolio_df)
-        return portfolio_df
-
-    def plot_df(self, df: pd.DataFrame):
-        """
-        Plots a DataFrame
-
-        Args:
-            df (pd.DataFrame): _description_
-        """
-        logging.info("Plotting")
-        plt.style.use("ggplot")
-
-        df.plot(figsize=(16, 6))
-
-        plt.title("Twitter Engagement Ratio Strategy Return Over Time")
-        plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
-
-        plt.ylabel("Return")
-
-        # plt.show()
-        plt.savefig("returns.png")
 
     def execute_twitter_sent_strategy(self):
         """
@@ -228,7 +218,3 @@ class SentimentStrategy:
         portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
 
         self.plot_df(portfolios_cumulative_return)
-
-
-sent_strat = SentimentStrategy()
-sent_strat.execute_twitter_sent_strategy()
