@@ -1,26 +1,23 @@
-"""
-History object to pull back data from alpaca's apis
-"""
-
 import logging
 from datetime import datetime, timedelta
 
-import pandas as pd
 import requests
-from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.models import BarSet
+from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import (
     StockBarsRequest,
     StockLatestQuoteRequest,
     StockQuotesRequest,
 )
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
-from sqlalchemy import Values, column, func, select
-from trekkers.statements import upsert
-
-from ..database import Bars, Qoutes
+from sqlalchemy import func, select
 from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
+from ..database import Bars, Qoutes
+from trekkers.statements import upsert
+from sqlalchemy import func, Values, column
+import pandas as pd
+from datetime import datetime
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
@@ -74,8 +71,8 @@ class History:
         symbols = symbols if symbols is not None else ["SPY"]  ## Spy is S&P500
         headers = {
             "content-type": "application/json",
-            "Apca-Api-Key-Id": self.client._api_key,  # pylint: disable=protected-access
-            "Apca-Api-Secret-Key": self.client._secret_key,  # pylint: disable=protected-access
+            "Apca-Api-Key-Id": self.client._api_key,  # type: ignore
+            "Apca-Api-Secret-Key": self.client._secret_key,  # type: ignore
         }
         params = {
             "start": start_date.date(),
@@ -93,12 +90,6 @@ class History:
         return response.json()
 
     def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
-        """_summary_
-
-        Args:
-            bars (BarSet): _description_
-            time_frame (TimeFrame): _description_
-        """
         logging.debug("inserting bars...")
         dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
@@ -128,8 +119,7 @@ class History:
     ):
         """
         Currently geta all data we already have between start and end time,
-        checks what data is missing during trading hours,
-        and turns them into consecutive sequences of data that we need to fetch.
+        checks what data is missing during trading hours, and turns them into consecutive sequences of data that we need to fetch.
         DO NOT TOUCH
         """
         logging.debug("identifying missing bars...")
@@ -230,13 +220,12 @@ class History:
                 # bars = self.fill_bars(bars, start_time, end_time)
                 if bars.data:
                     self.insert_bars(bars, time_frame)
-                # logging.info(bars.df)
         with get_sync_sessionm().begin() as session:
-            logging.info("fetching bars from postgres...")
+            logging.debug("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(
                 [(symbol,) for symbol in symbols]
             )
-            bars_d = (
+            bars = (
                 session.execute(
                     select(Bars)
                     .join(sym_table, Bars.symbol == sym_table.c.symbol)
@@ -250,13 +239,10 @@ class History:
                 .scalars()
                 .fetchall()
             )
-            # logging.info("converting to barset...")
-            # bars_processed = bars._raw
-            # logging.info(bars.df)
-            return bars
-            # return CustomBarSet.from_postgres_bars(
-            #     bars
-            # )  ## slowest bit - multiprocessing doesn't work
+            logging.debug("converting to barset...")
+            return CustomBarSet.from_postgres_bars(
+                bars
+            )  ## slowest bit - multiprocessing doesn't work
 
     def get_latest_qoute(self, symbol: str | None = None):
         """get latest stock price"""
@@ -274,7 +260,6 @@ class History:
         start_time: datetime = (datetime.utcnow() - timedelta(days=900)),
         end_time: datetime = (datetime.utcnow() - timedelta(minutes=15)),
     ):
-        """Get the existing qoutes for a symbol"""
         logging.info("getting qoutes...")
         with get_sync_sessionm().begin() as session:
             stmt = select(Qoutes.timestamp).where(
