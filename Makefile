@@ -52,3 +52,4 @@ push:
 template:
 	if [ ! -f secret_vals.yaml ]; then echo "secrets: {}" > secret_vals.yaml; fi
 	helm template ./helm/${PROJECT}-local -f secret_vals.yaml --debug > template.yaml
+
