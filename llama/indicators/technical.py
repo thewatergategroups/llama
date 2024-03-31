@@ -1,10 +1,13 @@
+"""
+Technical inidicators implementation
+"""
+import logging
 import numpy as np
-import pandas_ta
 import pandas_datareader as web
 import pandas as pd
-import pandas as pd
-import logging
+import pandas_ta
 from statsmodels.regression.rolling import RollingOLS
+import statsmodels.api as sm
 
 
 class Indicators:
@@ -43,7 +46,8 @@ class Indicators:
     def calculate_bollinger_bands(self, df: pd.DataFrame, level: int) -> pd.DataFrame:
         """
         Calculate bollinger bands
-        Depending on what data you pass, the level will be different i.e. level=0 vs level=1
+        Depending on what data you pass, the level will be different 
+        i.e. level=0 vs level=1
 
         Args:
             df (pd.DataFrame): _description_
@@ -80,18 +84,10 @@ class Indicators:
 
     def calculate_atr(self, df: pd.DataFrame):
         """
-        Calculate the average true range (ATR) is a market volatility indicator.
-        It is typically derived from the 14-day simple moving average of a series of true range indicators.
-        The ATR was initially developed for use in commodities markets but has since been applied to all types of securities
-
-        Args:
-            ticker (_type_): _description_
-            stock_low (_type_): _description_
-            stock_high (_type_): _description_
-            stock_close (_type_): _description_
-
-        Returns:
-            _type_: _description_
+        Calculate the average true range (ATR) is a market volatility indicator
+        Derived from 14-day simple moving average of a series of true range indicators
+        The ATR was initially developed for use in commodities markets
+        but has since been applied to all types of securities
         """
         logging.info("attempting to calculate ATR")
 
@@ -107,7 +103,8 @@ class Indicators:
         return normalized_atr
 
     def filter_top_most_liquid_stocks(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Aggregate to monthly level and filter top 150 most liquid stocks for each month.
+        """
+        Aggregate to monthly level and filter top 150 most liquid stocks for each month
         To reduce training time and experiment with features and strategies,
         we convert the business-daily data to month-end frequency
 
@@ -126,7 +123,7 @@ class Indicators:
         last_cols = [
             col
             for col in df.columns.unique(0)
-            if col not in ["dollar_volume" "volume" "open", "high" "low" "close"]
+            if col not in ["dollar_volume", "volume", "open", "high", "low", "close"]
         ]
 
         filtered_df = df.unstack()[last_cols].resample("M").last().stack("ticker")
@@ -144,11 +141,16 @@ class Indicators:
         self, most_liquid_stocks_df: pd.DataFrame
     ) -> pd.DataFrame:
         """
-        Calculate 5-year rolling average of dollar volume for each stocks before filtering. The reason for calculating the moving average of
-        a stock is to help smooth out the price most_liquid_stocks_df by creating a constantly updated average price.
+        Calculate 5-year rolling average of dollar volume for each stocks before filtering
+        The reason for calculating the moving average of
+        a stock is to help smooth out the price most_liquid_stocks_df by creating 
+        a constantly updated average price
 
-        By calculating the moving average, the impacts of random, short-term fluctuations on the price of a stock
-        over a specified time frame are mitigated. Simple moving averages (SMAs) use a simple arithmetic average
+        By calculating the moving average which is 
+        the impacts of random, short-term fluctuations on the price of a stock
+        over a specified time frame are mitigated
+        
+        Simple moving averages (SMAs) use a simple arithmetic average
         of prices over some timespan, while exponential moving averages (EMAs) place greater weight on more recent
         prices than older ones over the time period.
 
@@ -187,7 +189,8 @@ class Indicators:
         * Use the Fama—French data to estimate
         the exposure of assets to common risk factors using linear regression
         * The five Fama—French factors, namely market risk, size, value, operating profitability, and investment
-        have been shown empirically to explain asset returns and are commonly used to assess the risk/return profile of portfolios.
+        have been shown empirically to explain asset returns and
+        are commonly used to assess the risk/return profile of portfolios.
         Hence, it is natural to include past factor exposures as financial features in models.
         * We can access the historical factor returns using the pandas-datareader
         and estimate historical exposures using the RollingOLS rolling linearregression.
@@ -214,7 +217,8 @@ class Indicators:
 
         factor_data = factor_data.join(top_most_liquid_df["returns_1m"]).sort_index()
 
-        # * Filter out stocks with less than 10 months of data. -> stock tha don't have enough data will not reliable and will break the trest
+        # Filter out stocks with less than 10 months of data.
+        # -> stock tha don't have enough data will not reliable and will break the trest
         observations = factor_data.groupby(level=1).size()
 
         valid_stocks = observations[observations >= 10]
@@ -246,8 +250,10 @@ class Indicators:
             "ticker", group_keys=False
         )[factors].apply(lambda x: x.fillna(x.mean()))
         top_most_liquid_by_betas_df = top_most_liquid_by_betas_df.drop(
-            "adj close", axis=1
-        )
-        top_most_liquid_by_betas_df = top_most_liquid_by_betas_df.dropna()
-        top_most_liquid_by_betas_df.info()
+            "adj close",
+            axis=1
+        ).dropna()
+
+        logging.debug(top_most_liquid_by_betas_df.info())
+
         return top_most_liquid_by_betas_df
