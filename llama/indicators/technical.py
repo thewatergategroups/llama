@@ -124,7 +124,31 @@ class Indicators:
 
     def calculate_macd(self, close, length: int = 20):
         """
-        Calculate MACD indicator
+        Calculates the Moving Average Convergence Divergence (MACD) technical
+        indicator.
+
+        MACD is a trend-following momentum indicator that shows the relationship
+        between two moving averages of an asset's price. It consists of the MACD
+        line (the difference between a short-term and a long-term exponential
+        moving average) and the signal line (a short-term exponential moving
+        average of the MACD line). Traders use MACD to identify bullish and
+        bearish signals, as well as to confirm the strength of a trend.
+
+        Args:
+            close (pd.Series): Series containing closing prices.
+            length (int, optional): Length of the MACD calculation window.
+            Defaults to 20.
+
+        Returns:
+            pd.Series: Series containing MACD values.
+
+        How to apply:
+        - Call this function with a Series containing closing prices.
+        - Utilize the resulting Series with MACD values to identify potential
+        trend reversals or confirm existing trends.
+        - Consider using MACD crossovers (when the MACD line crosses above or
+        below the signal line) as buy or sell signals, respectively, in
+        conjunction with other indicators or analysis.
         """
         logging.debug("Calculating single column MACD")
 
@@ -135,10 +159,33 @@ class Indicators:
 
     def calculate_atr(self, df: pd.DataFrame):
         """
-        Calculate the average true range (ATR) is a market volatility indicator
+        Calculates the Average True Range (ATR) technical indicator.
+
+        A market volatility indicator
         Derived from 14-day simple moving average of a series of true range indicators
         The ATR was initially developed for use in commodities markets
         but has since been applied to all types of securities
+
+        ATR measures market volatility by analyzing the true range of price
+        movements. It considers the greatest of the following: the current high
+        minus the current low, the absolute value of the current high minus the
+        previous close, and the absolute value of the current low minus the
+        previous close. ATR is commonly used to set stop-loss levels and
+        determine the size of potential price movements.
+
+        Args:
+            df (pd.DataFrame): DataFrame containing high, low, and close prices.
+
+        Returns:
+            pd.Series: Series containing ATR values.
+
+        How to apply:
+        - Call this function with a DataFrame containing high, low, and close
+        prices.
+        - Use the resulting Series with ATR values to gauge the volatility of
+        assets and adjust risk management strategies accordingly.
+        - Higher ATR values may indicate increased volatility, prompting wider
+        stop-loss orders or smaller position sizes to mitigate risk.
         """
         logging.info("attempting to calculate ATR")
 
