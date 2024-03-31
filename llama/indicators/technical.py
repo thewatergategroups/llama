@@ -202,10 +202,30 @@ class Indicators:
 
     def filter_top_most_liquid_stocks(self, df: pd.DataFrame) -> pd.DataFrame:
         """
+        Filters top 150 most liquid stocks monthly.
+
         Aggregate to monthly level and filter top 150 most liquid stocks for each month
         To reduce training time and experiment with features and strategies,
         we convert the business-daily data to month-end frequency
 
+        This function aggregates stock data to the monthly level and filters the
+        top 150 most liquid stocks for each month. It aims to reduce training
+        time and focus on stocks with high liquidity for better analysis and
+        strategy development.
+
+        Args:
+            df (pd.DataFrame): DataFrame containing stock data.
+
+        Returns:
+            pd.DataFrame: DataFrame with the top most liquid stocks for each
+            month.
+
+        How to apply:
+        - Utilize the resulting DataFrame with filtered top most liquid stocks
+        for each month for further analysis or strategy development.
+        - High liquidity stocks are often preferred for trading due to tighter
+        bid-ask spreads and higher trading volumes, which can lead to improved
+        execution and reduced slippage.
         """
         logging.info("Filtering and aggregating current stock data")
 
