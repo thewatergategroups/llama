@@ -49,13 +49,27 @@ class Indicators:
         return df
 
     def calculate_rsi_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Calculate RSI indicator
+        """
+        Calculates the Relative Strength Index (RSI) technical indicator.
+
+        RSI measures the magnitude of recent price changes to evaluate overbought
+        or oversold conditions in a security. It is calculated based on the
+        average gain and loss over a specified period, typically 14 days. RSI
+        values range from 0 to 100, where readings above 70 suggest overbought
+        conditions, and readings below 30 indicate oversold conditions.
 
         Args:
-            df (pd.DataFrame): _description_
+            df (pd.DataFrame): DataFrame containing closing prices.
 
         Returns:
-            pd.DataFrame: _description_
+            pd.DataFrame: DataFrame with an additional column for RSI values.
+
+        How to apply:
+        - Call this function with a DataFrame containing closing prices.
+        - Utilize the resulting DataFrame with RSI values to identify potential
+        overbought or oversold conditions in assets.
+        - Consider using RSI values as part of a broader trading strategy, such
+        as confirming trends or generating buy/sell signals.
         """
         logging.info("Calculating RSI indicator")
         df["rsi"] = df.groupby(level=0)["adj close"].transform(
@@ -66,15 +80,31 @@ class Indicators:
 
     def calculate_bollinger_bands(self, df: pd.DataFrame, level: int) -> pd.DataFrame:
         """
-        Calculate bollinger bands
-        Depending on what data you pass, the level will be different
-        i.e. level=0 vs level=1
+        Calculates Bollinger Bands technical indicator.
+
+        Bollinger Bands consist of three lines plotted based on moving averages
+        and standard deviations of an asset's price. The middle band represents
+        the simple moving average (SMA) of the asset's price over a specified
+        period, while the upper and lower bands represent a certain number of
+        standard deviations above and below the SMA, respectively. Bollinger Bands
+        are used to identify volatility and potential price reversals.
 
         Args:
-            df (pd.DataFrame): _description_
+            df (pd.DataFrame): DataFrame containing closing prices.
+            level (int): Level of the DataFrame for grouping purposes.
 
         Returns:
-            pd.DataFrame: _description_
+            pd.DataFrame: DataFrame with additional columns for Bollinger Bands
+            (upper, middle, lower).
+
+        How to apply:
+        - Call this function with a DataFrame containing closing prices and a
+        level for grouping purposes.
+        - Use the resulting DataFrame with Bollinger Bands to identify periods
+        of high or low volatility.
+        - Consider combining Bollinger Bands with other technical indicators or
+        fundamental analysis to confirm signals and make informed trading
+        decisions.
         """
         logging.info("Calculating Bollinger bands")
 
