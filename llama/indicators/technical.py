@@ -17,8 +17,29 @@ class Indicators:
 
     def calculate_garman_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Calculates Garman Klass volatility technical indicator
+        Calculates Garman Klass volatility technical indicator.
 
+        Garman Klass volatility measures the volatility of an asset's price by
+        taking into account the high, low, open, and close prices over a period.
+
+        It provides insight into the degree of price fluctuation, aiding in risk
+        assessment and trade decision-making.
+
+        Args:
+            df (pd.DataFrame): DataFrame containing OHLC (open, high, low, close)
+            data.
+
+        Returns:
+            pd.DataFrame: DataFrame with an additional column for Garman Klass
+            volatility.
+
+        How to apply:
+        - Call this function with a DataFrame containing OHLC data.
+        - Use the resulting DataFrame with Garman Klass volatility values to
+        assess the level of price fluctuation in assets.
+        - Higher Garman Klass volatility values indicate higher volatility, which
+        may influence risk management strategies such as setting stop-loss levels
+        or adjusting position sizes.
         """
         logging.info("Calculating German class vol")
         logging.info(df)
@@ -46,7 +67,7 @@ class Indicators:
     def calculate_bollinger_bands(self, df: pd.DataFrame, level: int) -> pd.DataFrame:
         """
         Calculate bollinger bands
-        Depending on what data you pass, the level will be different 
+        Depending on what data you pass, the level will be different
         i.e. level=0 vs level=1
 
         Args:
@@ -143,13 +164,13 @@ class Indicators:
         """
         Calculate 5-year rolling average of dollar volume for each stocks before filtering
         The reason for calculating the moving average of
-        a stock is to help smooth out the price most_liquid_stocks_df by creating 
+        a stock is to help smooth out the price most_liquid_stocks_df by creating
         a constantly updated average price
 
-        By calculating the moving average which is 
+        By calculating the moving average which is
         the impacts of random, short-term fluctuations on the price of a stock
         over a specified time frame are mitigated
-        
+
         Simple moving averages (SMAs) use a simple arithmetic average
         of prices over some timespan, while exponential moving averages (EMAs) place greater weight on more recent
         prices than older ones over the time period.
