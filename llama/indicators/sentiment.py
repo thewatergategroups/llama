@@ -1,7 +1,10 @@
 import logging
-import pandas as pd
 
+import pandas as pd
+import numpy as np
 import tweepy
+from utilities import Utils
+
 
 class Sentiment:
     """
@@ -116,7 +119,6 @@ class Sentiment:
         logging.debug("Done with normalizations")
         return df
 
-
     def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Aggregate monthly twitter data
@@ -191,7 +193,11 @@ class Sentiment:
         logging.debug(top_number_of_stocks_with_dates)
         return top_number_of_stocks_with_dates
 
-    def execute_twitter_sent_strategy(self):
+    def execute_twitter_sent_strategy(
+        self,
+        start_date: str = "2021-01-01",
+        end_date: str = "2023-03-01",
+    ):
         """
         Twitter Sentiment Investing Strategy
         # 1. Load Twitter Sentiment Data
@@ -199,8 +205,8 @@ class Sentiment:
         # and filter out stocks with no significant twitter activity.
         """
         logging.info("Starting twitter execute strategy")
-        START_DATE = "2021-01-01"
-        END_DATE = "2023-03-01"
+
+        utils = Utils()
 
         sentiment_df = self.load_data(self.data_dir_twitter)
         sentiment_df = self.normalize_twitter_data(sentiment_df)
@@ -213,14 +219,16 @@ class Sentiment:
 
         # Download fresh stock prices for only selected/shortlisted stocks
         stocks_list = sentiment_df.index.get_level_values("symbol").unique().tolist()
-        prices_df = self.download_data(stocks_list, START_DATE, END_DATE)
+
+        # Needs to fetch from DB
+        prices_df = utils.download_data(stocks_list, start_date, end_date)
         # Calculate Portfolio Returns with monthly rebalancing
         returns_df = np.log(prices_df["Adj Close"]).diff()
-        portfolio_df = self.calculate_portfolio(returns_df, dates_to_top_stocks)
+        portfolio_df = utils.calculate_portfolio(returns_df, dates_to_top_stocks)
         # logger.debug(portfolio_df)
 
         # Download NASDAQ/QQQ prices and calculate returns to compare to our strategy
-        qqq_df = self.download_data("QQQ", START_DATE, END_DATE)
+        qqq_df = utils.download_data("QQQ", start_date, end_date)
         qqq_ref = np.log(qqq_df["Adj Close"]).diff().to_frame("nasdaq_return")
 
         portfolio_df = portfolio_df.merge(qqq_ref, left_index=True, right_index=True)
@@ -229,4 +237,4 @@ class Sentiment:
 
         portfolios_cumulative_return = np.exp(np.log1p(portfolio_df).cumsum()).sub(1)
 
-        self.plot_df(portfolios_cumulative_return)
+        utils.plot_df(portfolios_cumulative_return)
