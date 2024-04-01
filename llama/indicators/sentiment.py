@@ -217,12 +217,22 @@ class Sentiment:
         self,
         start_date: str = "2021-01-01",
         end_date: str = "2023-03-01",
-    ):
+    ) -> None:
         """
         Twitter Sentiment Investing Strategy
         # 1. Load Twitter Sentiment Data
         # Load the twitter sentiment dataset, set the index, calculate engagement ratio,
         # and filter out stocks with no significant twitter activity.
+        Execute Twitter sentiment-based trading strategy
+
+        This function implements a trading strategy based on Twitter sentiment analysis.
+        It loads historical Twitter sentiment data, normalizes the data, aggregates it
+        on a monthly basis, selects the top-performing stocks monthly, and constructs
+        a portfolio based on these selections. The portfolio's performance is evaluated
+        by comparing it to a benchmark index, such as NASDAQ/QQQ, to assess the
+        effectiveness of the sentiment-based strategy. By executing this strategy,
+        traders can leverage social media sentiment to make informed trading decisions
+        and potentially outperform traditional market benchmarks.
         """
         logging.info("Starting twitter execute strategy")
 
