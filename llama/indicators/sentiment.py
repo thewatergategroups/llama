@@ -1,3 +1,8 @@
+import logging
+import pandas as pd
+
+import tweepy
+
 class Sentiment:
     """
     Class for sentiment analysis.
@@ -77,7 +82,23 @@ class Sentiment:
 
     def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        # Need to kind of normalize this so twitter likes + comments are included
+        Normalize Twitter data for analysis
+
+        This function normalizes raw Twitter data for analysis by converting
+        relevant columns to appropriate data types, calculating engagement ratios,
+        and filtering out insignificant data. The engagement ratio is computed
+        by dividing the number of comments by the number of likes for each tweet.
+        Normalizing the data prepares it for further analysis, such as aggregating
+        monthly sentiment scores or selecting top-performing stocks based on
+        Twitter activity.
+
+        Args:
+            df (pd.DataFrame): DataFrame containing raw Twitter data.
+
+        Returns:
+            pd.DataFrame: DataFrame with normalized Twitter data.
+
+
         """
         logging.info("Normalizing data for twitter based usage")
 
@@ -95,35 +116,23 @@ class Sentiment:
         logging.debug("Done with normalizations")
         return df
 
-    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        # Need to kind of normalize this so twitter likes + comments are included
-        """
-        logging.info("Normalizing data for twitter based usage")
-
-        df["date"] = pd.to_datetime(df["date"])
-        df = df.set_index(["date", "symbol"])
-
-        df["engagement_ratio"] = df["twitterComments"] / df["twitterLikes"]
-
-        min_likes = 20
-        min_comments = 10
-        df = df[
-            (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
-        ]
-
-        logging.debug("Done with normalizations")
-        return df
 
     def aggregate_monthly_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Aggregate monthly twitter data
 
+        This function aggregates normalized Twitter data on a monthly basis,
+        calculating the mean engagement ratio for each stock symbol. Additionally,
+        it ranks the stocks based on their engagement ratio within each month.
+        Aggregating the data allows for a broader analysis of sentiment trends
+        over time, aiding in identifying stocks with consistently high social
+        media engagement, which may be indicative of market sentiment.
+
         Args:
-            df (pd.DataFrame): _description_
+            df (pd.DataFrame): DataFrame containing normalized Twitter data.
 
         Returns:
-            pd.DataFrame: _description_
+            pd.DataFrame: DataFrame with aggregated monthly Twitter data.
         """
         logging.info("Starting to aggregate monthly data")
         aggregated_df = (
@@ -141,14 +150,17 @@ class Sentiment:
 
     def select_top_stocks_monthly(self, df: pd.DataFrame, max_rank=5) -> pd.DataFrame:
         """
-        Select the top N(5) stocks by rank for each month and fix the date to start at beginning of next month.
+        Select top-performing stocks monthly
+        * fixes the date to start at beginning of next month.
 
         Args:
-            df (pd.DataFrame): Dataframe to work on
-            max_rank (int, optional): Top number of stocks to filter. Defaults to 5.
+            df (pd.DataFrame): DataFrame containing aggregated monthly Twitter data.
+            max_rank (int, optional): Maximum number of top-performing stocks to select.
+                Defaults to 5.
 
         Returns:
-            pd.DataFrame: Creates a new DataFrame
+            pd.DataFrame: DataFrame containing selected top-performing stocks.
+
         """
         logging.info("Starting to select top stocks for each month")
 
