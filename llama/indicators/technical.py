@@ -259,7 +259,9 @@ class Indicators:
         self, most_liquid_stocks_df: pd.DataFrame
     ) -> pd.DataFrame:
         """
-        Calculate 5-year rolling average of dollar volume for each stocks before filtering
+        Calculates the 5-year rolling average of dollar volume for stocks.
+
+        Calculate 5-year rolling average of dollar volume for each stocks
         The reason for calculating the moving average of
         a stock is to help smooth out the price most_liquid_stocks_df by creating
         a constantly updated average price
@@ -269,14 +271,34 @@ class Indicators:
         over a specified time frame are mitigated
 
         Simple moving averages (SMAs) use a simple arithmetic average
-        of prices over some timespan, while exponential moving averages (EMAs) place greater weight on more recent
-        prices than older ones over the time period.
+        of prices over some timespan, while exponential moving averages (EMAs)
+        place greater weight on more recent prices than older ones over the time period.
+
+
+        This function calculates the 5-year rolling average of dollar volume for
+        each stock before filtering. It helps smooth out price fluctuations by
+        creating a constantly updated average price. By mitigating the impact of
+        short-term fluctuations, this rolling average aids in better analysis
+        and decision-making.
 
         Args:
-            df (pd.most_liquid_stocks_dfFrame): _description_
+            most_liquid_stocks_df (pd.DataFrame): DataFrame containing stock
+            data.
 
         Returns:
-            _type_: _description_
+            pd.DataFrame: DataFrame with the 5-year rolling average of dollar
+            volume for stocks
+
+        How to apply:
+        - Call this function with a DataFrame containing stock data.
+        - Use the resulting DataFrame with the 5-year rolling average of dollar
+        volume to assess the long-term liquidity trend of stocks.
+        - A rising rolling average may indicate increasing investor interest
+        and liquidity, while a declining trend may suggest diminishing interest
+        and potential liquidity constraints.
+        - Consider combining this indicator with other liquidity metrics and
+        fundamental analysis to gain a comprehensive understanding of a stock's
+        liquidity profile.
         """
         logging.info("Starting to calculate 5-year rolling average")
         top_number_of_stocks = 150
