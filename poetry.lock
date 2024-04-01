@@ -3470,4 +3470,4 @@ reference = "kube"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "7bd8c792fe286fc80d8822c58459063177c230693864118e2c12efc7af906f43"
+content-hash = "63dd631e7e5526ce415cbed3c2373204ca19e3d5ecad44f8349b63cb23d9da14"
