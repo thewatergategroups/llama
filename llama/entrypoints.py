@@ -6,14 +6,12 @@ import asyncio
 import json
 import logging
 from time import sleep
+from datetime import datetime
 
 import uvicorn
 from trekkers import database
 from yumi import Entrypoints
 from alpaca.data.timeframe import TimeFrame
-from .database.models import Bars
-import logging
-from datetime import datetime
 from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
 from .stocks import History, Trader
@@ -41,6 +39,9 @@ def trade_stream(settings: Settings, *_, **__):
 
 
 def debug(settings: Settings, *args, **kwargs):
+    """
+    Boilter plate code to be ran directly by the command "$ make debug"
+    """
     hist = History.create(settings)
     # history.get_stock_bars()
     nvidia_df = hist.get_stock_bars(
