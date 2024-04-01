@@ -42,10 +42,12 @@ class Indicators:
         or adjusting position sizes.
         """
         logging.info("Calculating German class vol")
-        logging.info(df)
+
         df["garman_klass_vol"] = ((np.log(df["high"]) - np.log(df["low"])) ** 2) / 2 - (
             2 * np.log(2) - 1
         ) * ((np.log(df["adj close"]) - np.log(df["open"])) ** 2)
+
+        logging.debug(df)
         return df
 
     def calculate_rsi_indicator(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -72,6 +74,7 @@ class Indicators:
         as confirming trends or generating buy/sell signals.
         """
         logging.info("Calculating RSI indicator")
+
         df["rsi"] = df.groupby(level=0)["adj close"].transform(
             lambda x: pandas_ta.rsi(close=x, length=20)
         )
@@ -325,19 +328,6 @@ class Indicators:
         self, top_most_liquid_df: pd.DataFrame
     ) -> pd.DataFrame:
         """
-        Download Fama-French Factors and Calculate Rolling Factor Betas.
-        * Use the Fama—French data to estimate
-        the exposure of assets to common risk factors using linear regression
-        * The five Fama—French factors, namely market risk, size, value, operating profitability, and investment
-        have been shown empirically to explain asset returns and
-        are commonly used to assess the risk/return profile of portfolios.
-        Hence, it is natural to include past factor exposures as financial features in models.
-        * We can access the historical factor returns using the pandas-datareader
-        and estimate historical exposures using the RollingOLS rolling linearregression.
-        Data object is expected input from the calculate_five_year_rolling_average
-
-        TODO: Exactly what data is this expecting? Possible to pass in a clear-er way?
-
         Downloads Fama-French factors and calculates rolling factor betas.
 
         This function downloads Fama-French factor data and calculates rolling
@@ -346,6 +336,10 @@ class Indicators:
         assess the risk-return profile of portfolios. Estimating historical
         exposures using rolling linear regression aids in feature modeling and
         risk assessment.
+
+        * We can access the historical factor returns using the pandas-datareader
+        and estimate historical exposures using the RollingOLS rolling linearregression.
+        Data object is expected input from the calculate_five_year_rolling_average
 
         Args:
             top_most_liquid_df (pd.DataFrame): DataFrame containing top most
@@ -366,11 +360,14 @@ class Indicators:
         - Consider incorporating factor betas as features in quantitative
         models or using them for portfolio optimization to enhance risk-adjusted
         returns.
+
+        Note: Not thoroughly tested
         """
 
         factor_data = web.DataReader(
             "F-F_Research_Data_5_Factors_2x3", "famafrench", start="2010"
         )[0].drop("RF", axis=1)
+
         # Fix index
         factor_data.index = factor_data.index.to_timestamp()
         # Fix end of month and percentages
