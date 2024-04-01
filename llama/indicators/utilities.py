@@ -1,18 +1,11 @@
-from sqlalchemy.orm import Mapped, mapped_column
 import numpy as np
-import pandas_ta
-import pandas_datareader as web
 import pandas as pd
 from pypfopt.efficient_frontier import EfficientFrontier
 from pypfopt import risk_models
 from pypfopt import expected_returns
-from trekkers import BaseSql
 import matplotlib.ticker as mtick
-import pandas as pd
 import matplotlib.pyplot as plt
-import datetime as dt
 import logging
-from statsmodels.regression.rolling import RollingOLS
 from sklearn.cluster import KMeans
 import warnings
 
@@ -30,7 +23,7 @@ class Utils:
         # 6. For each month fit a K-Means Clustering Algorithm to group similar assets based on their features.
         ### K-Means Clustering
         # You may want to initialize predefined centroids for each cluster based on your research.
-        # For visualization purpose of this tutorial we will initially rely on the ‘k-means++’ initialization.
+        # For visualization purpose of this tutorial we will initially rely on the `k-means++` initialization.
         # Then we will pre-define our centroids for each cluster.
         # We use this data and the plots to decide on which cluster of stocks to form our portfolio
         # For this particular strategy given the sp500 from 2023-09-27 (!!)ship and 1 year back:
@@ -159,7 +152,7 @@ class Utils:
                 ),  # .1 because we want maximum weight of 10% our portfolio in a single stock
                 solver="SCS",
             )
-            weights = ef.max_sharpe()  # Needs to returned. We needs in the outer scope
+            ef.max_sharpe()  # Needs to returned. We needs in the outer scope
 
             return ef.clean_weights()
 
@@ -212,7 +205,7 @@ class Utils:
                         f"Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights"
                     )
                     logging.info(e)
-                if success == False:
+                if success is False:
                     weights = pd.DataFrame(
                         [
                             1 / len(optimization_df.columns)
