@@ -139,22 +139,25 @@ class Utils:
         # (minimum half of equally weight and maximum 10% of portfolio)
         # TODO: Needs to be abstracted in a separate function
         def optimize_weights(prices, lower_bound=0):
+            # .1 because we want maximum weight of 10% our portfolio in a single stock
+            max_perc_weight_stock: float = 0.1
+            # 252 days = 1 year of trading days
+            year_trading_days: int = 252
+
             returns = expected_returns.mean_historical_return(
-                prices=prices, frequency=252
-            )  # 252 days = 1 year of trading days
+                prices=prices, frequency=year_trading_days
+            )
+
             cov = risk_models.sample_cov(prices=prices, frequency=252)
 
             ef = EfficientFrontier(
                 expected_returns=returns,
                 cov_matrix=cov,
-                weight_bounds=(
-                    lower_bound,
-                    0.1,
-                ),  # .1 because we want maximum weight of 10% our portfolio in a single stock
+                weight_bounds=(lower_bound, max_perc_weight_stock),
                 solver="SCS",
             )
-            ef.max_sharpe()  # Needs to returned. We needs in the outer scope
 
+            ef.max_sharpe()  # Needs to returned. We needs in the outer scope
             return ef.clean_weights()
 
         # Download Fresh Daily Prices Data only for short listed stocks
@@ -167,9 +170,10 @@ class Utils:
         )
 
         # Calculate daily returns for each stock which could land up in our portfolio.
-        # Then loop over each month start, select the stocks for the month and calculate their weights for the next month.
-        # If the maximum sharpe ratio optimization fails for a given month, apply equally-weighted weights.
-        # Calculated each day portfolio return.
+        # Then loop over each month start, select the stocks for the month
+        # and calculate their weights for the next month.
+        # If the maximum sharpe ratio optimization fails for a given month,
+        # apply equally-weighted weights. Calculated each day portfolio return.
         returns_dataframe = np.log(new_df["Adj Close"]).diff()
 
         portfolio_df = pd.DataFrame()
@@ -251,9 +255,12 @@ class Utils:
     def visualize_portfolio_returns(
         self, portfolio_df: pd.DataFrame, dt: pd.DataFrame
     ) -> None:
-        # 8. Visualize Portfolio returns and compare to SP500 returns.
-        # Download the returns of SP500
+        """_summary_
+
+        8. Visualize Portfolio returns and compare to SP500 returns.
+        Download the returns of SP500
         # TODO: This should be an online CSV
+        """
         spy = yf.download(tickers="SPY", start="2015-01-01", end=dt.date.today())
 
         spy_ret = (
@@ -280,8 +287,10 @@ class Utils:
         plt.ylabel("Return")
         plt.show()
 
-    ###### FOR Twitter sentiment Analysis
-    def calculate_portfolio(self, returns_df: pd.DataFrame, dates_to_top_stocks):
+    # FOR Twitter sentiment Analysis
+    def calculate_portfolio(
+        self, returns_df: pd.DataFrame, dates_to_top_stocks: dict
+    ) -> None:
         """
         Calculate portfolio returns
         """
@@ -304,7 +313,7 @@ class Utils:
         logging.debug(portfolio_df)
         return portfolio_df
 
-    def plot_df(self, df: pd.DataFrame):
+    def plot_df(self, df: pd.DataFrame) -> None:
         """
         Plots a DataFrame
 
@@ -323,48 +332,4 @@ class Utils:
 
         # plt.show()
         plt.savefig("returns.png")
-        ###### [END] %£FOR Twitter sentiment Analysis
-
-
-# poetry add PyPortfolioOpt, pandas_datareader, requests, yfinance, statsmodels, scikit-learn
-
-# Needed to resolve from _bz2 import BZ2Compressor, BZ2Decompressor
-# sudo apt-get install libbz2-dev
-# pyenv install 3.11
-
-# gvk_strategy = GKV()
-# df = gvk_strategy.load_sp500_data("temporary-bb-16-03-v3.csv")
-
-# # df = gvk_strategy.calculate_garman_klass_vol(df)
-# # df = gvk_strategy.calculate_rsi_indicator(df)
-# # df = gvk_strategy.calculate_bollinger_bands(df)
-# # df.to_csv("temporary-bb-16-03-v2.csv")
-# # logging.debug("------------------------SAVING DF FOR TEMPORARY USE------------------------")
-# # logging.info(df)
-# # df['atr'] = df.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_atr)
-# # df['macd'] = df.groupby(level=1, group_keys=False)['adj close'].apply(gvk_strategy.calculate_macd)
-# # TODO: This needs to be in a function
-# # df['dollar_volume'] =  (df['adj close']*df['volume'])/1e6
-# # df.to_csv("temporary-bb-16-03-v3.csv")
-# logging.info(df)
-
-# data = gvk_strategy.filter_top_most_liquid_stocks(df)
-# logging.info('---------------------------------')
-# logging.info(data)
-# logging.info(df)
-# logging.info('---------------------------------')
-# data, df = gvk_strategy.calculate_five_year_rolling_average(df, data)
-# logging.info("calculate_five_year_rolling_average:")
-# logging.info(data)
-# logging.info(df)
-
-# data = data.groupby(level=1, group_keys=False).apply(gvk_strategy.calculate_returns).dropna()
-# logging.info("After regroup by")
-# logging.info(data)
-
-# data = gvk_strategy.download_fama_french_factors_and_calc_rolling_factors_betas(data)
-
-# gvk_strategy.visualize_stocks(data)
-
-# portfolio_df = gvk_strategy.form_portfolio(df, data)
-# gvk_strategy.visualize_portfolio_returns(portfolio_df)
+        # [END] FOR Twitter sentiment Analysis
