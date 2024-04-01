@@ -338,11 +338,34 @@ class Indicators:
 
         TODO: Exactly what data is this expecting? Possible to pass in a clear-er way?
 
+        Downloads Fama-French factors and calculates rolling factor betas.
+
+        This function downloads Fama-French factor data and calculates rolling
+        factor betas for stocks. The Fama-French factors (market risk, size,
+        value, operating profitability, and investment) are commonly used to
+        assess the risk-return profile of portfolios. Estimating historical
+        exposures using rolling linear regression aids in feature modeling and
+        risk assessment.
+
         Args:
-            top_most_liquid_df (_type_): _description_
+            top_most_liquid_df (pd.DataFrame): DataFrame containing top most
+            liquid stocks data.
 
         Returns:
-            _type_: _description_
+            pd.DataFrame: DataFrame with rolling factor betas for stocks.
+
+        How to apply:
+        - Call this function with a DataFrame containing top most liquid stocks
+        data.
+        - Use the resulting DataFrame with rolling factor betas to assess the
+        sensitivity of stocks to various risk factors such as market movements,
+        company size, and value metrics.
+        - Factor betas provide insights into how stocks may perform under
+        different market conditions and can guide portfolio construction and
+        risk management strategies.
+        - Consider incorporating factor betas as features in quantitative
+        models or using them for portfolio optimization to enhance risk-adjusted
+        returns.
         """
 
         factor_data = web.DataReader(
