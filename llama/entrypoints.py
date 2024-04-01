@@ -38,22 +38,6 @@ def trade_stream(settings: Settings, *_, **__):
     ls_object.run()
 
 
-def debug(settings: Settings, *args, **kwargs):
-    """
-    Boilter plate code to be ran directly by the command "$ make debug"
-    """
-    hist = History.create(settings)
-    # history.get_stock_bars()
-    nvidia_df = hist.get_stock_bars(
-        symbols=["NVDA"],
-        time_frame=TimeFrame.Day,
-        start_time=datetime(2022, 9, 1),
-        end_time=datetime(2023, 9, 7),
-    )
-    logging.info("===================================")
-    logging.info(nvidia_df.df)
-
-
 def data_stream(settings: Settings, *_, **__):
     """
     Websocket Stream data about changes in stock data
@@ -96,6 +80,22 @@ def backtest(settings: Settings, *_, **__):
         definition = BacktestDefinition(**item)
         backtest_id = backtester.insert_start_of_backtest(definition.symbols)
         asyncio.run(backtester.backtest_strats(backtest_id, history, definition))
+
+
+def debug(settings: Settings, *_, **__):
+    """
+    Boilter plate code to be ran directly by the command "$ make debug"
+    """
+    hist = History.create(settings)
+    # history.get_stock_bars()
+    nvidia_df = hist.get_stock_bars(
+        symbols=["NVDA"],
+        time_frame=TimeFrame.Day,
+        start_time=datetime(2022, 9, 1),
+        end_time=datetime(2023, 9, 7),
+    )
+    logging.info("===================================")
+    logging.info(nvidia_df.df)
 
 
 class Entry(Entrypoints):
