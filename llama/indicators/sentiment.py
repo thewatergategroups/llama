@@ -185,10 +185,21 @@ class Sentiment:
         logging.debug("Done with choosing the top 20 stocks")
         return filtered_df
 
-    def select_stocks_beginning_of_month(self, df: pd.DataFrame):
+    def select_stocks_beginning_of_month(self, df: pd.DataFrame) -> dict:
         """
-        TODO: Hard type return
-        Create a dictionary containing start of month and corresponded selected stocks.
+        Select stocks at the beginning of each month
+
+        Args:
+            df (pd.DataFrame): DataFrame containing selected top-performing stocks.
+
+        Returns:
+            dict: Dictionary mapping dates to corresponding selected stocks.
+
+        This function selects the top-performing stocks at the beginning of each month
+        and returns a dictionary mapping dates to the selected stocks. By filtering
+        stocks at the beginning of each month, traders can ensure that their portfolio
+        reflects the most recent sentiment trends, allowing for timely adjustments
+        based on changing market dynamics.
         """
         logging.info("Filtering and selecting stocks for each month")
         dates = df.index.get_level_values("date").unique().tolist()
