@@ -1,13 +1,15 @@
-import numpy as np
+import logging
+import warnings
+
 import pandas as pd
+import numpy as np
+import yfinance as yf
 from pypfopt.efficient_frontier import EfficientFrontier
 from pypfopt import risk_models
 from pypfopt import expected_returns
 import matplotlib.ticker as mtick
 import matplotlib.pyplot as plt
-import logging
 from sklearn.cluster import KMeans
-import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -18,22 +20,20 @@ class Utils:
     or need to be moved to another more appropriate place.
     """
 
-    def visualize_stocks(self, data):
+    def visualize_stocks(self, data: pd.DataFrame) -> None:
         """
-        # 6. For each month fit a K-Means Clustering Algorithm to group similar assets based on their features.
-        ### K-Means Clustering
-        # You may want to initialize predefined centroids for each cluster based on your research.
-        # For visualization purpose of this tutorial we will initially rely on the `k-means++` initialization.
-        # Then we will pre-define our centroids for each cluster.
-        # We use this data and the plots to decide on which cluster of stocks to form our portfolio
-        # For this particular strategy given the sp500 from 2023-09-27 (!!)ship and 1 year back:
-        # the data Cluster 3 will be the cluster we will be using as they had good momentum in the previous month
+        For each month fit a K-Means Clustering Algorithm
+        to group similar assets based on their features.
 
-        Args:
-            data (_type_): _description_ this is Pandas DF
-
-        Returns:
-            _type_: _description_
+        You may want to initialize predefined centroids for
+        each cluster based on your research.
+        For visualization purpose of this tutorial we will initially rely on the
+        `k-means++` initialization. Then we will pre-define our centroids
+        for each cluster.  We use this data and the plots to decide on which cluster
+        of stocks to form our portfolio. For this particular strategy given the
+        sp500 from 2023-09-27 (!!)ship and 1 year back:
+        the data Cluster 3 will be the cluster we will be using as
+        they had good momentum in the previous month
         """
 
         data = data.drop("cluster", axis=1)
@@ -102,18 +102,16 @@ class Utils:
             # This does the visual in the end
             plot_clusters(g)
 
-    def form_portfolio(self, data):
+    def form_portfolio(self, data: pd.DataFrame) -> pd.DataFrame:
         """
-        # 7. For each month select assets based on the cluster and form a portfolio based on Efficient Frontier max sharpe ratio optimization
-        # First we will filter only stocks corresponding to the cluster we choose based on our hypothesis.
-        # For this particular strategy given the sp500 from 2023-09-27 (!!) and 1 year back: N = 3
-
-        Args:
-            data (_type_): _description_
-
-        Returns:
-            _type_: _description_
+        7. For each month select assets based on the cluster and
+        form a portfolio based on Efficient Frontier max sharpe ratio optimization
+        First we will filter only stocks corresponding
+        to the cluster we choose based on our hypothesis.
+        For this particular strategy given the sp500
+        from 2023-09-27 (!!) and 1 year back: N = 3
         """
+
         N = 3
         CLUSTER_NUMBER = N
 
@@ -135,8 +133,11 @@ class Utils:
             ).index.tolist()
 
         # Define portfolio optimization function
-        # We will define a function which optimizes portfolio weights using PyPortfolioOpt package and EfficientFrontier optimizer to maximize the sharpe ratio.
-        # Apply single stock weight bounds constraint for diversification (minimum half of equally weight and maximum 10% of portfolio)
+        # We will define a function which optimizes portfolio weights using PyPortfolioOpt package a
+        # nd EfficientFrontier optimizer to maximize the sharpe ratio.
+        # Apply single stock weight bounds constraint for diversification
+        # (minimum half of equally weight and maximum 10% of portfolio)
+        # TODO: Needs to be abstracted in a separate function
         def optimize_weights(prices, lower_bound=0):
             returns = expected_returns.mean_historical_return(
                 prices=prices, frequency=252
@@ -201,7 +202,7 @@ class Utils:
                     weights = pd.DataFrame(weights, index=pd.Series(0))
                     success = True
                 except Exception as e:
-                    logger.error(
+                    logging.error(
                         f"Max Sharpe Optimization failed for {start_date} Continuing with Equal-Weights"
                     )
                     logging.info(e)
@@ -240,14 +241,16 @@ class Utils:
                 )
                 portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
             except Exception as e:
-                logger.error(e)
+                logging.error(e)
 
         portfolio_df = portfolio_df.drop_duplicates()
         logging.info(portfolio_df)
         return portfolio_df
 
     # Also compares to existing sp500 returns
-    def visualize_portfolio_returns(self, portfolio_df, dt):
+    def visualize_portfolio_returns(
+        self, portfolio_df: pd.DataFrame, dt: pd.DataFrame
+    ) -> None:
         # 8. Visualize Portfolio returns and compare to SP500 returns.
         # Download the returns of SP500
         # TODO: This should be an online CSV
@@ -297,8 +300,8 @@ class Utils:
             )
             portfolio_df = pd.concat([portfolio_df, temp_df], axis=0)
 
-        logger.debug("Done with portfolio calculation")
-        logger.debug(portfolio_df)
+        logging.debug("Done with portfolio calculation")
+        logging.debug(portfolio_df)
         return portfolio_df
 
     def plot_df(self, df: pd.DataFrame):
