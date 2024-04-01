@@ -1,5 +1,6 @@
 import logging
-
+import os
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import tweepy
@@ -12,11 +13,7 @@ class Sentiment:
     Currently used only for Twitter data.
     """
 
-    def __init__(self):
-        # TODO: Fetch this data dynamically
-        self.data_dir_twitter = "/home/borisb/projects/llama/"
-
-    def load_data(self, data_dir):
+    def load_data(self, data_dir: str, data_file_name: str = "sentiment_data.csv"):
         """
         Load data from CSV to DataFrame
 
@@ -26,11 +23,25 @@ class Sentiment:
         Returns:
             _type_: returns a DataFrame from the data dir
         """
-        df = pd.read_csv(os.path.join(data_dir, "sentiment_data.csv"))
+        logging.debug("Attempting to load data to CSV")
+        df = pd.read_csv(os.path.join(data_dir, data_file_name))
 
         return df
 
     def load_live_twitter_data(self):
+        """
+        Load live Twitter data for specified stock tickers
+
+        Description:
+            This function fetches live Twitter data using the Tweepy library for
+            the specified stock tickers. It searches for tweets containing the ticker
+            symbols and collects relevant data such as tweet text, likes, and retweets.
+            The function can be used to gather real-time sentiment information
+            from Twitter, which can be valuable for short-term trading strategies
+            based on social media sentiment analysis.
+
+        TODO: This just needs a settings obj passed
+        """
         # Your Twitter API credentials
         api_key = ""
         api_secret = ""
@@ -79,11 +90,13 @@ class Sentiment:
         tickers = ["AAPL", "MSFT", "GOOGL"]  # Add your S&P 500 tickers here
         for ticker in tickers:
             print(f"Data for {ticker}:")
-            tweets_data = search_tweets(ticker)
+            tweets_data = api.search_tweets(ticker)
             for tweet_data in tweets_data:
                 print(tweet_data)
 
-    def normalize_twitter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+    def normalize_twitter_data(
+        self, df: pd.DataFrame, min_likes: int = 20, min_comments: int = 10
+    ) -> pd.DataFrame:
         """
         Normalize Twitter data for analysis
 
@@ -100,8 +113,6 @@ class Sentiment:
 
         Returns:
             pd.DataFrame: DataFrame with normalized Twitter data.
-
-
         """
         logging.info("Normalizing data for twitter based usage")
 
@@ -110,8 +121,6 @@ class Sentiment:
 
         df["engagement_ratio"] = df["twitterComments"] / df["twitterLikes"]
 
-        min_likes = 20
-        min_comments = 10
         df = df[
             (df["twitterLikes"] > min_likes) & (df["twitterComments"] > min_comments)
         ]
@@ -207,8 +216,9 @@ class Sentiment:
         logging.info("Starting twitter execute strategy")
 
         utils = Utils()
+        data_dir = Path().absolute()
 
-        sentiment_df = self.load_data(self.data_dir_twitter)
+        sentiment_df = self.load_data(data_dir)
         sentiment_df = self.normalize_twitter_data(sentiment_df)
         # logger.debug(sentiment_df)
         aggregated_df = self.aggregate_monthly_twitter_data(sentiment_df)
