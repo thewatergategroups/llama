@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 import tweepy
-from utilities import Utils
+from .utilities import Utils
 
 
 class Sentiment:
@@ -220,10 +220,14 @@ class Sentiment:
     ) -> None:
         """
         Twitter Sentiment Investing Strategy
-        # 1. Load Twitter Sentiment Data
-        # Load the twitter sentiment dataset, set the index, calculate engagement ratio,
-        # and filter out stocks with no significant twitter activity.
-        Execute Twitter sentiment-based trading strategy
+
+        Load the twitter sentiment dataset, set the index, calculate engagement ratio,
+        and filter out stocks with no significant twitter activity. Tested only on
+        static pre-generated data. This function represents
+        a sample Twitter sentiment-based trading strategy
+
+        We need to find a way to fetch the data dynamically and for cheaper
+        in order to test properly
 
         This function implements a trading strategy based on Twitter sentiment analysis.
         It loads historical Twitter sentiment data, normalizes the data, aggregates it
