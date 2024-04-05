@@ -441,3 +441,24 @@ class Indicators:
         df["sto"] = ((df[self.close_type] - low_min) / (high_max - low_min)) * 100
         logging.debug(df)
         return df
+
+    def calculate_smas(
+        self, df: pd.DataFrame, short_window: int = 50, long_window: int = 200
+    ) -> pd.DataFrame:
+        """
+        Calculate Simple Moving Averages
+
+        Args:
+            df (pd.DataFrame): _description_
+            short_window (int, optional): _description_. Defaults to 50.
+            long_window (int, optional): _description_. Defaults to 200.
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        logging.info("Calculating SMAS")
+        df["SMA_Short"] = df["Close"].rolling(window=short_window, min_periods=1).mean()
+        df["SMA_Long"] = df["Close"].rolling(window=long_window, min_periods=1).mean()
+
+        logging.debug(df)
+        return df
