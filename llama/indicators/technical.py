@@ -1,6 +1,7 @@
 """
 Technical inidicators implementation
 """
+
 import logging
 import numpy as np
 import pandas_datareader as web
@@ -14,6 +15,9 @@ class Indicators:
     """
     Class used for technical indicators
     """
+
+    def __init__(self) -> None:
+        self.close_type: str = "close"  # vs "adj close"
 
     def calculate_garman_klass_vol(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -45,7 +49,7 @@ class Indicators:
 
         df["garman_klass_vol"] = ((np.log(df["high"]) - np.log(df["low"])) ** 2) / 2 - (
             2 * np.log(2) - 1
-        ) * ((np.log(df["adj close"]) - np.log(df["open"])) ** 2)
+        ) * ((np.log(df[self.close_type]) - np.log(df["open"])) ** 2)
 
         logging.debug(df)
         return df
@@ -75,7 +79,7 @@ class Indicators:
         """
         logging.info("Calculating RSI indicator")
 
-        df["rsi"] = df.groupby(level=0)["adj close"].transform(
+        df["rsi"] = df.groupby(level=0)[self.close_type].transform(
             lambda x: pandas_ta.rsi(close=x, length=20)
         )
 
@@ -113,13 +117,13 @@ class Indicators:
 
         length: int = 20
 
-        df["bb_low"] = df.groupby(level=level)["adj close"].transform(
+        df["bb_low"] = df.groupby(level=level)[self.close_type].transform(
             lambda x: pandas_ta.bbands(close=np.log1p(x), length=length).iloc[:, 0]
         )
-        df["bb_mid"] = df.groupby(level=level)["adj close"].transform(
+        df["bb_mid"] = df.groupby(level=level)[self.close_type].transform(
             lambda x: pandas_ta.bbands(close=np.log1p(x), length=length).iloc[:, 1]
         )
-        df["bb_high"] = df.groupby(level=level)["adj close"].transform(
+        df["bb_high"] = df.groupby(level=level)[self.close_type].transform(
             lambda x: pandas_ta.bbands(close=np.log1p(x), length=length).iloc[:, 2]
         )
 
@@ -410,10 +414,30 @@ class Indicators:
             "ticker", group_keys=False
         )[factors].apply(lambda x: x.fillna(x.mean()))
         top_most_liquid_by_betas_df = top_most_liquid_by_betas_df.drop(
-            "adj close",
-            axis=1
+            self.close_type, axis=1
         ).dropna()
 
         logging.debug(top_most_liquid_by_betas_df.info())
 
         return top_most_liquid_by_betas_df
+
+    def calculate_stochastic(
+        self, df: pd.DataFrame, k_period: int = 14
+    ) -> pd.DataFrame:
+        """
+        Stochastic Oscillator
+
+        Args:
+            df (pd.DataFrame): _description_
+            k_period (int, optional): _description_. Defaults to 14.
+
+        Returns:
+            pd.DataFrame: _description_
+        """
+        logging.info("Calculating stochastic Oscillator")
+        low_min = df["low"].rolling(window=k_period).min()
+        high_max = df["high"].rolling(window=k_period).max()
+
+        df["sto"] = ((df[self.close_type] - low_min) / (high_max - low_min)) * 100
+        logging.debug(df)
+        return df
