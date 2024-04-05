@@ -1,0 +1,86 @@
+[
+    {
+        "symbols": [
+          "AAPL"
+        ],
+        "strategy_definitions": [
+            {
+                "alias": "vwap",
+                "name": "Volume Weighted Average Price",
+                "active": true,
+                "conditions": [
+                  {
+                    "name": "positive_vwap_slope",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "vwap_slope_threshold": 0.005
+                    }
+                  },
+                  {
+                    "name": "positive_vwap_crossover",
+                    "type": "and",
+                    "active": true,
+                    "variables": {}
+                  },
+                  {
+                    "name": "negative_vwap_crossover",
+                    "type": "and",
+                    "active": true,
+                    "variables": {}
+                  },
+                  {
+                    "name": "max_quantity_allowed",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "max_quantity": 5
+                    }
+                  },
+                  {
+                    "name": "take_profit",
+                    "type": "or",
+                    "active": true,
+                    "variables": {
+                      "unrealized_plpc": 2
+                    }
+                  },
+                  {
+                    "name": "min_quantity_allowed",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "min_quantity": 0
+                    }
+                  },
+                  {
+                    "name": "is_profitable",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "unrealized_pl": 0
+                    }
+                  },
+                  {
+                    "name": "stop_loss",
+                    "type": "or",
+                    "active": true,
+                    "variables": {
+                      "unrealized_plpc": -10
+                    }
+                  }
+                ]
+              }
+        ],
+        "days_to_test_over": 30
+      },
+      {
+        "symbols": [
+          "NVDA"
+        ],
+        "strategy_aliases": [
+          "vwap"
+        ],
+        "days_to_test_over": 30
+      }
+]
