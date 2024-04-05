@@ -457,8 +457,12 @@ class Indicators:
             pd.DataFrame: _description_
         """
         logging.info("Calculating SMAS")
-        df["SMA_Short"] = df["Close"].rolling(window=short_window, min_periods=1).mean()
-        df["SMA_Long"] = df["Close"].rolling(window=long_window, min_periods=1).mean()
+        df["sma_short"] = (
+            df[self.close_type].rolling(window=short_window, min_periods=1).mean()
+        )
+        df["sma_long"] = (
+            df[self.close_type].rolling(window=long_window, min_periods=1).mean()
+        )
 
         logging.debug(df)
         return df
