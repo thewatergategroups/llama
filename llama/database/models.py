@@ -78,7 +78,7 @@ class Bars(BaseSql):
     bb_high: Optional[float]
     stochastic_osci: Optional[float]
     sma_short: Optional[float]
-    sma_log: Optional[float]
+    sma_long: Optional[float]
 
 
 class Trades(BaseSql):

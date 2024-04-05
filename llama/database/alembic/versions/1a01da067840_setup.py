@@ -1,7 +1,7 @@
 """setup
 
 Revision ID: 1a01da067840
-Revises: 
+Revises:
 Create Date: 2023-08-31 21:22:52.941444
 
 """
@@ -31,6 +31,13 @@ def upgrade() -> None:
     sa.Column('trade_count', sa.Integer(), nullable=False),
     sa.Column('vwap', sa.Float(), nullable=False),
     sa.Column('volume', sa.Integer(), nullable=False),
+    sa.Column('rsi', sa.Float(), nullable=False),
+    sa.Column('bb_low', sa.Float(), nullable=False),
+    sa.Column('bb_mid', sa.Float(), nullable=False),
+    sa.Column('bb_high', sa.Float(), nullable=False),
+    sa.Column('stochastic_osci', sa.Float(), nullable=False),
+    sa.Column('sma_short', sa.Float(), nullable=False),
+    sa.Column('sma_long', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('symbol', 'timeframe', 'timestamp'),
     schema='llama'
     )
