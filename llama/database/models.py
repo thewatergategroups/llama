@@ -71,6 +71,14 @@ class Bars(BaseSql):
     trade_count: Mapped[int]
     vwap: Mapped[float]
     volume: Mapped[int]
+    garman_klass_vol: Optional[float]
+    rsi: Optional[float]
+    bb_low: Optional[float]
+    bb_mid: Optional[float]
+    bb_high: Optional[float]
+    stochastic_osci: Optional[float]
+    sma_short: Optional[float]
+    sma_log: Optional[float]
 
 
 class Trades(BaseSql):
