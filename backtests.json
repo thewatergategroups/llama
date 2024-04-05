@@ -1,33 +1,35 @@
 [
     {
         "symbols": [
-          "AAPL"
+          "NVDA"
         ],
         "strategy_definitions": [
             {
-                "alias": "vwap",
-                "name": "Volume Weighted Average Price",
+                "alias": "seir",
+                "name": "SEIR",
                 "active": true,
                 "conditions": [
                   {
-                    "name": "positive_vwap_slope",
+                    "name": "signal_sma_crossover_buy",
+                    "type": "and",
+                    "active": true,
+                    "variables": {}
+                  },
+                  {
+                    "name": "signal_stochastic_not_overbought",
                     "type": "and",
                     "active": true,
                     "variables": {
-                      "vwap_slope_threshold": 0.005
+                      "threshold": 80
                     }
                   },
                   {
-                    "name": "positive_vwap_crossover",
+                    "name": "signal_rsi_below_50",
                     "type": "and",
                     "active": true,
-                    "variables": {}
-                  },
-                  {
-                    "name": "negative_vwap_crossover",
-                    "type": "and",
-                    "active": true,
-                    "variables": {}
+                    "variables": {
+                      "threshold": 50
+                    }
                   },
                   {
                     "name": "max_quantity_allowed",
@@ -71,15 +73,6 @@
                   }
                 ]
               }
-        ],
-        "days_to_test_over": 30
-      },
-      {
-        "symbols": [
-          "NVDA"
-        ],
-        "strategy_aliases": [
-          "vwap"
         ],
         "days_to_test_over": 30
       }
