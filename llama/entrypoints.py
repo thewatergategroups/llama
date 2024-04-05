@@ -75,7 +75,7 @@ def backtest(settings: Settings, *_, **__):
     """
     history = History.create(settings)
     backtester = BackTester.create()
-    with open("./backtests.json", "r", encoding="utf-8") as f:
+    with open("./backtests/backtests.json", "r", encoding="utf-8") as f:
         list_json = json.loads(f.read())
     for item in list_json:
         definition = BacktestDefinition(**item)
