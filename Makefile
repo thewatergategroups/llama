@@ -9,26 +9,26 @@ build:
 	--build-arg="PYPI_PASS=${PYPI_PASS}" \
 	--target development \
 	-t $(REPOSITORY) \
-	. 
+	.
 
 debug:
-	docker compose run --entrypoint "python -m llama debug" api 
+	docker compose run --entrypoint "python -m llama debug" api
 
 backtest:
-	docker compose run --entrypoint "python -m llama backtest" api 
+	docker compose run --entrypoint "python -m llama backtest" api
 
 shell:
-	docker compose run --entrypoint bash api 
+	docker compose run --entrypoint bash api
 
-up: 
+up:
 	docker compose up -d --remove-orphans
 	if [ "$(PGADMIN)" == "true" ]; then docker compose --profile pgadmin up -d; fi
 	echo "sleeping to allow services to start up..."
 	sleep 15
 	export PGADMIN=$(PGADMIN) && bash ./scripts/browser.sh
-	docker compose logs -f 
+	docker compose logs -f
 
-pgadmin: 
+pgadmin:
 	docker compose --profile pgadmin up -d
 	echo "sleeping to allow services to start up..."
 	sleep 15
@@ -36,17 +36,17 @@ pgadmin:
 	export DOCS=false && \
 	bash ./scripts/browser.sh
 
-down: 
+down:
 	docker compose --profile "*" down
 
-push: 
+push:
 	docker build --network=host \
 	-f docker/Dockerfile \
 	--build-arg="PYPI_USER=${PYPI_USER}" \
 	--build-arg="PYPI_PASS=${PYPI_PASS}" \
 	--target development \
 	-t ghcr.io/1ndistinct/llama:latest \
-	. 
+	.
 	docker push  ghcr.io/1ndistinct/llama:latest
 
 template:
