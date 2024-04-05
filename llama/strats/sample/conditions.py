@@ -61,7 +61,7 @@ def get_seir_conditions():
     """
     return [
         Condition(
-            name="sma_crossover_buy_signal",
+            name="signal_sma_crossover_buy_signal",
             func=sma_crossover_buy,
             variables={},
             active=True,
@@ -69,17 +69,17 @@ def get_seir_conditions():
             type=ConditionType.AND,
         ),
         Condition(
-            name="stochastic_not_overbought",
+            name="signal_stochastic_not_overbought",
             func=stochastic_not_overbought,
-            variables={},
+            variables={"threshold": 80},
             active=True,
             side=OrderSide.BUY,
             type=ConditionType.AND,
         ),
         Condition(
-            name="rsi_below_50",
+            name="signal_rsi_below_50",
             func=rsi_below_threshold,
-            variables={},
+            variables={"threshold": 50},
             active=True,
             side=OrderSide.BUY,
             type=ConditionType.AND,
