@@ -2,9 +2,9 @@
 So Easy It's Ridiculous
 """
 
+from typing import Optional
 from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
-from typing import Optional
 
 from ...stocks import Trader
 from ..base import Condition, ConditionType
@@ -40,7 +40,7 @@ def rsi_below_threshold(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
     return rsi_value < 50
 
 
-def get_extended_conditions():
+def get_seir_conditions():
     """
     Get conditions integrating SMA, Stochastic, and RSI
 
@@ -48,10 +48,10 @@ def get_extended_conditions():
     we use simple moving averages to help us identify a new trend as early as possible.
 
     The Stochastic helps us determine if it`s still ok for us to enter a trade after
-    a moving average crossover, and it also helps us avoid oversold and overbought areas.
+    a moving average crossover, and it also helps us avoid oversold and overbought areas
 
-    The RSI is an extra confirmation tool that helps us determine the strength of our trend.
-    After figuring out our trade setup, we then determined our risk for each trade.
+    RSI is an extra confirmation tool that helps us determine the strength of our trend
+    After figuring out our trade setup, we then determined our risk for each trade
 
     (For this system, we are willing to risk 100 pips on each trade) <= TODO: implement
     """

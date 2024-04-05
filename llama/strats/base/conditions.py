@@ -18,6 +18,7 @@ def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
     position = trader.get_position(most_recent_bar.symbol, force=True)
     qty_avail = int(position.qty_available)
     condition = qty_avail > min_quantity
+    logging.info(qty_avail)
     return condition
 
 
@@ -29,7 +30,7 @@ def is_profitable_sell(most_recent_bar: Bar, trader: Trader, unrealized_pl: floa
     position = trader.get_position(most_recent_bar.symbol, force=True)
     condition = float(position.unrealized_pl) > unrealized_pl
     logging.info(
-        "is profitable sell condition on %s where unrealised profit/loss is %s condition response is %s",  # pylint: disable=line-too-long
+        "is profitable sell condition on %s where unrealised profit/loss is %s condition response is %s",
         most_recent_bar.symbol,
         position.unrealized_pl,
         condition,
