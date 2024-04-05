@@ -62,7 +62,7 @@ def get_seir_conditions():
     """
     return [
         Condition(
-            name="signal_sma_crossover_buy_signal",
+            name="signal_sma_crossover_buy",
             func=sma_crossover_buy,
             variables={},
             active=True,
