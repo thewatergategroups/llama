@@ -10,6 +10,7 @@ from ...stocks import Trader
 from ..base import Condition, ConditionType
 
 
+# TODO: Move this to a separate appropriate module + test
 class ExtedndedBar(Bar):
     garman_klass_vol: Optional[float]
     rsi: Optional[float]

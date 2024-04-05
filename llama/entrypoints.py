@@ -17,6 +17,7 @@ from .settings import Settings
 from .stocks import History, Trader
 from .strats import get_all_strats, insert_conditions, insert_strats
 from .worker.websocket import LiveStockDataStream, LiveTradingStream
+from .indicators.technical import Indicators
 
 
 def api(*_, **__):
@@ -96,6 +97,25 @@ def debug(settings: Settings, *_, **__):
     )
     logging.info("===================================")
     logging.info(nvidia_df.df)
+    technical_indicator = Indicators()
+    dfn = nvidia_df.df
+    dfn = technical_indicator.calculate_garman_klass_vol(dfn)
+    logging.info(dfn)
+    dfn = technical_indicator.calculate_rsi_indicator(dfn)
+    logging.info(dfn.to_markdown())
+    dfn = technical_indicator.calculate_bollinger_bands(dfn, level=0)
+    logging.info(dfn.to_markdown())
+    # dfn = technical_indicator.calculate_atr(dfn) # apply
+    dfn = technical_indicator.calculate_stochastic(dfn, k_period=14)
+    logging.info(dfn.to_markdown())
+    dfn_short = technical_indicator.calculate_smas(
+        dfn, short_window=50, long_window=200
+    )
+    logging.info(dfn_short)  # .style
+    dfn_long = technical_indicator.calculate_smas(dfn, short_window=1, long_window=200)
+    logging.info(dfn_long)  # .style
+    logging.info("DONE")
+    logging.info(dfn)  # .style
 
 
 class Entry(Entrypoints):

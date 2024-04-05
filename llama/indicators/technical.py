@@ -438,7 +438,7 @@ class Indicators:
         low_min = df["low"].rolling(window=k_period).min()
         high_max = df["high"].rolling(window=k_period).max()
 
-        df["sto"] = ((df[self.close_type] - low_min) / (high_max - low_min)) * 100
+        df["stochastic_osci"] = ((df[self.close_type] - low_min) / (high_max - low_min)) * 100
         logging.debug(df)
         return df
 
