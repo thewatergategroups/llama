@@ -28,16 +28,20 @@ def sma_crossover_buy(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
     return short_sma > long_sma
 
 
-def stochastic_not_overbought(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
+def stochastic_not_overbought(
+    most_recent_bar: ExtedndedBar, _: Trader, threshold: int = 80
+) -> bool:
     """Condition that Stochastic is not in overbought territory"""
     stochastic_value = most_recent_bar["stochastic_osci"]
-    return stochastic_value < 80
+    return stochastic_value < threshold
 
 
-def rsi_below_threshold(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
+def rsi_below_threshold(
+    most_recent_bar: ExtedndedBar, _: Trader, threshold: int = 50
+) -> bool:
     """Condition that RSI is below a certain threshold, suggesting potential upside"""
     rsi_value = most_recent_bar["rsi"]
-    return rsi_value < 50
+    return rsi_value < threshold
 
 
 def get_seir_conditions():
