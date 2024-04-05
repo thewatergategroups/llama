@@ -11,15 +11,14 @@ from ..base import Condition, ConditionType
 
 
 class ExtedndedBar(Bar):
-    def __init__(self):
-        self.garman_klass_vol: Optional[float]
-        self.rsi: Optional[float]
-        self.bb_low: Optional[float]
-        self.bb_mid: Optional[float]
-        self.bb_high: Optional[float]
-        self.stochastic_osci: Optional[float]
-        self.sma_short: Optional[float]
-        self.sma_log: Optional[float]
+    garman_klass_vol: Optional[float]
+    rsi: Optional[float]
+    bb_low: Optional[float]
+    bb_mid: Optional[float]
+    bb_high: Optional[float]
+    stochastic_osci: Optional[float]
+    sma_short: Optional[float]
+    sma_log: Optional[float]
 
 
 def sma_crossover_buy(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
