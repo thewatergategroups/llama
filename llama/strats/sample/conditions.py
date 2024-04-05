@@ -72,22 +72,21 @@ def get_second_indicator():
 
 
 def sma_crossover_buy(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
-    """Condition for SMA crossover buy signal."""
-    # This assumes you have a way to calculate or retrieve the short and long SMA values
-    short_sma = ExtedndedBar["sma_short"]
-    long_sma = ExtedndedBar["sma_long"]
+    """Condition for SMA crossover buy signa."""
+    short_sma = most_recent_bar["sma_short"]
+    long_sma = most_recent_bar["sma_long"]
     return short_sma > long_sma
 
 
-def stochastic_not_overbought(most_recent_bar: ExtedndedBar, _: Trader):
-    """Condition that Stochastic is not in overbought territory."""
-    stochastic_value = ExtedndedBar["stochastic_osci"]
+def stochastic_not_overbought(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
+    """Condition that Stochastic is not in overbought territory"""
+    stochastic_value = most_recent_bar["stochastic_osci"]
     return stochastic_value < 80
 
 
-def rsi_below_threshold(most_recent_bar: ExtedndedBar, _: Trader):
-    """Condition that RSI is below a certain threshold, suggesting potential upside."""
-    rsi_value = ExtedndedBar["rsi"]
+def rsi_below_threshold(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
+    """Condition that RSI is below a certain threshold, suggesting potential upside"""
+    rsi_value = most_recent_bar["rsi"]
     return rsi_value < 50
 
 
@@ -118,5 +117,4 @@ def get_extended_conditions():
             side=OrderSide.BUY,
             type=ConditionType.AND,
         ),
-        # Add more conditions as necessary for exit signals or sell side logic
     ]
