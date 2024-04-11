@@ -21,6 +21,8 @@ from trekkers.statements import upsert
 from ..database import Bars, Qoutes
 from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
+from .extendend_bars import ExtendedBarSet
+from ..indicators.technical import Indicators
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
@@ -226,8 +228,43 @@ class History:
                     start=starttime.isoformat(),
                     end=endtime.isoformat(),
                 )
-                bars: BarSet = self.client.get_stock_bars(request_params)
+                # bars: BarSet = self.client.get_stock_bars(request_params)
+                bars: ExtendedBarSet = self.client.get_stock_bars(request_params)
+                # cucstomBarset = Barset(custom)
                 # bars = self.fill_bars(bars, start_time, end_time)
+                #  create custom bars
+                # insert them
+                # here is technical
+                bars_df: pd.DataFrame = bars.df
+                logging.info(bars_df)
+
+                technical_indicators = Indicators()
+                bars_df = technical_indicators.calculate_garman_klass_vol(df=bars_df)
+                logging.info("Finished calculating the GVK")
+                logging.info(bars_df)
+
+                logging.info("Finished calculating the RSI")
+                bars_df = technical_indicators.calculate_rsi_indicator(bars_df)
+                logging.info(bars_df)
+
+                # bars_df = technical_indicators.calculate_bollinger_bands(
+                #     bars_df, level=1
+                # )
+                # apply(calculate_macd)
+                # TODO: Add ATR to tables
+                # df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
+                # TODO: Add macdto tables
+                # bars_df["macd"] = bars_df.groupby(level=1, group_keys=False)[
+                #     "close"
+                # ].apply(technical_indicators.calculate_macd)
+                bars_df = technical_indicators.calculate_stochastic(
+                    bars_df
+                )  # k_period=1 ?
+                bars_df = technical_indicators.calculate_smas(bars_df)
+
+                logging.info("Finished calculating the BB")
+                logging.info(bars_df)
+
                 if bars.data:
                     self.insert_bars(bars, time_frame)
         with get_sync_sessionm().begin() as session:
