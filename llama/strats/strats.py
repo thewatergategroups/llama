@@ -11,6 +11,7 @@ from ..settings import get_sync_sessionm
 from .base import Condition, Strategy
 from .conditions import get_all_conditions
 from .vwap import Vwap
+from .sample import SEIR
 
 
 def get_strategy_class(
@@ -31,7 +32,7 @@ def get_strategy_class(
 
 def get_predefined_strat_classes() -> list[type[Strategy]]:
     """Where you add Code defined strategies"""
-    return [Vwap, Strategy]
+    return [Vwap, SEIR, Strategy]
 
 
 def get_all_strats() -> dict[str, type[Strategy]]:

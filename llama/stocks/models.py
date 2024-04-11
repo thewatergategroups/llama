@@ -67,6 +67,14 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
                         "v": bar_.volume,
                         "n": bar_.trade_count,
                         "vw": bar_.vwap,
+                        "gkv": bar_.garman_klass_vol,
+                        "rsi": bar_.rsi,
+                        "bb_low": bar_.bb_low,
+                        "bb_mid": bar_.bb_mid,
+                        "bb_high": bar_.bb_high,
+                        "stochastic_osci": bar_.stochastic_osci,
+                        "sma_short": bar_.sma_short,
+                        "sma_long": bar_.sma_long,
                     },
                 )
                 for bar_ in bars

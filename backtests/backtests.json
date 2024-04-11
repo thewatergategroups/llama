@@ -1,0 +1,79 @@
+[
+    {
+        "symbols": [
+          "NVDA"
+        ],
+        "strategy_definitions": [
+            {
+                "alias": "seir",
+                "name": "SEIR",
+                "active": true,
+                "conditions": [
+                  {
+                    "name": "signal_sma_crossover_buy",
+                    "type": "and",
+                    "active": true,
+                    "variables": {}
+                  },
+                  {
+                    "name": "signal_stochastic_not_overbought",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "threshold": 80
+                    }
+                  },
+                  {
+                    "name": "signal_rsi_below_50",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "threshold": 50
+                    }
+                  },
+                  {
+                    "name": "max_quantity_allowed",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "max_quantity": 5
+                    }
+                  },
+                  {
+                    "name": "take_profit",
+                    "type": "or",
+                    "active": true,
+                    "variables": {
+                      "unrealized_plpc": 2
+                    }
+                  },
+                  {
+                    "name": "min_quantity_allowed",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "min_quantity": 0
+                    }
+                  },
+                  {
+                    "name": "is_profitable",
+                    "type": "and",
+                    "active": true,
+                    "variables": {
+                      "unrealized_pl": 0
+                    }
+                  },
+                  {
+                    "name": "stop_loss",
+                    "type": "or",
+                    "active": true,
+                    "variables": {
+                      "unrealized_plpc": -10
+                    }
+                  }
+                ]
+              }
+        ],
+        "days_to_test_over": 2
+      }
+]
