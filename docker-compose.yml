@@ -1,7 +1,7 @@
 version: "3.9"
 services:
 
-  api:
+  api: 
     image: llama
     entrypoint: python -m llama api
     depends_on:
@@ -12,7 +12,7 @@ services:
       - .env
     network_mode: host
 
-  datastream:
+  datastream: 
     image: llama
     entrypoint: python -m llama datastream
     depends_on:
@@ -22,8 +22,8 @@ services:
     env_file:
       - .env
     network_mode: host
-
-  tradestream:
+  
+  tradestream: 
     image: llama
     entrypoint: python -m llama tradestream
     depends_on:
@@ -34,9 +34,9 @@ services:
     env_file:
       - .env
     network_mode: host
-
-
-  dbsetup:
+  
+  
+  dbsetup: 
     image: llama
     entrypoint: python -m llama db upgrade
     depends_on:
@@ -46,7 +46,7 @@ services:
     env_file:
       - .env
     network_mode: host
-
+      
   db:
     image: postgres:16
     ports:
