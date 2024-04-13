@@ -2,27 +2,16 @@
 So Easy It's Ridiculous
 """
 
-from typing import Optional
-from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
 from ...stocks import Trader
 from ..base import Condition, ConditionType
 
-
 # TODO: Move this to a separate appropriate module + test
-class ExtedndedBar(Bar):
-    garman_klass_vol: Optional[float]
-    rsi: Optional[float]
-    bb_low: Optional[float]
-    bb_mid: Optional[float]
-    bb_high: Optional[float]
-    stochastic_osci: Optional[float]
-    sma_short: Optional[float]
-    sma_log: Optional[float]
+from ...stocks.extendend_bars import ExtendedBar
 
 
-def sma_crossover_buy(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
+def sma_crossover_buy(most_recent_bar: ExtendedBar, _: Trader) -> bool:
     """Condition for SMA crossover buy signa."""
     short_sma = most_recent_bar["sma_short"]
     long_sma = most_recent_bar["sma_long"]
@@ -30,7 +19,7 @@ def sma_crossover_buy(most_recent_bar: ExtedndedBar, _: Trader) -> bool:
 
 
 def stochastic_not_overbought(
-    most_recent_bar: ExtedndedBar, _: Trader, threshold: int = 80
+    most_recent_bar: ExtendedBar, _: Trader, threshold: int = 80
 ) -> bool:
     """Condition that Stochastic is not in overbought territory"""
     stochastic_value = most_recent_bar["stochastic_osci"]
@@ -38,7 +27,7 @@ def stochastic_not_overbought(
 
 
 def rsi_below_threshold(
-    most_recent_bar: ExtedndedBar, _: Trader, threshold: int = 50
+    most_recent_bar: ExtendedBar, _: Trader, threshold: int = 50
 ) -> bool:
     """Condition that RSI is below a certain threshold, suggesting potential upside"""
     rsi_value = most_recent_bar["rsi"]

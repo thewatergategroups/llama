@@ -2,24 +2,24 @@
 VWAP specific conditions
 """
 
-from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
 from ...stocks import Trader
+from ...stocks.extendend_bars import ExtendedBar
 from ..base import LIVE_DATA, Condition, ConditionType
 
 
-def crossover_buy(most_recent_bar: Bar, _: Trader):
+def crossover_buy(most_recent_bar: ExtendedBar, _: Trader):
     """When the most recent bar price goes above the vwap"""
     return most_recent_bar.vwap < most_recent_bar.close
 
 
-def crossover_sell(most_recent_bar: Bar, _: Trader):
+def crossover_sell(most_recent_bar: ExtendedBar, _: Trader):
     """When the most recent bar price goes below the vwap"""
     return most_recent_bar.vwap > most_recent_bar.close
 
 
-def _slope(most_recent_bar: Bar):
+def _slope(most_recent_bar: ExtendedBar):
     """calculate the new bar slope"""
     previous_vwap = 0
     if (data := LIVE_DATA.data.get(most_recent_bar.symbol)) is not None:
@@ -31,29 +31,29 @@ def _slope(most_recent_bar: Bar):
     return vwap_slope
 
 
-def slope_buy(most_recent_bar: Bar, _: Trader, vwap_slope_threshold: float):
+def slope_buy(most_recent_bar: ExtendedBar, _: Trader, vwap_slope_threshold: float):
     """VWAP Slope condition"""
     vwap_slope = _slope(most_recent_bar)
     return vwap_slope > vwap_slope_threshold  # slope
 
 
-def reversion_buy(most_recent_bar: Bar, _: Trader, deviation_threshold: float):
+def reversion_buy(most_recent_bar: ExtendedBar, _: Trader, deviation_threshold: float):
     """Reversion"""
     deviation_threshold = 0.001
     return most_recent_bar.close < most_recent_bar.vwap * (1 - deviation_threshold)
 
 
-def reversion_sell(most_recent_bar: Bar, _: Trader, deviation_threshold: float):
+def reversion_sell(most_recent_bar: ExtendedBar, _: Trader, deviation_threshold: float):
     """Reversion"""
     return most_recent_bar.close > most_recent_bar.vwap * (1 + deviation_threshold)
 
 
-def tolerance_buy(most_recent_bar: Bar, _: Trader):
+def tolerance_buy(most_recent_bar: ExtendedBar, _: Trader):
     """Buy within a tolerance"""
     return most_recent_bar.close < (most_recent_bar.vwap + most_recent_bar.vwap * 0.2)
 
 
-def tolerance_sell(most_recent_bar: Bar, _: Trader):
+def tolerance_sell(most_recent_bar: ExtendedBar, _: Trader):
     """Sell within a tolerance"""
     return most_recent_bar.close < (
         most_recent_bar.vwap - (most_recent_bar.vwap * 0.2 / 2)
