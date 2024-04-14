@@ -2,12 +2,16 @@
 Helper Stock models
 """
 
+import logging
+
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 from uuid import UUID, uuid4
-from alpaca.data.models import Bar, BarSet
+import pandas as pd
+
+# from alpaca.data.models import ExtendedBar, ExtendedBarSet
 from alpaca.data.models.base import BaseDataSet, TimeSeriesMixin
 from alpaca.trading import (
     AssetClass,
@@ -19,32 +23,36 @@ from alpaca.trading import (
 
 from ..database.models import Bars
 
+from .extendend_bars import ExtendedBar, ExtendedBarSet
+
 
 class CustomBarSet(BaseDataSet, TimeSeriesMixin):
     """
     The same as the Alpaca defined barset, but with extra functionality
     """
 
-    data: dict[str, list[Bar]]
+    data: dict[str, list[ExtendedBar]]
 
     def __init__(
         self,
-        bars: list[Bar] | None = None,
+        bars: list[ExtendedBar] | None = None,
     ):
         """_summary_
 
         Args:
-            bars (list[Bar] | None, optional): _description_. Defaults to None.
+            bars (list[ExtendedBar] | None, optional): _description_. Defaults to None.
         """
         bars = bars or list()
         parsed_bars = defaultdict(lambda: [])
         for item in bars:
+            logging.info(item)
+            logging.info(type(item))
             parsed_bars[item.symbol].append(item)
 
         super().__init__(data=dict(parsed_bars))
 
     @classmethod
-    def from_barset(cls, barset: BarSet):
+    def from_barset(cls, barset: ExtendedBarSet):
         """From barset to custom barset"""
         bars = []
         for bset in barset.data.values():
@@ -52,11 +60,17 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         return cls(bars)
 
     @classmethod
+    def from_dataframe(cls, barset_df: pd.DataFrame):
+        """From Pandas DataFrame to custom barset"""
+        bars_from_df = list(barset_df.T.to_dict().values())
+        return cls(bars_from_df)
+
+    @classmethod
     def from_postgres_bars(cls, bars: list[Bars]):
-        """From postgres data to Bar and dataframes"""
+        """From postgres data to ExtendedBar and dataframes"""
         return cls(
             [
-                Bar(
+                ExtendedBar(
                     bar_.symbol,
                     {
                         "t": bar_.timestamp,
@@ -81,7 +95,7 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
             ]
         )
 
-    def append(self, bar_: Bar):
+    def append(self, bar_: ExtendedBar):
         """Keeps the last 15 bars in memory"""
         if bar_.symbol not in self.data:
             self.data[bar_.symbol] = []
@@ -89,8 +103,8 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         symbol_list.append(bar_)
 
     def to_dict(self, time_frame: str):
-        """Transforms a BarSet into a dictionary"""
-        all_bars: list[Bar] = list()
+        """Transforms a ExtendedBarSet into a dictionary"""
+        all_bars: list[ExtendedBar] = list()
         for bars in self.data.values():
             all_bars += bars
         response = []

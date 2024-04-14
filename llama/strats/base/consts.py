@@ -5,7 +5,6 @@ Base Strategy models and Enums
 from enum import StrEnum
 from typing import Any, Callable
 
-from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 from pydantic import BaseModel
 from sqlalchemy import select
@@ -16,6 +15,7 @@ from trekkers.statements import on_conflict_update
 
 from ...database import Conditions, StratConditionMap
 from ...stocks import CustomBarSet, Trader
+from ...stocks.extendend_bars import ExtendedBar
 
 LIVE_DATA = CustomBarSet()
 
@@ -39,7 +39,7 @@ class Condition(BaseModel):
     side: OrderSide
     type: ConditionType
 
-    def __call__(self, most_recent_bar: Bar, trader: Trader) -> bool:
+    def __call__(self, most_recent_bar: ExtendedBar, trader: Trader) -> bool:
         """What to do when you call a condition"""
         return self.func(most_recent_bar, trader, **self.variables)
 

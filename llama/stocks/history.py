@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 import pandas as pd
 import requests
 from alpaca.data.historical import StockHistoricalDataClient
-from alpaca.data.models import BarSet
 from alpaca.data.requests import (
     StockBarsRequest,
     StockLatestQuoteRequest,
@@ -21,6 +20,8 @@ from trekkers.statements import upsert
 from ..database import Bars, Qoutes
 from ..settings import Settings, get_sync_sessionm
 from .models import CustomBarSet
+from .extendend_bars import ExtendedBarSet
+from ..indicators.technical import Indicators
 
 FRAME_PARAMS = {
     TimeFrameUnit.Minute: {
@@ -92,17 +93,31 @@ class History:
         )
         return response.json()
 
-    def insert_bars(self, bars: BarSet, time_frame: TimeFrame):
+    def insert_bars(self, bars: ExtendedBarSet | pd.DataFrame, time_frame: TimeFrame):
         """_summary_
 
         Args:
-            bars (BarSet): _description_
+            bars (ExtendedBarSet): _description_
             time_frame (TimeFrame): _description_
         """
-        logging.debug("inserting bars...")
-        dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
+        logging.info("inserting bars...")
+        # dict_bars = list[Dict]
+
+        if isinstance(bars, pd.DataFrame):
+            logging.info("Inserting bars as DataFrame")
+            # TODO: Fix that up?! Should probably be .apply on each elem
+            bars["timeframe"] = time_frame.value
+            bars["symbol"] = "NVDA"
+            # dict_bars = list(bars.T.to_dict().values())
+            # logging.info("Done converting")
+            dict_bars = CustomBarSet.from_dataframe(bars).to_dict(time_frame.value)
+        else:
+            logging.info("Inserting from custom barset")
+            dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
         if not dict_bars:
             return
+        logging.info(dict_bars)
+        logging.info("Attempting to upsert into db")
         upsert(get_sync_sessionm(), dict_bars, Bars)
 
     @staticmethod
@@ -226,10 +241,58 @@ class History:
                     start=starttime.isoformat(),
                     end=endtime.isoformat(),
                 )
-                bars: BarSet = self.client.get_stock_bars(request_params)
+                # bars: BarSet/ = self.client.get_stock_bars(request_params)
+                bars: ExtendedBarSet = self.client.get_stock_bars(request_params)
+                # cucstomBarset = Barset(custom)
                 # bars = self.fill_bars(bars, start_time, end_time)
-                if bars.data:
-                    self.insert_bars(bars, time_frame)
+                #  create custom bars
+                # insert them
+                # here is technical
+                bars_df: pd.DataFrame = bars.df
+                # logging.info(bars_df)
+
+                technical_indicators = Indicators()
+                bars_df = technical_indicators.calculate_garman_klass_vol(df=bars_df)
+                # logging.info("Finished calculating the GVK")
+                # logging.info(bars_df)
+                # logging.info(bars_df["garman_klass_vol"])
+
+                # logging.info("Finished calculating the RSI")
+                bars_df = technical_indicators.calculate_rsi_indicator(bars_df)
+                # logging.info(bars_df["rsi"])
+                # logging.info(bars_df)
+
+                # bars_df = technical_indicators.calculate_bollinger_bands(
+                #     bars_df, level=1
+                # )
+                # logging.info(bars_df["bb_low"])
+                # logging.info(bars_df["bb_mid"])
+                # logging.info(bars_df["bb_high"])
+                # apply(calculate_macd)
+                # TODO: Add ATR to tables
+                # df['atr'] = df.groupby(level=1, group_keys=False).apply(compute_atr)
+                # TODO: Add macdto tables
+                # bars_df["macd"] = bars_df.groupby(level=1, group_keys=False)[
+                #     "close"
+                # ].apply(technical_indicators.calculate_macd)
+                bars_df = technical_indicators.calculate_stochastic(
+                    bars_df
+                )  # k_period=1 ?
+                # logging.info(bars_df["rsi"])
+                # logging.info(bars_df["stochastic_osci"])
+
+                bars_df = technical_indicators.calculate_smas(bars_df)
+                # logging.info(bars_df)
+
+                # extended_bars = bars_df.to_dict ??
+                # bars.df = bars_df
+                logging.info("Converted bars after technical")
+                # logging.info(bars_df)
+                # logging.info()
+                # Need to find a good way to filter the NaN and missing data
+                bars_df = bars_df.dropna()
+                # if bars.data:
+                self.insert_bars(bars_df, time_frame)
         with get_sync_sessionm().begin() as session:
             logging.debug("fetching bars from postgres...")
             sym_table = Values(column("symbol"), name="symbol").data(

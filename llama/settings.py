@@ -14,9 +14,9 @@ TOP_LEVEL_PATH = pathlib.Path(__file__).parent.resolve()
 class Settings(BaseSettings):
     """Application Settings"""
 
-    api_endpoint: str = ""
-    api_key: str = ""
-    secret_key: str = ""
+    api_endpoint: str = "https://paper-api.alpaca.markets/v2"
+    api_key: str = "PKY8GD7GYQP4DR9QFYEO"
+    secret_key: str = "qQac7bWtE3EQj00KFORKStWItiq8bh7Cpd4Sfc3l"
     news_url: str = "https://data.alpaca.markets/v1beta1/news"
     paper: bool = True
     force_get_all_assets: bool = False

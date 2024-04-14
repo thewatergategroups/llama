@@ -4,14 +4,14 @@ Base Conditions added to all strategies
 
 import logging
 
-from alpaca.data.models import Bar
 from alpaca.trading import OrderSide
 
 from ...stocks.trader import Trader
 from .consts import Condition, ConditionType
+from ...stocks.extendend_bars import ExtendedBar
 
 
-def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
+def quantity_sell(most_recent_bar: ExtendedBar, trader: Trader, min_quantity: int):
     """
     sell condition based on quantity
     """
@@ -22,7 +22,9 @@ def quantity_sell(most_recent_bar: Bar, trader: Trader, min_quantity: int):
     return condition
 
 
-def is_profitable_sell(most_recent_bar: Bar, trader: Trader, unrealized_pl: float):
+def is_profitable_sell(
+    most_recent_bar: ExtendedBar, trader: Trader, unrealized_pl: float
+):
     """
     purchase condition based on buy prices.. PURELY a sell condition
     """
@@ -38,7 +40,9 @@ def is_profitable_sell(most_recent_bar: Bar, trader: Trader, unrealized_pl: floa
     return condition
 
 
-def stop_loss_sell(most_recent_bar: Bar, trader: Trader, unrealized_plpc: float):
+def stop_loss_sell(
+    most_recent_bar: ExtendedBar, trader: Trader, unrealized_plpc: float
+):
     """
     purchase condition based on buy prices.. PURELY a sell condition
     """
@@ -54,7 +58,7 @@ def stop_loss_sell(most_recent_bar: Bar, trader: Trader, unrealized_plpc: float)
     return condition
 
 
-def quantity_buy(most_recent_bar: Bar, trader: Trader, max_quantity: int):
+def quantity_buy(most_recent_bar: ExtendedBar, trader: Trader, max_quantity: int):
     """buy condition based on quantity"""
     position = trader.get_position(most_recent_bar.symbol, force=True)
     qty_avail = int(position.qty_available)
@@ -63,7 +67,7 @@ def quantity_buy(most_recent_bar: Bar, trader: Trader, max_quantity: int):
 
 
 def take_profit_buy(
-    most_recent_bar: Bar,
+    most_recent_bar: ExtendedBar,
     trader: Trader,
     unrealized_plpc: float,
 ):

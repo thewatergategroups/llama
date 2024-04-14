@@ -1,5 +1,5 @@
 """
-Defines the backtester class 
+Defines the backtester class
 """
 
 import logging
@@ -9,7 +9,7 @@ from copy import deepcopy
 from dataclasses import asdict
 from datetime import datetime, timedelta
 
-from alpaca.data.models import Bar
+# from alpaca.data.models import Bar
 from alpaca.data.timeframe import TimeFrame
 from sqlalchemy import select, update
 from sqlalchemy.dialects.postgresql import insert
@@ -29,6 +29,7 @@ from ..strats import (
 )
 from .consts import BacktestDefinition
 from .mocktrader import MockTrader
+from ..stocks.extendend_bars import ExtendedBar
 
 
 class BackTester:
@@ -97,18 +98,21 @@ class BackTester:
             start_time_historic = start_time_backtest - timedelta(days=60)
             end_time_historic = start_time_backtest
 
+            # get bars by minute
             data = history.get_stock_bars(
                 definition.symbols,
                 time_frame=TimeFrame.Minute,
                 start_time=start_time_backtest,
                 end_time=end_time_backtest,
             )
+            # Gets the daily stocks. Why? Do we need this?
             history.get_stock_bars(
                 definition.symbols,
                 time_frame=TimeFrame.Day,
                 start_time=start_time_historic,
                 end_time=end_time_historic,
             )
+            # calc
 
             strategies = definition.strategy_definitions or []
             if definition.strategy_aliases is not None:
@@ -123,6 +127,7 @@ class BackTester:
             strat_classes: list[Strategy] = []
             for strat in strategies:
                 conditions = []
+                # logging.info(strat.conditions)
                 for cond in strat.conditions:
                     if (condition := all_conditions.get(cond.name)) is None:
                         raise KeyError(f"condition {cond.name} doesn't exist")
@@ -137,7 +142,7 @@ class BackTester:
                     )
                 )
 
-            strat_data: list[tuple[Strategy, MockTrader, list[Bar]]] = []
+            strat_data: list[tuple[Strategy, MockTrader, list[ExtendedBar]]] = []
             for strat in strat_classes:
                 for symbol in definition.symbols:
                     bars = [value for value in data.data[symbol]]
@@ -214,7 +219,7 @@ class BackTester:
     def test_strat(
         strategy: Strategy,
         trader: MockTrader,
-        bars: list[Bar],
+        bars: list[ExtendedBar],
     ):
         """
         Run the trading strategy over all bars in specified time period using the mocktrader

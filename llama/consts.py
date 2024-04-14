@@ -4,11 +4,10 @@ Overarching enums and models
 
 from enum import StrEnum
 
-from alpaca.data.models import BarSet
-
+from .stocks.extendend_bars import ExtendedBarSet
 from .stocks.models import CustomBarSet
 
-BARSET_TYPE = BarSet | CustomBarSet
+BARSET_TYPE = ExtendedBarSet | CustomBarSet
 
 
 class Status(StrEnum):

@@ -5,7 +5,7 @@ Define the websocket classes to get trading and stock trading data
 import logging
 
 from alpaca.data.live import StockDataStream
-from alpaca.data.models import Bar, Quote, Trade
+from alpaca.data.models import Quote, Trade
 from alpaca.data.timeframe import TimeFrame
 from alpaca.trading import TradeEvent, TradeUpdate
 from alpaca.trading.stream import TradingStream
@@ -16,6 +16,7 @@ from ..database import Bars, Orders, Qoutes, Trades, TradeUpdates
 from ..settings import Settings, get_sync_sessionm
 from ..stocks.trader import Trader
 from ..strats import Strategy
+from ..stocks.extendend_bars import ExtendedBar
 
 
 class LiveStockDataStream:
@@ -34,7 +35,7 @@ class LiveStockDataStream:
 
         return cls(StockDataStream(settings.api_key, settings.secret_key), trader)
 
-    async def handle_bars(self, data: Bar):
+    async def handle_bars(self, data: ExtendedBar):
         """Perform trades based on data"""
         time_frame: TimeFrame = TimeFrame.Minute
         for strategy in self.strategies:

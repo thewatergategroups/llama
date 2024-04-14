@@ -5,11 +5,11 @@ Unimportant Helper functions - Possibly remove
 import io
 import logging
 
-from alpaca.data.models import Bar, BarSet
 from matplotlib import pyplot as plt
+from .extendend_bars import ExtendedBar, ExtendedBarSet
 
 
-def get_times_and_closing_p(data: list[Bar]) -> tuple[list, list]:
+def get_times_and_closing_p(data: list[ExtendedBar]) -> tuple[list, list]:
     """
     return useful data from barset
     """
@@ -20,7 +20,7 @@ def get_times_and_closing_p(data: list[Bar]) -> tuple[list, list]:
     return times, closing_prices
 
 
-def plot_stock_data(data: BarSet):
+def plot_stock_data(data: ExtendedBarSet):
     """
     Plot the historical stock data using matplotlib.
 
