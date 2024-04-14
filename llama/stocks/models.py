@@ -2,11 +2,14 @@
 Helper Stock models
 """
 
+import logging
+
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Optional
 from uuid import UUID, uuid4
+import pandas as pd
 
 # from alpaca.data.models import ExtendedBar, ExtendedBarSet
 from alpaca.data.models.base import BaseDataSet, TimeSeriesMixin
@@ -42,6 +45,8 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         bars = bars or list()
         parsed_bars = defaultdict(lambda: [])
         for item in bars:
+            logging.info(item)
+            logging.info(type(item))
             parsed_bars[item.symbol].append(item)
 
         super().__init__(data=dict(parsed_bars))
@@ -53,6 +58,12 @@ class CustomBarSet(BaseDataSet, TimeSeriesMixin):
         for bset in barset.data.values():
             bars += bset
         return cls(bars)
+
+    @classmethod
+    def from_dataframe(cls, barset_df: pd.DataFrame):
+        """From Pandas DataFrame to custom barset"""
+        bars_from_df = list(barset_df.T.to_dict().values())
+        return cls(bars_from_df)
 
     @classmethod
     def from_postgres_bars(cls, bars: list[Bars]):

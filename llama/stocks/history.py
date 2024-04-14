@@ -107,8 +107,10 @@ class History:
             logging.info("Inserting bars as DataFrame")
             # TODO: Fix that up?! Should probably be .apply on each elem
             bars["timeframe"] = time_frame.value
-            dict_bars = list(bars.T.to_dict().values())
-            logging.info("Done converting")
+            bars["symbol"] = "NVDA"
+            # dict_bars = list(bars.T.to_dict().values())
+            # logging.info("Done converting")
+            dict_bars = CustomBarSet.from_dataframe(bars).to_dict(time_frame.value)
         else:
             logging.info("Inserting from custom barset")
             dict_bars = CustomBarSet.from_barset(bars).to_dict(time_frame.value)
@@ -285,6 +287,10 @@ class History:
                 # extended_bars = bars_df.to_dict ??
                 # bars.df = bars_df
                 logging.info("Converted bars after technical")
+                # logging.info(bars_df)
+                # logging.info()
+                # Need to find a good way to filter the NaN and missing data
+                bars_df = bars_df.dropna()
                 # if bars.data:
                 self.insert_bars(bars_df, time_frame)
         with get_sync_sessionm().begin() as session:
