@@ -41,10 +41,10 @@ down:
 
 push: 
 	docker build --network=host \
-	-f docker/Dockerfile \
+	-f ./Dockerfile \
 	--build-arg="PYPI_USER=${PYPI_USER}" \
 	--build-arg="PYPI_PASS=${PYPI_PASS}" \
-	--target development \
+	--target production \
 	-t ghcr.io/1ndistinct/llama:latest \
 	. 
 	docker push  ghcr.io/1ndistinct/llama:latest

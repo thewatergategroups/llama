@@ -52,9 +52,14 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: pg_isready -U postgres -d postgres
+      interval: 10s
+      timeout: 3s
+      retries: 3
     volumes:
       - ./pg_data:/var/lib/postgresql/data
 
