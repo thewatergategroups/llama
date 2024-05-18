@@ -13,10 +13,22 @@ matplotlib = "^3.7.2"
 numpy = "^1.25.1"
 fastapi = "^0.110.0"
 uvicorn = "^0.23.1"
+statsmodels = "^0.14.1"
+pandas-datareader = "^0.10.0"
+pandas-ta = "^0.3.14b0"
 
 [tool.poetry.group.local.dependencies]
 trekkers = { version = "^0.2", source = "kube" }
 yumi = { version = "^0.2", source = "kube" }
+pandas-datareader = "^0.10.0"
+pyportfolioopt = "^1.5.5"
+yfinance = "^0.2.37"
+pandas-ta = "^0.3.14b0"
+statsmodels = "^0.14.1"
+scikit-learn = "^1.4.1.post1"
+requests = "^2.31.0"
+alpaca = "^1.0.0"
+tweepy = "^4.14.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"

@@ -6,12 +6,12 @@ import asyncio
 import json
 import logging
 from time import sleep
+from datetime import datetime
 
 import uvicorn
 from trekkers import database
 from yumi import Entrypoints
-
-
+from alpaca.data.timeframe import TimeFrame
 from .backtester import BackTester, BacktestDefinition
 from .settings import Settings
 from .stocks import History, Trader
@@ -83,10 +83,19 @@ def backtest(settings: Settings, *_, **__):
 
 
 def debug(settings: Settings, *_, **__):
-    """For running whatever functions you want to test"""
-    history = History.create(settings)
-    history.get_latest_qoute("AAPL")
-    ## do something
+    """
+    Boilter plate code to be ran directly by the command "$ make debug"
+    """
+    hist = History.create(settings)
+    # history.get_stock_bars()
+    nvidia_df = hist.get_stock_bars(
+        symbols=["NVDA"],
+        time_frame=TimeFrame.Day,
+        start_time=datetime(2022, 9, 1),
+        end_time=datetime(2023, 9, 7),
+    )
+    logging.info("===================================")
+    logging.info(nvidia_df.df)
 
 
 class Entry(Entrypoints):
