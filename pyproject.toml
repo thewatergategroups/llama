@@ -31,7 +31,7 @@ python-dotenv = "^1.0.1"
 
 [[tool.poetry.source]]
 name = "kube"
-url = "http://pypi.apps.svc.cluster.local:8080/simple"
+url = "https://pypi.thewatergategroups.com/simple"
 priority = "explicit"
 
 [build-system]
