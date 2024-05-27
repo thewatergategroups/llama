@@ -1,4 +1,4 @@
 
-imageName: ghcr.io/1ndistinct/llama:latest
+imageName: ghcr.io/thewatergategroups/llama:latest
 
 regCredName: regcred

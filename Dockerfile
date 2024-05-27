@@ -1,4 +1,4 @@
-FROM ghcr.io/1ndistinct/ops:python311 AS requirements
+FROM ghcr.io/thewatergategroups/ops:python311 AS requirements
 ARG PYPI_USER
 ARG PYPI_PASS
 COPY pyproject.toml poetry.lock ./
@@ -8,7 +8,7 @@ FROM requirements AS dev_requirements
     RUN poetry install --only dev
 
 
-FROM ghcr.io/1ndistinct/ops:python311 AS base
+FROM ghcr.io/thewatergategroups/ops:python311 AS base
 RUN groupadd app && useradd -g app --home-dir /app --create-home app
 WORKDIR /app 
 COPY  ./scripts/start.sh ./

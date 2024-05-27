@@ -45,9 +45,9 @@ push:
 	--build-arg="PYPI_USER=${PYPI_USER}" \
 	--build-arg="PYPI_PASS=${PYPI_PASS}" \
 	--target production \
-	-t ghcr.io/1ndistinct/llama:latest \
+	-t ghcr.io/thewatergategroups/llama:latest \
 	. 
-	docker push  ghcr.io/1ndistinct/llama:latest
+	docker push  ghcr.io/thewatergategroups/llama:latest
 
 template:
 	if [ ! -f secret_vals.yaml ]; then echo "secrets: {}" > secret_vals.yaml; fi
