@@ -4,6 +4,6 @@ imageName: ghcr.io/thewatergategroups/llama:latest
 regCredName: regcred
 
 name: llama
-apiName: llama
+apiName: llama-api
 tradestreamName: llama-tradestream
 datastreamName: llama-datastream
