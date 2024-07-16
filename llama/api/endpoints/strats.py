@@ -14,13 +14,8 @@ from sqlalchemy.orm import Session
 from ...database import Conditions, StratConditionMap, Strategies
 from ...strats import StrategyDefinition, get_all_strats
 from ..deps import get_async_session, get_sync_session
-from ..validator import has_admin_scope, validate_jwt
 
-router = APIRouter(
-    prefix="/strategies",
-    tags=["Strategies"],
-    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
-)
+router = APIRouter(prefix="/strategies", tags=["Strategies"])
 
 
 @router.get("")

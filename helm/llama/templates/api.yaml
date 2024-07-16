@@ -3,24 +3,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-api
+  name: {{ .Values.apiName }}
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-api
+      app: {{ .Values.apiName }}
   template:
     metadata:
       labels:
-        app: llama-api
+        app: {{ .Values.apiName }}
     spec:
       securityContext: {}
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
       containers:
-        - name: llama-api
+        - name: {{ .Values.apiName }}
           volumeMounts:
             - mountPath: /secrets
               name: llama
@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: llama-api
+  name: {{ .Values.apiName }}
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
@@ -65,4 +65,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: llama-api
+    app: {{ .Values.apiName }}

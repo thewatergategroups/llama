@@ -12,14 +12,9 @@ from ...consts import Status
 from ...database.models import Backtests, BacktestStats
 from ...stocks import History
 from ..deps import get_async_session, get_backtester, get_history
-from ..validator import has_admin_scope, validate_jwt
 from .strats import get_strats
 
-router = APIRouter(
-    prefix="/backtest",
-    tags=["Backtesting"],
-    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
-)
+router = APIRouter(prefix="/backtest", tags=["Backtesting"])
 
 
 @router.post("/start")

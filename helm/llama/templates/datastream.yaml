@@ -3,24 +3,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-datastream
+  name: {{.Values.datastreamName}}
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-datastream
+      app: {{.Values.datastreamName}}
   template:
     metadata:
       labels:
-        app: llama-datastream
+        app: {{.Values.datastreamName}}
     spec:
       securityContext: {}
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
       containers:
-        - name: llama-datastream
+        - name: {{.Values.datastreamName}}
           volumeMounts:
             - mountPath: /secrets
               name: llama

@@ -2,3 +2,8 @@
 imageName: ghcr.io/thewatergategroups/llama:latest
 
 regCredName: regcred
+
+name: llama
+apiName: llama
+tradestreamName: llama-tradestream
+datastreamName: llama-datastream

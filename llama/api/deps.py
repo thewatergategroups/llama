@@ -5,7 +5,6 @@ API dependencies
 from functools import lru_cache
 
 from trekkers.config import get_async_sessionmaker
-from yumi import JwtClient
 
 from ..backtester import BackTester
 from ..settings import get_settings, get_sync_sessionm
@@ -34,12 +33,6 @@ async def get_async_session():
     """Return an async session to connect to postgres"""
     async with get_async_sessionmaker(get_settings().db_settings).begin() as session:
         yield session
-
-
-@lru_cache
-def get_jwt_client():
-    """Get global JWT client"""
-    return JwtClient(get_settings().jwt_config)
 
 
 def get_sync_session():

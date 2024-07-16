@@ -24,7 +24,6 @@ class Settings(BaseSettings):
         env_script_location=f"{TOP_LEVEL_PATH}/database/alembic"
     )
     log_config: LogConfig = LogConfig()
-    jwt_config: JwtConfig = JwtConfig(jwks_server_url="http://authapi:8000")
     dev_mode: bool = False
 
 

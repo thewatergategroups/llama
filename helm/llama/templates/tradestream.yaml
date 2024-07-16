@@ -3,24 +3,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: llama-tradestream
+  name: {{ .Values.tradestreamName }}
   namespace: {{ $.Release.Namespace }}
   labels: {}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: llama-tradestream
+      app: {{ .Values.tradestreamName }}
   template:
     metadata:
       labels:
-        app: llama-tradestream
+        app: {{ .Values.tradestreamName }}
     spec:
       securityContext: {}
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
       containers:
-        - name: llama-tradestream
+        - name: {{ .Values.tradestreamName }}
           volumeMounts:
             - mountPath: /secrets
               name: llama

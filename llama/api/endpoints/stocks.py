@@ -11,13 +11,8 @@ from fastapi.routing import APIRouter
 
 from ...stocks import History, Trader, plot_stock_data
 from ..deps import get_history, get_trader
-from ..validator import has_admin_scope, validate_jwt
 
-router = APIRouter(
-    prefix="/stocks",
-    tags=["Stock Information"],
-    dependencies=[Depends(validate_jwt), Depends(has_admin_scope())],
-)
+router = APIRouter(prefix="/stocks", tags=["Stock Information"])
 
 
 @router.get("/historic/graph")

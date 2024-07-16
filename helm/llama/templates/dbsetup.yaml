@@ -13,10 +13,10 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.regCredName }} 
       containers:
-      - name: llama-db-setup
+      - name: {{ .Values.name }}-db-setup
         volumeMounts:
           - mountPath: /secrets
-            name: llama
+            name: {{ .Values.name }}
         securityContext: null
         image: {{ .Values.imageName }}
         imagePullPolicy: Always
@@ -35,9 +35,9 @@ spec:
           - upgrade
       restartPolicy: Never
       volumes:
-        - name: llama
+        - name: {{ .Values.name }}
           secret:
             optional: false
-            secretName: llama
+            secretName: {{ .Values.name }}
   backoffLimit: 1
 ---
