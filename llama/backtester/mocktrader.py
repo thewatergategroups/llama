@@ -108,8 +108,8 @@ class MockTrader:
         new_qty = 0
 
         position = self.get_position(symbol)
-        position.current_price = price
-        position.market_value = price * int(position.qty)
+        position.current_price = str(price)
+        position.market_value = str(price * int(position.qty))
         cost_basis = int(position.qty) * float(position.avg_entry_price)
 
         self.stats.equity = self.stats.buying_power + sum(
