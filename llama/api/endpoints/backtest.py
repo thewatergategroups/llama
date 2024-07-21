@@ -43,7 +43,8 @@ async def run_backtest(
         raise HTTPException(429, "backtest already running")
     strats = data.strategy_definitions or []
     if data.strategy_aliases is not None:
-        strats += [await get_strats(strat) for strat in data.strategy_aliases]
+        for strat in data.strategy_aliases:
+            strats += await get_strats(strat)
     backtest_id = backtester.insert_start_of_backtest(data.symbols, strats)
 
     background_task.add_task(backtester.backtest_strats, backtest_id, history, data)

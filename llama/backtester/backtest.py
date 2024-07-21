@@ -7,7 +7,7 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from copy import deepcopy
 from dataclasses import asdict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from alpaca.data.models import Bar
 from alpaca.data.timeframe import TimeFrame
@@ -65,7 +65,7 @@ class BackTester:
                     {
                         "symbols": symbols,
                         "status": Status.IN_PROGRESS,
-                        "timestamp": datetime.utcnow(),
+                        "timestamp": datetime.now(timezone.utc),
                         "strategies": strategies,
                     }
                 )
@@ -89,10 +89,10 @@ class BackTester:
                 session.execute(
                     select(Backtests.id).where(Backtests.status == Status.IN_PROGRESS)
                 ).scalar_one()
-            start_time_backtest = datetime.utcnow() - timedelta(
+            start_time_backtest = datetime.now(timezone.utc) - timedelta(
                 days=definition.days_to_test_over
             )
-            end_time_backtest = datetime.utcnow() - timedelta(minutes=15)
+            end_time_backtest = datetime.now(timezone.utc) - timedelta(minutes=15)
 
             start_time_historic = start_time_backtest - timedelta(days=60)
             end_time_historic = start_time_backtest
